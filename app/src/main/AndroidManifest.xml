@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.survivalcoding.ifkakao">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -13,8 +15,8 @@
         android:theme="@style/Theme.Ifkakao">
         <activity
             android:name=".MainActivity"
-            android:label="if(kakao)2021"
-            android:exported="true">
+            android:exported="true"
+            android:label="if(kakao)2021">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

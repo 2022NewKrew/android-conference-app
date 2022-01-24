@@ -46,7 +46,7 @@ class GetContentUseCaseTest {
                     if (it.linkLists.video.any { it.description == "" })
                         sb.append(it.title).append('\n')
                 }
-                assertEquals("1", sb.toString())
+//                assertEquals("1", sb.toString())
 
                 // 카카오 애자일 상담소: 비디오 길이 없음.
 
@@ -64,7 +64,7 @@ class GetContentUseCaseTest {
                 highlightList.forEach {
                     sb.append(it.title).append('\n')
                 }
-//                assertEquals("4", sb.toString())
+                assertEquals("4", sb.toString())
             }
         }
     }

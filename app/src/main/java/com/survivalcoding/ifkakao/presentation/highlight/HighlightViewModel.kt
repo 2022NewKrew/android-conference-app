@@ -1,8 +1,8 @@
-package com.survivalcoding.ifkakao.presentation
+package com.survivalcoding.ifkakao.presentation.highlight
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.survivalcoding.ifkakao.domain.model.IkListItem
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionsUseCase
 import com.survivalcoding.ifkakao.domain.usecase.Result
@@ -13,17 +13,26 @@ class HighlightViewModel(
     private val getSessionsUseCase: GetSessionsUseCase,
 ) : ViewModel() {
     private val _highlightLists = MutableStateFlow<List<IkSessionData>>(listOf())
-    private val _state = MutableStateFlow<State>(State.Normal)
+    private val _state = MutableStateFlow<State>(State.Init)
+    private val _message = MutableStateFlow("")
 
-    init {
+    val list = _highlightLists.asLiveData()
+    val state = _state.asLiveData()
+    val message = _message.asLiveData()
+
+    fun loadHighlightSessions() {
         viewModelScope.launch {
+            _state.value = State.Loading
+
             when (val list = getSessionsUseCase()) {
                 is Result.Error -> {
                     _state.value = State.ListLoadingError
                 }
                 is Result.Success -> {
-                    _highlightLists.value =
-                        list.data.filter { it.spotlightYn == "Y" }.sortedBy { it.idx }
+                    val highlight = list.data.filter { it.spotlightYn == "Y" }
+                    _message.value = "${highlight.size} loaded"
+                    _highlightLists.value = highlight
+                    _state.value = State.NotLoading
                 }
             }
         }
@@ -31,6 +40,8 @@ class HighlightViewModel(
 }
 
 sealed class State {
-    object Normal : State()
+    object Init : State()
     object ListLoadingError : State()
+    object NotLoading : State()
+    object Loading : State()
 }

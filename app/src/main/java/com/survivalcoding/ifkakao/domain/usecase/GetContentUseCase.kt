@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.domain.usecase
 
-import com.survivalcoding.ifkakao.domain.model.IkMainItem
 import com.survivalcoding.ifkakao.domain.model.IkSession
 import com.survivalcoding.ifkakao.domain.repository.IkContentsRepository
 
