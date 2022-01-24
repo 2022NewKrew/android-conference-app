@@ -1,11 +1,9 @@
 package com.survivalcoding.ifkakao.domain.repository
 
-import com.survivalcoding.ifkakao.domain.model.IkContent
-import com.survivalcoding.ifkakao.domain.model.IkListItem
-import com.survivalcoding.ifkakao.domain.model.IkMainItem
-import kotlinx.coroutines.flow.Flow
+import com.survivalcoding.ifkakao.domain.model.IkSession
+import com.survivalcoding.ifkakao.domain.model.IkSessionData
 
 interface IkContentsRepository {
-    suspend fun getListItems(): List<IkContent>?
-    suspend fun getMainItems(): List<IkContent>?
+    suspend fun getContent(): IkSession
+    suspend fun getSessions(): List<IkSessionData>
 }

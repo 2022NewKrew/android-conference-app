@@ -11,20 +11,20 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class GetMainItemsUseCaseTest {
+class GetContentUseCaseTest {
     private lateinit var repository: IkContentsRepository
     private lateinit var service: IkContentsService
 
-    private lateinit var getListItemsUseCase: GetListItemsUseCase
-    private lateinit var getMainItemsUseCase: GetMainItemsUseCase
+    private lateinit var getSessionsUseCase: GetSessionsUseCase
+    private lateinit var getContentUseCase: GetContentUseCase
 
     @Before
     fun setUp() {
         service = RetrofitClient.getClient().create(IkContentsService::class.java)
         repository = IkContentsRepositoryImpl(IkContentsDataSource(service))
 
-        getListItemsUseCase = GetListItemsUseCase(repository)
-        getMainItemsUseCase = GetMainItemsUseCase(repository)
+        getSessionsUseCase = GetSessionsUseCase(repository)
+        getContentUseCase = GetContentUseCase(repository)
     }
 
     @After
@@ -33,24 +33,25 @@ class GetMainItemsUseCaseTest {
 
     @Test
     fun `list data get test`() = runBlocking {
-        when (val result = getListItemsUseCase()) {
+        when (val result = getSessionsUseCase()) {
             is Result.Error -> assertEquals(0, result.error)
             is Result.Success -> {
-                val data = (result.data ?: listOf())
+                val data = result.data
 
                 var sb = StringBuilder()
 
-                val videoLengthNull = data.filter { it.videos.any { it.videoLength == null } }
+                val videoLengthNull =
+                    data.filter { it.linkLists.video.any { it.description == "" } }
                 videoLengthNull.forEach {
-                    if (it.videos.any { it.videoLength == null })
+                    if (it.linkLists.video.any { it.description == "" })
                         sb.append(it.title).append('\n')
                 }
-//                assertEquals("1", sb.toString())
+                assertEquals("1", sb.toString())
 
                 // 카카오 애자일 상담소: 비디오 길이 없음.
 
                 sb = StringBuilder()
-                val emptyExposure = data.filter { it.exposureDay.isEmpty() }
+                val emptyExposure = data.filter { it.relationLists.mainExposureDay.isEmpty() }
                 emptyExposure.forEach {
                     sb.append(it.title).append('\n')
                 }
@@ -59,24 +60,24 @@ class GetMainItemsUseCaseTest {
                 // 노출 날짜 없는 것들 많음.
 
                 sb = StringBuilder()
-                val highlightList = data.filter { it.isSpotlight }
+                val highlightList = data.filter { it.spotlightYn == "Y" }
                 highlightList.forEach {
                     sb.append(it.title).append('\n')
                 }
-                assertEquals("4", sb.toString())
+//                assertEquals("4", sb.toString())
             }
         }
     }
 
     @Test
     fun `main data get test`() = runBlocking {
-        when (val result = getMainItemsUseCase()) {
+        when (val result = getContentUseCase()) {
             is Result.Error -> assertEquals(0, result.error)
             is Result.Success -> {
-                val data = (result.data ?: listOf())
+                val data = result.data
 
                 var sb = StringBuilder()
-                val moreOneSpeaker = data.filter { it.speakerList.size > 1 }
+                val moreOneSpeaker = data.sessions.filter { it.sessionSpeakers.size > 1 }
                 moreOneSpeaker.forEach {
                     sb.append(it.title).append('\n')
                 }
