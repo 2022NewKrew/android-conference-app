@@ -1,7 +1,7 @@
 package com.example.domain.entity
 
 
-data class ConferenceData (
+data class Conference (
     val idx : Int,
     val createdUserIdx : Int,
     val createdDateTime : String,
