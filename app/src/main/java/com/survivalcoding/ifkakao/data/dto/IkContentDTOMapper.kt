@@ -9,23 +9,23 @@ internal fun IkContentDTO.toEntity(type: IkContentType): List<IkContent>? {
             IkContentType.LIST_ITEM -> {
                 data.map {
                     IkListItem(
+                        id = it.idx,
                         images = it.linkList.PC_IMAGE.map { pcImage -> pcImage.toEntity() },
                         videos = it.linkList.VIDEO.map { video -> video.toEntity() },
                         company = it.company,
                         field = it.field,
                         title = it.title,
                         isSpotlight = it.spotlightYn == "Y",
-                        exposureDay =
-                        if (it.relationList.MAIN_EXPOSURE_DAY.isEmpty()) "3Day"
-                        else it.relationList.MAIN_EXPOSURE_DAY.first()
+                        exposureDay = it.relationList.MAIN_EXPOSURE_DAY
                     )
                 }
             }
             IkContentType.MAIN_ITEM -> {
                 data.map {
                     IkMainItem(
-                        imageUrl = it.linkList.PC_IMAGE.first().url,
-                        videoLength = it.linkList.VIDEO.first().description,
+                        id = it.idx,
+                        images = it.linkList.PC_IMAGE.map { pcImage -> pcImage.toEntity() },
+                        videos = it.linkList.VIDEO.map { video -> video.toEntity() },
                         field = it.field,
                         company = it.company,
                         classification = it.relationList.CLASSIFICATION,
@@ -33,13 +33,17 @@ internal fun IkContentDTO.toEntity(type: IkContentType): List<IkContent>? {
                         title = it.title,
                         content = it.content,
                         contentTag = it.contentTag,
-                        speakerImageUrl = it.linkList.SPEAKER_PROFILE.first().url,
-                        speaker = it.contentsSpeakerList.first().toEntity(),
+                        speakerProfiles = it.linkList.SPEAKER_PROFILE.map { sp -> sp.toEntity() },
+                        speakerList = it.contentsSpeakerList.map { csl -> csl.toEntity() },
                     )
                 }
             }
         }
     }
+}
+
+internal fun IkSpeakerProfileDTO.toEntity(): IkSpeakerProfile {
+    return IkSpeakerProfile(imageUrl = url)
 }
 
 internal fun IkContentsSpeakerDTO.toEntity(): IkSpeaker {
@@ -52,9 +56,7 @@ internal fun IkContentsSpeakerDTO.toEntity(): IkSpeaker {
 }
 
 internal fun IkPCImageDTO.toEntity(): IkPCImage {
-    return IkPCImage(
-        url = url
-    )
+    return IkPCImage(url = url)
 }
 
 internal fun IkVideoDTO.toEntity(): IkVideo {

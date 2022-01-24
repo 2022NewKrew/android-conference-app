@@ -1,28 +1,22 @@
 package com.survivalcoding.ifkakao.domain.model
 
-import com.survivalcoding.ifkakao.data.dto.IkDataDTO
-
 sealed class IkContent()
 
 class IkListItem(
+    val id: Int,
     val images: List<IkPCImage>,
     val videos: List<IkVideo>,
     val company: String,
     val field: String,
     val title: String,
     val isSpotlight: Boolean,
-    private val exposureDay: String,
-) : IkContent() {
-    val day = when (exposureDay) {
-        "1Day" -> 1
-        "2Day" -> 2
-        else -> 3
-    }
-}
+    val exposureDay: List<String>,
+) : IkContent()
 
 class IkMainItem(
-    val imageUrl: String,
-    val videoLength: String?,
+    val id: Int,
+    val images: List<IkPCImage>,
+    val videos: List<IkVideo>,
     private val field: String,
     private val company: String,
     private val classification: List<String>,
@@ -30,10 +24,9 @@ class IkMainItem(
     val title: String,
     val content: String,
     private val contentTag: String,
-    val speakerImageUrl: String,
-    val speaker: IkSpeaker,
+    val speakerProfiles: List<IkSpeakerProfile>,
+    val speakerList: List<IkSpeaker>,
 ) : IkContent() {
     val keyword = listOf(field, company).plus(classification).plus(techClassification)
     val hashtag = contentTag.split("  ")
-    val isVideo = videoLength != null
 }

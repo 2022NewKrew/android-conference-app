@@ -32,22 +32,52 @@ class GetMainItemsUseCaseTest {
     }
 
     @Test
-    operator fun invoke() = runBlocking {
+    fun `list data get test`() = runBlocking {
         when (val result = getListItemsUseCase()) {
             is Result.Error -> assertEquals(0, result.error)
             is Result.Success -> {
                 val data = (result.data ?: listOf())
 
-                val sb = StringBuilder()
+                var sb = StringBuilder()
 
                 val videoLengthNull = data.filter { it.videos.any { it.videoLength == null } }
                 videoLengthNull.forEach {
                     if (it.videos.any { it.videoLength == null })
                         sb.append(it.title).append('\n')
                 }
-                assertEquals(1, sb.toString())
+                assertEquals("1", sb.toString())
 
                 // 카카오 애자일 상담소: 비디오 길이 없음.
+
+                sb = StringBuilder()
+                val emptyExposure = data.filter { it.exposureDay.isEmpty() }
+                emptyExposure.forEach {
+                    sb.append(it.title).append('\n')
+                }
+                assertEquals("2", sb.toString())
+
+                // 노출 날짜 없는 것들 많음.
+            }
+        }
+    }
+
+    @Test
+    fun `main data get test`() = runBlocking {
+        when (val result = getMainItemsUseCase()) {
+            is Result.Error -> assertEquals(0, result.error)
+            is Result.Success -> {
+                val data = (result.data ?: listOf())
+
+                var sb = StringBuilder()
+                val moreOneSpeaker = data.filter { it.speakerList.size > 1 }
+                moreOneSpeaker.forEach {
+                    sb.append(it.title).append('\n')
+                }
+                assertEquals("3", sb.toString())
+
+                // 여러명이 발표한 세션 다수
+
+
             }
         }
     }
