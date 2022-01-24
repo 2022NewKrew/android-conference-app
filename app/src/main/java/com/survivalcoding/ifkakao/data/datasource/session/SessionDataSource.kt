@@ -1,13 +1,10 @@
-package com.survivalcoding.ifkakao.domain.repository
+package com.survivalcoding.ifkakao.data.datasource.session
 
 import com.survivalcoding.ifkakao.domain.model.Session
 
-interface SessionRepository {
+interface SessionDataSource {
     suspend fun getSessionAll(): List<Session>
-    suspend fun getSessionLike(): List<Session>
     suspend fun getSessionById(id: Int): Session
-    suspend fun likeSession(session: Session)
-    suspend fun unlikeSession(session: Session)
     suspend fun sortByTitleAsc(): List<Session>
     suspend fun sortByTitleDesc(): List<Session>
     suspend fun sortByCompanyAsc(): List<Session>
