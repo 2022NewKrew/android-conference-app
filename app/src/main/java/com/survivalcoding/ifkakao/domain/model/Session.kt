@@ -1,8 +1,10 @@
 package com.survivalcoding.ifkakao.domain.model
 
 import android.os.Parcelable
+import androidx.room.Entity
 import kotlinx.parcelize.Parcelize
 
+@Entity
 @Parcelize
 data class Session(
     val categoryIdx: Int,

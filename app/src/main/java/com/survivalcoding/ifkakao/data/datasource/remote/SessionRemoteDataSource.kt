@@ -1,5 +1,7 @@
 package com.survivalcoding.ifkakao.data.datasource.remote
 
-class SessionRemoteDataSource(private val sessionApi: SessionApi) {
-    suspend fun getIfKakaoData() = sessionApi.getIfKakaoData()
+import com.survivalcoding.ifkakao.domain.repository.SessionRemoteRepository
+
+class SessionRemoteDataSource(private val sessionApi: SessionApi) : SessionRemoteRepository{
+    override suspend fun getIfKakaoData() = sessionApi.getIfKakaoData()
 }

@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ConcatAdapter
-import com.survivalcoding.ifkakao.data.datasource.local.SessionLocalDataSource
-import com.survivalcoding.ifkakao.data.datasource.remote.RetrofitClient
-import com.survivalcoding.ifkakao.data.datasource.remote.SessionRemoteDataSource
-import com.survivalcoding.ifkakao.data.repository.SessionRepositoryImpl
+import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.presentation.util.SessionAdapter
 
@@ -18,10 +15,7 @@ class MainFragment : Fragment() {
     private val viewModel by activityViewModels<MainViewModel> {
         MainViewModelFactory(
             application = requireActivity().application,
-            repository = SessionRepositoryImpl(
-                SessionRemoteDataSource(RetrofitClient.apiService),
-                SessionLocalDataSource()
-            )
+            repository = (requireActivity().application as App).sessionRepository
         )
     }
 
@@ -46,7 +40,7 @@ class MainFragment : Fragment() {
             },
             SessionAdapter(),
             FooterAdapter {
-                //Todo: 위로 올라가
+                //Todo: 위로 올라가기
             })
         recyclerView.adapter = concatAdapter
 

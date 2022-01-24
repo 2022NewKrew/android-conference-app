@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class PCIMAGE(
+data class PCImage(
     val contentsIdx: Int,
     val description: String,
     val fileSize: Int,
