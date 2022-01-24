@@ -45,7 +45,7 @@ class GetMainItemsUseCaseTest {
                     if (it.videos.any { it.videoLength == null })
                         sb.append(it.title).append('\n')
                 }
-                assertEquals("1", sb.toString())
+//                assertEquals("1", sb.toString())
 
                 // 카카오 애자일 상담소: 비디오 길이 없음.
 
@@ -54,9 +54,16 @@ class GetMainItemsUseCaseTest {
                 emptyExposure.forEach {
                     sb.append(it.title).append('\n')
                 }
-                assertEquals("2", sb.toString())
+//                assertEquals("2", sb.toString())
 
                 // 노출 날짜 없는 것들 많음.
+
+                sb = StringBuilder()
+                val highlightList = data.filter { it.isSpotlight }
+                highlightList.forEach {
+                    sb.append(it.title).append('\n')
+                }
+                assertEquals("4", sb.toString())
             }
         }
     }
