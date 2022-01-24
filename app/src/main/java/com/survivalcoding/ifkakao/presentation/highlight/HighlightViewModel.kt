@@ -6,8 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionsUseCase
 import com.survivalcoding.ifkakao.domain.usecase.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class HighlightViewModel(
     private val getSessionsUseCase: GetSessionsUseCase,
@@ -20,8 +22,8 @@ class HighlightViewModel(
     val state = _state.asLiveData()
     val message = _message.asLiveData()
 
-    fun loadHighlightSessions() {
-        viewModelScope.launch {
+    fun loadHighlightSessions() =
+        runBlocking {
             _state.value = State.Loading
 
             when (val list = getSessionsUseCase()) {
@@ -36,7 +38,7 @@ class HighlightViewModel(
                 }
             }
         }
-    }
+
 }
 
 sealed class State {

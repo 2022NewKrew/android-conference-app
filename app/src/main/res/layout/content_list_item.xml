@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp"
     android:background="#00000000">
 
     <ImageView
@@ -10,6 +11,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:background="#c3c3c3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,18 +22,17 @@
         android:background="@color/background_time"
         android:text="00:00"
         android:textColor="@color/text_color_white"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_list_item_thumbnail"
         app:layout_constraintEnd_toEndOf="@+id/iv_list_item_thumbnail" />
 
     <TextView
         android:id="@+id/tv_highlight_title"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="fkdifengmcpvekee"
         android:textColor="@color/text_color_white"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_list_item_thumbnail"
