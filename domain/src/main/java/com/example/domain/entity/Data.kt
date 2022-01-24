@@ -27,7 +27,7 @@ data class Data (
     val companyName : String,
     val speakerName : String,
     val speakerLoginYn : String,
-    val reservationUTC : Int,
+    val reservationUTC : Long,
     val reservationYn : String,
     val videoYn : String
 )

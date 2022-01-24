@@ -1,9 +1,11 @@
 package com.example.domain.entity
 
+import com.google.gson.annotations.SerializedName
+
 
 data class RelationList(
 
-    val classification: List<String>,
-    val techClassification: List<String>,
-    val mainExposureDay: List<String>
+    @SerializedName("CLASSIFICATION") val classification: List<String>,
+    @SerializedName("TECH_CLASSIFICATION") val techClassification: List<String>,
+    @SerializedName("MAIN_EXPOSURE_DAY") val mainExposureDay: List<String>
 )

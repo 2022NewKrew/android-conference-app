@@ -1,5 +1,8 @@
 package com.example.domain.entity
 
+import com.google.gson.annotations.SerializedName
+
+
 
 data class Video(
     val idx: Int,
