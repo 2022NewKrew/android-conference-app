@@ -1,5 +1,8 @@
 package com.example.domain.repository
 
+import com.example.domain.entity.Conference
+import kotlinx.coroutines.flow.Flow
+
 interface ConferencesRepository {
-    fun getConferences()
+    suspend fun getConferences(): Conference
 }
