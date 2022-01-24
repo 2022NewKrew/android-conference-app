@@ -1,6 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    // detekt
+    id 'io.gitlab.arturbosch.detekt'
+    // ktlint
+    id 'org.jlleitschuh.gradle.ktlint'
+    // hilt-android
+    id 'dagger.hilt.android.plugin'
+    // navigation
+    id 'androidx.navigation.safeargs'
+    // parcelize
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -29,7 +40,33 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
+
+detekt {
+    source = files("src/main/java/")
+    config = files("../config/detekt/detekt.yml")
+    buildUponDefaultConfig = true
+}
+
+// disable SARIF report setting for detekt
+tasks.named("detekt").configure {
+    reports {
+        sarif.required.set(false)
+    }
+}
+
+ktlint {
+    android = true
+    debug = false
+    verbose = true
+    reporters {
+        reporter "checkstyle"
+    }
+}
+
 
 dependencies {
 
@@ -37,7 +74,40 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // by viewModels
+    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
+
+    // asLiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+
+    // repeatOnLifeCycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+
+    // Navigation
+
+    // Java language implementation
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    // Jetpack Compose Integration
+    implementation "androidx.navigation:navigation-compose:2.4.0-rc01"
+
+    // android-hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 }
