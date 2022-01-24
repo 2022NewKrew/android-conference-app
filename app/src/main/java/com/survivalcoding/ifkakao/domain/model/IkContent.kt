@@ -5,8 +5,8 @@ import com.survivalcoding.ifkakao.data.dto.IkDataDTO
 sealed class IkContent()
 
 class IkListItem(
-    val imageUrl: String,
-    val videoLength: String,
+    val images: List<IkPCImage>,
+    val videos: List<IkVideo>,
     val company: String,
     val field: String,
     val title: String,
@@ -22,7 +22,7 @@ class IkListItem(
 
 class IkMainItem(
     val imageUrl: String,
-    val videoLength: String,
+    val videoLength: String?,
     private val field: String,
     private val company: String,
     private val classification: List<String>,
@@ -35,4 +35,5 @@ class IkMainItem(
 ) : IkContent() {
     val keyword = listOf(field, company).plus(classification).plus(techClassification)
     val hashtag = contentTag.split("  ")
+    val isVideo = videoLength != null
 }

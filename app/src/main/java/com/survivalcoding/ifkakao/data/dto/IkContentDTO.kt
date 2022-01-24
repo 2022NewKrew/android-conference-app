@@ -62,9 +62,7 @@ data class IkContentsSpeakerDTO(
 @Parcelize
 data class IkLinkDTO(
     val FILE: List<IkFileDTO>,
-    val MO_IMAGE: List<IkMobileImageDTO>,
-    val MO_MAIN_IMAGE: List<IkMobileMainImageDTO>,
-    val MO_SPOTLIGHT: List<IkMobileSpotlightDTO>,
+    val PC_IMAGE: List<IkPCImageDTO>,
     val SPEAKER_PROFILE: List<IkSpeakerProfileDTO>,
     val VIDEO: List<IkVideoDTO>,
 ) : Parcelable
@@ -81,29 +79,7 @@ data class IkFileDTO(
 ) : Parcelable
 
 @Parcelize
-data class IkMobileImageDTO(
-    val contentsIdx: Int,
-    val description: String,
-    val fileSize: Int,
-    val idx: Int,
-    val mainYn: String,
-    val type: String,
-    val url: String
-) : Parcelable
-
-@Parcelize
-data class IkMobileMainImageDTO(
-    val contentsIdx: Int,
-    val description: String,
-    val fileSize: Int,
-    val idx: Int,
-    val mainYn: String,
-    val type: String,
-    val url: String
-) : Parcelable
-
-@Parcelize
-data class IkMobileSpotlightDTO(
+data class IkPCImageDTO(
     val contentsIdx: Int,
     val description: String,
     val fileSize: Int,

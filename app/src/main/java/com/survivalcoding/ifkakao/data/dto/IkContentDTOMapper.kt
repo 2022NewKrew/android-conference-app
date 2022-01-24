@@ -9,20 +9,22 @@ internal fun IkContentDTO.toEntity(type: IkContentType): List<IkContent>? {
             IkContentType.LIST_ITEM -> {
                 data.map {
                     IkListItem(
-                        imageUrl = it.linkList.MO_IMAGE.first().url,
-                        videoLength = it.linkList.VIDEO.first().description,
+                        images = it.linkList.PC_IMAGE.map { pcImage -> pcImage.toEntity() },
+                        videos = it.linkList.VIDEO.map { video -> video.toEntity() },
                         company = it.company,
                         field = it.field,
                         title = it.title,
                         isSpotlight = it.spotlightYn == "Y",
-                        exposureDay = it.relationList.MAIN_EXPOSURE_DAY.first()
+                        exposureDay =
+                        if (it.relationList.MAIN_EXPOSURE_DAY.isEmpty()) "3Day"
+                        else it.relationList.MAIN_EXPOSURE_DAY.first()
                     )
                 }
             }
             IkContentType.MAIN_ITEM -> {
                 data.map {
                     IkMainItem(
-                        imageUrl = it.linkList.MO_MAIN_IMAGE.first().url,
+                        imageUrl = it.linkList.PC_IMAGE.first().url,
                         videoLength = it.linkList.VIDEO.first().description,
                         field = it.field,
                         company = it.company,
@@ -46,5 +48,18 @@ internal fun IkContentsSpeakerDTO.toEntity(): IkSpeaker {
         nameEng = nameEn,
         company = company,
         occupation = occupation,
+    )
+}
+
+internal fun IkPCImageDTO.toEntity(): IkPCImage {
+    return IkPCImage(
+        url = url
+    )
+}
+
+internal fun IkVideoDTO.toEntity(): IkVideo {
+    return IkVideo(
+        url = url,
+        videoLength = description,
     )
 }
