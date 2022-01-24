@@ -1,5 +1,9 @@
 package com.survivalcoding.ifkakao.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class ContentsSpeaker(
     val channelLink: String,
     val company: String,
@@ -9,4 +13,4 @@ data class ContentsSpeaker(
     val nameEn: String,
     val nameKo: String,
     val occupation: String
-)
+): Parcelable
