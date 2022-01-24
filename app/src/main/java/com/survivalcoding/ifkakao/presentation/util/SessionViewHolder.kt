@@ -11,6 +11,8 @@ class SessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(session: Session) {
         binding.companyTag.text = session.companyName
         binding.fieldTag.text = session.field
-        binding.contentText.text = session.content
+        binding.titleText.text = session.title
+        binding.videoTime.text = session.linkList.VIDEO[0].description
+
     }
 }

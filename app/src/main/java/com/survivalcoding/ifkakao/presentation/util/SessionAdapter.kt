@@ -8,6 +8,7 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.domain.model.Session
 
 class SessionAdapter : ListAdapter<Session, SessionViewHolder>(SessionDiffItemCallback) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_session, parent, false)
