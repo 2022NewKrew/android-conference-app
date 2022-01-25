@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class SPEAKERPROFILE(
+data class Video(
     val contentsIdx: Int,
     val description: String,
     val fileSize: Int,
@@ -12,4 +12,4 @@ data class SPEAKERPROFILE(
     val mainYn: String,
     val type: String,
     val url: String
-) : Parcelable
+): Parcelable

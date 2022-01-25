@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class SHAREIMAGE(
+data class SpeakerProfile(
     val contentsIdx: Int,
     val description: String,
     val fileSize: Int,
@@ -12,4 +12,4 @@ data class SHAREIMAGE(
     val mainYn: String,
     val type: String,
     val url: String
-): Parcelable
+) : Parcelable

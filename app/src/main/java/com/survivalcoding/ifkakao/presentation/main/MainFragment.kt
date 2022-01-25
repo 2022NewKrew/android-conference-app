@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ConcatAdapter
-import com.survivalcoding.ifkakao.App
+import com.survivalcoding.ifkakao.data.datasource.local.MockLocalDataSource
+import com.survivalcoding.ifkakao.data.datasource.remote.RetrofitClient
+import com.survivalcoding.ifkakao.data.datasource.remote.SessionRemoteDataSource
+import com.survivalcoding.ifkakao.data.repository.SessionRepositoryImpl
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.presentation.util.SessionAdapter
 
@@ -15,7 +18,20 @@ class MainFragment : Fragment() {
     private val viewModel by activityViewModels<MainViewModel> {
         MainViewModelFactory(
             application = requireActivity().application,
-            repository = (requireActivity().application as App).sessionRepository
+            repository = //(requireActivity().application as App).sessionRepository
+            SessionRepositoryImpl(
+                //MockRemoteDataSource(),
+                SessionRemoteDataSource(RetrofitClient.apiService),
+                MockLocalDataSource(),
+                /*
+                SessionLocalDataSource(
+                    Room.databaseBuilder(
+                        this,
+                        IfKakaoDatabase::class.java,
+                        "database"
+                    ).build().likeDao()
+                )*/
+            )
         )
     }
 

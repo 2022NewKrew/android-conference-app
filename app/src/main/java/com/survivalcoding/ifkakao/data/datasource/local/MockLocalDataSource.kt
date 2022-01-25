@@ -1,10 +1,20 @@
 package com.survivalcoding.ifkakao.data.datasource.local
 
-import com.survivalcoding.ifkakao.domain.model.Session
+import com.survivalcoding.ifkakao.domain.model.Like
 import com.survivalcoding.ifkakao.domain.repository.SessionLocalRepository
 
 class MockLocalDataSource : SessionLocalRepository {
-    override suspend fun getLikes(): List<Session> = emptyList()
-    override suspend fun addLike(session: Session) {}
-    override suspend fun deleteLike(session: Session) {}
+    var nextId = 1
+    private var likes = listOf<Like>()
+
+    override suspend fun getLikes(): List<Like> = likes
+
+    override suspend fun addLike(like: Like) {
+        likes = likes.plus(like.copy(id = nextId))
+        nextId += 1
+    }
+
+    override suspend fun deleteLike(like: Like) {
+        likes = likes.minus(like)
+    }
 }
