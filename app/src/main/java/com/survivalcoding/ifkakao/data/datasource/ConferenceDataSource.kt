@@ -1,6 +1,6 @@
 package com.survivalcoding.ifkakao.data.datasource
 
-import com.survivalcoding.ifkakao.domain.model.ApiDto
+import com.survivalcoding.ifkakao.data.dto.ApiDto
 import com.survivalcoding.ifkakao.domain.repository.NetworkResult
 import retrofit2.Response
 import javax.inject.Inject
