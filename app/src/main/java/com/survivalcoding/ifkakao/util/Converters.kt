@@ -7,8 +7,7 @@ import com.survivalcoding.ifkakao.domain.model.ContentsSpeaker
 import com.survivalcoding.ifkakao.domain.model.LinkList
 import com.survivalcoding.ifkakao.domain.model.RelationList
 
-@ProvidedTypeConverter
-class TypeConverter {
+class Converters {
     private val gson: Gson = Gson()
 
     @TypeConverter
