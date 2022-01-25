@@ -16,16 +16,16 @@ internal fun IkSessionDataDTO.toEntity(): IkSessionData {
             val speakerProfileDTO = linkList.SPEAKER_PROFILE[it]
             IkSessionSpeaker(
                 id = sessionSpeakerDTO.idx,
-                company = sessionSpeakerDTO.company ?: "",
+                company = sessionSpeakerDTO.company,
                 name = "${sessionSpeakerDTO.nameKo} ${sessionSpeakerDTO.nameKo}",
-                occupation = sessionSpeakerDTO.occupation ?: "",
+                occupation = sessionSpeakerDTO.occupation,
                 imageUrl = speakerProfileDTO.url,
             )
         },
         title = title,
         video = with(linkList) {
             IkSessionVideo(
-                videoLength = VIDEO.first().description ?: "",
+                videoLength = VIDEO.first().description,
                 videoUrl = VIDEO.first().url,
                 thumbnailUrl = PC_IMAGE.first().url,
             )

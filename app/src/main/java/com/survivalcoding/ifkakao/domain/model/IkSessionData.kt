@@ -5,10 +5,10 @@ data class IkSessionData(
     val content: String,
     val field: String,
     val id: Int,
+    val isSpotlight: Boolean,
+    val isVideo: Boolean,
     val sessionTag: List<String>,
     val sessionSpeakers: List<IkSessionSpeaker>,
     val title: String,
     val video: IkSessionVideo,
-    val isSpotlight: Boolean,
-    val isVideo: Boolean,
 )
