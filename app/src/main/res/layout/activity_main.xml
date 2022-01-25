@@ -6,28 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
-    <!--    <androidx.appcompat.widget.Toolbar-->
-    <!--        android:id="@+id/app_toolbar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="@color/background_black"-->
-    <!--        android:elevation="4dp"-->
-    <!--        android:theme="@style/ToolbarTheme"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:title="if(kakao)2021"-->
-    <!--        app:titleTextColor="@color/text_color_white" />-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/app_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_black"
+        android:elevation="4dp"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="if(kakao)2021"
+        app:titleTextColor="@color/text_color_white" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
         android:name="com.survivalcoding.ifkakao.presentation.highlight.HighlightFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

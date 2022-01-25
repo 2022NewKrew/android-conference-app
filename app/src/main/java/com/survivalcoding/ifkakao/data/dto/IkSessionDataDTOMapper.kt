@@ -10,7 +10,7 @@ internal fun IkSessionDataDTO.toEntity(): IkSessionData {
         content = content,
         field = field,
         id = idx,
-        sessionTag = contentTag.split("  "),
+        sessionTag = contentTag,
         sessionSpeakers = contentsSpeakerList.indices.map {
             val sessionSpeakerDTO = contentsSpeakerList[it]
             val speakerProfileDTO = linkList.SPEAKER_PROFILE[it]

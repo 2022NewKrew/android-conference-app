@@ -29,6 +29,8 @@ class HighlightListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         val imageUrl = session.video.thumbnailUrl
         binding.ivListItemThumbnail.load(imageUrl) {
             transformations(RoundedCornersTransformation(radius = 10f))
+            crossfade(true)
+            crossfade(500)
         }
 
         itemView.setOnClickListener {

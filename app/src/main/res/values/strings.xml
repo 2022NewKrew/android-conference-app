@@ -7,4 +7,5 @@
     <string name="list_company_name">카카오</string>
     <string name="list_default_time">00:00</string>
     <string name="list_field_name">서비스</string>
+    <string name="detail_temporary_text">temp_video</string>
 </resources>
