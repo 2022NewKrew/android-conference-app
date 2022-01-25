@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
+import coil.transform.RoundedCornersTransformation
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ContentListItemBinding
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
@@ -23,6 +25,14 @@ class HighlightListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         } else {
             binding.tvVideoLength.isVisible = true
             binding.tvVideoLength.text = session.linkLists.video.first().description
+        }
+
+        binding.listCompany.text = session.company
+        binding.listField.text = session.field
+
+        val imageUrl = session.linkLists.pcImage.firstOrNull()?.url ?: ""
+        binding.ivListItemThumbnail.load(imageUrl) {
+            transformations(RoundedCornersTransformation(radius = 5f))
         }
 
         itemView.setOnClickListener {
