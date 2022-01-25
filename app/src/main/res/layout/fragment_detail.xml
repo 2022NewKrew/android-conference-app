@@ -63,6 +63,7 @@
                 android:text="@string/detail_temporary_text"
                 android:textColor="@color/text_color_white"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,13 +91,12 @@
                 android:fontFamily="@font/kakao_regular"
                 android:lineSpacingExtra="10dp"
                 android:text="@string/detail_temporary_text"
-                android:textColor="#717171"
+                android:textColor="@color/text_color_gray"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_detail_content" />
 
-            <!--                TODO: listItem-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_speaker_list"
                 android:layout_width="match_parent"
@@ -109,7 +109,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_detail_hashtag"
-                tools:itemCount="5" />
+                tools:itemCount="3"
+                tools:listitem="@layout/speaker_list_item" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_buttons"

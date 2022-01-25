@@ -13,6 +13,7 @@ import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.presentation.MainViewModel
 import com.survivalcoding.ifkakao.presentation.MainViewModelFactory
 import com.survivalcoding.ifkakao.presentation.SessionType
+import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 import com.survivalcoding.ifkakao.presentation.highlight.adapter.SessionListAdapter
 
@@ -41,6 +42,10 @@ class DetailFragment : Fragment() {
         )
     }
 
+    private val speakerAdapter by lazy {
+        SpeakerListAdapter()
+    }
+
     private val viewModel by activityViewModels<MainViewModel> {
         MainViewModelFactory((requireActivity().application as App).repository)
     }
@@ -59,6 +64,7 @@ class DetailFragment : Fragment() {
 
         binding.rvRelativeSessionsList.adapter = relativeSessionsAdapter
         binding.rvTagList.adapter = tagsAdapter
+        binding.rvSpeakerList.adapter = speakerAdapter
 
         viewModel.selectedSession.observe(viewLifecycleOwner) {
             it?.let {
@@ -66,6 +72,7 @@ class DetailFragment : Fragment() {
                 binding.tvDetailContent.text = it.content
                 binding.tvDetailHashtag.text = it.hashTag
                 tagsAdapter.submitList(it.tag)
+                speakerAdapter.submitList(it.sessionSpeakers)
             }
         }
 
@@ -76,7 +83,7 @@ class DetailFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
-        viewModel.selectSession(null)
+//        viewModel.selectSession(null)
         super.onDestroyView()
     }
 }
