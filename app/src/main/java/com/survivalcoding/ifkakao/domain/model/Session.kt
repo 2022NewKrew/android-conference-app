@@ -1,5 +1,9 @@
 package com.survivalcoding.ifkakao.domain.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Session(
     val categoryIdx: Int,
     val commentYn: String,
@@ -12,7 +16,7 @@ data class Session(
     val createdUserIdx: Int,
     val favoriteYn: String,
     val field: String,
-    val idx: Int,
+    @PrimaryKey val idx: Int,
     val lastModifiedDateTime: String,
     val lastModifiedUserIdx: Int,
     val linkList: LinkList,
