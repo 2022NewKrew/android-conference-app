@@ -37,31 +37,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pv_detail_video">
 
-            <TextView
-                android:id="@+id/tv_temp_tag"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_tag_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/kakao_regular"
-                android:gravity="center"
-                android:text="태그"
-                android:textColor="@color/text_color_white"
+                android:layout_marginVertical="10dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:spanCount="2"
+                tools:itemCount="10"
+                tools:listitem="@layout/tag_list_item" />
 
             <TextView
                 android:id="@+id/tv_detail_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="25dp"
+                android:layout_marginVertical="15dp"
                 android:fontFamily="@font/kakao_regular"
+                android:lineSpacingExtra="10dp"
                 android:text="@string/detail_temporary_text"
                 android:textColor="@color/text_color_white"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_temp_tag" />
+                app:layout_constraintTop_toBottomOf="@id/rv_tag_list" />
 
             <TextView
                 android:id="@+id/tv_detail_content"
@@ -83,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="25dp"
                 android:fontFamily="@font/kakao_regular"
+                android:lineSpacingExtra="10dp"
                 android:text="@string/detail_temporary_text"
                 android:textColor="#717171"
                 android:textSize="15sp"
@@ -103,7 +109,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_detail_hashtag"
-                tools:itemCount="1" />
+                tools:itemCount="5" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_buttons"

@@ -10,7 +10,7 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ContentListItemBinding
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 
-class HighlightListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+class SessionListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.content_list_item, parent, false)
 ) {
     private val binding = ContentListItemBinding.bind(itemView)

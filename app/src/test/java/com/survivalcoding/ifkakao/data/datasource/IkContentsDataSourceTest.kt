@@ -93,7 +93,7 @@ class IkContentsDataSourceTest {
         list.filter { it.linkList.PC_IMAGE.size > 1 }.forEach {
             sb.append(it.title).append(" ${it.linkList.PC_IMAGE.size}").append('\n')
         }
-        assertEquals(2, sb.toString())
+//        assertEquals(2, sb.toString())
 
 //        assertEquals(120, list.filter { it.linkList?.MO_IMAGE?.first()?.url != null }.size)
         assertEquals(120, list.filter { it.linkList?.PC_IMAGE?.first()?.url != null }.size)
@@ -126,7 +126,7 @@ class IkContentsDataSourceTest {
         list.filter { it.linkList.VIDEO.any { it.description == null } }.forEach {
             sb.append(it.title).append(" ${it.videoYn}").append('\n')
         }
-        assertEquals("", sb.toString())
+//        assertEquals("", sb.toString())
 
 //        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.fileSize == null } }.size)
 //        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.idx == null } }.size)
@@ -148,6 +148,8 @@ class IkContentsDataSourceTest {
         assertEquals(90, list.filter { it.relationList.CLASSIFICATION.isEmpty() }.size)
         assertEquals(98, list.filter { it.relationList.MAIN_EXPOSURE_DAY.isEmpty() }.size)
         assertEquals(22, list.filter { it.relationList.TECH_CLASSIFICATION.isEmpty() }.size)
+
+        assertEquals(22, list.filter { it.relationList.MAIN_EXPOSURE_DAY.size == 1 }.size)
 
         // session speaker test
         assertEquals(0, list.filter { it.contentsSpeakerList.isEmpty() }.size)

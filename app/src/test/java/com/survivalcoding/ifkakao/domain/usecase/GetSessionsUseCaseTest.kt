@@ -10,6 +10,7 @@ import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Test
+import java.lang.StringBuilder
 
 class GetSessionsUseCaseTest {
     private lateinit var service: IkContentsService
@@ -27,5 +28,9 @@ class GetSessionsUseCaseTest {
     operator fun invoke() = runBlocking {
         val list = useCase()
         assertEquals(120, list.size)
+
+        val sb = StringBuilder()
+        list[30].tag.forEach { sb.append("$it\n") }
+        assertEquals("", sb.toString())
     }
 }

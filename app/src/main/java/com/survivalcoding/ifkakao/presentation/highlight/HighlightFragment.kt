@@ -14,7 +14,7 @@ import com.survivalcoding.ifkakao.presentation.MainViewModel
 import com.survivalcoding.ifkakao.presentation.MainViewModelFactory
 import com.survivalcoding.ifkakao.presentation.SessionType
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
-import com.survivalcoding.ifkakao.presentation.highlight.adapter.HighlightListAdapter
+import com.survivalcoding.ifkakao.presentation.highlight.adapter.SessionListAdapter
 
 class HighlightFragment : Fragment() {
     private var _binding: FragmentHighlightBinding? = null
@@ -25,7 +25,7 @@ class HighlightFragment : Fragment() {
     }
 
     private val adapter by lazy {
-        HighlightListAdapter(
+        SessionListAdapter(
             clickListener = {
                 viewModel.selectSession(it)
                 parentFragmentManager.commit {

@@ -69,4 +69,7 @@ dependencies {
 
     // exoplayer
     implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+
+    // flexbox
+    implementation "com.google.android.flexbox:flexbox:3.0.0"
 }
