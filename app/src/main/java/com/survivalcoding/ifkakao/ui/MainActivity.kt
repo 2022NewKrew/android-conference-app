@@ -1,16 +1,20 @@
-package com.survivalcoding.ifkakao
+package com.survivalcoding.ifkakao.ui
 
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy {
@@ -31,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding.navigationView.setupWithNavController(navController)
 
         binding.closeIbt.setOnClickListener {
-            binding.drawerLayout.closeDrawer(Gravity.LEFT, false)
+            binding.drawerLayout.closeDrawer(GravityCompat.START, false)
         }
     }
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="128dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <FrameLayout
+        android:id="@+id/thumbnailFl"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/thumbnailSiv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shapeAppearance="@style/ThumbnailImageShapeAppearance"
+            android:padding="0.5dp"/>
+
+        <TextView
+            android:id="@+id/timeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:padding="6dp"
+            android:background="@drawable/bg_thumbnail_time"
+            tools:text="00:00"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_thumbnail_frame"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/companyTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_tag_company"
+        android:padding="6dp"
+        app:layout_constraintStart_toEndOf="@id/thumbnailFl"
+        app:layout_constraintTop_toTopOf="@id/thumbnailFl"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/tagTextSize"
+        tools:text="카카오" />
+
+    <TextView
+        android:id="@+id/fieldTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_tag"
+        android:padding="6dp"
+        app:layout_constraintStart_toEndOf="@id/companyTv"
+        app:layout_constraintTop_toTopOf="@id/thumbnailFl"
+        android:textSize="@dimen/tagTextSize"
+        tools:text="기술" />
+    
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/companyTv"
+        app:layout_constraintBottom_toBottomOf="@id/thumbnailFl"
+        app:layout_constraintStart_toStartOf="@id/companyTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:lines="2"
+        android:ellipsize="end"
+        android:textSize="14sp"
+        tools:text="이용자의 소중한 일상을 지키는 카카오톡 이용자의 소중한 일상을 지키는 카카오톡"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
