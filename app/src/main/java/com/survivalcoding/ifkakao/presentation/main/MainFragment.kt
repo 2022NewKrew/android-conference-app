@@ -1,5 +1,7 @@
 package com.survivalcoding.ifkakao.presentation.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.presentation.util.SessionAdapter
+
 
 class MainFragment : Fragment() {
     private val viewModel by activityViewModels<MainViewModel> {
@@ -38,16 +41,25 @@ class MainFragment : Fragment() {
                 //Todo: Session 창 이동
             },
             SessionAdapter(),
-            FooterAdapter {
-                recyclerView.smoothScrollToPosition(0)
-            })
+            FooterAdapter(
+                onClickUpButton = {
+                    recyclerView.smoothScrollToPosition(0)
+                }, onClickSite = {
+                    val browserIntent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://if.kakao.com/2020/")
+                    )
+                    if (browserIntent.resolveActivity(requireActivity().packageManager) != null) {
+                        startActivity(browserIntent)
+                    }
+                }
+            )
+        )
         recyclerView.adapter = concatAdapter
 
         viewModel.infos.observe(this) {
             (concatAdapter.adapters[1] as SessionAdapter).submitList(it)
         }
-
-
     }
 
     override fun onDestroyView() {

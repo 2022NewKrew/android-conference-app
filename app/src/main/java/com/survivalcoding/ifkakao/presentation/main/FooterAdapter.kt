@@ -7,13 +7,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ItemMainFooterBinding
 
-class FooterAdapter(private val onClickUpButton: (Unit) -> Unit) :
+
+class FooterAdapter(
+    private val onClickUpButton: (Unit) -> Unit,
+    private val onClickSite: (Unit) -> Unit
+) :
     RecyclerView.Adapter<FooterAdapter.FooterViewHolder>() {
     inner class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding: ItemMainFooterBinding = ItemMainFooterBinding.bind(itemView)
         fun bind() {
             binding.upButton.setOnClickListener {
                 onClickUpButton(Unit)
+            }
+            binding.prevIfKakao.setOnClickListener {
+                //ToDo: 2018-2020 누를 수 있게 변경
+                onClickSite(Unit)
             }
         }
     }
