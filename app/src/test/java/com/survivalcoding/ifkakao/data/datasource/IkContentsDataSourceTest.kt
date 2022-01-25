@@ -27,7 +27,7 @@ class IkContentsDataSourceTest {
 
         val list = content.data ?: listOf()
 //        assertEquals(0, list.filter { it.categoryIdx == null }.size)
-        assertEquals(0, list.filter { it.commentYn == null }.size)
+//        assertEquals(0, list.filter { it.commentYn == null }.size)
         assertEquals(0, list.filter { it.company == null }.size)
 //        assertEquals(0, list.filter { it.companyName == null }.size)
         assertEquals(0, list.filter { it.content == null }.size)
@@ -66,7 +66,7 @@ class IkContentsDataSourceTest {
 
         // link list test
 //        assertEquals(0, list.filter { AnnotationTarget.FILE == null }.size)
-        assertEquals(0, list.filter { it.linkList?.MO_IMAGE == null }.size)
+//        assertEquals(0, list.filter { it.linkList?.MO_IMAGE == null }.size)
 //        assertEquals(0, list.filter { it.linkList?.MO_MAIN_IMAGE == null }.size)
 //        assertEquals(0, list.filter { it.linkList?.MO_SPOTLIGHT == null }.size)
         assertEquals(0, list.filter { it.linkList?.PC_IMAGE == null }.size)
@@ -77,7 +77,7 @@ class IkContentsDataSourceTest {
         assertEquals(0, list.filter { it.linkList?.VIDEO == null }.size)
 
 //        assertEquals(30, list.filter { AnnotationTarget.FILE?.isEmpty() ?: true }.size)
-        assertEquals(0, list.filter { it.linkList?.MO_IMAGE?.isEmpty() ?: true }.size)
+//        assertEquals(0, list.filter { it.linkList?.MO_IMAGE?.isEmpty() ?: true }.size)
 //        assertEquals(96, list.filter { it.linkList?.MO_MAIN_IMAGE?.isEmpty() ?: true }.size)
 //        assertEquals(104, list.filter { it.linkList?.MO_SPOTLIGHT?.isEmpty() ?: true }.size)
         assertEquals(0, list.filter { it.linkList?.PC_IMAGE?.isEmpty() ?: true }.size)
@@ -88,19 +88,26 @@ class IkContentsDataSourceTest {
         assertEquals(0, list.filter { it.linkList?.VIDEO?.isEmpty() ?: true }.size)
         assertEquals(0, list.filter { it.linkList?.VIDEO.size > 1 }.size)
 
-        assertEquals(120, list.filter { it.linkList?.MO_IMAGE?.first()?.url != null }.size)
+        assertEquals(1, list.filter { it.linkList.PC_IMAGE.size > 1 }.size)
+        var sb = StringBuilder()
+        list.filter { it.linkList.PC_IMAGE.size > 1 }.forEach {
+            sb.append(it.title).append(" ${it.linkList.PC_IMAGE.size}").append('\n')
+        }
+        assertEquals(2, sb.toString())
+
+//        assertEquals(120, list.filter { it.linkList?.MO_IMAGE?.first()?.url != null }.size)
         assertEquals(120, list.filter { it.linkList?.PC_IMAGE?.first()?.url != null }.size)
 
-        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.contentsIdx == null } }.size)
-        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.description == null } }.size)
-        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.fileSize == null } }.size)
-        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.idx == null } }.size)
-        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.mainYn == null } }.size)
-        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.type == null } }.size)
-        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.url == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.contentsIdx == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.description == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.fileSize == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.idx == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.mainYn == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.type == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.MO_IMAGE.any { it.url == null } }.size)
 
         assertEquals(1, list.filter { it.videoYn != "Y" }.size)
-        var sb = StringBuilder()
+        sb = StringBuilder()
         list.filter { it.videoYn != "Y" }.forEach {
             sb.append(it.title).append(" ${it.field}").append('\n')
         }
@@ -108,10 +115,10 @@ class IkContentsDataSourceTest {
         assertEquals(null, list.first { it.videoYn != "Y" }.linkList.VIDEO.first().description)
 
         assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.description == null } }.size)
-        assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.fileSize == null } }.size)
-        assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.idx == null } }.size)
-        assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.mainYn == null } }.size)
-        assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.type == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.fileSize == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.idx == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.mainYn == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.type == null } }.size)
         assertEquals(0, list.filter { it.linkList.PC_IMAGE.any { it.url == null } }.size)
 
         assertEquals(3, list.filter { it.linkList.VIDEO.any { it.description == null } }.size)
@@ -121,10 +128,10 @@ class IkContentsDataSourceTest {
         }
         assertEquals("", sb.toString())
 
-        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.fileSize == null } }.size)
-        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.idx == null } }.size)
-        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.mainYn == null } }.size)
-        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.type == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.fileSize == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.idx == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.mainYn == null } }.size)
+//        assertEquals(0, list.filter { it.linkList.VIDEO.any { it.type == null } }.size)
         assertEquals(0, list.filter { it.linkList.VIDEO.any { it.url == null } }.size)
 
         assertEquals(

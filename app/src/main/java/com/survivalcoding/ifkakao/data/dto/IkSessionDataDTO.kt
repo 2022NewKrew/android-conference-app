@@ -1,7 +1,6 @@
 package com.survivalcoding.ifkakao.data.dto
 
 data class IkSessionDataDTO(
-    val commentYn: String,
     val company: String,
     val content: String,
     val contentTag: String,
@@ -14,6 +13,7 @@ data class IkSessionDataDTO(
     val title: String,
     val videoYn: String,
 //    val categoryIdx: Int? = null,
+//    val commentYn: String,
 //    val companyName: String? = null,
 //    val createdDateTime: String? = null,
 //    val createdUserIdx: Int? = null,

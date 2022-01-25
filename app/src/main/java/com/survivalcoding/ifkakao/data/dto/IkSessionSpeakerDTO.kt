@@ -2,7 +2,7 @@ package com.survivalcoding.ifkakao.data.dto
 
 data class IkSessionSpeakerDTO(
     val company: String? = null,
-    val idx: Int? = null,
+    val idx: Int,
     val nameEn: String,
     val nameKo: String,
     val occupation: String? = null,
