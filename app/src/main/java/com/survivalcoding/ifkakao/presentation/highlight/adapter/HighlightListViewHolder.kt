@@ -30,9 +30,9 @@ class HighlightListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         binding.listCompany.text = session.company
         binding.listField.text = session.field
 
-        val imageUrl = session.linkLists.pcImage.firstOrNull()?.url ?: ""
+        val imageUrl = session.linkLists.pcImage.firstOrNull { it.mainYn == "Y" }?.url ?: ""
         binding.ivListItemThumbnail.load(imageUrl) {
-            transformations(RoundedCornersTransformation(radius = 5f))
+            transformations(RoundedCornersTransformation(radius = 10f))
         }
 
         itemView.setOnClickListener {

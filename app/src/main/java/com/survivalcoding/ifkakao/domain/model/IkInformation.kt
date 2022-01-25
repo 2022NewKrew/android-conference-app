@@ -9,4 +9,5 @@ data class IkInformation(
     val idx: Int = -1,
     val url: String = "",
     val description: String = "",
+    val mainYn: String = "",
 ) : Parcelable

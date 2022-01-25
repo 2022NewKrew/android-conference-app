@@ -7,6 +7,7 @@ internal fun IkInfoDTO?.toEntity(): IkInformation {
     return IkInformation(
         idx = idx ?: -1,
         url = url ?: "",
-        description = description ?: ""
+        description = description ?: "",
+        mainYn = mainYn ?: "",
     )
 }

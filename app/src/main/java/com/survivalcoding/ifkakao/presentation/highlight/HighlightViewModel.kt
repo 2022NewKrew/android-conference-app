@@ -38,7 +38,6 @@ class HighlightViewModel(
                 }
             }
         }
-
 }
 
 sealed class State {
