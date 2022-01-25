@@ -1,6 +1,5 @@
 package com.example.data.repositoryImpl
 
-import com.example.data.network.IfKakaoService
 import com.example.domain.entity.Conference
 import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
@@ -9,15 +8,11 @@ import org.junit.Assert.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Spy
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class ConferenceRepositoryImplTest {
+class ConferencesRepositoryImplTest {
 
-    private val mockRepository = Mockito.mock(ConferenceRepositoryImpl::class.java)
+    private val mockRepository = Mockito.mock(ConferencesRepositoryImpl::class.java)
 
     @Before
     fun setUp() {

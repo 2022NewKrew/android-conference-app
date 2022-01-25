@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    android:paddingTop="10dp">
+
+
+    <ImageView
+        android:id="@+id/session_thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="60dp"
+        android:minHeight="50dp" />
+
+    <TextView
+        android:id="@+id/session_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/session_thumbnail"
+        tools:contentDescription="company"
+        tools:text="kakao" />
+
+    <TextView
+        android:id="@+id/session_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_toEndOf="@+id/session_company"
+        tools:contentDescription="field"
+        tools:text="field" />
+
+    <TextView
+        android:id="@+id/session_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/session_company"
+        android:layout_toEndOf="@id/session_thumbnail"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:contentDescription="title"
+        tools:text="title space" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/session_title"
+        android:layout_marginTop="10dp"
+        android:background="@color/black" />
+
+
+</RelativeLayout>

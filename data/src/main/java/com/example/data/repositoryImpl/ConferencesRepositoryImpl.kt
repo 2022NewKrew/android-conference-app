@@ -7,7 +7,7 @@ import com.example.domain.entity.Data
 import com.example.domain.repository.ConferencesRepository
 import kotlinx.coroutines.flow.Flow
 
-class ConferenceRepositoryImpl(private val conferenceDataStore: ConferenceDataStore) :
+class ConferencesRepositoryImpl(private val conferenceDataStore: ConferenceDataStore) :
     ConferencesRepository {
     override suspend fun getConferences(): Conference = conferenceDataStore.getConferences()
 

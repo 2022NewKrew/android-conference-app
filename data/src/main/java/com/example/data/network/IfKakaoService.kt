@@ -10,13 +10,4 @@ import retrofit2.http.GET
 interface IfKakaoService {
     @GET("/junsuk5/mock_json/main/conf21/contents.json")
     suspend fun getConferences(): Conference
-
-    companion object {
-        private val ifKakaoRetrofit =
-            Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://jsonplaceholder.typicode.com")
-                .build()
-
-    }
 }
