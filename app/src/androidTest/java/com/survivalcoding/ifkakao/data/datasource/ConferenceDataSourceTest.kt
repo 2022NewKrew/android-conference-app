@@ -17,14 +17,11 @@ class ConferenceDataSourceTest {
     var hiltRule = HiltAndroidRule(this)
 
     @Inject
-    lateinit var conferenceService: ConferenceService
-
     lateinit var conferenceDataSource: ConferenceDataSource
 
     @Before
     fun setUp() {
         hiltRule.inject()
-        conferenceDataSource = ConferenceDataSource(conferenceService)
     }
 
     @Test
