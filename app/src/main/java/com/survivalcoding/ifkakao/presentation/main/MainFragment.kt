@@ -8,8 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import com.survivalcoding.ifkakao.data.datasource.local.MockLocalDataSource
-import com.survivalcoding.ifkakao.data.datasource.remote.RetrofitClient
-import com.survivalcoding.ifkakao.data.datasource.remote.SessionRemoteDataSource
+import com.survivalcoding.ifkakao.data.datasource.remote.MockRemoteDataSource
 import com.survivalcoding.ifkakao.data.repository.SessionRepositoryImpl
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.presentation.util.SessionAdapter
@@ -20,8 +19,8 @@ class MainFragment : Fragment() {
             application = requireActivity().application,
             repository = //(requireActivity().application as App).sessionRepository
             SessionRepositoryImpl(
-                //MockRemoteDataSource(),
-                SessionRemoteDataSource(RetrofitClient.apiService),
+                MockRemoteDataSource(),
+                //SessionRemoteDataSource(RetrofitClient.apiService),
                 MockLocalDataSource(),
                 /*
                 SessionLocalDataSource(

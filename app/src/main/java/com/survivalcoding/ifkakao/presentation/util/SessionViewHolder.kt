@@ -12,7 +12,6 @@ class SessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.companyTag.text = session.companyName
         binding.fieldTag.text = session.field
         binding.titleText.text = session.title
-        binding.videoTime.text = session.linkList.VIDEO[0].description
-
+        binding.videoTime.text = session.linkList?.VIDEO?.get(0)?.description ?: ""
     }
 }
