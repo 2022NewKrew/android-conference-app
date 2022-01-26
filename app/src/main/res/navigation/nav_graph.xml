@@ -27,5 +27,9 @@
     <fragment
         android:id="@+id/sessionDetailFragment"
         android:name="com.survivalcoding.ifkakao.ui.sessiondetail.SessionDetailFragment"
-        tools:layout="@layout/fragment_session_detail" />
+        tools:layout="@layout/fragment_session_detail" >
+        <argument
+            android:name="session"
+            app:argType="com.survivalcoding.ifkakao.domain.model.Data" />
+    </fragment>
 </navigation>

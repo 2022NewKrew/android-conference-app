@@ -3,4 +3,7 @@
     <style name="ThumbnailImageShapeAppearance">
         <item name="cornerSize">@dimen/thumbnailCornerSize</item>
     </style>
+    <style name="SpeakerProfileImageShapeAppearance">
+        <item name="cornerSize">@dimen/speakerCornerSize</item>
+    </style>
 </resources>

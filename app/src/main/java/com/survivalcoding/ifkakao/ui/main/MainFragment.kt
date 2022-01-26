@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
@@ -40,7 +41,11 @@ class MainFragment : Fragment() {
         Glide.with(this).load(R.drawable.ico_bye_2021).into(binding.byeIv)
 
         val adapter = SessionAdapter {
-
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToSessionDetailFragment(
+                    it
+                )
+            )
         }
         binding.spotlightRv.adapter = adapter
         val decoration = DividerItemDecoration(requireContext(), LinearLayout.VERTICAL)
