@@ -4,18 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
-import com.survivalcoding.ifkakao.presentation.MainViewModel
-import com.survivalcoding.ifkakao.presentation.MainViewModelFactory
-import com.survivalcoding.ifkakao.presentation.FragmentType
+import com.survivalcoding.ifkakao.presentation.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 
@@ -23,17 +19,17 @@ class HighlightFragment : Fragment() {
     private var _binding: FragmentHighlightBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by activityViewModels<MainViewModel> {
-        MainViewModelFactory((requireActivity().application as App).repository)
+    private val viewModel by viewModels<HighlightViewModel> {
+        HighlightViewModelFactory((requireActivity().application as App).allSessions)
     }
 
     private val highlightAdapter by lazy {
         SessionListAdapter(
             onClickListener = {
-                viewModel.nextSession(
-                    it,
-                    binding.backgroundNestedScrollView.scrollX,
-                    binding.backgroundNestedScrollView.scrollY
+                (requireActivity().application as App).fragmentStack.push(
+                    FragmentInformation(
+                        currentSession = it
+                    )
                 )
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
@@ -55,11 +51,8 @@ class HighlightFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.initViewModel(FragmentType.HIGHLIGHT)
-
         binding.rvHighlightSessionsRecyclerview.apply {
             adapter = highlightAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayout.VERTICAL))
         }
 
         Glide.with(this)
@@ -70,7 +63,7 @@ class HighlightFragment : Fragment() {
             .load(R.drawable.ic_hand)
             .into(binding.ivHandIconGif)
 
-        viewModel.filteredSessions.observe(viewLifecycleOwner) {
+        viewModel.highlightSessions.observe(viewLifecycleOwner) {
             highlightAdapter.submitList(it)
         }
     }

@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
-import com.survivalcoding.ifkakao.presentation.MainViewModel
-import com.survivalcoding.ifkakao.presentation.MainViewModelFactory
-import com.survivalcoding.ifkakao.presentation.FragmentType
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
@@ -25,11 +22,10 @@ class DetailFragment : Fragment() {
     private val relatedSessionsAdapter by lazy {
         SessionListAdapter(
             onClickListener = {
-                viewModel.nextSession(
-                    it,
-                    binding.backgroundNestedScrollView.scrollX,
-                    binding.backgroundNestedScrollView.scrollY
-                )
+                with((requireActivity().application as App).fragmentStack) {
+                    val current = pop()
+                    push(current.copy(relatedSessionsCount = viewModel.getSize()))
+                }
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
                     setReorderingAllowed(true)
@@ -49,8 +45,8 @@ class DetailFragment : Fragment() {
 
     private val speakerAdapter by lazy { SpeakerListAdapter() }
 
-    private val viewModel by activityViewModels<MainViewModel> {
-        MainViewModelFactory((requireActivity().application as App).repository)
+    private val viewModel by viewModels<DetailViewModel> {
+        DetailViewModelFactory((requireActivity().application as App).allSessions)
     }
 
     override fun onCreateView(
@@ -61,34 +57,31 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) =
+        with((requireActivity().application as App).fragmentStack) {
+            super.onViewCreated(view, savedInstanceState)
 
-        viewModel.initViewModel(FragmentType.DETAIL)
+            viewModel.onEvent(DetailEvent.LoadingData(peek()))
 
-        binding.rvRelatedSessionsList.adapter = relatedSessionsAdapter
-        binding.rvTagList.adapter = tagsAdapter
-        binding.rvSpeakerList.adapter = speakerAdapter
-        binding.btnMoreSessions.setOnClickListener {
-            viewModel.exposeMoreRelatedSessions()
-        }
-
-        viewModel.detailUIState.observe(viewLifecycleOwner) { detailUIState ->
-            detailUIState.session?.let {
-                binding.tvDetailTitle.text = it.title
-                binding.tvDetailContent.text = it.content
-                binding.tvDetailHashtag.text = it.hashTag
-                tagsAdapter.submitList(it.tag)
-                speakerAdapter.submitList(it.sessionSpeakers)
-                relatedSessionsAdapter.submitList(detailUIState.exposedList)
+            binding.rvRelatedSessionsList.adapter = relatedSessionsAdapter
+            binding.rvTagList.adapter = tagsAdapter
+            binding.rvSpeakerList.adapter = speakerAdapter
+            binding.btnMoreSessions.setOnClickListener {
+                viewModel.onEvent(DetailEvent.LoadMoreSessions)
             }
-            binding.btnMoreSessions.isVisible = detailUIState.hasMoreRelatedSessions
-        }
 
-        viewModel.scrollPosition.observe(viewLifecycleOwner) {
-            binding.backgroundNestedScrollView.smoothScrollTo(it.first, it.second)
+            viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+                uiState.session?.let {
+                    binding.tvDetailTitle.text = it.title
+                    binding.tvDetailContent.text = it.content
+                    binding.tvDetailHashtag.text = it.hashTag
+                    tagsAdapter.submitList(it.tag)
+                    speakerAdapter.submitList(it.sessionSpeakers)
+                    relatedSessionsAdapter.submitList(uiState.exposedList)
+                }
+                binding.btnMoreSessions.isVisible = uiState.hasMoreRelatedSessions
+            }
         }
-    }
 
     override fun onDestroyView() {
         _binding = null

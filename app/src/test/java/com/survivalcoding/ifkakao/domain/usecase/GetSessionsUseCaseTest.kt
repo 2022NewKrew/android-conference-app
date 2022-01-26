@@ -15,22 +15,15 @@ import java.lang.StringBuilder
 class GetSessionsUseCaseTest {
     private lateinit var service: IkContentsService
     private lateinit var repository: IkContentsRepository
-    private lateinit var useCase: GetSessionsUseCase
+    private lateinit var useCase: GetSessionsByTagUseCase
 
     @Before
     fun setUp() {
         service = RetrofitClient.getClient().create(IkContentsService::class.java)
         repository = IkContentsRepositoryImpl(IkContentsDataSource(service))
-        useCase = GetSessionsUseCase(repository)
     }
 
     @Test
-    operator fun invoke() = runBlocking {
-        val list = useCase()
-        assertEquals(120, list.size)
-
-        val sb = StringBuilder()
-        list[30].tag.forEach { sb.append("$it\n") }
-        assertEquals("", sb.toString())
+    operator fun invoke() {
     }
 }

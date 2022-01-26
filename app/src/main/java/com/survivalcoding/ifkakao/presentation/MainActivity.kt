@@ -12,17 +12,12 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.presentation.highlight.HighlightFragment
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel by viewModels<MainViewModel> {
-        MainViewModelFactory((application as App).repository)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
     override fun onBackPressed() {
-        viewModel.onBackPressed()
         super.onBackPressed()
     }
 }
