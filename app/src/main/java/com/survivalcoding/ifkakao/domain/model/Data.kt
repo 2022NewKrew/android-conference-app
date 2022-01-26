@@ -1,5 +1,9 @@
 package com.survivalcoding.ifkakao.domain.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Data(
     val categoryIdx: Int,
     val commentYn: String,
@@ -32,4 +36,4 @@ data class Data(
     val title: String,
     val updateCountentsYn: String,
     val videoYn: String
-)
+): Parcelable

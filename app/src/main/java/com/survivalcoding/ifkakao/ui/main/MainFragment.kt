@@ -39,7 +39,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Glide.with(this).load(R.drawable.ico_bye_2021).into(binding.byeIv)
 
-        val adapter = SessionAdapter()
+        val adapter = SessionAdapter {
+
+        }
         binding.spotlightRv.adapter = adapter
         val decoration = DividerItemDecoration(requireContext(), LinearLayout.VERTICAL)
         binding.spotlightRv.addItemDecoration(decoration)
