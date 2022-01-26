@@ -17,7 +17,7 @@ class SessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         session.linkList?.PC_IMAGE?.get(0)?.url?.let {
             Glide.with(itemView)
                 .load(it)
-                .into(binding.thumbnail)
+                .into(binding.thumbnailSiv)
         }
     }
 }
