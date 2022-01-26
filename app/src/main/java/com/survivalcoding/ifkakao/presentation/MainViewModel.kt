@@ -18,7 +18,7 @@ class MainViewModel(
     private val _selectedSession = MutableStateFlow<IkSessionData?>(null)
     private val _exposedListSize = MutableStateFlow(4)
 
-    private val _sessionStack = Stack<FragmentReplaceInfo?>().apply { push(null) }
+    private val _sessionStack = Stack<ReplaceInfo?>().apply { push(null) }
     private val _prevScrollPosition = MutableStateFlow(0 to 0)
     private var _isBackPressed = false
 
@@ -36,22 +36,22 @@ class MainViewModel(
     }
 
     fun nextSession(sessionData: IkSessionData?, x: Int, y: Int) {
-        _sessionStack.push(FragmentReplaceInfo(sessionData, _exposedListSize.value, x, y))
+        _sessionStack.push(ReplaceInfo(sessionData, _exposedListSize.value, x, y))
         _selectedSession.value = sessionData
         _exposedListSize.value = 4
     }
 
-    fun initViewModel(sessionType: SessionType) {
+    fun initViewModel(fragmentType: FragmentType) {
         if (_isBackPressed) {
             val stkTop = _sessionStack.peek()
             stkTop?.let { setViewModel(it) }
             _isBackPressed = false
         }
-        when (sessionType) {
-            SessionType.HighlightSession -> {
+        when (fragmentType) {
+            FragmentType.HIGHLIGHT -> {
                 _filteredSessions.value = _allSessions.filter { it.isSpotlight }
             }
-            is SessionType.DetailSession -> {
+            FragmentType.DETAIL -> {
                 _filteredSessions.value =
                     _allSessions.filter {
                         it.field == _selectedSession.value?.field ?: "" && it.id != _selectedSession.value?.id ?: -1
@@ -71,14 +71,13 @@ class MainViewModel(
         _sessionStack.push(stkTop?.copy(exposeCount = stkTop.exposeCount + 10))
     }
 
-    private fun setViewModel(fragmentReplaceInfo: FragmentReplaceInfo) {
-        _exposedListSize.value = fragmentReplaceInfo.exposeCount
-        _selectedSession.value = fragmentReplaceInfo.session
-        _prevScrollPosition.value = fragmentReplaceInfo.scrollX to fragmentReplaceInfo.scrollY
+    private fun setViewModel(ReplaceInfo: ReplaceInfo) {
+        _exposedListSize.value = ReplaceInfo.exposeCount
+        _selectedSession.value = ReplaceInfo.session
+        _prevScrollPosition.value = ReplaceInfo.scrollX to ReplaceInfo.scrollY
     }
 }
 
-sealed class SessionType {
-    object HighlightSession : SessionType()
-    object DetailSession : SessionType()
+enum class FragmentType {
+    HIGHLIGHT, DETAIL, BY_KEYWORD, BY_DAY
 }

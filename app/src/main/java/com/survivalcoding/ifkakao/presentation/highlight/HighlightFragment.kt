@@ -15,9 +15,9 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.presentation.MainViewModel
 import com.survivalcoding.ifkakao.presentation.MainViewModelFactory
-import com.survivalcoding.ifkakao.presentation.SessionType
+import com.survivalcoding.ifkakao.presentation.FragmentType
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
-import com.survivalcoding.ifkakao.presentation.highlight.adapter.SessionListAdapter
+import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 
 class HighlightFragment : Fragment() {
     private var _binding: FragmentHighlightBinding? = null
@@ -55,7 +55,7 @@ class HighlightFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.initViewModel(SessionType.HighlightSession)
+        viewModel.initViewModel(FragmentType.HIGHLIGHT)
 
         binding.rvHighlightSessionsRecyclerview.apply {
             adapter = highlightAdapter

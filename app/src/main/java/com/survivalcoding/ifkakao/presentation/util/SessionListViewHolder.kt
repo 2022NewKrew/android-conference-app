@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.presentation.highlight.adapter
+package com.survivalcoding.ifkakao.presentation.util
 
 import android.view.LayoutInflater
 import android.view.RoundedCorner

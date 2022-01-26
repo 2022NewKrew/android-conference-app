@@ -13,10 +13,10 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.presentation.MainViewModel
 import com.survivalcoding.ifkakao.presentation.MainViewModelFactory
-import com.survivalcoding.ifkakao.presentation.SessionType
+import com.survivalcoding.ifkakao.presentation.FragmentType
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
-import com.survivalcoding.ifkakao.presentation.highlight.adapter.SessionListAdapter
+import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
@@ -64,7 +64,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.initViewModel(SessionType.DetailSession)
+        viewModel.initViewModel(FragmentType.DETAIL)
 
         binding.rvRelatedSessionsList.adapter = relatedSessionsAdapter
         binding.rvTagList.adapter = tagsAdapter
