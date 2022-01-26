@@ -26,6 +26,9 @@ class IkContentsDataSourceTest {
         assertEquals(120, content.data?.size)
 
         val list = content.data ?: listOf()
+
+        assertEquals(120, list.distinctBy { it.idx }.size)
+
 //        assertEquals(0, list.filter { it.categoryIdx == null }.size)
 //        assertEquals(0, list.filter { it.commentYn == null }.size)
         assertEquals(0, list.filter { it.company == null }.size)

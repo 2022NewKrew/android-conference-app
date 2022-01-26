@@ -13,19 +13,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_main_page_title"
+        <ImageView
+            android:id="@+id/tv_main_page_background"
             android:layout_width="match_parent"
             android:layout_height="550dp"
-            android:background="#40ffffff"
-            android:fontFamily="@font/kakao_regular"
             android:gravity="center"
-            android:text="@string/if_kakao_main_page_title"
-            android:textColor="@color/text_color_white"
-            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/cl_main_text_layout"
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:background="#a0000000"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_hand_icon_gif"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                tools:src="@drawable/ic_hand" />
+
+            <TextView
+                android:id="@+id/tv_main_page_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/kakao_regular"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/if_kakao_main_page_title"
+                android:textColor="@color/text_color_white"
+                android:textSize="17sp" />
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_text_with_button"
@@ -35,7 +61,7 @@
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_main_page_title">
+            app:layout_constraintTop_toBottomOf="@+id/cl_main_text_layout">
 
             <TextView
                 android:id="@+id/tv_highlight"

@@ -8,6 +8,7 @@ import com.survivalcoding.ifkakao.domain.usecase.GetSessionsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 class MainViewModel(
     private val getSessionsUseCase: GetSessionsUseCase,
@@ -16,6 +17,8 @@ class MainViewModel(
     private val _usedList = MutableStateFlow<List<IkSessionData>>(listOf())
     private val _selectedSession = MutableStateFlow<IkSessionData?>(null)
     private val _listSize = MutableStateFlow(4)
+
+    private val _sessionStack = Stack<IkSessionData?>().apply { push(null) }
 
     val usedList = _usedList.asLiveData()
     val selectedSession = _selectedSession.asLiveData()
@@ -39,8 +42,12 @@ class MainViewModel(
         }
     }
 
-    fun selectSession(sessionData: IkSessionData?) {
-        _selectedSession.value = sessionData
+    /**
+     * fragment 이동할 때, detail fragment로 이동하는 경우에는 IkSessionData를 넣어주고 이동한다.
+     * 그렇지 않은 경우에는, null을 넣어주고 이동한다.
+     */
+    fun nextSession(sessionData: IkSessionData?) {
+        _sessionStack.push(sessionData)
     }
 }
 

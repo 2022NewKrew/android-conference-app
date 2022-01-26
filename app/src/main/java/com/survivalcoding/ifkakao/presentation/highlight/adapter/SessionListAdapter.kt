@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 
 class SessionListAdapter(
-    private val clickListener: (session: IkSessionData) -> Unit,
+    private val onClickListener: (session: IkSessionData) -> Unit,
 ) : ListAdapter<IkSessionData, SessionListViewHolder>(object :
     DiffUtil.ItemCallback<IkSessionData>() {
     override fun areItemsTheSame(oldItem: IkSessionData, newItem: IkSessionData): Boolean {
@@ -24,7 +24,7 @@ class SessionListAdapter(
     override fun onBindViewHolder(holder: SessionListViewHolder, position: Int) {
         holder.bind(
             session = getItem(position),
-            clickListener = clickListener,
+            onClickListener = onClickListener,
         )
     }
 }

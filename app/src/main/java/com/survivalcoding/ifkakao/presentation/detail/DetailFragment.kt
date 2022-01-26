@@ -23,8 +23,8 @@ class DetailFragment : Fragment() {
 
     private val relativeSessionsAdapter by lazy {
         SessionListAdapter(
-            clickListener = {
-                viewModel.selectSession(it)
+            onClickListener = {
+                viewModel.nextSession(it)
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
                     setReorderingAllowed(true)

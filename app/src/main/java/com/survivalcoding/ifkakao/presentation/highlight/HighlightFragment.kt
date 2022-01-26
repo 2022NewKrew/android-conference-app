@@ -1,12 +1,15 @@
 package com.survivalcoding.ifkakao.presentation.highlight
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
@@ -24,10 +27,10 @@ class HighlightFragment : Fragment() {
         MainViewModelFactory((requireActivity().application as App).repository)
     }
 
-    private val adapter by lazy {
+    private val highlightAdapter by lazy {
         SessionListAdapter(
-            clickListener = {
-                viewModel.selectSession(it)
+            onClickListener = {
+                viewModel.nextSession(it)
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
                     setReorderingAllowed(true)
@@ -36,7 +39,7 @@ class HighlightFragment : Fragment() {
             }
         )
     }
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,10 +52,21 @@ class HighlightFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvHighlightSessionsRecyclerview.adapter = adapter
+        binding.rvHighlightSessionsRecyclerview.apply {
+            adapter = highlightAdapter
+            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayout.VERTICAL))
+        }
+
+        Glide.with(this)
+            .load("https://t1.kakaocdn.net/service_if_kakao_prod/images/pc/bg_bye_2021.png")
+            .centerCrop()
+            .into(binding.tvMainPageBackground)
+        Glide.with(this)
+            .load(R.drawable.ic_hand)
+            .into(binding.ivHandIconGif)
 
         viewModel.usedList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            highlightAdapter.submitList(it)
         }
     }
 
