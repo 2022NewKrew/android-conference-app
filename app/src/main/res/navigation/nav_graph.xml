@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.survivalcoding.ifkakao.MainFragment"
+        android:name="com.survivalcoding.ifkakao.ui.main.MainFragment"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_sessionFragment"
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/sessionFragment"
-        android:name="com.survivalcoding.ifkakao.SessionFragment"
+        android:name="com.survivalcoding.ifkakao.ui.session.SessionFragment"
         tools:layout="@layout/fragment_session" >
         <action
             android:id="@+id/action_sessionFragment_to_sessionDetailFragment"
@@ -26,6 +26,6 @@
     </fragment>
     <fragment
         android:id="@+id/sessionDetailFragment"
-        android:name="com.survivalcoding.ifkakao.SessionDetailFragment"
+        android:name="com.survivalcoding.ifkakao.ui.sessiondetail.SessionDetailFragment"
         tools:layout="@layout/fragment_session_detail" />
 </navigation>
