@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.adapter.SessionListAdapter
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +40,9 @@ class MainFragment : Fragment() {
 
         binding.mainRecyclerview.adapter = adapter
         binding.mainRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+
+        Glide.with(this).load(R.drawable.ico_bye_2021).into(binding.handWave)
+
 
 
         viewLifecycleOwner.lifecycleScope.launch {
