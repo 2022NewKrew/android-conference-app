@@ -8,6 +8,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
@@ -65,6 +69,12 @@ class DetailFragment : Fragment() {
 
             viewModel.onEvent(DetailEvent.LoadingData(peek()))
 
+            Glide.with(requireContext())
+                .load(viewModel.getVideoThumbnailUrl())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .fitCenter()
+                .into(binding.ivDetailVideoThumbnail)
+
             binding.rvRelatedSessionsList.adapter = relatedSessionsAdapter
             binding.rvTagList.adapter = tagsAdapter
             binding.rvSpeakerList.adapter = speakerAdapter
@@ -77,6 +87,8 @@ class DetailFragment : Fragment() {
                     binding.tvDetailTitle.text = it.title
                     binding.tvDetailContent.text = it.content
                     binding.tvDetailHashtag.text = it.hashTag
+                    binding.tvDetailVideoTitle.text = it.title
+                    binding.tvDetailVideoLength.text = it.video.videoLength
                     tagsAdapter.submitList(it.tag)
                     speakerAdapter.submitList(it.sessionSpeakers)
                     relatedSessionsAdapter.submitList(uiState.exposedList)

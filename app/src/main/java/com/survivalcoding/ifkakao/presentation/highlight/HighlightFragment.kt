@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
@@ -58,9 +59,11 @@ class HighlightFragment : Fragment() {
         Glide.with(this)
             .load("https://t1.kakaocdn.net/service_if_kakao_prod/images/pc/bg_bye_2021.png")
             .centerCrop()
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.tvMainPageBackground)
         Glide.with(this)
             .load(R.drawable.ic_hand)
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.ivHandIconGif)
 
         viewModel.highlightSessions.observe(viewLifecycleOwner) {

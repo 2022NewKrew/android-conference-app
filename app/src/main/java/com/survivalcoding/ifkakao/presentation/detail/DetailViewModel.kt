@@ -27,7 +27,7 @@ class DetailViewModel(
                 _relatedSessionsCount.value = event.info.relatedSessionsCount
                 _currentSession.value = event.info.currentSession
                 _relatedSessions = getSessionsByTagUseCase {
-                    it.field == _currentSession.value.field
+                    it.field == _currentSession.value.field && it.id != _currentSession.value.id
                 }
             }
             DetailEvent.LoadMoreSessions -> {
@@ -37,6 +37,7 @@ class DetailViewModel(
     }
 
     fun getSize() = _relatedSessionsCount.value
+    fun getVideoThumbnailUrl() = _currentSession.value.video.thumbnailUrl
 }
 
 sealed class DetailEvent {

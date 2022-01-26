@@ -43,6 +43,7 @@
                 android:id="@+id/tv_main_page_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:layout_marginTop="0dp"
                 android:fontFamily="@font/kakao_regular"
                 android:gravity="center"
