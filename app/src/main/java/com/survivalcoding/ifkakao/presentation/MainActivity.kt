@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        (application as App).fragmentStack.pop()
         super.onBackPressed()
     }
 }

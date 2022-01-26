@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
+import com.survivalcoding.ifkakao.presentation.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
@@ -25,6 +26,7 @@ class DetailFragment : Fragment() {
                 with((requireActivity().application as App).fragmentStack) {
                     val current = pop()
                     push(current.copy(relatedSessionsCount = viewModel.getSize()))
+                    push(FragmentInformation(currentSession = it))
                 }
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
