@@ -4,8 +4,11 @@ import com.survivalcoding.ifkakao.domain.model.Like
 import com.survivalcoding.ifkakao.domain.repository.SessionLocalRepository
 
 class MockLocalDataSource : SessionLocalRepository {
-    var nextId = 1
-    private var likes = listOf<Like>()
+    var nextId = 3
+    private var likes = listOf(
+        Like(123,1),
+        Like(20, 2)
+    )
 
     override suspend fun getLikes(): List<Like> = likes
     override suspend fun isLiking(idx: Int): Boolean {

@@ -2,8 +2,6 @@ package com.survivalcoding.ifkakao.presentation.detail
 
 import androidx.lifecycle.*
 import com.survivalcoding.ifkakao.domain.model.Session
-import com.survivalcoding.ifkakao.domain.repository.SessionLocalRepository
-import com.survivalcoding.ifkakao.domain.repository.SessionRemoteRepository
 import com.survivalcoding.ifkakao.domain.usecase.FindIfLikingUseCase
 import com.survivalcoding.ifkakao.domain.usecase.GetRelatedSessionsUseCase
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionByIdUseCase
@@ -32,7 +30,7 @@ class DetailViewModel(
             }
             _relatedSessions.value = getRelatedSessionsUseCase.invoke(
                 _session.value!!.field,
-                _session.value!!.relationList.MAIN_EXPOSURE_DAY.first()
+                _session.value!!.relationList.MAIN_EXPOSURE_DAY
             )
 
             _isLiking.value = getIfLikingUseCase.invoke(_session.value!!.idx)
