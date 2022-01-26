@@ -9,7 +9,7 @@ class LikeInMemoryDataSource : LikeDataSource {
     override suspend fun getSessionLike(): List<Session> = sessions
 
     override suspend fun likeSession(session: Session) {
-        sessions.add(session)
+        if (!sessions.contains(session)) sessions.add(session)
     }
 
     override suspend fun unlikeSession(session: Session) {
