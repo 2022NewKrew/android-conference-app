@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.presentation.adapter.SessionListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HighlightFragment : Fragment() {
     private var _binding: FragmentHighlightBinding? = null
     private val binding get() = _binding!!

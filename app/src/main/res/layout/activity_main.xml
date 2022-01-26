@@ -9,6 +9,7 @@
         android:id="@+id/fragment_container_view"
         android:name="com.survivalcoding.ifkakao.presentation.highlight.HighlightFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_highlight" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

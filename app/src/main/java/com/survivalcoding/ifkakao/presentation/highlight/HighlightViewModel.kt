@@ -4,17 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.survivalcoding.ifkakao.data.datasource.like.LikeInMemoryDataSource
-import com.survivalcoding.ifkakao.data.datasource.session.local.SessionLocalDataSource
-import com.survivalcoding.ifkakao.data.repository.SessionRepositoryImpl
 import com.survivalcoding.ifkakao.domain.model.Session
 import com.survivalcoding.ifkakao.domain.usecase.GetAllSessionUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HighlightViewModel : ViewModel() {
-    private val repository =
-        SessionRepositoryImpl(SessionLocalDataSource(), LikeInMemoryDataSource())
-    private val getAllSessionUseCase = GetAllSessionUseCase(repository)
+@HiltViewModel
+class HighlightViewModel @Inject constructor(private val getAllSessionUseCase: GetAllSessionUseCase) :
+    ViewModel() {
     private val _sessions = MutableLiveData<List<Session>>()
     val sessions: LiveData<List<Session>> get() = _sessions
 
