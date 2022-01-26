@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ifkakao">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".presentation.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
 
@@ -24,9 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:label="if(kakao)2021" />
+            android:name=".presentation.MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

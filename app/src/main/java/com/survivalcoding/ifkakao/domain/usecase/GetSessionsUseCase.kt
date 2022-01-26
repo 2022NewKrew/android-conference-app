@@ -4,9 +4,9 @@ import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.repository.IkContentsRepository
 
 class GetSessionsUseCase(
-    private val repository: IkContentsRepository
-) : BaseUseCase() {
-    suspend operator fun invoke(): Result<List<IkSessionData>> {
-        return result { repository.getSessions() }
+    private val repository: IkContentsRepository,
+) {
+    suspend operator fun invoke(): List<IkSessionData> {
+        return repository.getSessions()
     }
 }

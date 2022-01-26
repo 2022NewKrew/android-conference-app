@@ -10,7 +10,7 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ContentListItemBinding
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 
-class HighlightListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+class SessionListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.content_list_item, parent, false)
 ) {
     private val binding = ContentListItemBinding.bind(itemView)
@@ -20,19 +20,17 @@ class HighlightListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         clickListener: (session: IkSessionData) -> Unit,
     ) {
         binding.tvHighlightTitle.text = session.title
-        if (session.linkLists.video.isEmpty()) {
-            binding.tvVideoLength.isVisible = false
-        } else {
-            binding.tvVideoLength.isVisible = true
-            binding.tvVideoLength.text = session.linkLists.video.first().description
-        }
+        binding.tvVideoLength.isVisible = session.isVideo
+        binding.tvVideoLength.text = session.video.videoLength
 
         binding.listCompany.text = session.company
         binding.listField.text = session.field
 
-        val imageUrl = session.linkLists.pcImage.firstOrNull { it.mainYn == "Y" }?.url ?: ""
+        val imageUrl = session.video.thumbnailUrl
         binding.ivListItemThumbnail.load(imageUrl) {
             transformations(RoundedCornersTransformation(radius = 10f))
+            crossfade(true)
+            crossfade(500)
         }
 
         itemView.setOnClickListener {

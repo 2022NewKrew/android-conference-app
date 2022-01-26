@@ -48,32 +48,28 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    // liveData builder
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
-
-    // by viewModels
-    implementation 'androidx.activity:activity-ktx:1.4.0'
-    implementation 'androidx.fragment:fragment-ktx:1.4.0'
-
-    // repeatOnLifeCycle
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
-
     def retrofitVersion = "2.9.0"
     // retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
-    // paging
-    implementation 'androidx.paging:paging-runtime-ktx:3.1.0'
-    testImplementation 'androidx.paging:paging-common-ktx:3.1.0'
+    // repeatOnLifeCycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
 
-    def roomVersion = "2.4.1"
-    // room
-    implementation "androidx.room:room-runtime:$roomVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
-    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    // by viewModels
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0'
+
+    // liveData builder
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
 
     // coil
     implementation("io.coil-kt:coil:0.10.0")
+
+    // exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+
+    // flexbox
+    implementation "com.google.android.flexbox:flexbox:3.0.0"
 }
