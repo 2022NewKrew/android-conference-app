@@ -1,9 +1,9 @@
 package com.survivalcoding.ifkakao.domain.repository
 
-import com.survivalcoding.ifkakao.domain.model.Session
+import com.survivalcoding.ifkakao.domain.model.Like
 
 interface SessionLocalRepository {
-    suspend fun getLikes(): List<Session>
-    suspend fun addLike(session: Session)
-    suspend fun deleteLike(session: Session)
+    suspend fun getLikes(): List<Like>
+    suspend fun addLike(like: Like)
+    suspend fun deleteLike(like: Like)
 }

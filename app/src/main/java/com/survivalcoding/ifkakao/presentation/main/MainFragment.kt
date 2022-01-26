@@ -18,7 +18,6 @@ class MainFragment : Fragment() {
             repository = (requireActivity().application as App).sessionRepository
         )
     }
-
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
@@ -40,13 +39,15 @@ class MainFragment : Fragment() {
             },
             SessionAdapter(),
             FooterAdapter {
-                //Todo: 위로 올라가기
+                recyclerView.smoothScrollToPosition(0)
             })
         recyclerView.adapter = concatAdapter
 
         viewModel.infos.observe(this) {
             (concatAdapter.adapters[1] as SessionAdapter).submitList(it)
         }
+
+
     }
 
     override fun onDestroyView() {

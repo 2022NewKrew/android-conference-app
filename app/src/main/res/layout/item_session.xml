@@ -8,11 +8,13 @@
     <ImageView
         android:id="@+id/thumbnail"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="65dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:adjustViewBounds="true"
+        android:background="@drawable/shape_thumbnail"
+        android:padding="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,8 +24,10 @@
         android:id="@+id/video_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
         android:background="@color/black"
-        android:padding="5dp"
+        android:padding="2dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
         app:layout_constraintEnd_toEndOf="@+id/thumbnail"
@@ -34,6 +38,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:background="@drawable/shape_yellow_box"
+        android:padding="4dp"
+        android:textColor="#FFEB3B"
+        android:textSize="10sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/thumbnail"
         app:layout_constraintTop_toTopOf="@+id/thumbnail"
         tools:text="카카오" />
@@ -43,7 +52,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:background="@drawable/shape_gray_box"
+        android:padding="4dp"
         android:text="서비스"
+        android:textColor="#C0C0C0"
+        android:textSize="10sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/company_tag"
         app:layout_constraintStart_toEndOf="@+id/company_tag"
         app:layout_constraintTop_toTopOf="@+id/company_tag" />
@@ -59,6 +73,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/thumbnail"
         app:layout_constraintTop_toBottomOf="@+id/company_tag"
-        tools:text="내용물입니다." />
+        tools:text="내용물입니다.sdfdsafsafsafsadfsafdfds" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="#515151"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
