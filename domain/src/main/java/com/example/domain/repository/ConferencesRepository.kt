@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ConferencesRepository {
     suspend fun getConferences(): Conference
+
     suspend fun getAllSessions(): List<Data>
 
     suspend fun getSpotLightedSessions(): List<Data>

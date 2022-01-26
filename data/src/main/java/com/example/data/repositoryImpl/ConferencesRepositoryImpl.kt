@@ -6,9 +6,11 @@ import com.example.domain.entity.Conference
 import com.example.domain.entity.Data
 import com.example.domain.repository.ConferencesRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class ConferencesRepositoryImpl(private val conferenceDataStore: ConferenceDataStore) :
+class ConferencesRepositoryImpl @Inject constructor(private val conferenceDataStore: ConferenceDataStore) :
     ConferencesRepository {
+
     override suspend fun getConferences(): Conference = conferenceDataStore.getConferences()
 
     override suspend fun getAllSessions(): List<Data> = getConferences().data

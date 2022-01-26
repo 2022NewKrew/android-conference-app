@@ -62,4 +62,6 @@ dependencies {
     // Optional -- Mockito framework
     testImplementation 'org.mockito:mockito-inline:3.11.2' // for kotlin
     //testImplementation 'org.mockito:mockito-core:3.11.2'
+    // inject
+    implementation('javax.inject:javax.inject:1')
 }
