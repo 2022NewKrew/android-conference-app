@@ -13,4 +13,4 @@ tab_width = 4
 # ktlint custom rules
 [*.{kt, kts}]
 # noinspection EditorConfigKeyCorrectness
-disabled_rules = import-ordering
+disabled_rules = import-ordering, final-newline
