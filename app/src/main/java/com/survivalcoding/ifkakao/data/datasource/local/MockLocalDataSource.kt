@@ -8,6 +8,12 @@ class MockLocalDataSource : SessionLocalRepository {
     private var likes = listOf<Like>()
 
     override suspend fun getLikes(): List<Like> = likes
+    override suspend fun isLiking(idx: Int): Boolean {
+        for (like in likes) {
+            if (like.idx == idx) return true
+        }
+        return false
+    }
 
     override suspend fun addLike(like: Like) {
         likes = likes.plus(like.copy(id = nextId))

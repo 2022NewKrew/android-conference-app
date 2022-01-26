@@ -12,6 +12,7 @@ class SessionRepositoryImpl(
 ) : SessionRepository {
     override suspend fun getIfKakaoData(): IfKakaoData = sessionRemoteDataSource.getIfKakaoData()
     override suspend fun getLikes(): List<Like> = sessionLocalDataSource.getLikes()
+    override suspend fun isLiking(idx: Int): Boolean = sessionLocalDataSource.isLiking(idx)
     override suspend fun addLike(like: Like) = sessionLocalDataSource.addLike(like)
     override suspend fun deleteLike(like: Like) = sessionLocalDataSource.deleteLike(like)
 }
