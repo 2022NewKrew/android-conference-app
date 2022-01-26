@@ -1,10 +1,11 @@
 package com.survivalcoding.ifkakao.presentation.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.App
@@ -55,12 +56,13 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        viewModel.setSessionType(SessionType.RelativeSession)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.initViewModel(SessionType.RelativeSession)
 
         binding.rvRelativeSessionsList.adapter = relativeSessionsAdapter
         binding.rvTagList.adapter = tagsAdapter
@@ -83,7 +85,6 @@ class DetailFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
-//        viewModel.selectSession(null)
         super.onDestroyView()
     }
 }

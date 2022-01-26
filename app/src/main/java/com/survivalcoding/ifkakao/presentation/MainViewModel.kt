@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.presentation
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,26 +20,14 @@ class MainViewModel(
     private val _listSize = MutableStateFlow(4)
 
     private val _sessionStack = Stack<IkSessionData?>().apply { push(null) }
+    private var _isBackPressed = false
 
     val usedList = _usedList.asLiveData()
     val selectedSession = _selectedSession.asLiveData()
 
     init {
-        runBlocking { _allSessions = getSessionsUseCase() }
-    }
-
-    fun setSessionType(sessionType: SessionType) {
-        when (sessionType) {
-            SessionType.HighlightSession -> {
-                _usedList.value = _allSessions.filter { it.isSpotlight }
-            }
-            is SessionType.RelativeSession -> {
-                _usedList.value =
-                    _allSessions.filter {
-                        it.field == _selectedSession.value?.field ?: ""
-                                && it.id != _selectedSession.value?.id ?: -1
-                    }.take(_listSize.value)
-            }
+        runBlocking {
+            _allSessions = getSessionsUseCase()
         }
     }
 
@@ -48,6 +37,32 @@ class MainViewModel(
      */
     fun nextSession(sessionData: IkSessionData?) {
         _sessionStack.push(sessionData)
+        _selectedSession.value = sessionData
+    }
+
+    fun initViewModel(sessionType: SessionType) {
+        if (_isBackPressed) {
+            _selectedSession.value = if (_sessionStack.isEmpty()) null else _sessionStack.peek()
+            _isBackPressed = false
+        }
+        when (sessionType) {
+            SessionType.HighlightSession -> {
+                _usedList.value = _allSessions.filter { it.isSpotlight }
+            }
+            is SessionType.RelativeSession -> {
+                _listSize.value = 4
+                _usedList.value =
+                    _allSessions.filter {
+                        it.field == _selectedSession.value?.field ?: ""
+                                && it.id != _selectedSession.value?.id ?: -1
+                    }.take(_listSize.value)
+            }
+        }
+    }
+
+    fun onBackPressed() {
+        _sessionStack.pop()
+        _isBackPressed = true
     }
 }
 

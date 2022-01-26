@@ -45,12 +45,13 @@ class HighlightFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHighlightBinding.inflate(inflater, container, false)
-        viewModel.setSessionType(SessionType.HighlightSession)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.initViewModel(SessionType.HighlightSession)
 
         binding.rvHighlightSessionsRecyclerview.apply {
             adapter = highlightAdapter
