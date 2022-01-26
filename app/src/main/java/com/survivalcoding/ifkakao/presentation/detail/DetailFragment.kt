@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -22,10 +22,14 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val relativeSessionsAdapter by lazy {
+    private val relatedSessionsAdapter by lazy {
         SessionListAdapter(
             onClickListener = {
-                viewModel.nextSession(it)
+                viewModel.nextSession(
+                    it,
+                    binding.backgroundNestedScrollView.scrollX,
+                    binding.backgroundNestedScrollView.scrollY
+                )
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
                     setReorderingAllowed(true)
@@ -43,9 +47,7 @@ class DetailFragment : Fragment() {
         )
     }
 
-    private val speakerAdapter by lazy {
-        SpeakerListAdapter()
-    }
+    private val speakerAdapter by lazy { SpeakerListAdapter() }
 
     private val viewModel by activityViewModels<MainViewModel> {
         MainViewModelFactory((requireActivity().application as App).repository)
@@ -62,24 +64,29 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.initViewModel(SessionType.RelativeSession)
+        viewModel.initViewModel(SessionType.DetailSession)
 
-        binding.rvRelativeSessionsList.adapter = relativeSessionsAdapter
+        binding.rvRelatedSessionsList.adapter = relatedSessionsAdapter
         binding.rvTagList.adapter = tagsAdapter
         binding.rvSpeakerList.adapter = speakerAdapter
+        binding.btnMoreSessions.setOnClickListener {
+            viewModel.exposeMoreRelatedSessions()
+        }
 
-        viewModel.selectedSession.observe(viewLifecycleOwner) {
-            it?.let {
+        viewModel.detailUIState.observe(viewLifecycleOwner) { detailUIState ->
+            detailUIState.session?.let {
                 binding.tvDetailTitle.text = it.title
                 binding.tvDetailContent.text = it.content
                 binding.tvDetailHashtag.text = it.hashTag
                 tagsAdapter.submitList(it.tag)
                 speakerAdapter.submitList(it.sessionSpeakers)
+                relatedSessionsAdapter.submitList(detailUIState.exposedList)
             }
+            binding.btnMoreSessions.isVisible = detailUIState.hasMoreRelatedSessions
         }
 
-        viewModel.usedList.observe(viewLifecycleOwner) {
-            relativeSessionsAdapter.submitList(it)
+        viewModel.scrollPosition.observe(viewLifecycleOwner) {
+            binding.backgroundNestedScrollView.smoothScrollTo(it.first, it.second)
         }
     }
 

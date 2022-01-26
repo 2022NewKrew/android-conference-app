@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SpeakerListItemBinding
@@ -20,6 +21,7 @@ class SpeakerListViewHolder(val parent: ViewGroup) : RecyclerView.ViewHolder(
         Glide.with(parent.context)
             .load(speaker.imageUrl)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(70)))
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.speakerImage)
 
         binding.tvSpeakerName.text = speaker.name

@@ -30,7 +30,11 @@ class HighlightFragment : Fragment() {
     private val highlightAdapter by lazy {
         SessionListAdapter(
             onClickListener = {
-                viewModel.nextSession(it)
+                viewModel.nextSession(
+                    it,
+                    binding.backgroundNestedScrollView.scrollX,
+                    binding.backgroundNestedScrollView.scrollY
+                )
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
                     setReorderingAllowed(true)
@@ -66,7 +70,7 @@ class HighlightFragment : Fragment() {
             .load(R.drawable.ic_hand)
             .into(binding.ivHandIconGif)
 
-        viewModel.usedList.observe(viewLifecycleOwner) {
+        viewModel.filteredSessions.observe(viewLifecycleOwner) {
             highlightAdapter.submitList(it)
         }
     }
