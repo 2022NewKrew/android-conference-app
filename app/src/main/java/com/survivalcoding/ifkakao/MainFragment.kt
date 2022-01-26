@@ -43,8 +43,6 @@ class MainFragment : Fragment() {
 
         Glide.with(this).load(R.drawable.ico_bye_2021).into(binding.handWave)
 
-
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.items.collect {
