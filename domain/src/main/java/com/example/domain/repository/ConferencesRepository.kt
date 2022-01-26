@@ -17,4 +17,6 @@ interface ConferencesRepository {
 
     suspend fun getSessionsWithKeyWords(vararg keywords: String): List<Data>
 
+    suspend fun  getSessionsWithField(field: String): List<Data>
+
 }

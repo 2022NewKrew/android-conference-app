@@ -11,14 +11,18 @@ class SessionViewHolder(private val binding: ItemSessionBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
 
-    fun bind(item: Data) {
+    fun bind(item: Data, onClicked: (Data) -> Unit) {
         binding.sessionTitle.text = item.title
         binding.sessionCompany.text = item.company
         binding.sessionField.text = item.field
-        Glide.with(binding.root).load(item.linkList.pcMainImage.first().url)
+        Glide.with(binding.root).load(item.linkList.moMainImage.first().url)
             .into(binding.sessionThumbnail)
 
         binding.sessionVideoTime.text = item.linkList.video.first().description
+
+        binding.root.setOnClickListener {
+            onClicked(item)
+        }
     }
 
     companion object {

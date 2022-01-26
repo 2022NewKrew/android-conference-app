@@ -1,17 +1,17 @@
 package com.survivalcoding.ifkakao
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.*
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.adapter.SessionListAdapter
+import com.survivalcoding.ifkakao.compose.SessionFragment
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -24,7 +24,15 @@ class MainFragment : Fragment() {
     val binding get() = _binding!!
 
     private val viewModel by activityViewModels<MainViewModel>()
-    private val adapter = SessionListAdapter()
+    private val adapter = SessionListAdapter(
+        onClicked = { data ->
+            viewModel.saveClickedSession(data)
+            parentFragmentManager.commit {
+                replace<SessionFragment>(R.id.fragment_container_view)
+                addToBackStack(null)
+            }
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

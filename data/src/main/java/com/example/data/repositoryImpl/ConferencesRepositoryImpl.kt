@@ -33,5 +33,10 @@ class ConferencesRepositoryImpl @Inject constructor(private val conferenceDataSt
             it.relationList.techClassification.any { keyword -> keyword in keywords }
         }
 
+    override suspend fun getSessionsWithField(field: String): List<Data> =
+        getConferences().data.filter {
+            it.field == field
+        }
+
 
 }
