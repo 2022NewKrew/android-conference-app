@@ -4,7 +4,6 @@ import android.util.Log
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule
@@ -12,13 +11,13 @@ import org.junit.Test
 import javax.inject.Inject
 
 @HiltAndroidTest
-class ConferenceDataSourceTest {
+class ConferenceDataSourceImplTest {
 
     @get: Rule
     var hiltRule = HiltAndroidRule(this)
 
     @Inject
-    lateinit var conferenceDataSource: ConferenceDataSource
+    lateinit var conferenceDataSourceImpl: ConferenceDataSourceImpl
 
     @Before
     fun setUp() {
@@ -28,13 +27,11 @@ class ConferenceDataSourceTest {
     @Test
     fun getData() {
         runBlocking {
-            val data = conferenceDataSource.getData()
+            val data = conferenceDataSourceImpl.getData()
             Log.d("data", data.toString())
 
             assertNotEquals(null, data)
             assertNotEquals(Unit, data)
-            assertEquals(true, data?.success)
-            assertEquals(data?.count, data?.data?.size)
         }
     }
 }
