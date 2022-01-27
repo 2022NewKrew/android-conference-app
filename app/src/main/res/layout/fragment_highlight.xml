@@ -17,22 +17,13 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:contentDescription="@string/main_background_image"
+            android:tintMode="src_over"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tint="#CC000000"
             tools:background="@color/purple_500"
             tools:layout_height="200dp" />
-
-        <ImageView
-            android:id="@+id/highlight_iv_foreground"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:contentDescription="@string/main_foreground_image"
-            android:src="#cc000000"
-            app:layout_constraintBottom_toBottomOf="@id/highlight_iv_background"
-            app:layout_constraintEnd_toEndOf="@id/highlight_iv_background"
-            app:layout_constraintStart_toStartOf="@id/highlight_iv_background"
-            app:layout_constraintTop_toTopOf="@id/highlight_iv_background" />
 
         <ImageView
             android:id="@+id/highlight_iv_bye"
@@ -52,6 +43,7 @@
             android:gravity="center"
             android:text="@string/main_bye_message"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/highlight_iv_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

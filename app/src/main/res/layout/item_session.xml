@@ -23,9 +23,7 @@
             android:layout_height="60dp"
             android:background="@color/black"
             android:contentDescription="@string/session_thumbnail_image"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/session_tv_length"
