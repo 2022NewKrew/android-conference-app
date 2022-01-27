@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.presentation.main
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.survivalcoding.ifkakao.domain.model.Session
 import com.survivalcoding.ifkakao.domain.repository.SessionRepository
@@ -10,10 +9,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     getHighLightedUseCase: GetHighLightedUseCase,
-    application: Application
-) : AndroidViewModel(
-    application
-) {
+) : ViewModel() {
     private var _infos = MutableLiveData(emptyList<Session>())
     val infos: LiveData<List<Session>> = _infos
 
@@ -24,19 +20,17 @@ class MainViewModel(
     }
 }
 
+/*
 class MainViewModelFactory(
-    private val application: Application,
     private val repository: SessionRepository,
-) : ViewModelProvider.AndroidViewModelFactory(application) {
-
+) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java))
             return MainViewModel(
-                application = application,
                 getHighLightedUseCase = GetHighLightedUseCase(
                     GetSessionsUseCase(repository)
                 )
             ) as T
         else throw IllegalArgumentException()
     }
-}
+}*/
