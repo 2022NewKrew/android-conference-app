@@ -1,7 +1,6 @@
 package com.survivalcoding.ifkakao.compose
 
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -26,8 +20,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
 import com.example.domain.entity.ContentsSpeakerList
 import com.example.domain.entity.Data
 import com.example.domain.entity.Video
@@ -39,6 +31,9 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.compose.ui.EvanTheme
+import com.survivalcoding.ifkakao.compose.widget.CircleImageLoader
+import com.survivalcoding.ifkakao.compose.widget.RectangleImageLoader
+import com.survivalcoding.ifkakao.compose.widget.SingleSession
 
 class SessionFragment : Fragment() {
     private val viewModel by activityViewModels<MainViewModel>()
@@ -69,23 +64,22 @@ fun TopCompose(viewModel: MainViewModel) {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        VideoPart(session.value.linkList.video)
+        VideoPart(session.value.linkList?.video)
         DescriptionPart(session.value.content, session.value.title)
         ProfilePart(
-            url = session.value.linkList.speakerProfile.first().url,
-            item = session.value.contentsSpeakerList.first()
+            url = session.value.linkList?.speakerProfile?.first()?.url,
+            item = session.value.contentsSpeakerList?.first()
         )
         SessionsPart(relatedSessions)
     }
 }
 
 @Composable
-fun VideoPart(videos: List<Video>) {
+fun VideoPart(videos: List<Video>?) {
     val context = LocalContext.current
-    var bitmap by remember { mutableStateOf<Bitmap?>(null) }
 
     if (videos.isNullOrEmpty()) {
-
+        RectangleImageLoader(url = null, Modifier.fillMaxWidth())
     } else {
         val exoPlayer = remember(context) {
             SimpleExoPlayer.Builder(context).build().apply {
@@ -115,26 +109,24 @@ fun VideoPart(videos: List<Video>) {
 
 
 @Composable
-fun DescriptionPart(content: String, title: String) {
-    Text(text = title, fontWeight = FontWeight.Bold)
-    Text(text = content)
+fun DescriptionPart(content: String?, title: String?) {
+    Text(text = title ?: "NO DESCRIPTION", fontWeight = FontWeight.Bold)
+    Text(text = content ?: "NO CONTENT")
 
 }
 
 @Composable
-fun ProfilePart(url: String, item: ContentsSpeakerList) {
-    Row {
-        ItemThumbNail(
-            url = url,
-            Modifier
-                .padding(end = 10.dp)
-                .size(64.dp)
-                .clip(shape = RoundedCornerShape(20.dp))
-        )
+fun ProfilePart(url: String?, item: ContentsSpeakerList?) {
+    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        CircleImageLoader(url = url)
         Column {
-            Text(text = item.nameKo + " " + item.nameEn, color = Color.White)
-            Text(text = item.company, color = Color.LightGray)
-            Text(text = item.occupation, color = Color.LightGray)
+            if (item != null) {
+                Text(text = item.nameKo + " " + item.nameEn)
+            } else {
+                Text(text = "Kakao Krew")
+            }
+            Text(text = item?.company ?: "카카오")
+            Text(text = item?.occupation ?: "Krew")
         }
     }
 }
@@ -142,86 +134,16 @@ fun ProfilePart(url: String, item: ContentsSpeakerList) {
 
 @Composable
 fun SessionsPart(sessions: State<List<Data>>) {
-    Column {
-        Text(
-            text = "연관세션",
-            color = Color.White,
-            modifier = Modifier.padding(top = 20.dp, bottom = 10.dp)
-        )
-        for (item in sessions.value) {
-            key(item.idx) {
-                WidgetRelatedSession(item = item)
-                Divider(
-                    color = Color.Gray,
-                    thickness = 1.dp,
-                    modifier = Modifier.padding(vertical = 10.dp)
-                )
-            }
+    Text(
+        text = "연관세션",
+        modifier = Modifier.padding(top = 20.dp, bottom = 10.dp)
+    )
+    for (item in sessions.value) {
+        key(item.idx) {
+            SingleSession(item)
         }
     }
-}
 
-@Composable
-fun WidgetRelatedSession(item: Data) {
-    Row(modifier = Modifier.padding(bottom = 5.dp)) {
-        if (item.linkList.moMainImage.isNotEmpty()) {
-            ItemThumbNail(url = item.linkList.moMainImage.first().url)
-        } else {
-            ItemThumbNail("https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635403306708")
-        }
-        Column {
-            Row(modifier = Modifier.padding(bottom = 5.dp)) {
-                Text(
-                    text = item.company,
-                    color = Color.Yellow,
-                    modifier = Modifier
-                        .padding(end = 5.dp)
-                        .border(
-                            width = 1.dp,
-                            color = Color.Yellow,
-                        )
-                        .padding(5.dp)
-
-                )
-                Text(
-                    text = item.field, color = Color.White, modifier = Modifier
-                        .border(
-                            width = 1.dp,
-                            color = Color.White,
-                        )
-                        .padding(5.dp)
-                )
-            }
-            Text(text = item.title, color = Color.White)
-        }
-
-    }
-}
-
-@Composable
-fun ItemThumbNail(url: String, modifier: Modifier = Modifier.size(150.dp)) {
-    val context = LocalContext.current
-    var bitmap by remember { mutableStateOf<Bitmap?>(null) }
-    Glide.with(context).asBitmap()
-        .load(url)
-        .into(object : CustomTarget<Bitmap>() {
-            override fun onResourceReady(
-                resource: Bitmap,
-                transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
-            ) {
-                bitmap = resource
-            }
-
-            override fun onLoadCleared(placeholder: Drawable?) {}
-
-        })
-    if (bitmap != null) {
-        Image(
-            bitmap!!.asImageBitmap(), "video image", modifier = modifier
-        )
-    } else {
-        Text("Loading Image...")
-    }
 }
 
 
@@ -320,7 +242,7 @@ val sample = """
                     "contentsIdx": 20,
                     "type": "MO_IMAGE",
                     "fileSize": 20136,
-                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635403338353",
+                    "url": "",
                     "description": "***1027_A세션_썸네일_22.png",
                     "mainYn": "N"
                   }

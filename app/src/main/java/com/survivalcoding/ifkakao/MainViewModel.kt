@@ -3,12 +3,9 @@ package com.survivalcoding.ifkakao
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entity.Data
-import com.example.domain.repository.ConferencesRepository
 import com.example.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,7 +14,7 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val getHighlightSessionsUseCase: GetHighlightSessionsUseCase,
-    private val getAllSessionsUseCase: getAllSessionsUseCase,
+    private val getAllSessionsUseCase: GetAllSessionsUseCase,
     private val getLikedSessionsUseCase: GetLikedSessionsUseCase,
     private val getSessionsFromDateUseCase: GetSessionsFromDateUseCase,
     private val getSessionsWithKeyWordsUseCase: GetSessionsWithKeyWordsUseCase,
@@ -26,15 +23,16 @@ class MainViewModel @Inject constructor(
 
     val items = MutableStateFlow(listOf<Data>())
     lateinit var session: MutableStateFlow<Data>
-        private set
-    lateinit var relatedSessions: MutableStateFlow<List<Data>>
-        private set
+    val relatedSessions = MutableStateFlow(listOf<Data>())
 
     init {
         viewModelScope.launch {
-            items.value = getHighlightSessionsUseCase()
+            items.value = getHighlightSessionsUseCase() ?: listOf()
             session = MutableStateFlow(items.value[0])
-            relatedSessions = MutableStateFlow(getSessionWithFieldUseCase(session.value.field))
+            relatedSessions.value = session.value.field?.let {
+                getSessionWithFieldUseCase(it)
+            } ?: listOf()
+
         }
     }
 
@@ -44,7 +42,9 @@ class MainViewModel @Inject constructor(
 
     fun getRelatedSessions(field: String) {
         viewModelScope.launch {
-            relatedSessions = MutableStateFlow(getSessionWithFieldUseCase(field))
+            relatedSessions.value = session.value.field?.let {
+                getSessionWithFieldUseCase(it)
+            } ?: listOf()
         }
     }
 }

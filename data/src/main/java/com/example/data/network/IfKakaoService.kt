@@ -9,5 +9,5 @@ import retrofit2.http.GET
 
 interface IfKakaoService {
     @GET("/junsuk5/mock_json/main/conf21/contents.json")
-    suspend fun getConferences(): Conference
+    suspend fun getConferences(): Conference?
 }

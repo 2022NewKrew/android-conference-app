@@ -15,10 +15,10 @@ class SessionViewHolder(private val binding: ItemSessionBinding) :
         binding.sessionTitle.text = item.title
         binding.sessionCompany.text = item.company
         binding.sessionField.text = item.field
-        Glide.with(binding.root).load(item.linkList.moMainImage.first().url)
+        Glide.with(binding.root).load(item.linkList?.moMainImage?.first()?.url)
             .into(binding.sessionThumbnail)
 
-        binding.sessionVideoTime.text = item.linkList.video.first().description
+        binding.sessionVideoTime.text = item.linkList?.video?.first()?.description
 
         binding.root.setOnClickListener {
             onClicked(item)
