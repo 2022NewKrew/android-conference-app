@@ -35,10 +35,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.compose.ui.EvanTheme
-import com.survivalcoding.ifkakao.compose.widget.BorderedText
-import com.survivalcoding.ifkakao.compose.widget.CircleImageLoader
-import com.survivalcoding.ifkakao.compose.widget.RectangleImageLoader
-import com.survivalcoding.ifkakao.compose.widget.SingleSession
+import com.survivalcoding.ifkakao.compose.widget.*
 
 class SessionFragment : Fragment() {
     private val viewModel by activityViewModels<MainViewModel>()
@@ -69,7 +66,9 @@ fun TopCompose(viewModel: MainViewModel) {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
+        //video
         VideoPart(session.value.linkList?.video)
+        // description
         DescriptionPart(
             session.value.relationList?.classification,
             session.value.field,
@@ -77,10 +76,12 @@ fun TopCompose(viewModel: MainViewModel) {
             session.value.contentTag,
             session.value.content, session.value.title
         )
+        // profile
         ProfilePart(
             url = session.value.linkList?.speakerProfile?.first()?.url,
             item = session.value.contentsSpeakerList?.first()
         )
+        // related session
         SessionsPart(relatedSessions)
     }
 }
@@ -124,31 +125,36 @@ fun DescriptionPart(
     classification: List<String>?,
     field: String?,
     company: String?,
-    contentTag: String?, 
-    content: String?, 
+    contentTag: String?,
+    content: String?,
     title: String?
 ) {
     FlowRow(crossAxisSpacing = 5.dp) {
-        field?.let { 
+        // field
+        field?.let {
             BorderedText(text = it)
         }
+        // company
         company?.let {
             BorderedText(text = it)
         }
-        classification?.let { 
-            for(item in it){
+        // classification
+        classification?.let {
+            for (item in it) {
                 BorderedText(text = item)
             }
         }
     }
-
+    // title
     Text(
         text = title ?: "NO DESCRIPTION",
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp
     )
+    // content
     Text(text = content ?: "NO CONTENT")
 
+    // contentTag
     contentTag?.let {
         Text(text = it, color = Color.Gray)
     }
@@ -157,6 +163,7 @@ fun DescriptionPart(
 
 @Composable
 fun ProfilePart(url: String?, item: ContentsSpeakerList?) {
+    // profile
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         CircleImageLoader(url = url)
         Column {
@@ -169,6 +176,8 @@ fun ProfilePart(url: String?, item: ContentsSpeakerList?) {
             Text(text = item?.occupation ?: "Krew")
         }
     }
+    // social share
+    SharedWithSocialIcon()
 }
 
 
@@ -179,6 +188,7 @@ fun SessionsPart(sessions: State<List<Data>>) {
         modifier = Modifier.padding(top = 20.dp, bottom = 10.dp)
     )
     for (item in sessions.value) {
+        //todo 겹치는 문제
         key(item.idx) {
             SingleSession(item)
         }
