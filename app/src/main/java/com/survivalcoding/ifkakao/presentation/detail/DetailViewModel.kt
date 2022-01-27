@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionsByTagUseCase
 import com.survivalcoding.ifkakao.presentation.FragmentInformation
-import com.survivalcoding.ifkakao.presentation.highlight.HighlightViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 
@@ -19,16 +18,16 @@ class DetailViewModel(
 
     val uiState = combine(_relatedSessionsCount, _currentSession) { i, session ->
         DetailUIState(_relatedSessions, i, session)
-    }.asLiveData()
+    }
 
     fun onEvent(event: DetailEvent) {
         when (event) {
             is DetailEvent.LoadingData -> {
+                _relatedSessionsCount.value = event.info.relatedSessionsCount
+                _currentSession.value = event.info.currentSession
                 _relatedSessions = getSessionsByTagUseCase {
                     it.field == _currentSession.value.field && it.id != _currentSession.value.id
                 }
-                _relatedSessionsCount.value = event.info.relatedSessionsCount
-                _currentSession.value = event.info.currentSession
             }
             DetailEvent.LoadMoreSessions -> {
                 _relatedSessionsCount.value = _relatedSessionsCount.value + 10

@@ -8,10 +8,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
@@ -19,6 +20,10 @@ import com.survivalcoding.ifkakao.presentation.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
@@ -82,20 +87,30 @@ class DetailFragment : Fragment() {
                 viewModel.onEvent(DetailEvent.LoadMoreSessions)
             }
 
-            viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-                uiState.session?.let {
-                    binding.tvDetailTitle.text = it.title
-                    binding.tvDetailContent.text = it.content
-                    binding.tvDetailHashtag.text = it.hashTag
-                    binding.tvDetailVideoTitle.text = it.title
-                    binding.tvDetailVideoLength.text = it.video.videoLength
-                    tagsAdapter.submitList(it.tag)
-                    speakerAdapter.submitList(it.sessionSpeakers)
-                    relatedSessionsAdapter.submitList(uiState.exposedList)
-                }
-                binding.btnMoreSessions.isVisible = uiState.hasMoreRelatedSessions
+            collect()
+        }
+
+    private fun collect() {
+        repeatOnStart {
+            viewModel.uiState.collectLatest {
+                binding.tvDetailTitle.text = it.session.title
+                binding.tvDetailContent.text = it.session.content
+                binding.tvDetailHashtag.text = it.session.hashTag
+                binding.tvDetailVideoTitle.text = it.session.title
+                binding.tvDetailVideoLength.text = it.session.video.videoLength
+                tagsAdapter.submitList(it.session.tag)
+                speakerAdapter.submitList(it.session.sessionSpeakers)
+                relatedSessionsAdapter.submitList(it.exposedList)
+                binding.btnMoreSessions.isVisible = it.hasMoreRelatedSessions
             }
         }
+    }
+
+    private fun repeatOnStart(block: suspend CoroutineScope.() -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED, block)
+        }
+    }
 
     override fun onDestroyView() {
         _binding = null

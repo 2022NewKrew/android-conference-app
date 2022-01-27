@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="550dp"
                 android:gravity="center"
-                app:backgroundImageResourceUrl="@{highlightUIState.background}"
+                app:backgroundImageResourceUrl="@{highlightUIState.backgroundMobile}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -115,7 +115,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_text_with_button"
-                app:sessionsList="@{highlightUIState.highlightSessions}"
+                app:sessions="@{highlightUIState.highlightSessions}"
                 tools:itemCount="1"
                 tools:listitem="@layout/content_list_item" />
 

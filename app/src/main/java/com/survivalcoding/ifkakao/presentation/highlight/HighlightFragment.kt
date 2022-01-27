@@ -7,13 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.presentation.FragmentInformation
-import com.survivalcoding.ifkakao.presentation.ImageResourceUrl
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 
