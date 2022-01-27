@@ -5,7 +5,9 @@ import com.example.domain.entity.Data
 import androidx.recyclerview.widget.ListAdapter
 
 
-class SessionListAdapter :
+class SessionListAdapter(
+    private val onClicked: (Data) -> Unit
+) :
     ListAdapter<Data, SessionViewHolder>(SessionDiffItemCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder =
@@ -13,7 +15,7 @@ class SessionListAdapter :
 
     override fun onBindViewHolder(holder: SessionViewHolder, position: Int) {
         getItem(position)?.let { item ->
-            holder.bind(item)
+            holder.bind(item, onClicked)
         }
     }
 }

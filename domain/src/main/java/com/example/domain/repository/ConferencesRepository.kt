@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ConferencesRepository {
     suspend fun getConferences(): Conference
+
     suspend fun getAllSessions(): List<Data>
 
     suspend fun getSpotLightedSessions(): List<Data>
@@ -15,5 +16,7 @@ interface ConferencesRepository {
     suspend fun getLikedSessions(): List<Data>
 
     suspend fun getSessionsWithKeyWords(vararg keywords: String): List<Data>
+
+    suspend fun  getSessionsWithField(field: String): List<Data>
 
 }
