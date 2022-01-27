@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                replace<MainFragment>(R.id.fragment_container_view)
+                replace<SessionFragment>(R.id.fragment_container_view)
             }
         }
     }

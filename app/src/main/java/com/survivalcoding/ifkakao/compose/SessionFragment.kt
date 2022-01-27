@@ -2,6 +2,7 @@ package com.survivalcoding.ifkakao.compose
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,7 +30,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.example.domain.entity.ContentsSpeakerList
 import com.example.domain.entity.Data
+import com.example.domain.entity.Video
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DataSource
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.util.Util
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.compose.ui.EvanTheme
 
@@ -50,7 +58,7 @@ class SessionFragment : Fragment() {
 }
 
 @Composable
-// todo viewmodel
+// todo viewModel
 fun TopCompose(viewModel: MainViewModel) {
     val session = viewModel.session.collectAsState()
     val relatedSessions = viewModel.relatedSessions.collectAsState()
@@ -61,55 +69,56 @@ fun TopCompose(viewModel: MainViewModel) {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        // video player
-        VideoPart()
-        // description
+        VideoPart(session.value.linkList.video)
         DescriptionPart(session.value.content, session.value.title)
-        // profile
         ProfilePart(
             url = session.value.linkList.speakerProfile.first().url,
             item = session.value.contentsSpeakerList.first()
         )
-        // relatedSessions
         SessionsPart(relatedSessions)
     }
 }
 
 @Composable
-fun VideoPart() {
+fun VideoPart(videos: List<Video>) {
     val context = LocalContext.current
-    val exoPlayer = remember(context) { SimpleExoPlayer.Builder(context).build() }
     var bitmap by remember { mutableStateOf<Bitmap?>(null) }
 
-    Glide.with(context).asBitmap()
-        .load("https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635403306708")
-        .into(object : CustomTarget<Bitmap>() {
-            override fun onResourceReady(
-                resource: Bitmap,
-                transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
-            ) {
-                bitmap = resource
-            }
+    if (videos.isNullOrEmpty()) {
 
-            override fun onLoadCleared(placeholder: Drawable?) {}
-
-        })
-    if (bitmap != null) {
-        Image(bitmap!!.asImageBitmap(), "video image", modifier = Modifier.fillMaxWidth())
     } else {
-        Text("Loading Image...")
+        val exoPlayer = remember(context) {
+            SimpleExoPlayer.Builder(context).build().apply {
+                val dataSourceFactory: DataSource.Factory = DefaultDataSourceFactory(
+                    context,
+                    Util.getUserAgent(context, context.packageName)
+                )
+
+                val source = ProgressiveMediaSource.Factory(dataSourceFactory)
+                    .createMediaSource(
+                        Uri.parse(videos[0].url)
+                    )
+
+                this.prepare(source)
+            }
+        }
+        AndroidView(
+            factory = { context ->
+                PlayerView(context).apply {
+                    player = exoPlayer
+                }
+            }
+        )
     }
+
 }
 
 
 @Composable
 fun DescriptionPart(content: String, title: String) {
-    Column {
-        Text(
-            text = title, color = Color.White, fontWeight = FontWeight.Bold,
-        )
-        Text(text = content, color = Color.White)
-    }
+    Text(text = title, fontWeight = FontWeight.Bold)
+    Text(text = content)
+
 }
 
 @Composable
