@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Session(
+    val idx: Int,
     val categoryIdx: Int?,
     val commentYn: String?,
     val company: String?,
@@ -17,8 +18,7 @@ data class Session(
     val createdDateTime: String?,
     val createdUserIdx: Int?,
     val favoriteYn: String?,
-    val `field`: String?,
-    val idx: Int?,
+    val `field`: String,
     val lastModifiedDateTime: String?,
     val lastModifiedUserIdx: Int?,
     val linkList: LinkList?,
@@ -26,7 +26,7 @@ data class Session(
     val qnaEndTime: String?,
     val qnaStartDay: String?,
     val qnaStartTime: String?,
-    val relationList: RelationList?,
+    val relationList: RelationList,
     val reservationDate: String?,
     val reservationTime: String?,
     val reservationUTC: Long?,

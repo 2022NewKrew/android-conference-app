@@ -56,25 +56,36 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/footer_item_1"
+                android:id="@+id/qnaText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="문의하기" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="문의하기"
+                android:textColor="#797979" />
 
             <TextView
-                android:id="@+id/footer_item_2"
+                android:id="@+id/talkChannelLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="ifkakao(톡채널)" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="ifkakao(톡채널)"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/footer_item_3"
+                android:id="@+id/ifKakaoEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="ifkakao@kakao.com" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="ifkakao@kakao.com"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </com.google.android.material.navigation.NavigationView>
