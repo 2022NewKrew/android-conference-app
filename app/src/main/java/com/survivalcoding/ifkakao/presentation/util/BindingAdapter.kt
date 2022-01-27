@@ -10,10 +10,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.model.IkSessionSpeaker
 import com.survivalcoding.ifkakao.domain.model.IkTagInfo
-import com.survivalcoding.ifkakao.presentation.base.UiState
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
-import com.survivalcoding.ifkakao.presentation.util.BindingAdapter.bindTagItems
 
 object BindingAdapter {
 
@@ -63,7 +61,7 @@ object BindingAdapter {
     @Suppress("UNCHECKED_CAST")
     @JvmStatic
     @BindingAdapter(value = ["sessions", "adapter", "relatedSessionsCount"], requireAll = true)
-    fun RecyclerView.bindSessionItems(
+    fun RecyclerView.bindSessionWithAdapterCount(
         sessions: List<IkSessionData>,
         adapter: RecyclerView.Adapter<*>,
         relatedSessionsCount: Int,
@@ -77,7 +75,7 @@ object BindingAdapter {
     @Suppress("UNCHECKED_CAST")
     @JvmStatic
     @BindingAdapter(value = ["sessions", "adapter"], requireAll = true)
-    fun RecyclerView.bindSessionItems(
+    fun RecyclerView.bindSessionWithAdapter(
         sessions: List<IkSessionData>,
         adapter: RecyclerView.Adapter<*>,
     ) {
@@ -89,7 +87,7 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["tags", "adapter"], requireAll = true)
-    fun RecyclerView.bindTagItems(tags: List<IkTagInfo>, adapter: RecyclerView.Adapter<*>) {
+    fun RecyclerView.bindTagWithAdapter(tags: List<IkTagInfo>, adapter: RecyclerView.Adapter<*>) {
         this.adapter = adapter
         if (adapter is TagListAdapter) {
             adapter.submitList(tags)
@@ -98,23 +96,13 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["speakers", "adapter"], requireAll = true)
-    fun RecyclerView.bindSpeakerItems(
+    fun RecyclerView.bindSpeakerWithAdapter(
         speakers: List<IkSessionSpeaker>,
         adapter: RecyclerView.Adapter<*>
     ) {
         this.adapter = adapter
         if (adapter is SpeakerListAdapter) {
             adapter.submitList(speakers)
-        }
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    @JvmStatic
-    @BindingAdapter("relatedSessionsCount")
-    fun RecyclerView.bindSessionCountItems(count: Int) {
-        this.adapter?.let {
-            val adapter = this.adapter as SessionListAdapter
-            adapter.submitListCount(count)
         }
     }
 }
