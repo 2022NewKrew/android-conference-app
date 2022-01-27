@@ -1,323 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/background_nested_scroll_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_black"
-    android:verticalScrollbarPosition="right"
-    tools:context=".presentation.highlight.HighlightFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.survivalcoding.ifkakao.presentation.detail.DetailViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/background_nested_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background_black"
+        android:verticalScrollbarPosition="right"
+        tools:context=".presentation.highlight.HighlightFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_video_layout"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <!--        <com.google.android.exoplayer2.ui.PlayerView-->
-            <!--            android:id="@+id/pv_detail_video"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="300dp"-->
-            <!--            app:layout_constraintEnd_toEndOf="parent"-->
-            <!--            app:layout_constraintStart_toStartOf="parent"-->
-            <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-            <ImageView
-                android:id="@+id/iv_detail_video_thumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_detail_video_thumbnail_veil"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="#80000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_detail_video_title"
-                android:layout_width="200dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/kakao_regular"
-                android:maxLines="1"
-                android:textColor="@color/text_color_white"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_play_icon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:paddingEnd="8dp"
-                android:src="@drawable/ic_baseline_play_arrow_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/text_color_white" />
-
-            <TextView
-                android:id="@+id/tv_detail_video_length"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/kakao_regular"
-                android:text="@string/list_default_time"
-                android:textColor="@color/text_color_white"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_play_icon" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_detail_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_video_layout">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_tag_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:nestedScrollingEnabled="false"
-                android:orientation="horizontal"
-                android:overScrollMode="never"
-                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:spanCount="2"
-                tools:itemCount="10"
-                tools:listitem="@layout/tag_list_item" />
-
-            <TextView
-                android:id="@+id/tv_detail_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="15dp"
-                android:fontFamily="@font/kakao_regular"
-                android:lineSpacingExtra="10dp"
-                android:text="@string/detail_temporary_text"
-                android:textColor="@color/text_color_white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_tag_list" />
-
-            <TextView
-                android:id="@+id/tv_detail_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="25dp"
-                android:autoLink="web"
-                android:fontFamily="@font/kakao_regular"
-                android:lineSpacingExtra="10dp"
-                android:text="@string/detail_temporary_text"
-                android:textColor="@color/text_color_white"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_detail_title" />
-
-            <TextView
-                android:id="@+id/tv_detail_hashtag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="25dp"
-                android:fontFamily="@font/kakao_regular"
-                android:lineSpacingExtra="10dp"
-                android:text="@string/detail_temporary_text"
-                android:textColor="@color/text_color_gray"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_detail_content" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_speaker_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="30dp"
-                android:nestedScrollingEnabled="false"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_detail_hashtag"
-                tools:itemCount="3"
-                tools:listitem="@layout/speaker_list_item" />
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_buttons"
+                android:id="@+id/cl_video_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="300dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_speaker_list">
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!--        <com.google.android.exoplayer2.ui.PlayerView-->
+                <!--            android:id="@+id/pv_detail_video"-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="300dp"-->
+                <!--            app:layout_constraintEnd_toEndOf="parent"-->
+                <!--            app:layout_constraintStart_toStartOf="parent"-->
+                <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
                 <ImageView
-                    android:id="@+id/iv_talk_button"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:background="@drawable/icon_button"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_speech_bubble"
+                    android:id="@+id/iv_detail_video_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_detail_video_thumbnail_veil"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="#80000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_detail_video_title"
+                    android:layout_width="200dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kakao_regular"
+                    android:maxLines="1"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_play_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:paddingEnd="8dp"
+                    android:src="@drawable/ic_baseline_play_arrow_24"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/text_color_white" />
 
-                <ImageView
-                    android:id="@+id/iv_facebook_button"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/icon_button"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_facebook_app_symbol"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_talk_button"
+                <TextView
+                    android:id="@+id/tv_detail_video_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/kakao_regular"
+                    android:text="@string/list_default_time"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_play_icon" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_detail_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_video_layout">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_tag_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/text_color_white" />
+                    app:spanCount="2"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/tag_list_item" />
+
+                <TextView
+                    android:id="@+id/tv_detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:fontFamily="@font/kakao_regular"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@string/detail_temporary_text"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_tag_list" />
+
+                <TextView
+                    android:id="@+id/tv_detail_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="25dp"
+                    android:autoLink="web"
+                    android:fontFamily="@font/kakao_regular"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@string/detail_temporary_text"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_title" />
+
+                <TextView
+                    android:id="@+id/tv_detail_hashtag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="25dp"
+                    android:fontFamily="@font/kakao_regular"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@string/detail_temporary_text"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_content" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_speaker_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="30dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_hashtag"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/speaker_list_item" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_speaker_list">
+
+                    <ImageView
+                        android:id="@+id/iv_talk_button"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/icon_button"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_speech_bubble"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/text_color_white" />
+
+                    <ImageView
+                        android:id="@+id/iv_facebook_button"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/icon_button"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_facebook_app_symbol"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_talk_button"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/text_color_white" />
+
+                    <ImageView
+                        android:id="@+id/iv_twitter_button"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/icon_button"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_twitter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_facebook_button"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/text_color_white" />
+
+                    <ImageView
+                        android:id="@+id/iv_link_button"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/icon_button"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_link"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_twitter_button"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/text_color_white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/btn_detail_to_sessions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/list_video_thumbnail"
+                    android:backgroundTint="@color/background_button_gray"
+                    android:fontFamily="@font/kakao_regular"
+                    android:paddingHorizontal="50dp"
+                    android:paddingVertical="10dp"
+                    android:text="목록보기"
+                    android:textColor="#a9a9a9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_buttons" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_rest_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_button_gray"
+                android:padding="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_detail_content">
+
+                <TextView
+                    android:id="@+id/tv_detail_sessions_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="연관세션"
+                    android:textColor="@color/text_color_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_related_sessions_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_sessions_title"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/content_list_item" />
+
+                <TextView
+                    android:id="@+id/btn_more_sessions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/list_video_thumbnail"
+                    android:backgroundTint="#292929"
+                    android:fontFamily="@font/kakao_regular"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="10dp"
+                    android:text="연관세션 더보기"
+                    android:textColor="#a9a9a9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_related_sessions_list" />
 
                 <ImageView
-                    android:id="@+id/iv_twitter_button"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/icon_button"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_twitter"
+                    android:id="@+id/iv_scroll_to_top_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/top_button"
+                    android:src="@drawable/ic_baseline_arrow_upward_24"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_facebook_button"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/text_color_white" />
-
-                <ImageView
-                    android:id="@+id/iv_link_button"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/icon_button"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_link"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_twitter_button"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_more_sessions"
                     app:tint="@color/text_color_white" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/btn_detail_to_sessions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="30dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/list_video_thumbnail"
-                android:backgroundTint="@color/background_button_gray"
-                android:fontFamily="@font/kakao_regular"
-                android:paddingHorizontal="50dp"
-                android:paddingVertical="10dp"
-                android:text="목록보기"
-                android:textColor="#a9a9a9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_buttons" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_rest_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background_button_gray"
-            android:padding="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_detail_content">
-
-            <TextView
-                android:id="@+id/tv_detail_sessions_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="연관세션"
-                android:textColor="@color/text_color_white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_related_sessions_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="15dp"
-                android:nestedScrollingEnabled="false"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_detail_sessions_title"
-                tools:itemCount="1"
-                tools:listitem="@layout/content_list_item" />
-
-            <TextView
-                android:id="@+id/btn_more_sessions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="30dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/list_video_thumbnail"
-                android:backgroundTint="#292929"
-                android:fontFamily="@font/kakao_regular"
-                android:paddingHorizontal="30dp"
-                android:paddingVertical="10dp"
-                android:text="연관세션 더보기"
-                android:textColor="#a9a9a9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_related_sessions_list" />
-
-            <ImageView
-                android:id="@+id/iv_scroll_to_top_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/top_button"
-                android:src="@drawable/ic_baseline_arrow_upward_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_more_sessions"
-                app:tint="@color/text_color_white" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</layout>

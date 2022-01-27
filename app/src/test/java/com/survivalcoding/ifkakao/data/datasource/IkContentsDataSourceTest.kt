@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.data.datasource
 
-import com.survivalcoding.ifkakao.data.datasource.service.IkContentsService
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 
@@ -8,18 +7,18 @@ import org.junit.Before
 import org.junit.Test
 
 class IkContentsDataSourceTest {
-    private lateinit var service: IkContentsService
-    private lateinit var dataSource: IkContentsDataSource
+    private lateinit var service: IfKakaoService
+    private lateinit var dataSource: IkRetrofitDataSource
 
     @Before
     fun setUp() {
-        service = RetrofitClient.getClient().create(IkContentsService::class.java)
-        dataSource = IkContentsDataSource(service)
+        service = RetrofitClient.getClient().create(IfKakaoService::class.java)
+        dataSource = IkRetrofitDataSource(service)
     }
 
     @Test
     fun getContents() = runBlocking {
-        val content = dataSource.getContents()
+        val content = dataSource.getSessions()
         assertEquals(true, content.success)
         assertEquals(null, content.errorMessage)
         assertEquals(120, content.count)

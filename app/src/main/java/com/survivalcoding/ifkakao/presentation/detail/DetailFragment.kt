@@ -12,7 +12,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
@@ -29,22 +31,22 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val relatedSessionsAdapter by lazy {
-        SessionListAdapter(
-            onClickListener = {
-                with((requireActivity().application as App).fragmentStack) {
-                    val current = pop()
-                    push(current.copy(relatedSessionsCount = viewModel.getSize()))
-                    push(FragmentInformation(currentSession = it))
-                }
-                parentFragmentManager.commit {
-                    replace(R.id.fragment_container_view, DetailFragment())
-                    setReorderingAllowed(true)
-                    addToBackStack(null)
-                }
-            }
-        )
-    }
+//    private val relatedSessionsAdapter by lazy {
+//        SessionListAdapter(
+//            onClickListener = {
+//                with((requireActivity().application as App).fragmentStack) {
+//                    val current = pop()
+//                    push(current.copy(relatedSessionsCount = viewModel.getSize()))
+//                    push(FragmentInformation(currentSession = it))
+//                }
+//                parentFragmentManager.commit {
+//                    replace(R.id.fragment_container_view, DetailFragment())
+//                    setReorderingAllowed(true)
+//                    addToBackStack(null)
+//                }
+//            }
+//        )
+//    }
 
     private val tagsAdapter by lazy {
         TagListAdapter(
@@ -55,10 +57,10 @@ class DetailFragment : Fragment() {
     }
 
     private val speakerAdapter by lazy { SpeakerListAdapter() }
-
-    private val viewModel by viewModels<DetailViewModel> {
-        DetailViewModelFactory((requireActivity().application as App).allSessions)
-    }
+//
+//    private val viewModel by viewModels<DetailViewModel> {
+//        DetailViewModelFactory((requireActivity().application as App).allSessions)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,41 +72,45 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) =
         with((requireActivity().application as App).fragmentStack) {
-            super.onViewCreated(view, savedInstanceState)
+//            viewModel.onEvent(DetailEvent.LoadingData(peek()))
+//            super.onViewCreated(view, savedInstanceState)
+//
+//            viewModel.uiState
+//
+//            binding.viewModel = viewModel
+//
+////            Glide.with(requireContext())
+////                .load(viewModel.getVideoThumbnailUrl())
+////                .transition(DrawableTransitionOptions.withCrossFade())
+////                .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
+////                .fitCenter()
+////                .into(binding.ivDetailVideoThumbnail)
+//
+//            binding.rvRelatedSessionsList.adapter = relatedSessionsAdapter
+//            binding.rvTagList.adapter = tagsAdapter
+//            binding.rvSpeakerList.adapter = speakerAdapter
+//            binding.btnMoreSessions.setOnClickListener {
+//                viewModel.onEvent(DetailEvent.LoadMoreSessions)
+//            }
 
-            viewModel.onEvent(DetailEvent.LoadingData(peek()))
-
-            Glide.with(requireContext())
-                .load(viewModel.getVideoThumbnailUrl())
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .fitCenter()
-                .into(binding.ivDetailVideoThumbnail)
-
-            binding.rvRelatedSessionsList.adapter = relatedSessionsAdapter
-            binding.rvTagList.adapter = tagsAdapter
-            binding.rvSpeakerList.adapter = speakerAdapter
-            binding.btnMoreSessions.setOnClickListener {
-                viewModel.onEvent(DetailEvent.LoadMoreSessions)
-            }
-
-            collect()
+//            collect()
         }
 
-    private fun collect() {
-        repeatOnStart {
-            viewModel.uiState.collectLatest {
-                binding.tvDetailTitle.text = it.session.title
-                binding.tvDetailContent.text = it.session.content
-                binding.tvDetailHashtag.text = it.session.hashTag
-                binding.tvDetailVideoTitle.text = it.session.title
-                binding.tvDetailVideoLength.text = it.session.video.videoLength
-                tagsAdapter.submitList(it.session.tag)
-                speakerAdapter.submitList(it.session.sessionSpeakers)
-                relatedSessionsAdapter.submitList(it.exposedList)
-                binding.btnMoreSessions.isVisible = it.hasMoreRelatedSessions
-            }
-        }
-    }
+//    private fun collect() {
+//        repeatOnStart {
+//            viewModel.uiState.collectLatest {
+//                binding.tvDetailTitle.text = it.session.title
+//                binding.tvDetailContent.text = it.session.content
+//                binding.tvDetailHashtag.text = it.session.hashTag
+//                binding.tvDetailVideoTitle.text = it.session.title
+//                binding.tvDetailVideoLength.text = it.session.video.videoLength
+//                tagsAdapter.submitList(it.session.tag)
+//                speakerAdapter.submitList(it.session.sessionSpeakers)
+//                relatedSessionsAdapter.submitList(it.exposedList)
+//                binding.btnMoreSessions.isVisible = it.hasMoreRelatedSessions
+//            }
+//        }
+//    }
 
     private fun repeatOnStart(block: suspend CoroutineScope.() -> Unit) {
         viewLifecycleOwner.lifecycleScope.launch {

@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="highlightUIState"
-            type="com.survivalcoding.ifkakao.presentation.highlight.HighlightUIState" />
+            name="vm"
+            type="com.survivalcoding.ifkakao.presentation.highlight.HighlightViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.survivalcoding.ifkakao.presentation.util.SessionListAdapter" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -27,10 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="550dp"
                 android:gravity="center"
-                app:backgroundImageResourceUrl="@{highlightUIState.backgroundMobile}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                uiStatePortrait="@{vm.uiState}" />
 
             <LinearLayout
                 android:id="@+id/cl_main_text_layout"
@@ -47,7 +51,7 @@
                     android:id="@+id/iv_hand_icon_gif"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    app:backgroundImageResourceUrl="@{highlightUIState.icon}"
+                    app:drawableIcon="@{vm.uiState}"
                     tools:src="@drawable/ic_hand" />
 
                 <TextView
@@ -110,12 +114,13 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 android:overScrollMode="never"
+                app:adapter="@{adapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/cl_highlight_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_text_with_button"
-                app:sessions="@{highlightUIState.highlightSessions}"
+                app:sessions="@{vm.uiState}"
                 tools:itemCount="1"
                 tools:listitem="@layout/content_list_item" />
 
