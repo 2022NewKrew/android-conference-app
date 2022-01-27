@@ -14,5 +14,6 @@ data class SessionItem(
     val classifications: List<String>, // from RelationList.classification
     val techClassifications: List<String>, // from RelationList.tech_classification
     val mainExposureDay: Int, // from relationList.main_exposure_day
-    val speakerProfiles: List<SpeakerProfileItem> // from LinkList.SpeakerProfile & contentSpeakerList
+    val speakerProfiles: List<SpeakerProfileItem>, // from LinkList.SpeakerProfile & contentSpeakerList
+    val isHighlight: Boolean
 )

@@ -1,8 +1,8 @@
 package com.survivalcoding.ifkakao.di
 
-import com.survivalcoding.ifkakao.data.datasource.ConferenceDataSource
-import com.survivalcoding.ifkakao.data.datasource.ConferenceDataSourceImpl
-import com.survivalcoding.ifkakao.data.datasource.ConferenceService
+import com.survivalcoding.ifkakao.data.datasource.SessionDataSource
+import com.survivalcoding.ifkakao.data.datasource.SessionDataSourceImpl
+import com.survivalcoding.ifkakao.data.datasource.SessionService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +15,6 @@ object DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideConferenceDataSource(conferenceService: ConferenceService): ConferenceDataSource =
-        ConferenceDataSourceImpl(conferenceService)
+    fun provideConferenceDataSource(sessionService: SessionService): SessionDataSource =
+        SessionDataSourceImpl(sessionService)
 }
