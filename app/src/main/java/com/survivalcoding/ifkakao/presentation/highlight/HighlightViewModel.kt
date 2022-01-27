@@ -18,12 +18,12 @@ import javax.inject.Inject
 class HighlightViewModel @Inject constructor(
     getSessionsByTagUseCase: GetSessionsByTagUseCase,
 ) : ViewModel() {
-    val uiState: StateFlow<UiState> = getSessionsByTagUseCase {
+    val uiState: StateFlow<List<IkSessionData>> = getSessionsByTagUseCase {
         it.isSpotlight
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = UiState.Loading
+        initialValue = listOf()
     )
     val backgroundMobile = "https://t1.kakaocdn.net/service_if_kakao_prod/images/mo/bg_bye_2021.png"
     val backgroundPc = "https://t1.kakaocdn.net/service_if_kakao_prod/images/pc/bg_bye_2021.png"

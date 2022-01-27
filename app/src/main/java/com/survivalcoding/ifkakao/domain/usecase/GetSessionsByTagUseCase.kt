@@ -12,15 +12,15 @@ import javax.inject.Inject
 class GetSessionsByTagUseCase @Inject constructor(
     private val content: IfKakaoContent,
 ) {
-    operator fun invoke(predicate: (IkSessionData) -> Boolean) = flow<UiState> {
+    operator fun invoke(predicate: (IkSessionData) -> Boolean) = flow {
         val list = content.data.filter(predicate)
         if (list.isNotEmpty()) {
-            emit(UiState.Success(list))
+            emit(list)
             return@flow
         } else {
             throw Exception("empty list after filtering")
         }
     }
-        .catch { emit(UiState.Error(it)) }
+        .catch { emit(listOf()) }
         .flowOn(Dispatchers.IO)
 }

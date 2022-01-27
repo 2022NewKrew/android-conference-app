@@ -64,13 +64,13 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["sessions", "adapter", "relatedSessionsCount"], requireAll = true)
     fun RecyclerView.bindSessionItems(
-        sessions: UiState,
+        sessions: List<IkSessionData>,
         adapter: RecyclerView.Adapter<*>,
         relatedSessionsCount: Int,
     ) {
         this.adapter = adapter
-        if (adapter is SessionListAdapter && sessions is UiState.Success<*>) {
-            adapter.submitList((sessions.data as List<IkSessionData>).take(relatedSessionsCount))
+        if (adapter is SessionListAdapter) {
+            adapter.submitList(sessions.take(relatedSessionsCount))
         }
     }
 
@@ -78,12 +78,12 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["sessions", "adapter"], requireAll = true)
     fun RecyclerView.bindSessionItems(
-        sessions: UiState,
+        sessions: List<IkSessionData>,
         adapter: RecyclerView.Adapter<*>,
     ) {
         this.adapter = adapter
-        if (adapter is SessionListAdapter && sessions is UiState.Success<*>) {
-            adapter.submitList((sessions.data as List<IkSessionData>))
+        if (adapter is SessionListAdapter) {
+            adapter.submitList(sessions)
         }
     }
 

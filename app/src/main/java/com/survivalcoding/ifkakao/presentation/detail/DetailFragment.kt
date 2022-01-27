@@ -32,7 +32,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     )
 
-
     private val sessionListAdapter = SessionListAdapter(
         onClickListener = {
             val top = stk.pop()
@@ -46,7 +45,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     )
 
-
     private val speakerListAdapter = SpeakerListAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,11 +52,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         viewModel.onEvent(DetailEvent.LoadingData(stk.peek()))
 
         bind {
-            tagAdapter = tagListAdapter
-            sessionAdapter = sessionListAdapter
-            speakerAdapter = speakerListAdapter
-            itemDecoration = sessionItemDecoration
             vm = viewModel
+            tagAdapter = tagListAdapter
+            speakerAdapter = speakerListAdapter
+            sessionAdapter = sessionListAdapter
+            itemDecoration = sessionItemDecoration
         }
     }
 }
