@@ -10,8 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class HighlightViewModel(
     getSessionsByTagUseCase: GetSessionsByTagUseCase,
 ) : ViewModel() {
-    private val _highlightSessions = MutableStateFlow(getSessionsByTagUseCase { it.isSpotlight })
-    val highlightSessions = _highlightSessions.asLiveData()
+    val highlightSessions = getSessionsByTagUseCase { it.isSpotlight }
 }
 
 class HighlightViewModelFactory(

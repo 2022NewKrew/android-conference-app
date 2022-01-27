@@ -13,6 +13,7 @@ import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.presentation.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.ImageResourceUrl
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 
@@ -28,9 +29,7 @@ class HighlightFragment : Fragment() {
         SessionListAdapter(
             onClickListener = {
                 (requireActivity().application as App).fragmentStack.push(
-                    FragmentInformation(
-                        currentSession = it
-                    )
+                    FragmentInformation(currentSession = it)
                 )
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
@@ -52,23 +51,8 @@ class HighlightFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvHighlightSessionsRecyclerview.apply {
-            adapter = highlightAdapter
-        }
-
-        Glide.with(this)
-            .load("https://t1.kakaocdn.net/service_if_kakao_prod/images/pc/bg_bye_2021.png")
-            .centerCrop()
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.tvMainPageBackground)
-        Glide.with(this)
-            .load(R.drawable.ic_hand)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.ivHandIconGif)
-
-        viewModel.highlightSessions.observe(viewLifecycleOwner) {
-            highlightAdapter.submitList(it)
-        }
+        binding.rvHighlightSessionsRecyclerview.adapter = highlightAdapter
+        binding.highlightUIState = HighlightUIState(viewModel.highlightSessions)
     }
 
     override fun onDestroyView() {
