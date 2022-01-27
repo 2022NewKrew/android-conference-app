@@ -1,8 +1,9 @@
 package com.survivalcoding.ifkakao.data.datasource.like
 
 import com.survivalcoding.ifkakao.domain.model.Session
+import javax.inject.Inject
 
-class LikeInMemoryDataSource : LikeDataSource {
+class LikeInMemoryDataSource @Inject constructor() : LikeDataSource {
 
     private var sessions: MutableList<Session> = mutableListOf()
 

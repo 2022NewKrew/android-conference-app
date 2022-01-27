@@ -4,8 +4,9 @@ import com.google.gson.Gson
 import com.survivalcoding.ifkakao.data.datasource.session.SessionDataSource
 import com.survivalcoding.ifkakao.data.datasource.session.SessionResponse
 import com.survivalcoding.ifkakao.domain.model.*
+import javax.inject.Inject
 
-class SessionLocalDataSource : SessionDataSource {
+class SessionLocalDataSource @Inject constructor() : SessionDataSource {
 
     private val json = """
         {"success":true,"code":0,"data":
