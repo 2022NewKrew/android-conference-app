@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,30 +16,44 @@
         android:layout_marginBottom="20dp"
         android:background="#00ffffff">
 
-        <ImageView
-            android:id="@+id/iv_list_item_thumbnail"
-            android:layout_width="120dp"
-            android:layout_height="68dp"
-            android:background="@drawable/list_video_thumbnail"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            thumbnailImage="@{sessionData.video.thumbnailUrl}" />
-
-        <TextView
-            android:id="@+id/tv_video_length"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/session_cv_thumbnail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/list_video_thumbnail_length"
-            android:fontFamily="@font/kakao_regular"
-            android:paddingHorizontal="5dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="2dp"
-            android:text="@{sessionData.video.videoLength}"
-            android:textColor="@color/text_color_white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_list_item_thumbnail"
-            app:layout_constraintEnd_toEndOf="@+id/iv_list_item_thumbnail" />
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/background_button_gray"
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:id="@+id/iv_list_item_thumbnail"
+                thumbnailImage="@{sessionData.video.thumbnailUrl}"
+                android:layout_width="120dp"
+                android:layout_height="68dp"
+                android:background="@color/black"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_video_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:background="@drawable/list_video_thumbnail_length"
+                android:fontFamily="@font/kakao_regular"
+                android:paddingHorizontal="5dp"
+                android:paddingBottom="3dp"
+                android:paddingTop="4dp"
+                android:text="@{sessionData.video.videoLength}"
+                android:textColor="@color/text_color_white"
+                android:textSize="12sp"
+                tools:text="09:41" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/list_company"
@@ -52,8 +67,9 @@
             android:text="@{sessionData.company}"
             android:textColor="@color/text_color_yellow"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_list_item_thumbnail"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/session_cv_thumbnail"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="카카오" />
 
         <TextView
             android:id="@+id/list_field"
@@ -68,7 +84,8 @@
             android:textColor="@color/text_color_white"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/list_company"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="서비스" />
 
         <TextView
             android:id="@+id/tv_highlight_title"
@@ -82,8 +99,9 @@
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_list_item_thumbnail"
-            app:layout_constraintTop_toBottomOf="@+id/list_company" />
+            app:layout_constraintStart_toEndOf="@id/session_cv_thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/list_company"
+            tools:text="이용자의 소중한 일상을 지키는 카카오톡" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

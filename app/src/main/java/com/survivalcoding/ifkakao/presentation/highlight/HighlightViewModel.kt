@@ -25,4 +25,7 @@ class HighlightViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5000L),
         initialValue = UiState.Loading
     )
+    val backgroundMobile = "https://t1.kakaocdn.net/service_if_kakao_prod/images/mo/bg_bye_2021.png"
+    val backgroundPc = "https://t1.kakaocdn.net/service_if_kakao_prod/images/pc/bg_bye_2021.png"
+    val icon = "https://t1.kakaocdn.net/service_if_kakao_prod/images/ico_bye_2021.gif"
 }

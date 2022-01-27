@@ -12,6 +12,10 @@
         <variable
             name="adapter"
             type="com.survivalcoding.ifkakao.presentation.util.SessionListAdapter" />
+
+        <variable
+            name="itemDecoration"
+            type="com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -28,13 +32,13 @@
 
             <ImageView
                 android:id="@+id/tv_main_page_background"
+                mailImage="@{vm.backgroundMobile}"
                 android:layout_width="match_parent"
                 android:layout_height="550dp"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                uiStatePortrait="@{vm.uiState}" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/cl_main_text_layout"
@@ -49,9 +53,9 @@
 
                 <ImageView
                     android:id="@+id/iv_hand_icon_gif"
+                    drawableIcon="@{vm.icon}"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    app:drawableIcon="@{vm.uiState}"
                     tools:src="@drawable/ic_hand" />
 
                 <TextView
@@ -107,6 +111,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_highlight_sessions_recyclerview"
+                adapter="@{adapter}"
+                itemDecoration="@{itemDecoration}"
+                sessions="@{vm.uiState}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="25dp"
@@ -114,13 +121,11 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 android:overScrollMode="never"
-                app:adapter="@{adapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/cl_highlight_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_text_with_button"
-                app:sessions="@{vm.uiState}"
                 tools:itemCount="1"
                 tools:listitem="@layout/content_list_item" />
 

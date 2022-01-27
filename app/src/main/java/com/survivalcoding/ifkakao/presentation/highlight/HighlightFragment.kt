@@ -10,19 +10,26 @@ import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.presentation.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
+import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HighlightFragment : BaseFragment<FragmentHighlightBinding>(R.layout.fragment_highlight) {
+    @Inject
+    lateinit var stk: Stack<FragmentInformation>
+
+    @Inject
+    lateinit var sessionItemDecoration: SessionItemDecoration
+
     private val viewModel: HighlightViewModel by viewModels()
 
     private val highlightAdapter by lazy {
         SessionListAdapter(
             onClickListener = {
-                (requireActivity().application as App).fragmentStack.push(
-                    FragmentInformation(currentSession = it)
-                )
+                stk.push(FragmentInformation(currentSession = it))
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
                     setReorderingAllowed(true)
@@ -38,6 +45,7 @@ class HighlightFragment : BaseFragment<FragmentHighlightBinding>(R.layout.fragme
         bind {
             vm = viewModel
             adapter = highlightAdapter
+            itemDecoration = sessionItemDecoration
         }
     }
 }
