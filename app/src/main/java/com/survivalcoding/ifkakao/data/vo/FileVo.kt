@@ -1,6 +1,6 @@
-package com.survivalcoding.ifkakao.domain.model
+package com.survivalcoding.ifkakao.data.vo
 
-data class VideoVo(
+data class FileVo(
     val contentsIdx: Int,
     val description: String,
     val fileSize: Int,

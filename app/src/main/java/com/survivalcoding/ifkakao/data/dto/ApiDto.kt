@@ -1,6 +1,6 @@
 package com.survivalcoding.ifkakao.data.dto
 
-import com.survivalcoding.ifkakao.domain.model.DataVo
+import com.survivalcoding.ifkakao.data.vo.DataVo
 
 data class ApiDto(
     val code: Int,

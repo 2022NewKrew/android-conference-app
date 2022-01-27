@@ -12,5 +12,10 @@ if [ "$status" = 0 ] ; then
     exit 0
 else
     echo 1>&2 "issue found, commit aborted"
+    # open detekt report with chrome browser
+    open -a "Google Chrome" "/Users/kakao/AndroidStudioProjects/android-conference-app/app/build/reports/detekt/detekt.html"
+    # open ktlint report with chrome browser
+    open -a "Google Chrome" "/Users/kakao/AndroidStudioProjects/android-conference-app/app/build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.xml"
+
     exit 1
 fi

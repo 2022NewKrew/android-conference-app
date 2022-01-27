@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.domain.model
+package com.survivalcoding.ifkakao.data.vo
 
 data class ContentsSpeakerVo(
     val channelLink: String,

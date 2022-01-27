@@ -1,7 +1,7 @@
 package com.survivalcoding.ifkakao.di
 
-import com.survivalcoding.ifkakao.data.datasource.ConferenceService
-import com.survivalcoding.ifkakao.data.datasource.ConferenceURL
+import com.survivalcoding.ifkakao.data.datasource.SessionService
+import com.survivalcoding.ifkakao.data.datasource.SessionURL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,13 +36,13 @@ object RemoteModule {
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
-        return Retrofit.Builder().baseUrl(ConferenceURL.BASE_URL).client(okHttpClient)
+        return Retrofit.Builder().baseUrl(SessionURL.BASE_URL).client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
 
     @Singleton
     @Provides
-    fun provideConferenceService(retrofit: Retrofit): ConferenceService =
-        retrofit.create(ConferenceService::class.java)
+    fun provideConferenceService(retrofit: Retrofit): SessionService =
+        retrofit.create(SessionService::class.java)
 }
