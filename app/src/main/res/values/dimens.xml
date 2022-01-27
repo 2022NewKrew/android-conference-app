@@ -3,4 +3,5 @@
     <dimen name="tagTextSize">9sp</dimen>
     <dimen name="thumbnailCornerSize">8dp</dimen>
     <dimen name="timeCornerSize">4dp</dimen>
+    <dimen name="speakerCornerSize">36dp</dimen>
 </resources>
