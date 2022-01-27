@@ -5,7 +5,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionsByTagUseCase
-import com.survivalcoding.ifkakao.presentation.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.base.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(
+class NewDetailViewModel @Inject constructor(
     private val getSessionsByTagUseCase: GetSessionsByTagUseCase,
 ) : ViewModel() {
     val relatedSessions by lazy {
@@ -45,9 +44,4 @@ class DetailViewModel @Inject constructor(
     }
 
     fun getCount() = _relatedSessionsCount.value
-}
-
-sealed class DetailEvent {
-    data class LoadingData(val info: FragmentInformation) : DetailEvent()
-    object LoadMoreSessions : DetailEvent()
 }

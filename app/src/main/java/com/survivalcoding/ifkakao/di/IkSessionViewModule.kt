@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.di
 
-import android.graphics.Color
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import dagger.Module
 import dagger.Provides

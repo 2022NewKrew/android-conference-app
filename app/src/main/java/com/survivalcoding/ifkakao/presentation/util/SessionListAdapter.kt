@@ -27,4 +27,8 @@ class SessionListAdapter(
             onClickListener = onClickListener,
         )
     }
+
+    fun submitListCount(count: Int) {
+        submitList(currentList.take(count))
+    }
 }

@@ -6,8 +6,24 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="com.survivalcoding.ifkakao.presentation.detail.DetailViewModel" />
+
+        <variable
+            name="tagAdapter"
+            type="com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter" />
+
+        <variable
+            name="sessionAdapter"
+            type="com.survivalcoding.ifkakao.presentation.util.SessionListAdapter" />
+
+        <variable
+            name="speakerAdapter"
+            type="com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter" />
+
+        <variable
+            name="itemDecoration"
+            type="com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -40,6 +56,7 @@
 
                 <ImageView
                     android:id="@+id/iv_detail_video_thumbnail"
+                    thumbnailImage="@{vm.currentSession.video.thumbnailUrl}"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +81,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/kakao_regular"
                     android:maxLines="1"
+                    android:text="@{vm.currentSession.title}"
                     android:textColor="@color/text_color_white"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/kakao_regular"
-                    android:text="@string/list_default_time"
+                    android:text="@{vm.currentSession.video.videoLength}"
                     android:textColor="@color/text_color_white"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -107,6 +125,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_tag_list"
+                    adapter="@{tagAdapter}"
+                    tags="@{vm.currentSession.tag}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
@@ -128,7 +148,7 @@
                     android:layout_marginVertical="15dp"
                     android:fontFamily="@font/kakao_regular"
                     android:lineSpacingExtra="10dp"
-                    android:text="@string/detail_temporary_text"
+                    android:text="@{vm.currentSession.title}"
                     android:textColor="@color/text_color_white"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -145,7 +165,7 @@
                     android:autoLink="web"
                     android:fontFamily="@font/kakao_regular"
                     android:lineSpacingExtra="10dp"
-                    android:text="@string/detail_temporary_text"
+                    android:text="@{vm.currentSession.content}"
                     android:textColor="@color/text_color_white"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +179,7 @@
                     android:layout_marginVertical="25dp"
                     android:fontFamily="@font/kakao_regular"
                     android:lineSpacingExtra="10dp"
-                    android:text="@string/detail_temporary_text"
+                    android:text="@{vm.currentSession.hashTag}"
                     android:textColor="@color/text_color_gray"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -168,6 +188,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_speaker_list"
+                    adapter="@{speakerAdapter}"
+                    speakers="@{vm.currentSession.sessionSpeakers}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="30dp"
@@ -284,6 +306,10 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_related_sessions_list"
+                    adapter="@{sessionAdapter}"
+                    itemDecoration="@{itemDecoration}"
+                    relatedSessionsCount="@{vm.relatedSessionsCount}"
+                    sessions="@{vm.relatedSessions}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="15dp"
