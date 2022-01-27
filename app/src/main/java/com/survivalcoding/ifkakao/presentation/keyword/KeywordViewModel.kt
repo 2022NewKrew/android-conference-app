@@ -36,6 +36,7 @@ class KeywordViewModel @Inject constructor(
     private val _selectedKeyword = MutableStateFlow(IkTagInfo.getEmptyTagInfo())
     private val _relatedSessionsCount = MutableStateFlow(8)
 
+    val selectedKeyword = _selectedKeyword.asLiveData()
     val relatedSessionsCount = _relatedSessionsCount.asLiveData()
 
     fun onEvent(event: KeywordEvent) {

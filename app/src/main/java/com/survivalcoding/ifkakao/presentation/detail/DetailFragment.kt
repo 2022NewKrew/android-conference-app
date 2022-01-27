@@ -10,6 +10,7 @@ import com.survivalcoding.ifkakao.presentation.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
+import com.survivalcoding.ifkakao.presentation.keyword.KeywordFragment
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +29,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private val tagListAdapter = TagListAdapter(
         onClickListener = {
-
+            stk.push(FragmentInformation(selectedKeyword = it))
+            parentFragmentManager.commit {
+                replace(R.id.fragment_container_view, KeywordFragment())
+                setReorderingAllowed(true)
+                addToBackStack(null)
+            }
         }
     )
 
