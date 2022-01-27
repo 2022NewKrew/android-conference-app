@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.survivalcoding.ifkakao.presentation.detail.DetailViewModel" />
@@ -336,6 +338,7 @@
                     android:paddingVertical="10dp"
                     android:text="연관세션 더보기"
                     android:textColor="#a9a9a9"
+                    android:visibility="@{vm.relatedSessions.size() &lt; vm.relatedSessionsCount ? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rv_related_sessions_list" />

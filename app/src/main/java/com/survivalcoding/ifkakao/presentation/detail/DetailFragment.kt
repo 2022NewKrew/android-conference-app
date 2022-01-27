@@ -57,6 +57,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             speakerAdapter = speakerListAdapter
             sessionAdapter = sessionListAdapter
             itemDecoration = sessionItemDecoration
+
+            btnMoreSessions.setOnClickListener { viewModel.onEvent(DetailEvent.LoadMoreSessions) }
         }
     }
 }
