@@ -119,6 +119,8 @@ dependencies {
     // When using a AppCompat theme
     implementation "com.google.accompanist:accompanist-appcompat-theme:0.16.0"
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0-rc01")
+    //flowRow
+    implementation "com.google.accompanist:accompanist-flowlayout:0.24.1-alpha"
 }
 
 kapt {

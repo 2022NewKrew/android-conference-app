@@ -11,11 +11,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -23,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.domain.entity.ContentsSpeakerList
 import com.example.domain.entity.Data
 import com.example.domain.entity.Video
+import com.google.accompanist.flowlayout.FlowRow
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
@@ -31,6 +35,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.compose.ui.EvanTheme
+import com.survivalcoding.ifkakao.compose.widget.BorderedText
 import com.survivalcoding.ifkakao.compose.widget.CircleImageLoader
 import com.survivalcoding.ifkakao.compose.widget.RectangleImageLoader
 import com.survivalcoding.ifkakao.compose.widget.SingleSession
@@ -65,7 +70,13 @@ fun TopCompose(viewModel: MainViewModel) {
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         VideoPart(session.value.linkList?.video)
-        DescriptionPart(session.value.content, session.value.title)
+        DescriptionPart(
+            session.value.relationList?.classification,
+            session.value.field,
+            session.value.company,
+            session.value.contentTag,
+            session.value.content, session.value.title
+        )
         ProfilePart(
             url = session.value.linkList?.speakerProfile?.first()?.url,
             item = session.value.contentsSpeakerList?.first()
@@ -109,9 +120,38 @@ fun VideoPart(videos: List<Video>?) {
 
 
 @Composable
-fun DescriptionPart(content: String?, title: String?) {
-    Text(text = title ?: "NO DESCRIPTION", fontWeight = FontWeight.Bold)
+fun DescriptionPart(
+    classification: List<String>?,
+    field: String?,
+    company: String?,
+    contentTag: String?, 
+    content: String?, 
+    title: String?
+) {
+    FlowRow(crossAxisSpacing = 5.dp) {
+        field?.let { 
+            BorderedText(text = it)
+        }
+        company?.let {
+            BorderedText(text = it)
+        }
+        classification?.let { 
+            for(item in it){
+                BorderedText(text = item)
+            }
+        }
+    }
+
+    Text(
+        text = title ?: "NO DESCRIPTION",
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp
+    )
     Text(text = content ?: "NO CONTENT")
+
+    contentTag?.let {
+        Text(text = it, color = Color.Gray)
+    }
 
 }
 
