@@ -4,8 +4,9 @@ import com.survivalcoding.ifkakao.data.datasource.like.LikeDataSource
 import com.survivalcoding.ifkakao.data.datasource.session.SessionDataSource
 import com.survivalcoding.ifkakao.domain.model.Session
 import com.survivalcoding.ifkakao.domain.repository.SessionRepository
+import javax.inject.Inject
 
-class SessionRepositoryImpl(
+class SessionRepositoryImpl @Inject constructor(
     private val sessionDataSource: SessionDataSource,
     private val likeDataSource: LikeDataSource
 ) : SessionRepository {

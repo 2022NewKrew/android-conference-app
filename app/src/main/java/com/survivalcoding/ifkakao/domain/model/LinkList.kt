@@ -1,8 +1,8 @@
 package com.survivalcoding.ifkakao.domain.model
 
 data class LinkList(
-    val file: List<File>,
-    val pcImage: List<File>,
-    val speakerProfile: List<File>,
-    val video: List<File>
+    val FILE: List<File>,
+    val PC_IMAGE: List<File>,
+    val SPEAKER_PROFILE: List<File>,
+    val VIDEO: List<File>
 )

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.highlight.HighlightFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp">
+
+        <ImageView
+            android:id="@+id/highlight_iv_background"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/main_background_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/purple_500"
+            tools:layout_height="200dp" />
+
+        <ImageView
+            android:id="@+id/highlight_iv_foreground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/main_foreground_image"
+            android:src="#cc000000"
+            app:layout_constraintBottom_toBottomOf="@id/highlight_iv_background"
+            app:layout_constraintEnd_toEndOf="@id/highlight_iv_background"
+            app:layout_constraintStart_toStartOf="@id/highlight_iv_background"
+            app:layout_constraintTop_toTopOf="@id/highlight_iv_background" />
+
+        <ImageView
+            android:id="@+id/highlight_iv_bye"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/main_bye_gif"
+            app:layout_constraintBottom_toTopOf="@id/highlight_tv_bye"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/highlight_iv_background"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/highlight_tv_bye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/main_bye_message"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/highlight_iv_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/highlight_iv_bye"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/highlight_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/highlight_title"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/highlight_iv_background" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_button"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:text="@string/show_all_session"
+            android:textColor="@color/light_gray"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/highlight_tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/highlight_tv_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/highlight_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/highlight_tv_title"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_session" />
+
+        <TextView
+            android:id="@+id/highlight_tv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/history_2020"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/highlight_recycler_view" />
+
+        <TextView
+            android:id="@+id/highlight_tv_corporate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/kakao_corp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/highlight_tv_history" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
