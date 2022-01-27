@@ -13,19 +13,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/pv_detail_video"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_video_layout"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="#40ffffff"
-            android:fontFamily="@font/kakao_regular"
-            android:gravity="center"
-            android:text="@string/detail_temporary_text"
-            android:textColor="@color/text_color_white"
-            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!--        <com.google.android.exoplayer2.ui.PlayerView-->
+            <!--            android:id="@+id/pv_detail_video"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="300dp"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+            <ImageView
+                android:id="@+id/iv_detail_video_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_detail_video_thumbnail_veil"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="#80000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_detail_video_title"
+                android:layout_width="200dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/kakao_regular"
+                android:maxLines="1"
+                android:textColor="@color/text_color_white"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_play_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:paddingEnd="8dp"
+                android:src="@drawable/ic_baseline_play_arrow_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/text_color_white" />
+
+            <TextView
+                android:id="@+id/tv_detail_video_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kakao_regular"
+                android:text="@string/list_default_time"
+                android:textColor="@color/text_color_white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_play_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_detail_content"
@@ -35,7 +94,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pv_detail_video">
+            app:layout_constraintTop_toBottomOf="@id/cl_video_layout">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_tag_list"
@@ -74,6 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="25dp"
+                android:autoLink="web"
                 android:fontFamily="@font/kakao_regular"
                 android:lineSpacingExtra="10dp"
                 android:text="@string/detail_temporary_text"
@@ -137,7 +197,7 @@
                     android:id="@+id/iv_facebook_button"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:background="@drawable/icon_button"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_facebook_app_symbol"
@@ -150,7 +210,7 @@
                     android:id="@+id/iv_twitter_button"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:background="@drawable/icon_button"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_twitter"
@@ -163,7 +223,7 @@
                     android:id="@+id/iv_link_button"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:background="@drawable/icon_button"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_link"
@@ -204,7 +264,7 @@
             app:layout_constraintTop_toBottomOf="@id/cl_detail_content">
 
             <TextView
-                android:id="@+id/tv_relative_sessions_title"
+                android:id="@+id/tv_detail_sessions_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -214,7 +274,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_relative_sessions_list"
+                android:id="@+id/rv_related_sessions_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="15dp"
@@ -224,7 +284,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_relative_sessions_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_detail_sessions_title"
                 tools:itemCount="1"
                 tools:listitem="@layout/content_list_item" />
 
@@ -243,7 +303,7 @@
                 android:textColor="#a9a9a9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_relative_sessions_list" />
+                app:layout_constraintTop_toBottomOf="@id/rv_related_sessions_list" />
 
             <ImageView
                 android:id="@+id/iv_scroll_to_top_button"

@@ -1,78 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
-    android:background="#00ffffff">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_list_item_thumbnail"
-        android:layout_width="120dp"
-        android:layout_height="70dp"
-        android:background="@drawable/list_video_thumbnail"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_video_length"
-        android:layout_width="wrap_content"
+        <variable
+            name="sessionData"
+            type="com.survivalcoding.ifkakao.domain.model.IkSessionData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/list_video_thumbnail_length"
-        android:fontFamily="@font/kakao_regular"
-        android:paddingHorizontal="5dp"
-        android:paddingBottom="2dp"
-        android:paddingTop="3dp"
-        android:text="@string/list_default_time"
-        android:textColor="@color/text_color_white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_list_item_thumbnail"
-        app:layout_constraintEnd_toEndOf="@+id/iv_list_item_thumbnail" />
+        android:layout_marginBottom="20dp"
+        android:background="#00ffffff">
 
-    <TextView
-        android:id="@+id/list_company"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:background="@drawable/list_company"
-        android:fontFamily="@font/kakao_regular"
-        android:paddingHorizontal="4dp"
-        android:paddingVertical="2dp"
-        android:text="@string/list_company_name"
-        android:textColor="@color/text_color_yellow"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/iv_list_item_thumbnail"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/iv_list_item_thumbnail"
+            android:layout_width="120dp"
+            android:layout_height="68dp"
+            android:background="@drawable/list_video_thumbnail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listThumbnailImageResourceUrl="@{sessionData.video.thumbnailUrl}" />
 
-    <TextView
-        android:id="@+id/list_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:background="@drawable/list_field"
-        android:fontFamily="@font/kakao_regular"
-        android:paddingHorizontal="4dp"
-        android:paddingVertical="2dp"
-        android:text="@string/list_field_name"
-        android:textColor="@color/text_color_white"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/list_company"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_video_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/list_video_thumbnail_length"
+            android:fontFamily="@font/kakao_regular"
+            android:paddingHorizontal="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="2dp"
+            android:text="@{sessionData.video.videoLength}"
+            android:textColor="@color/text_color_white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_list_item_thumbnail"
+            app:layout_constraintEnd_toEndOf="@+id/iv_list_item_thumbnail" />
 
-    <TextView
-        android:id="@+id/tv_highlight_title"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/kakao_regular"
-        android:textColor="@color/text_color_white"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/iv_list_item_thumbnail"
-        app:layout_constraintTop_toBottomOf="@+id/list_company" />
+        <TextView
+            android:id="@+id/list_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/list_company"
+            android:fontFamily="@font/kakao_regular"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
+            android:text="@{sessionData.company}"
+            android:textColor="@color/text_color_yellow"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_list_item_thumbnail"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/list_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/list_field"
+            android:fontFamily="@font/kakao_regular"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
+            android:text="@{sessionData.field}"
+            android:textColor="@color/text_color_white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/list_company"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_highlight_title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/kakao_regular"
+            android:text="@{sessionData.title}"
+            android:textColor="@color/text_color_white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_list_item_thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/list_company" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

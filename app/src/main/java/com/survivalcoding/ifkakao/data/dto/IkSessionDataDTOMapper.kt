@@ -27,7 +27,7 @@ internal fun IkSessionDataDTO.toEntity(): IkSessionData {
             IkSessionSpeaker(
                 id = sessionSpeakerDTO.idx,
                 company = sessionSpeakerDTO.company,
-                name = "${sessionSpeakerDTO.nameKo} ${sessionSpeakerDTO.nameKo}",
+                name = "${sessionSpeakerDTO.nameKo} ${sessionSpeakerDTO.nameEn}",
                 occupation = sessionSpeakerDTO.occupation,
                 imageUrl = speakerProfileDTO.url,
             )

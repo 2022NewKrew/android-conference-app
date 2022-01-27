@@ -13,4 +13,23 @@ data class IkSessionData(
     val tag: List<IkTagInfo>,
     val title: String,
     val video: IkSessionVideo,
-)
+) {
+    companion object {
+        fun getEmptySessionData(): IkSessionData {
+            return IkSessionData(
+                "",
+                "",
+                -1,
+                "",
+                -1,
+                false,
+                false,
+                "",
+                listOf(),
+                listOf(),
+                "",
+                IkSessionVideo.getEmptyVideo()
+            )
+        }
+    }
+}

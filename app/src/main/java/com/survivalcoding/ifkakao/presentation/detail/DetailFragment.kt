@@ -1,30 +1,37 @@
 package com.survivalcoding.ifkakao.presentation.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
-import com.survivalcoding.ifkakao.presentation.MainViewModel
-import com.survivalcoding.ifkakao.presentation.MainViewModelFactory
-import com.survivalcoding.ifkakao.presentation.SessionType
+import com.survivalcoding.ifkakao.presentation.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
-import com.survivalcoding.ifkakao.presentation.highlight.adapter.SessionListAdapter
+import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val relativeSessionsAdapter by lazy {
+    private val relatedSessionsAdapter by lazy {
         SessionListAdapter(
-            clickListener = {
-                viewModel.selectSession(it)
+            onClickListener = {
+                with((requireActivity().application as App).fragmentStack) {
+                    val current = pop()
+                    push(current.copy(relatedSessionsCount = viewModel.getSize()))
+                    push(FragmentInformation(currentSession = it))
+                }
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
                     setReorderingAllowed(true)
@@ -42,12 +49,10 @@ class DetailFragment : Fragment() {
         )
     }
 
-    private val speakerAdapter by lazy {
-        SpeakerListAdapter()
-    }
+    private val speakerAdapter by lazy { SpeakerListAdapter() }
 
-    private val viewModel by activityViewModels<MainViewModel> {
-        MainViewModelFactory((requireActivity().application as App).repository)
+    private val viewModel by viewModels<DetailViewModel> {
+        DetailViewModelFactory((requireActivity().application as App).allSessions)
     }
 
     override fun onCreateView(
@@ -55,35 +60,45 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        viewModel.setSessionType(SessionType.RelativeSession)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) =
+        with((requireActivity().application as App).fragmentStack) {
+            super.onViewCreated(view, savedInstanceState)
 
-        binding.rvRelativeSessionsList.adapter = relativeSessionsAdapter
-        binding.rvTagList.adapter = tagsAdapter
-        binding.rvSpeakerList.adapter = speakerAdapter
+            viewModel.onEvent(DetailEvent.LoadingData(peek()))
 
-        viewModel.selectedSession.observe(viewLifecycleOwner) {
-            it?.let {
-                binding.tvDetailTitle.text = it.title
-                binding.tvDetailContent.text = it.content
-                binding.tvDetailHashtag.text = it.hashTag
-                tagsAdapter.submitList(it.tag)
-                speakerAdapter.submitList(it.sessionSpeakers)
+            Glide.with(requireContext())
+                .load(viewModel.getVideoThumbnailUrl())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .fitCenter()
+                .into(binding.ivDetailVideoThumbnail)
+
+            binding.rvRelatedSessionsList.adapter = relatedSessionsAdapter
+            binding.rvTagList.adapter = tagsAdapter
+            binding.rvSpeakerList.adapter = speakerAdapter
+            binding.btnMoreSessions.setOnClickListener {
+                viewModel.onEvent(DetailEvent.LoadMoreSessions)
+            }
+
+            viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+                uiState.session?.let {
+                    binding.tvDetailTitle.text = it.title
+                    binding.tvDetailContent.text = it.content
+                    binding.tvDetailHashtag.text = it.hashTag
+                    binding.tvDetailVideoTitle.text = it.title
+                    binding.tvDetailVideoLength.text = it.video.videoLength
+                    tagsAdapter.submitList(it.tag)
+                    speakerAdapter.submitList(it.sessionSpeakers)
+                    relatedSessionsAdapter.submitList(uiState.exposedList)
+                }
+                binding.btnMoreSessions.isVisible = uiState.hasMoreRelatedSessions
             }
         }
 
-        viewModel.usedList.observe(viewLifecycleOwner) {
-            relativeSessionsAdapter.submitList(it)
-        }
-    }
-
     override fun onDestroyView() {
         _binding = null
-//        viewModel.selectSession(null)
         super.onDestroyView()
     }
 }
