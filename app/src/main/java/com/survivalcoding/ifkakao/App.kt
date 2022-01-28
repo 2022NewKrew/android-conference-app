@@ -2,7 +2,6 @@ package com.survivalcoding.ifkakao
 
 import android.app.Application
 import com.survivalcoding.ifkakao.data.datasource.local.MockLocalDataSource
-import com.survivalcoding.ifkakao.data.datasource.remote.MockRemoteDataSource
 import com.survivalcoding.ifkakao.data.datasource.remote.RetrofitClient
 import com.survivalcoding.ifkakao.data.datasource.remote.SessionRemoteDataSource
 import com.survivalcoding.ifkakao.data.repository.SessionRepositoryImpl
@@ -65,7 +64,7 @@ class App : Application() {
         viewModel { params -> DetailViewModel(params.get(), get(), get(), get()) }
     }
 
-    val useCaseModule = module {
+    private val useCaseModule = module {
         factory { FindIfLikingUseCase(get()) }
         factory { GetLikesUseCase(get()) }
         factory { GetRelatedSessionsUseCase(get()) }
@@ -80,8 +79,8 @@ class App : Application() {
 
     private val dataSourceModules = module {
         single<SessionRemoteRepository> {
-        //MockRemoteDataSource()
-        SessionRemoteDataSource(get())
+            //MockRemoteDataSource()
+            SessionRemoteDataSource(get())
         }
         single<SessionLocalRepository> { MockLocalDataSource() }
     }

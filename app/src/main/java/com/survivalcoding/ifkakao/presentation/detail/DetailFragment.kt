@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class DetailFragment : Fragment() {
-    private val detailViewModel by viewModel<DetailViewModel>()
+    private val detailViewModel: DetailViewModel by stateViewModel(state = { requireArguments() })
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -25,11 +25,13 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.lifecycleOwner = this
-        binding.viewModel = detailViewModel
+        val playerTitle = binding.playerTitle
 
         //ToDo: Exoplayer 활용한 동영상 뷰 구현
         val playerView = binding.playerView
+        detailViewModel.session.observe(viewLifecycleOwner) {
+            playerTitle.text = it.title
+        }
 
         val viewpager = binding.viewPager2
         viewpager.adapter = DetailAdapter(this)
@@ -42,7 +44,6 @@ class DetailFragment : Fragment() {
 }
 
 class DetailAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {

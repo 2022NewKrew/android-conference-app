@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.ConcatAdapter
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.presentation.commons.FooterAdapter
-import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
 import com.survivalcoding.ifkakao.presentation.commons.SessionAdapter
+import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -69,7 +69,7 @@ class MainFragment : Fragment() {
     }
 
     private fun moveToNextFragment(fragment: Fragment) {
-        parentFragmentManager.beginTransaction()
+        requireActivity().supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView,
                 fragment

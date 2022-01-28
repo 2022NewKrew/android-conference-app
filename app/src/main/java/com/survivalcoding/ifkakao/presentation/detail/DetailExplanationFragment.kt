@@ -13,11 +13,12 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailExplanationBinding
 import com.survivalcoding.ifkakao.presentation.commons.FooterAdapter
 import com.survivalcoding.ifkakao.presentation.commons.SessionAdapter
-import com.survivalcoding.ifkakao.presentation.main.MainFragment
-import org.koin.androidx.viewmodel.ext.android.sharedStateViewModel
+import com.survivalcoding.ifkakao.presentation.main.MainFragment.Companion.SELECTED
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class DetailExplanationFragment : Fragment() {
-    private val detailViewModel: DetailViewModel by sharedStateViewModel(state = { requireParentFragment().requireArguments() })
+    private val detailViewModel: DetailViewModel by stateViewModel(state = { requireParentFragment().requireArguments() })
+
     private var _binding: FragmentDetailExplanationBinding? = null
     private val binding get() = _binding!!
 
@@ -36,11 +37,11 @@ class DetailExplanationFragment : Fragment() {
         val concatAdapter = ConcatAdapter(
             ExplanationAdapter(),
             SessionAdapter { idx ->
-                parentFragmentManager.beginTransaction()
+                requireActivity().supportFragmentManager.beginTransaction()
                     .replace(
                         R.id.fragmentContainerView,
                         DetailFragment().apply {
-                            this.arguments = bundleOf(MainFragment.SELECTED to idx)
+                            this.arguments = bundleOf(SELECTED to idx)
                         }
                     )
                     .addToBackStack(null)
@@ -64,6 +65,10 @@ class DetailExplanationFragment : Fragment() {
 
         detailViewModel.session.observe(viewLifecycleOwner) {
             (concatAdapter.adapters[0] as ExplanationAdapter).updateSession(it)
+        }
+
+        detailViewModel.relatedSessions.observe(viewLifecycleOwner) {
+            (concatAdapter.adapters[1] as SessionAdapter).submitList(it)
         }
     }
 
