@@ -1,12 +1,10 @@
 package com.survivalcoding.ifkakao.ui.sessiondetail.viewpager
 
-import android.view.View
-import android.widget.FrameLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.adapter.FragmentViewHolder
 import com.survivalcoding.ifkakao.domain.model.Data
+import com.survivalcoding.ifkakao.ui.sessiondetail.viewpager.comment.SessionCommentFragment
 import java.lang.IllegalArgumentException
 
 class SessionDetailFragmentStateAdapter(fragment: Fragment, private val session: Data): FragmentStateAdapter(fragment) {

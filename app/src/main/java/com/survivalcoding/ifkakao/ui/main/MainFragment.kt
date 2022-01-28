@@ -40,6 +40,10 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Glide.with(this).load(R.drawable.ico_bye_2021).into(binding.byeIv)
 
+        binding.footerIcl.scrollToTopIbt.setOnClickListener {
+            binding.nestedScrollView.smoothScrollTo(0, 0)
+        }
+
         val adapter = SessionAdapter {
             findNavController().navigate(
                 MainFragmentDirections.actionMainFragmentToSessionDetailFragment(

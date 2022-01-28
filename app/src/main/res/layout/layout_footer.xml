@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="128dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/lastConferenceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/copyrightTv"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="if(kakako)2020 보기"
+        android:textSize="16sp"
+        android:textColor="@color/cyan"/>
+
+    <TextView
+        android:id="@+id/copyrightTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="4dp"
+        android:text="kakao corp."
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/scrollToTopIbt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="4dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="@id/lastConferenceTv"
+        app:layout_constraintBottom_toBottomOf="@id/copyrightTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_baseline_arrow_circle_up_24"
+        android:background="@null"
+        android:scaleType="fitCenter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
