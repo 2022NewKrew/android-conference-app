@@ -14,7 +14,7 @@ class DetailViewModel(
     private val getRelatedSessionsUseCase: GetRelatedSessionsUseCase,
     private val getIfLikingUseCase: FindIfLikingUseCase,
 ) : ViewModel() {
-    private var _session: MutableLiveData<Session> = MutableLiveData()
+    private var _session: MutableLiveData<Session> = MutableLiveData(Session())
     val session: LiveData<Session> = _session
 
     private var _relatedSessions: MutableLiveData<List<Session>> = MutableLiveData(emptyList())
@@ -35,5 +35,9 @@ class DetailViewModel(
 
             _isLiking.value = getIfLikingUseCase.invoke(_session.value!!.idx)
         }
+    }
+
+    fun changeLike() {
+        _isLiking.value = !(_isLiking.value)!!
     }
 }

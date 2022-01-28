@@ -7,8 +7,8 @@ import com.survivalcoding.ifkakao.data.datasource.remote.SessionRemoteDataSource
 import com.survivalcoding.ifkakao.data.repository.SessionRepositoryImpl
 import com.survivalcoding.ifkakao.domain.repository.SessionLocalRepository
 import com.survivalcoding.ifkakao.domain.repository.SessionRemoteRepository
-import com.survivalcoding.ifkakao.domain.usecase.GetHighLightedUseCase
-import com.survivalcoding.ifkakao.domain.usecase.GetSessionsUseCase
+import com.survivalcoding.ifkakao.domain.usecase.*
+import com.survivalcoding.ifkakao.presentation.detail.DetailViewModel
 import com.survivalcoding.ifkakao.presentation.main.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -60,14 +60,15 @@ class App : Application() {
 
     private val viewModelsModules = module {
         viewModel { MainViewModel(get()) }
+        viewModel { DetailViewModel(get(), get(), get(), get()) }
     }
 
     val useCaseModule = module {
-        //factory { FindIfLikingUseCase(get()) }
-        //factory { GetLikesUseCase(get()) }
-        //factory { GetRelatedSessionsUseCase(get()) }
+        factory { FindIfLikingUseCase(get()) }
+        factory { GetLikesUseCase(get()) }
+        factory { GetRelatedSessionsUseCase(get()) }
         factory { GetSessionsUseCase(get()) }
-        //factory { GetSessionByIdUseCase(get()) }
+        factory { GetSessionByIdUseCase(get()) }
         factory { GetHighLightedUseCase(get()) }
     }
 

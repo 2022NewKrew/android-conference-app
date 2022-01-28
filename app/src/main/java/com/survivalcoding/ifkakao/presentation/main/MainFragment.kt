@@ -8,13 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
-import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
+import com.survivalcoding.ifkakao.presentation.commons.FooterAdapter
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
-import com.survivalcoding.ifkakao.presentation.util.SessionAdapter
+import com.survivalcoding.ifkakao.presentation.commons.SessionAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

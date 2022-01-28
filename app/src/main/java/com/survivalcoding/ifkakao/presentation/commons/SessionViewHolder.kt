@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.presentation.util
+package com.survivalcoding.ifkakao.presentation.commons
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
