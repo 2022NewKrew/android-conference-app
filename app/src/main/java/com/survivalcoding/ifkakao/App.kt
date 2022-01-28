@@ -2,6 +2,7 @@ package com.survivalcoding.ifkakao
 
 import android.app.Application
 import com.survivalcoding.ifkakao.data.datasource.local.MockLocalDataSource
+import com.survivalcoding.ifkakao.data.datasource.remote.MockRemoteDataSource
 import com.survivalcoding.ifkakao.data.datasource.remote.RetrofitClient
 import com.survivalcoding.ifkakao.data.datasource.remote.SessionRemoteDataSource
 import com.survivalcoding.ifkakao.data.repository.SessionRepositoryImpl
@@ -35,6 +36,7 @@ class App : Application() {
         )
     }*/
 
+
     override fun onCreate() {
         super.onCreate()
 
@@ -60,7 +62,7 @@ class App : Application() {
 
     private val viewModelsModules = module {
         viewModel { MainViewModel(get()) }
-        viewModel { DetailViewModel(get(), get(), get(), get()) }
+        viewModel { params -> DetailViewModel(params.get(), get(), get(), get()) }
     }
 
     val useCaseModule = module {
@@ -78,7 +80,8 @@ class App : Application() {
 
     private val dataSourceModules = module {
         single<SessionRemoteRepository> {
-            SessionRemoteDataSource(get())
+        //MockRemoteDataSource()
+        SessionRemoteDataSource(get())
         }
         single<SessionLocalRepository> { MockLocalDataSource() }
     }

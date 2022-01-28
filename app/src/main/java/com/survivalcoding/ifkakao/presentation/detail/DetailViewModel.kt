@@ -27,13 +27,14 @@ class DetailViewModel(
         viewModelScope.launch {
             savedStateHandle.get<Int>(SELECTED)?.let { it ->
                 _session.value = getSessionById.invoke(it)
-            }
-            _relatedSessions.value = getRelatedSessionsUseCase.invoke(
-                _session.value!!.field,
-                _session.value!!.relationList.MAIN_EXPOSURE_DAY
-            )
 
-            _isLiking.value = getIfLikingUseCase.invoke(_session.value!!.idx)
+                _relatedSessions.value = getRelatedSessionsUseCase.invoke(
+                    _session.value!!.field,
+                    _session.value!!.relationList.MAIN_EXPOSURE_DAY
+                )
+
+                _isLiking.value = getIfLikingUseCase.invoke(_session.value!!.idx)
+            }
         }
     }
 
