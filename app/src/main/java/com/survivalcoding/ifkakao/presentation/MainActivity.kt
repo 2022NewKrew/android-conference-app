@@ -6,8 +6,10 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
+import com.survivalcoding.ifkakao.presentation.day.SessionFragment
 import com.survivalcoding.ifkakao.presentation.highlight.HighlightFragment
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -37,10 +39,34 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.toolbarTitle.setOnClickListener {
+            if (stk.peek().fragmentType == FragmentType.HIGHLIGHT) return@setOnClickListener
+            stk.push(FragmentInformation(fragmentType = FragmentType.HIGHLIGHT))
             supportFragmentManager.commit {
                 replace(R.id.fragment_container_view, HighlightFragment())
                 addToBackStack(null)
             }
         }
+
+        binding.navigationSessionItem.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            if (stk.peek().fragmentType == FragmentType.SESSION) return@setOnClickListener
+
+            stk.push(
+                FragmentInformation(
+                    fragmentType = FragmentType.SESSION,
+                    selectedDay = 3,
+                    exposedListCount = 8
+                )
+            )
+            supportFragmentManager.commit {
+                replace(R.id.fragment_container_view, SessionFragment())
+                addToBackStack(null)
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        stk.pop()
+        super.onBackPressed()
     }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.domain.usecase.GetHighlightSessionsUseCase
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -23,6 +24,12 @@ class HighlightViewModel @Inject constructor(
         )
 
     fun toAllSession() {
-        stk.push(FragmentInformation(exposedListCount = 8, selectedDay = 3))
+        stk.push(
+            FragmentInformation(
+                fragmentType = FragmentType.SESSION,
+                exposedListCount = 8,
+                selectedDay = 3
+            )
+        )
     }
 }

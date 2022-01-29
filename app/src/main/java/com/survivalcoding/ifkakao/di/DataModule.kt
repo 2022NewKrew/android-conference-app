@@ -5,7 +5,7 @@ import com.survivalcoding.ifkakao.data.repository.SessionRemoteRepositoryImpl
 import com.survivalcoding.ifkakao.domain.model.IfKakaoContent
 import com.survivalcoding.ifkakao.domain.repository.SessionRepository
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
-import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
+import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,6 +46,6 @@ object DataModule {
     @Provides
     @Singleton
     fun provideFragmentStack(): Stack<FragmentInformation> {
-        return Stack()
+        return Stack<FragmentInformation>().apply { push(FragmentInformation(fragmentType = FragmentType.HIGHLIGHT)) }
     }
 }

@@ -11,6 +11,7 @@ import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 import com.survivalcoding.ifkakao.presentation.keyword.KeywordFragment
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,42 +23,42 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     @Inject
     lateinit var stk: Stack<FragmentInformation>
 
-    private val viewModel: DetailViewModel by viewModels()
-
-    private val tagListAdapter = TagListAdapter(
-        onClickListener = {
-            stk.push(FragmentInformation(selectedKeyword = it))
-            parentFragmentManager.commit {
-                replace(R.id.fragment_container_view, KeywordFragment())
-                setReorderingAllowed(true)
-                addToBackStack(null)
-            }
-        }
-    )
-
-    private val sessionListAdapter = SessionListAdapter(
-        onClickListener = {
-            viewModel.onEvent(DetailEvent.NextSession(it))
-            parentFragmentManager.commit {
-                replace(R.id.fragment_container_view, DetailFragment())
-                setReorderingAllowed(true)
-                addToBackStack(null)
-            }
-        }
-    )
-
-    private val speakerListAdapter = SpeakerListAdapter()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        bind {
-            tagAdapter = tagListAdapter
-            speakerAdapter = speakerListAdapter
-            sessionAdapter = sessionListAdapter
-            itemDecoration = SessionItemDecoration()
-            executePendingBindings()
-            vm = viewModel
-        }
-    }
+//    private val viewModel: DetailViewModel by viewModels()
+//
+//    private val tagListAdapter = TagListAdapter(
+//        onClickListener = {
+//            stk.push(FragmentInformation(fragmentType = FragmentType.KEYWORD, selectedKeyword = it))
+//            parentFragmentManager.commit {
+//                replace(R.id.fragment_container_view, KeywordFragment())
+//                setReorderingAllowed(true)
+//                addToBackStack(null)
+//            }
+//        }
+//    )
+//
+//    private val sessionListAdapter = SessionListAdapter(
+//        onClickListener = {
+//            viewModel.onEvent(DetailEvent.NextSession(it))
+//            parentFragmentManager.commit {
+//                replace(R.id.fragment_container_view, DetailFragment())
+//                setReorderingAllowed(true)
+//                addToBackStack(null)
+//            }
+//        }
+//    )
+//
+//    private val speakerListAdapter = SpeakerListAdapter()
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        bind {
+//            tagAdapter = tagListAdapter
+//            speakerAdapter = speakerListAdapter
+//            sessionAdapter = sessionListAdapter
+//            itemDecoration = SessionItemDecoration()
+//            executePendingBindings()
+//            vm = viewModel
+//        }
+//    }
 }

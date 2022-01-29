@@ -49,7 +49,8 @@
                     android:paddingBottom="30dp"
                     android:text="@string/navigation_menu_session"
                     android:textColor="@color/white_text"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/poster"
@@ -63,22 +64,25 @@
                 <Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="bottom"
-                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
                     app:layout_collapseMode="pin">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|start"
                         android:orientation="horizontal">
 
                         <TextView
                             currentDay="@{vm.currentDay}"
-                            android:layout_width="100dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center|start"
                             android:layout_marginStart="5dp"
+                            android:layout_weight="4"
                             android:textColor="@color/white_text"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -87,6 +91,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:src="@drawable/ic_baseline_arrow_drop_down_24"
                             app:tint="@color/white_text" />
 

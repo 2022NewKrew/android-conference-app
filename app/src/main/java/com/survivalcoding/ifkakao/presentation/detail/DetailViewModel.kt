@@ -5,6 +5,7 @@ import androidx.lifecycle.asLiveData
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.usecase.GetRelatedSessionsUseCase
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -34,13 +35,15 @@ class DetailViewModel @Inject constructor(
                 stk.pop()
                 stk.push(
                     FragmentInformation(
+                        fragmentType = FragmentType.DETAIL,
                         session = _currentSession.value,
                         exposedListCount = _exposedListCount.value,
                     )
                 )
                 stk.push(
                     FragmentInformation(
-                        session = event.session
+                        fragmentType = FragmentType.DETAIL,
+                        session = event.session,
                     )
                 )
             }

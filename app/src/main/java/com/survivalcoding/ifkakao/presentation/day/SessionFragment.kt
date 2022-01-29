@@ -12,7 +12,6 @@ import com.survivalcoding.ifkakao.presentation.util.ImageResource
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class SessionFragment : BaseFragment<FragmentSessionBinding>(R.layout.fragment_session) {
@@ -23,6 +22,8 @@ class SessionFragment : BaseFragment<FragmentSessionBinding>(R.layout.fragment_s
 
         val concatAdapter = ConcatAdapter(
             SessionListAdapter(
+                threshold = 10,
+                load = { viewModel.onEvent(SessionEvent.LoadMoreSessions) },
                 onClickListener = {
 
                 }

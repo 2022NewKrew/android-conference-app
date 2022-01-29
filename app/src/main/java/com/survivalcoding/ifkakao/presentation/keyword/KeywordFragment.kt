@@ -9,6 +9,7 @@ import com.survivalcoding.ifkakao.databinding.FragmentKeywordBinding
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,32 +18,32 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class KeywordFragment : BaseFragment<FragmentKeywordBinding>(R.layout.fragment_keyword) {
-    @Inject
-    lateinit var stk: Stack<FragmentInformation>
-
-    private val viewModel: KeywordViewModel by viewModels()
-
-    private val keywordAdapter by lazy {
-        SessionListAdapter(
-            onClickListener = {
-                stk.push(FragmentInformation(session = it))
-                parentFragmentManager.commit {
-                    replace(R.id.fragment_container_view, DetailFragment())
-                    setReorderingAllowed(true)
-                    addToBackStack(null)
-                }
-            }
-        )
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.onEvent(KeywordEvent.LoadingData(stk.peek()))
-
-        bind {
-            vm = viewModel
-            sessionAdapter = keywordAdapter
-            itemDecoration = SessionItemDecoration()
-        }
-    }
+//    @Inject
+//    lateinit var stk: Stack<FragmentInformation>
+//
+//    private val viewModel: KeywordViewModel by viewModels()
+//
+//    private val keywordAdapter by lazy {
+//        SessionListAdapter(
+//            onClickListener = {
+//                stk.push(FragmentInformation(fragmentType = FragmentType.DETAIL, session = it))
+//                parentFragmentManager.commit {
+//                    replace(R.id.fragment_container_view, DetailFragment())
+//                    setReorderingAllowed(true)
+//                    addToBackStack(null)
+//                }
+//            }
+//        )
+//    }
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        viewModel.onEvent(KeywordEvent.LoadingData(stk.peek()))
+//
+//        bind {
+//            vm = viewModel
+//            sessionAdapter = keywordAdapter
+//            itemDecoration = SessionItemDecoration()
+//        }
+//    }
 }
