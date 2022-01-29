@@ -25,9 +25,9 @@ abstract class BaseFragment<T : ViewDataBinding>(
         return binding.root
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         _binding = null
-        super.onDestroy()
+        super.onDestroyView()
     }
 
     internal fun bind(block: T.() -> Unit) {

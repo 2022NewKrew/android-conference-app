@@ -27,4 +27,6 @@ class SessionListAdapter(
             onClickListener = onClickListener,
         )
     }
+
+    override fun getItemViewType(position: Int): Int = 1
 }

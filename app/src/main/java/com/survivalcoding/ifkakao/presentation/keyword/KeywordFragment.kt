@@ -6,9 +6,9 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentKeywordBinding
-import com.survivalcoding.ifkakao.presentation.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
+import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class KeywordFragment : BaseFragment<FragmentKeywordBinding>(R.layout.fragment_k
     private val keywordAdapter by lazy {
         SessionListAdapter(
             onClickListener = {
-                stk.push(FragmentInformation(currentSession = it))
+                stk.push(FragmentInformation(session = it))
                 parentFragmentManager.commit {
                     replace(R.id.fragment_container_view, DetailFragment())
                     setReorderingAllowed(true)

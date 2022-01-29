@@ -2,6 +2,7 @@ package com.survivalcoding.ifkakao.presentation.util
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -16,19 +17,18 @@ import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 object BindingAdapter {
 
     @JvmStatic
-    @BindingAdapter("thumbnailImage")
-    fun ImageView.bindThumbnailImage(url: String) {
+    @BindingAdapter("image")
+    fun ImageView.bindMainImage(url: String) {
         Glide.with(context)
             .load(url)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .fitCenter()
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
+            .centerCrop()
             .into(this)
     }
 
     @JvmStatic
-    @BindingAdapter("mailImage")
-    fun ImageView.bindHighlightTitleImage(url: String) {
+    @BindingAdapter("thumbnail")
+    fun ImageView.bindThumbnailImage(url: String) {
         Glide.with(context)
             .load(url)
             .transition(DrawableTransitionOptions.withCrossFade())
@@ -49,60 +49,11 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("drawableIcon")
-    fun ImageView.bindIcon(url: String) {
-        Glide.with(context)
-            .load(url)
-            .centerCrop()
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(this)
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    @JvmStatic
-    @BindingAdapter(value = ["sessions", "adapter", "relatedSessionsCount"], requireAll = true)
-    fun RecyclerView.bindSessionWithAdapterCount(
-        sessions: List<IkSessionData>,
-        adapter: RecyclerView.Adapter<*>,
-        relatedSessionsCount: Int,
-    ) {
-        this.adapter = adapter
-        if (adapter is SessionListAdapter) {
-            adapter.submitList(sessions.take(relatedSessionsCount))
-        }
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    @JvmStatic
-    @BindingAdapter(value = ["sessions", "adapter"], requireAll = true)
-    fun RecyclerView.bindSessionWithAdapter(
-        sessions: List<IkSessionData>,
-        adapter: RecyclerView.Adapter<*>,
-    ) {
-        this.adapter = adapter
-        if (adapter is SessionListAdapter) {
-            adapter.submitList(sessions)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["tags", "adapter"], requireAll = true)
-    fun RecyclerView.bindTagWithAdapter(tags: List<IkTagInfo>, adapter: RecyclerView.Adapter<*>) {
-        this.adapter = adapter
-        if (adapter is TagListAdapter) {
-            adapter.submitList(tags)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["speakers", "adapter"], requireAll = true)
-    fun RecyclerView.bindSpeakerWithAdapter(
-        speakers: List<IkSessionSpeaker>,
-        adapter: RecyclerView.Adapter<*>
-    ) {
-        this.adapter = adapter
-        if (adapter is SpeakerListAdapter) {
-            adapter.submitList(speakers)
+    @BindingAdapter("highlightSessions")
+    fun RecyclerView.bindHighlightSessions(sessions: List<IkSessionData>?) {
+        sessions?.let {
+            val adapter = this.adapter as ConcatAdapter
+            adapter.adapters.forEach { if (it is SessionListAdapter) it.submitList(sessions) }
         }
     }
 }

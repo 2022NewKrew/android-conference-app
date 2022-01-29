@@ -1,7 +1,7 @@
 package com.survivalcoding.ifkakao
 
 import android.app.Application
-import com.survivalcoding.ifkakao.presentation.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import dagger.hilt.android.HiltAndroidApp
 import java.util.*
 

@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">ifkakao</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detail_temporary_text">temp_video</string>
+    <string name="navigation_menu_session">Session</string>
+    <string name="navigation_menu_my_list">My List</string>
     <string name="if_kakao_main_page_title">if(kakao)2021이\n여러분의 관심 속에 마무리되었습니다.\n우리, 내년에 또 만나요\n함께 나아가는 더 나은 세상!</string>
     <string name="main_page_highlight">Highlight</string>
     <string name="main_page_button">전체세션 보기</string>
-    <string name="list_company_name">카카오</string>
-    <string name="list_default_time">00:00</string>
-    <string name="list_field_name">서비스</string>
-    <string name="detail_temporary_text">temp_video</string>
+    <string name="qna">문의하기</string>
+    <string name="if_kakao_talk_channel">ifkakao(톡채널)</string>
+    <string name="if_kakao_email">ifkakao@kakao.com</string>
 </resources>

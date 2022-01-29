@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.databinding.ContentListItemBinding
+import com.survivalcoding.ifkakao.databinding.ListItemSessionBinding
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 
 class SessionListViewHolder(val parent: ViewGroup) : RecyclerView.ViewHolder(
-    LayoutInflater.from(parent.context).inflate(R.layout.content_list_item, parent, false)
+    LayoutInflater.from(parent.context).inflate(R.layout.list_item_session, parent, false)
 ) {
-    private val binding = ContentListItemBinding.bind(itemView)
+    private val binding = ListItemSessionBinding.bind(itemView)
 
     fun bind(
         session: IkSessionData,

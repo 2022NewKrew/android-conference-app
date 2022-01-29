@@ -41,6 +41,6 @@ internal fun IkSessionDataDTO.toEntity(): IkSessionData {
             )
         },
         isSpotlight = spotlightYn == "Y",
-        isVideo = linkList.VIDEO.first().description != null
+        hasVideo = linkList.VIDEO.first().description != null
     )
 }

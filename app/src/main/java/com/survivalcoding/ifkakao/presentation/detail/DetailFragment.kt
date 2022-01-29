@@ -6,11 +6,11 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
-import com.survivalcoding.ifkakao.presentation.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 import com.survivalcoding.ifkakao.presentation.keyword.KeywordFragment
+import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,8 +41,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val sessionListAdapter = SessionListAdapter(
         onClickListener = {
             val top = stk.pop()
-            stk.push(top.copy(relatedSessionsCount = viewModel.getCount()))
-            stk.push(FragmentInformation(currentSession = it))
+            stk.push(top.copy(exposedListCount = viewModel.getCount()))
+            stk.push(FragmentInformation(session = it))
             parentFragmentManager.commit {
                 replace(R.id.fragment_container_view, DetailFragment())
                 setReorderingAllowed(true)
@@ -63,8 +63,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             speakerAdapter = speakerListAdapter
             sessionAdapter = sessionListAdapter
             itemDecoration = sessionItemDecoration
-
-            btnMoreSessions.setOnClickListener { viewModel.onEvent(DetailEvent.LoadMoreSessions) }
         }
     }
 }

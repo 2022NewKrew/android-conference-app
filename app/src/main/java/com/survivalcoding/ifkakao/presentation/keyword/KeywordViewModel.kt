@@ -3,12 +3,9 @@ package com.survivalcoding.ifkakao.presentation.keyword
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.model.IkTagInfo
-import com.survivalcoding.ifkakao.domain.model.TagType
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionsByTagUseCase
-import com.survivalcoding.ifkakao.presentation.FragmentInformation
-import com.survivalcoding.ifkakao.presentation.detail.DetailEvent
+import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,22 +16,15 @@ import javax.inject.Inject
 class KeywordViewModel @Inject constructor(
     private val getSessionsByTagUseCase: GetSessionsByTagUseCase,
 ) : ViewModel() {
-    val relatedSessions by lazy {
-        getSessionsByTagUseCase {
-            when (_selectedKeyword.value.tagType) {
-                TagType.COMPANY -> it.company == _selectedKeyword.value.text
-                TagType.FIELD -> it.field == _selectedKeyword.value.text
-                TagType.CLASSIFICATION -> it.tag.any { tag -> tag.text == _selectedKeyword.value.text }
-                TagType.TECH_CLASSIFICATION -> it.tag.any { tag -> tag.text == _selectedKeyword.value.text }
-            }
-        }.stateIn(
+    private val _selectedKeyword = MutableStateFlow(IkTagInfo.getEmptyTagInfo())
+    private val _relatedSessionsCount = MutableStateFlow(8)
+
+    val relatedSessions =
+        getSessionsByTagUseCase (_selectedKeyword.value).stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,
             initialValue = listOf()
         )
-    }
-    private val _selectedKeyword = MutableStateFlow(IkTagInfo.getEmptyTagInfo())
-    private val _relatedSessionsCount = MutableStateFlow(8)
 
     val selectedKeyword = _selectedKeyword.asLiveData()
     val relatedSessionsCount = _relatedSessionsCount.asLiveData()

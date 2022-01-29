@@ -7,7 +7,7 @@ data class IkSessionData(
     val field: String,
     val id: Int,
     val isSpotlight: Boolean,
-    val isVideo: Boolean,
+    val hasVideo: Boolean,
     val hashTag: String,
     val sessionSpeakers: List<IkSessionSpeaker>,
     val tag: List<IkTagInfo>,
@@ -17,18 +17,18 @@ data class IkSessionData(
     companion object {
         fun getEmptySessionData(): IkSessionData {
             return IkSessionData(
-                "",
-                "",
-                -1,
-                "",
-                -1,
-                false,
-                false,
-                "",
-                listOf(),
-                listOf(),
-                "",
-                IkSessionVideo.getEmptyVideo()
+                company = "",
+                content = "",
+                exposureDay = -1,
+                field = "",
+                id = -1,
+                isSpotlight = false,
+                hasVideo = false,
+                hashTag = "",
+                sessionSpeakers = listOf(),
+                tag = listOf(),
+                title = "",
+                video = IkSessionVideo.getEmptyVideo()
             )
         }
     }
