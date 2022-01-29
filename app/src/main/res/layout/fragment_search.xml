@@ -43,8 +43,8 @@
                 android:id="@+id/spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:popupBackground="@color/black"
                 android:entries="@array/spinner_entries"
+                android:popupBackground="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/filter_img_btn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/filter_img_btn"
@@ -59,15 +59,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_view_main_image" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_recyclerview"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter_img_btn"
-                tools:listitem="@layout/item_session" />
+                app:layout_constraintTop_toBottomOf="@id/filter_img_btn" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

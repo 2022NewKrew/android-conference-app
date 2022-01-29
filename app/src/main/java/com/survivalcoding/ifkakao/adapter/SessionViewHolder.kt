@@ -17,6 +17,8 @@ class SessionViewHolder(private val binding: ItemSessionBinding) :
         binding.sessionTitle.text = item.title
         binding.sessionCompany.text = item.company
         binding.sessionField.text = item.field
+
+/*
         try {
             Glide.with(binding.root).load(item.linkList?.moImage?.first()?.url)
                 .into(binding.sessionThumbnail)
@@ -24,6 +26,7 @@ class SessionViewHolder(private val binding: ItemSessionBinding) :
             Log.d("No List", "ThumbNail ${item.idx}")
             binding.sessionThumbnail.setBackgroundResource(R.drawable.ic_baseline_not_interested_24)
         }
+*/
 
         binding.sessionVideoTime.text = item.linkList?.video?.first()?.description
 

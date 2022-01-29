@@ -122,6 +122,8 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0-rc01")
     //flowRow
     implementation "com.google.accompanist:accompanist-flowlayout:0.24.1-alpha"
+    // viewpager2
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 }
 
 kapt {

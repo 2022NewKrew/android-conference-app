@@ -29,7 +29,9 @@ class MainViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             daysItems.value = getAllSessionsUseCase() ?: listOf()
+
             highlightItems.value = getHighlightSessionsUseCase() ?: listOf()
+
             session = MutableStateFlow(highlightItems.value[0])
             relatedSessions.value = session.value.field?.let {
                 getSessionWithFieldUseCase(it)
@@ -40,6 +42,12 @@ class MainViewModel @Inject constructor(
 
     fun saveClickedSession(item: Data) {
         session.value = item
+    }
+
+    fun getDaySessions(date: Int) {
+        viewModelScope.launch {
+            daysItems.value = getSessionsFromDateUseCase(date) ?: listOf()
+        }
     }
 
     fun getRelatedSessions(field: String) {
