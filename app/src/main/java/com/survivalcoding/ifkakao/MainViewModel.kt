@@ -21,14 +21,16 @@ class MainViewModel @Inject constructor(
     private val getSessionWithFieldUseCase: GetSessionWithFieldUseCase
 ) : ViewModel() {
 
-    val items = MutableStateFlow(listOf<Data>())
+    val highlightItems = MutableStateFlow(listOf<Data>())
+    val daysItems = MutableStateFlow(listOf<Data>())
     lateinit var session: MutableStateFlow<Data>
     val relatedSessions = MutableStateFlow(listOf<Data>())
 
     init {
         viewModelScope.launch {
-            items.value = getHighlightSessionsUseCase() ?: listOf()
-            session = MutableStateFlow(items.value[0])
+            daysItems.value = getAllSessionsUseCase() ?: listOf()
+            highlightItems.value = getHighlightSessionsUseCase() ?: listOf()
+            session = MutableStateFlow(highlightItems.value[0])
             relatedSessions.value = session.value.field?.let {
                 getSessionWithFieldUseCase(it)
             } ?: listOf()

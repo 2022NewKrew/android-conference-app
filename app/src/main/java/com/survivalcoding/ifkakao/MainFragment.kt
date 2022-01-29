@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.items.collect {
+                viewModel.highlightItems.collect {
                     adapter.submitList(it)
                 }
             }

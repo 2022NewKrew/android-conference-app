@@ -1,7 +1,6 @@
 package com.survivalcoding.ifkakao.search
 
 import android.content.res.Configuration
-import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +13,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.ImageLoader
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.R
@@ -60,7 +56,8 @@ class SearchFragment : Fragment() {
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Glide.with(this).load(R.drawable.vod_teaser_2021_pc).into(binding.searchViewMainImage)
         } else {
-            Glide.with(this).load(R.drawable.vod_teaser_2021_mobile).into(binding.searchViewMainImage)
+            Glide.with(this).load(R.drawable.vod_teaser_2021_mobile)
+                .into(binding.searchViewMainImage)
         }
 
 
@@ -68,7 +65,7 @@ class SearchFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.items.collect {
+                viewModel.daysItems.collect {
                     adapter.submitList(it)
                 }
             }
