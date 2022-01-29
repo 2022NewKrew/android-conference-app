@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Search.SearchFragment">
+    tools:context=".search.SearchFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -31,19 +31,19 @@
 
             <ImageView
                 android:id="@+id/search_view_main_image"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 android:src="@drawable/vod_teaser_2021_mobile"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-
                 app:layout_constraintTop_toBottomOf="@id/const_session_text" />
 
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:popupBackground="@color/black"
                 android:entries="@array/spinner_entries"
                 app:layout_constraintBottom_toBottomOf="@id/filter_img_btn"
                 app:layout_constraintStart_toStartOf="parent"

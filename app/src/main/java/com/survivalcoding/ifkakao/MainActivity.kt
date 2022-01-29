@@ -5,11 +5,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.lifecycle.ViewModel
-import com.survivalcoding.ifkakao.Search.SearchFragment
-import com.survivalcoding.ifkakao.compose.SessionFragment
+import com.survivalcoding.ifkakao.search.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
