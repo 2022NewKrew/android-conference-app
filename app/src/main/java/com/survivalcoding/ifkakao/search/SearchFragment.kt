@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -13,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.R
@@ -26,7 +28,7 @@ class SearchFragment : Fragment() {
 
     private val viewModel by activityViewModels<MainViewModel>()
     private var _binding: FragmentSearchBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
 
     override fun onCreateView(
@@ -49,6 +51,28 @@ class SearchFragment : Fragment() {
         }
 
         binding.viewPager.adapter = FragmentAdapter(requireActivity())
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.spinner.setSelection(position)
+            }
+        })
+
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                binding.viewPager.setCurrentItem(position, true)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
 
     }
 
