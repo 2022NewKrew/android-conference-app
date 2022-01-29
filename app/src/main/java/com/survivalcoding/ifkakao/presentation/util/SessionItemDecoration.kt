@@ -1,19 +1,16 @@
 package com.survivalcoding.ifkakao.presentation.util
 
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
+import com.survivalcoding.ifkakao.R
 
-class SessionItemDecoration(
-    private val height: Float,
-    private val padding: Float,
-    color: Int,
-) : RecyclerView.ItemDecoration() {
-    private val paint = Paint()
+class SessionItemDecoration : RecyclerView.ItemDecoration() {
+    private val paint = Paint().apply { color = Color.rgb(57, 57, 57) }
 
-    init {
-        paint.color = color
-    }
+    private val height = 3F
+    private val padding = 70F
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
@@ -25,14 +22,12 @@ class SessionItemDecoration(
         for (i in 0 until childCount) {
             val child = parent.getChildAt(i)
 
-            val params = child.layoutParams as RecyclerView.LayoutParams
+            if (child.id == R.id.session_item_layout) {
+                val params = child.layoutParams as RecyclerView.LayoutParams
 
-            val top = (child.bottom + params.bottomMargin).toFloat()
-            val bottom = top + height
+                val top = (child.bottom + params.bottomMargin).toFloat()
+                val bottom = top + height
 
-            val adapterPosition = parent.getChildAdapterPosition(child)
-            val viewType = parent.adapter?.getItemViewType(adapterPosition)
-            if (viewType == 2) {
                 c.drawRect(left, top, right, bottom, paint)
             }
         }

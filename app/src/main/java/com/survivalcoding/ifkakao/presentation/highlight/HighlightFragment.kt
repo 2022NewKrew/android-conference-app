@@ -2,26 +2,21 @@ package com.survivalcoding.ifkakao.presentation.highlight
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.base.FooterAdapter
-import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.day.SessionFragment
+import com.survivalcoding.ifkakao.presentation.highlight.adapter.HighlightHeaderAdapter
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HighlightFragment : BaseFragment<FragmentHighlightBinding>(R.layout.fragment_highlight) {
-    @Inject
-    lateinit var stk: Stack<FragmentInformation>
-
-    @Inject
-    lateinit var sessionItemDecoration: SessionItemDecoration
 
     private val viewModel: HighlightViewModel by viewModels()
 
@@ -29,9 +24,15 @@ class HighlightFragment : BaseFragment<FragmentHighlightBinding>(R.layout.fragme
         super.onViewCreated(view, savedInstanceState)
 
         val concatAdapter = ConcatAdapter(
-            HighlightHeaderAdapter {
-
-            },
+            HighlightHeaderAdapter(
+                sessionButtonClickListener = {
+                    viewModel.toAllSession()
+                    parentFragmentManager.commit {
+                        replace(R.id.fragment_container_view, SessionFragment())
+                        addToBackStack(null)
+                    }
+                }
+            ),
             SessionListAdapter(
                 onClickListener = {
 
@@ -46,7 +47,7 @@ class HighlightFragment : BaseFragment<FragmentHighlightBinding>(R.layout.fragme
 
         bind {
             adapter = concatAdapter
-            itemDecoration = sessionItemDecoration
+            itemDecoration = SessionItemDecoration()
             executePendingBindings()
             vm = viewModel
         }

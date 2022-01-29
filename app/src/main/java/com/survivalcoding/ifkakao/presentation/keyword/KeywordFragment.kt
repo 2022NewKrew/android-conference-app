@@ -20,9 +20,6 @@ class KeywordFragment : BaseFragment<FragmentKeywordBinding>(R.layout.fragment_k
     @Inject
     lateinit var stk: Stack<FragmentInformation>
 
-    @Inject
-    lateinit var sessionItemDecoration: SessionItemDecoration
-
     private val viewModel: KeywordViewModel by viewModels()
 
     private val keywordAdapter by lazy {
@@ -45,7 +42,7 @@ class KeywordFragment : BaseFragment<FragmentKeywordBinding>(R.layout.fragment_k
         bind {
             vm = viewModel
             sessionAdapter = keywordAdapter
-            itemDecoration = sessionItemDecoration
+            itemDecoration = SessionItemDecoration()
         }
     }
 }

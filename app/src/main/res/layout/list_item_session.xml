@@ -13,6 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/session_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00000000"
@@ -28,7 +29,7 @@
             app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/gray_dark_background"
+            app:strokeColor="@color/gray_line"
             app:strokeWidth="1dp">
 
             <ImageView
@@ -47,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
-                android:background="@color/gray_dark_background"
+                android:background="@color/gray_background"
                 android:fontFamily="@font/kakao_regular"
                 android:paddingHorizontal="5dp"
                 android:paddingTop="4dp"

@@ -5,6 +5,7 @@ import com.survivalcoding.ifkakao.data.repository.SessionRemoteRepositoryImpl
 import com.survivalcoding.ifkakao.domain.model.IfKakaoContent
 import com.survivalcoding.ifkakao.domain.repository.SessionRepository
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="adapter"
+            type="androidx.recyclerview.widget.ConcatAdapter" />
+
+        <variable
+            name="vm"
+            type="com.survivalcoding.ifkakao.presentation.day.SessionViewModel" />
+
+        <variable
+            name="itemDecoration"
+            type="com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration" />
+
+        <variable
+            name="imageResource"
+            type="com.survivalcoding.ifkakao.presentation.util.ImageResource" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.day.SessionFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:collapsedTitleTextAppearance="@style/Widget.Design.CollapsingToolbar"
+                app:expandedTitleTextAppearance="@style/Widget.Design.CollapsingToolbar"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <TextView
+                    android:id="@+id/session_header_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:paddingStart="25dp"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="30dp"
+                    android:text="@string/navigation_menu_session"
+                    android:textColor="@color/white_text"
+                    android:textSize="25sp" />
+
+                <ImageView
+                    android:id="@+id/poster"
+                    image="@{imageResource.sessionBackgroundMobile}"
+                    android:layout_width="match_parent"
+                    android:layout_height="565dp"
+                    android:layout_gravity="center_vertical"
+                    android:paddingTop="85dp"
+                    android:paddingBottom="80dp" />
+
+                <Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="bottom"
+                    android:paddingTop="20dp"
+                    app:layout_collapseMode="pin">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            currentDay="@{vm.currentDay}"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/white_text"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:text="Day3(All)" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                            app:tint="@color/white_text" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:layout_width="58dp"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center|end"
+                        android:layout_marginEnd="15dp"
+                        android:adjustViewBounds="true"
+                        android:backgroundTint="@color/gray_background"
+                        android:padding="15dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_tune"
+                        app:tint="@color/gray_bright_text" />
+                </Toolbar>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:context=".presentation.day.SessionFragment">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_highlight_recyclerview"
+                adapter="@{adapter}"
+                itemDecoration="@{itemDecoration}"
+                sessions="@{vm.sessions}"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:flow_horizontalBias="0.0"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

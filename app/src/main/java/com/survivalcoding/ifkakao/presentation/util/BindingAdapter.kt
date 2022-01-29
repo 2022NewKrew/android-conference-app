@@ -1,18 +1,13 @@
 package com.survivalcoding.ifkakao.presentation.util
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
-import com.survivalcoding.ifkakao.domain.model.IkSessionSpeaker
-import com.survivalcoding.ifkakao.domain.model.IkTagInfo
-import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
-import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 
 object BindingAdapter {
 
@@ -49,11 +44,23 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("highlightSessions")
-    fun RecyclerView.bindHighlightSessions(sessions: List<IkSessionData>?) {
+    @BindingAdapter("sessions")
+    fun RecyclerView.bindSessions(sessions: List<IkSessionData>?) {
         sessions?.let {
             val adapter = this.adapter as ConcatAdapter
             adapter.adapters.forEach { if (it is SessionListAdapter) it.submitList(sessions) }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("currentDay")
+    fun TextView.bindCurrentDay(currentDay: Int?) {
+        currentDay?.let {
+            text = when (currentDay) {
+                1 -> "Day1"
+                2 -> "Day2"
+                else -> "Day3(All)"
+            }
         }
     }
 }

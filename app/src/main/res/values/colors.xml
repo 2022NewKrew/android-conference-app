@@ -16,5 +16,6 @@
     <color name="gray_text">#FF717171</color>
     <color name="gray_bright_text">#A0A0A0</color>
     <color name="gray_background">#FF292929</color>
+    <color name="gray_line">#FF393939</color>
     <color name="gray_dark_background">#FF1B1B1B</color>
 </resources>

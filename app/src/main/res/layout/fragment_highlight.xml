@@ -26,8 +26,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_highlight_recyclerview"
             adapter="@{adapter}"
-            highlightSessions="@{vm.uiState}"
             itemDecoration="@{itemDecoration}"
+            sessions="@{vm.sessions}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:flow_horizontalBias="0.0"

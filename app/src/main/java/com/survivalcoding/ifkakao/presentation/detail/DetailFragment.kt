@@ -22,9 +22,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     @Inject
     lateinit var stk: Stack<FragmentInformation>
 
-    @Inject
-    lateinit var sessionItemDecoration: SessionItemDecoration
-
     private val viewModel: DetailViewModel by viewModels()
 
     private val tagListAdapter = TagListAdapter(
@@ -40,9 +37,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private val sessionListAdapter = SessionListAdapter(
         onClickListener = {
-            val top = stk.pop()
-            stk.push(top.copy(exposedListCount = viewModel.getCount()))
-            stk.push(FragmentInformation(session = it))
+            viewModel.onEvent(DetailEvent.NextSession(it))
             parentFragmentManager.commit {
                 replace(R.id.fragment_container_view, DetailFragment())
                 setReorderingAllowed(true)
@@ -55,14 +50,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.onEvent(DetailEvent.LoadingData(stk.peek()))
 
         bind {
-            vm = viewModel
             tagAdapter = tagListAdapter
             speakerAdapter = speakerListAdapter
             sessionAdapter = sessionListAdapter
-            itemDecoration = sessionItemDecoration
+            itemDecoration = SessionItemDecoration()
+            executePendingBindings()
+            vm = viewModel
         }
     }
 }
