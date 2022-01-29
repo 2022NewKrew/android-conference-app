@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModel
+import com.survivalcoding.ifkakao.Search.SearchFragment
 import com.survivalcoding.ifkakao.compose.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                replace<SessionFragment>(R.id.fragment_container_view)
+                replace<SearchFragment>(R.id.fragment_container_view)
             }
         }
     }

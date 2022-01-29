@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.survivalcoding.ifkakao.Search.SearchFragment
 import com.survivalcoding.ifkakao.adapter.SessionListAdapter
 import com.survivalcoding.ifkakao.compose.SessionFragment
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
@@ -57,7 +58,13 @@ class MainFragment : Fragment() {
                     adapter.submitList(it)
                 }
             }
+        }
 
+        binding.totalSessionView.setOnClickListener {
+            parentFragmentManager.commit {
+                replace<SearchFragment>(R.id.fragment_container_view)
+                addToBackStack(null)
+            }
         }
 
     }
