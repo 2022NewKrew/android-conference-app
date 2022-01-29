@@ -1,13 +1,12 @@
 package com.survivalcoding.ifkakao.presentation
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
-import com.survivalcoding.ifkakao.databinding.NavigationHeaderBinding
+import com.survivalcoding.ifkakao.presentation.highlight.HighlightFragment
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -19,34 +18,29 @@ class MainActivity : AppCompatActivity() {
     lateinit var stk: Stack<FragmentInformation>
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val headerBinding by lazy {
-        NavigationHeaderBinding.bind(binding.navigationView.getHeaderView(0))
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        headerBinding.exitButton.setOnClickListener {
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        binding.exitButton.setOnClickListener {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
+        binding.drawerToggleButton.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_list -> {
-                binding.drawerLayout.openDrawer(GravityCompat.START)
-                return true
+        binding.toolbarTitle.setOnClickListener {
+            supportFragmentManager.commit {
+                replace(R.id.fragment_container_view, HighlightFragment())
+                addToBackStack(null)
             }
         }
-        return super.onOptionsItemSelected(item)
     }
 }

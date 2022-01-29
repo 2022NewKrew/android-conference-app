@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.ConcatAdapter
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionBinding
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
+import com.survivalcoding.ifkakao.presentation.base.FooterAdapter
 import com.survivalcoding.ifkakao.presentation.util.ImageResource
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class SessionFragment : BaseFragment<FragmentSessionBinding>(R.layout.fragment_session) {
@@ -25,6 +27,14 @@ class SessionFragment : BaseFragment<FragmentSessionBinding>(R.layout.fragment_s
 
                 }
             ),
+            FooterAdapter(
+                topButtonClickListener = {
+                    bind {
+                        fragmentSessionRecyclerview.smoothScrollToPosition(0)
+                        appbar.setExpanded(true)
+                    }
+                }
+            )
         )
 
         bind {

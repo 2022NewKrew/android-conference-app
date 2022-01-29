@@ -28,6 +28,7 @@
         tools:context=".presentation.day.SessionFragment">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -114,7 +115,7 @@
             tools:context=".presentation.day.SessionFragment">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_highlight_recyclerview"
+                android:id="@+id/fragment_session_recyclerview"
                 adapter="@{adapter}"
                 itemDecoration="@{itemDecoration}"
                 sessions="@{vm.sessions}"
