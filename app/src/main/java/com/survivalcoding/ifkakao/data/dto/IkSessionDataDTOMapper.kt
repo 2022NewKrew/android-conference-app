@@ -6,9 +6,10 @@ internal fun IkSessionDataDTO.toEntity(): IkSessionData {
     return IkSessionData(
         company = company,
         content = content,
-        exposureDay = if (relationList.MAIN_EXPOSURE_DAY.isEmpty()) 3 else {
-            if (relationList.MAIN_EXPOSURE_DAY.first() == "1Day") 1
-            else 2
+        exposureDay = when (reservationDate) {
+            null, "20211116" -> 1
+            "20211117" -> 2
+            else -> 3
         },
         tag = with(relationList) {
             var idx = 0

@@ -21,12 +21,16 @@ class SessionListAdapter(
         return oldItem == newItem
     }
 }) {
+    private var _previousItemCount = itemCount
+    private val hasMoreSessions get() = _previousItemCount <= itemCount
+
     private val onScrollListener = object : RecyclerView.OnScrollListener() {
 
         private var isScrollingUp = false
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
+            if (!hasMoreSessions) return
 
             if (isScrollingUp) {
                 val lastVisibleItemPosition =
@@ -34,6 +38,7 @@ class SessionListAdapter(
 
                 if (itemCount - lastVisibleItemPosition <= threshold) {
                     load()
+                    _previousItemCount += 10
                 }
             }
         }

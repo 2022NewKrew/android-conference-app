@@ -44,6 +44,21 @@ class SessionFragment : BaseFragment<FragmentSessionBinding>(R.layout.fragment_s
             imageResource = ImageResource()
             executePendingBindings()
             vm = viewModel
+
+            selectDayTab.setOnClickListener {
+                val days = resources.getStringArray(R.array.days)
+                val builder = AlertDialog.Builder(requireActivity())
+                builder.setItems(days) { _, which ->
+                    viewModel.onEvent(SessionEvent.ChangeDay(which + 1))
+                    appbar.setExpanded(false)
+                    fragmentSessionRecyclerview.smoothScrollToPosition(0)
+                }
+                builder.create().show()
+            }
+
+            selectKeywordButton.setOnClickListener {
+                // TODO: add kewwords with fragment? view?
+            }
         }
     }
 }

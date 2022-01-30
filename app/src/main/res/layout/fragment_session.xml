@@ -66,11 +66,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="bottom"
-                    android:paddingBottom="10dp"
                     android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     app:layout_collapseMode="pin">
 
                     <LinearLayout
+                        android:id="@+id/select_day_tab"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|start"
@@ -98,6 +99,7 @@
                     </LinearLayout>
 
                     <ImageButton
+                        android:id="@+id/select_keyword_button"
                         android:layout_width="58dp"
                         android:layout_height="42dp"
                         android:layout_gravity="center|end"
@@ -137,6 +139,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
 </layout>
