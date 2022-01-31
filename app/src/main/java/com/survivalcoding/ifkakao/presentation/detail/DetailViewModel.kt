@@ -35,14 +35,7 @@ class DetailViewModel @Inject constructor(
                 _exposedListCount.value = _exposedListCount.value + 10
             }
             is DetailEvent.NextSession -> {
-                stk.pop()
-                stk.push(
-                    FragmentInformation(
-                        fragmentType = FragmentType.DETAIL,
-                        session = _currentSession.value,
-                        exposedListCount = _exposedListCount.value,
-                    )
-                )
+                updateStack()
                 stk.push(
                     FragmentInformation(
                         fragmentType = FragmentType.DETAIL,
@@ -52,14 +45,7 @@ class DetailViewModel @Inject constructor(
                 )
             }
             DetailEvent.ToAllSession -> {
-                stk.pop()
-                stk.push(
-                    FragmentInformation(
-                        fragmentType = FragmentType.DETAIL,
-                        session = _currentSession.value,
-                        exposedListCount = _exposedListCount.value,
-                    )
-                )
+                updateStack()
                 stk.push(
                     FragmentInformation(
                         fragmentType = FragmentType.SESSION,
@@ -70,10 +56,21 @@ class DetailViewModel @Inject constructor(
             }
         }
     }
+
+    private fun updateStack() {
+        stk.pop()
+        stk.push(
+            FragmentInformation(
+                fragmentType = FragmentType.DETAIL,
+                session = _currentSession.value,
+                exposedListCount = _exposedListCount.value,
+            )
+        )
+    }
 }
 
 sealed class DetailEvent {
     object LoadMoreSessions : DetailEvent()
-    data class NextSession(val session: IkSessionData) : DetailEvent()
     object ToAllSession : DetailEvent()
+    data class NextSession(val session: IkSessionData) : DetailEvent()
 }

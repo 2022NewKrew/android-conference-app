@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.survivalcoding.ifkakao.databinding.FragmentKeywordDialogBinding
-import com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter
+import com.survivalcoding.ifkakao.presentation.session.adapter.KeywordAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

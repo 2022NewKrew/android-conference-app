@@ -7,19 +7,19 @@
 
         <variable
             name="fieldAdapter"
-            type="com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter" />
+            type="com.survivalcoding.ifkakao.presentation.session.adapter.KeywordAdapter" />
 
         <variable
             name="classAdapter"
-            type="com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter" />
+            type="com.survivalcoding.ifkakao.presentation.session.adapter.KeywordAdapter" />
 
         <variable
             name="techAdapter"
-            type="com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter" />
+            type="com.survivalcoding.ifkakao.presentation.session.adapter.KeywordAdapter" />
 
         <variable
             name="companyAdapter"
-            type="com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter" />
+            type="com.survivalcoding.ifkakao.presentation.session.adapter.KeywordAdapter" />
     </data>
 
     <LinearLayout

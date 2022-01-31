@@ -8,10 +8,10 @@ import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
-import com.survivalcoding.ifkakao.presentation.day.SessionFragment
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 import com.survivalcoding.ifkakao.presentation.keyword.KeywordFragment
+import com.survivalcoding.ifkakao.presentation.session.SessionFragment
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration

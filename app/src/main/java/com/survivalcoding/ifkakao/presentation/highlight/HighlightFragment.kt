@@ -9,9 +9,9 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.base.FooterAdapter
-import com.survivalcoding.ifkakao.presentation.day.SessionFragment
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
 import com.survivalcoding.ifkakao.presentation.highlight.adapter.HighlightHeaderAdapter
+import com.survivalcoding.ifkakao.presentation.session.SessionFragment
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint

@@ -6,8 +6,8 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
-import com.survivalcoding.ifkakao.presentation.day.SessionFragment
 import com.survivalcoding.ifkakao.presentation.highlight.HighlightFragment
+import com.survivalcoding.ifkakao.presentation.session.SessionFragment
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.presentation.keyword.adapter
+package com.survivalcoding.ifkakao.presentation.session.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater

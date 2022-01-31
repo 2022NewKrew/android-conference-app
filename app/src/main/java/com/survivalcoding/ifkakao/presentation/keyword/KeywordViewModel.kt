@@ -21,8 +21,6 @@ class KeywordViewModel @Inject constructor(
     val relatedSessions = combine(_selectedKeyword, _relatedSessionsCount) { keyword, count ->
         getSessionsByTagUseCase(keyword).take(count)
     }.asLiveData()
-    val selectedKeyword = _selectedKeyword.asLiveData()
-    val relatedSessionsCount = _relatedSessionsCount.asLiveData()
 
     fun onEvent(event: KeywordEvent) {
         when (event) {
@@ -34,11 +32,9 @@ class KeywordViewModel @Inject constructor(
             }
         }
     }
-
-    fun getCount() = _relatedSessionsCount.value
 }
 
 sealed class KeywordEvent {
-    data class LoadingData(val info: FragmentInformation) : KeywordEvent()
     object LoadMoreSessions : KeywordEvent()
+    data class LoadingData(val info: FragmentInformation) : KeywordEvent()
 }

@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.presentation.day
+package com.survivalcoding.ifkakao.presentation.session
 
 import android.os.Bundle
 import android.view.View
