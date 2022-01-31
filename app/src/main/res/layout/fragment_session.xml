@@ -125,6 +125,7 @@
                 android:id="@+id/fragment_session_recyclerview"
                 adapter="@{adapter}"
                 itemDecoration="@{itemDecoration}"
+                sessions="@{vm.sessions}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:flow_horizontalBias="0.0"

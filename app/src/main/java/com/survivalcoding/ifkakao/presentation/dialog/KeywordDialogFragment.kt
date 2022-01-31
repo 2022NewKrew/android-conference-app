@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import com.survivalcoding.ifkakao.databinding.FragmentKeywordDialogBinding
 import com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @AndroidEntryPoint
 class KeywordDialogFragment(
-    val isChanged: MutableStateFlow<Boolean>,
+    val isChanged: MutableLiveData<Boolean>,
 ) : DialogFragment() {
 
     private var _binding: FragmentKeywordDialogBinding? = null

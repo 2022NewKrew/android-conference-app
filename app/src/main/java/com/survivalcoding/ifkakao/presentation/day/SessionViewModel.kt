@@ -1,13 +1,14 @@
 package com.survivalcoding.ifkakao.presentation.day
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionsByDayUseCase
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import java.util.*
 import javax.inject.Inject
 
@@ -19,13 +20,17 @@ class SessionViewModel @Inject constructor(
     private val _currentDay = MutableStateFlow(stk.peek().selectedDay)
     private val _exposedListCount = MutableStateFlow(stk.peek().exposedListCount)
     private val _keywords = MutableStateFlow(stk.peek().keywords)
-    val isChanged = MutableStateFlow(false)
+    val isChanged = MutableLiveData(false)
 
-    val sessions = combine(_currentDay, _exposedListCount, _keywords) { day, count, keywords ->
-        getSessionsByDayUseCase(day, count, keywords)
-    }.asLiveData()
+    val sessions: StateFlow<List<IkSessionData>> =
+        combine(_currentDay, _exposedListCount, _keywords) { day, count, keywords ->
+            getSessionsByDayUseCase(day, count, keywords)
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = listOf()
+        )
     val currentDay: StateFlow<Int> = _currentDay
-    val changeObserve = isChanged.asLiveData()
 
     fun onEvent(event: SessionEvent) {
         when (event) {
@@ -36,10 +41,7 @@ class SessionViewModel @Inject constructor(
             SessionEvent.LoadMoreSessions -> {
                 _exposedListCount.value = _exposedListCount.value + 10
             }
-            SessionEvent.Update -> {
-                val top = stk.peek().keywords
-                _keywords.value = stk.peek().keywords
-            }
+            SessionEvent.Update -> _keywords.value = stk.peek().keywords
         }
     }
 }
