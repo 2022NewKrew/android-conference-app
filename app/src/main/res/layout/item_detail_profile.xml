@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,29 +28,36 @@
             android:id="@+id/profileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
+            android:textStyle="bold"
             tools:text="남기현 Fac" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/profileCompany"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
+            android:textColor="@color/light_gray"
             tools:text="카카오" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/profileTeam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
+            android:textColor="@color/light_gray"
             tools:text="맵And셀" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <Button
+    <ImageButton
         android:id="@+id/talkChannelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Talk\nChannel"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_talkchannel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

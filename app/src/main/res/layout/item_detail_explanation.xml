@@ -2,8 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.survivalcoding.ifkakao.presentation.detail.DetailViewModel" />
@@ -28,6 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SessionInfoLayout"
             tools:text="Title" />
@@ -47,13 +52,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:textColor="@color/light_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/contentText"
             tools:text="#카카오톡" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView2"
+            android:id="@+id/profileRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -63,16 +69,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tagText"
             tools:itemCount="3" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="목록 보기"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/downloadLayout" />
 
         <LinearLayout
             android:id="@+id/downloadLayout"
@@ -81,7 +77,7 @@
             android:layout_marginTop="15dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView2">
+            app:layout_constraintTop_toBottomOf="@+id/profileRecyclerView">
 
 
             <ImageView
@@ -108,5 +104,60 @@
                 android:textSize="12sp"
                 tools:text="3MB" />
         </LinearLayout>
+
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="목록 보기"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/talkShareButton" />
+
+        <ImageButton
+            android:id="@+id/talkShareButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/downloadLayout"
+            app:srcCompat="@drawable/ic_talk" />
+
+        <ImageButton
+            android:id="@+id/faceShareButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/talkShareButton"
+            app:layout_constraintStart_toEndOf="@+id/talkShareButton"
+            app:layout_constraintTop_toTopOf="@+id/talkShareButton"
+            app:srcCompat="@drawable/ic_facebook" />
+
+        <ImageButton
+            android:id="@+id/twitShareButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/faceShareButton"
+            app:layout_constraintStart_toEndOf="@+id/faceShareButton"
+            app:layout_constraintTop_toTopOf="@+id/faceShareButton"
+            app:srcCompat="@drawable/ic_twit" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/twitShareButton"
+            app:layout_constraintStart_toEndOf="@+id/twitShareButton"
+            app:layout_constraintTop_toTopOf="@+id/twitShareButton"
+            app:srcCompat="@drawable/ic_copy" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

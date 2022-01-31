@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.domain.model.Session
 
-class SessionAdapter(private val onClickSession: (Int) -> Unit) : ListAdapter<Session, SessionViewHolder>(SessionDiffItemCallback) {
+class SessionAdapter(private val onClickSession: (Int) -> Unit) :
+    ListAdapter<Session, SessionViewHolder>(SessionDiffItemCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder {
         val view =
