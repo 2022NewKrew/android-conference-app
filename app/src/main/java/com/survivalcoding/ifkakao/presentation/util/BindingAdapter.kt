@@ -7,20 +7,20 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.survivalcoding.ifkakao.domain.model.IkKeyword
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
-import com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter
 
 object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("image")
-    fun ImageView.bindMainImage(url: String) {
-        Glide.with(context)
-            .load(url)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .centerCrop()
-            .into(this)
+    fun ImageView.bindMainImage(url: String?) {
+        url?.let {
+            Glide.with(context)
+                .load(url)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .centerCrop()
+                .into(this)
+        }
     }
 
     @JvmStatic

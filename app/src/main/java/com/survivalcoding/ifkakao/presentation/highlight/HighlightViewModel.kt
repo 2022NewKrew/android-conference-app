@@ -2,6 +2,7 @@ package com.survivalcoding.ifkakao.presentation.highlight
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.usecase.GetHighlightSessionsUseCase
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.FragmentType
@@ -29,6 +30,16 @@ class HighlightViewModel @Inject constructor(
                 fragmentType = FragmentType.SESSION,
                 exposedListCount = 8,
                 selectedDay = 3
+            )
+        )
+    }
+
+    fun toDetailSession(session: IkSessionData) {
+        stk.push(
+            FragmentInformation(
+                fragmentType = FragmentType.DETAIL,
+                session = session,
+                exposedListCount = 4,
             )
         )
     }

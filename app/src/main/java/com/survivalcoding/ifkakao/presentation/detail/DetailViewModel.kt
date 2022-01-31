@@ -9,7 +9,6 @@ import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.take
 import java.util.*
 import javax.inject.Inject
 
@@ -20,11 +19,15 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
     private val _currentSession = MutableStateFlow(stk.peek().session)
     private val _exposedListCount = MutableStateFlow(stk.peek().exposedListCount)
+    var totalCount = 120
 
     val sessions = combine(_currentSession, _exposedListCount) { session, count ->
+        val list = getRelatedSessionsUseCase(session)
+        totalCount = list.size
         getRelatedSessionsUseCase(session).take(count)
     }.asLiveData()
     val currentSession = _currentSession.asLiveData()
+    val exposedListCount = _exposedListCount.asLiveData()
 
     fun onEvent(event: DetailEvent) {
         when (event) {
@@ -44,6 +47,24 @@ class DetailViewModel @Inject constructor(
                     FragmentInformation(
                         fragmentType = FragmentType.DETAIL,
                         session = event.session,
+                        exposedListCount = 4,
+                    )
+                )
+            }
+            DetailEvent.ToAllSession -> {
+                stk.pop()
+                stk.push(
+                    FragmentInformation(
+                        fragmentType = FragmentType.DETAIL,
+                        session = _currentSession.value,
+                        exposedListCount = _exposedListCount.value,
+                    )
+                )
+                stk.push(
+                    FragmentInformation(
+                        fragmentType = FragmentType.SESSION,
+                        exposedListCount = 8,
+                        selectedDay = 3
                     )
                 )
             }
@@ -54,4 +75,5 @@ class DetailViewModel @Inject constructor(
 sealed class DetailEvent {
     object LoadMoreSessions : DetailEvent()
     data class NextSession(val session: IkSessionData) : DetailEvent()
+    object ToAllSession : DetailEvent()
 }

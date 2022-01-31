@@ -10,6 +10,7 @@ import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.base.FooterAdapter
 import com.survivalcoding.ifkakao.presentation.day.SessionFragment
+import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
 import com.survivalcoding.ifkakao.presentation.highlight.adapter.HighlightHeaderAdapter
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
@@ -29,13 +30,19 @@ class HighlightFragment : BaseFragment<FragmentHighlightBinding>(R.layout.fragme
                     viewModel.toAllSession()
                     parentFragmentManager.commit {
                         replace(R.id.fragment_container_view, SessionFragment())
+                        setReorderingAllowed(true)
                         addToBackStack(null)
                     }
                 }
             ),
             SessionListAdapter(
                 onClickListener = {
-
+                    viewModel.toDetailSession(it)
+                    parentFragmentManager.commit {
+                        replace(R.id.fragment_container_view, DetailFragment())
+                        setReorderingAllowed(true)
+                        addToBackStack(null)
+                    }
                 }
             ),
             FooterAdapter(
