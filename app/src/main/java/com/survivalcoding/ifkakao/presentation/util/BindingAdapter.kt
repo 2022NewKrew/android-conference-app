@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.survivalcoding.ifkakao.domain.model.IkKeyword
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
+import com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter
 
 object BindingAdapter {
 

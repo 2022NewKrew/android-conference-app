@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.HighlightHeaderBinding
-import com.survivalcoding.ifkakao.presentation.util.ImageResource
+import com.survivalcoding.ifkakao.presentation.util.Resource
 
 class HighlightHeaderAdapter(
     private val sessionButtonClickListener: () -> Unit,
@@ -15,7 +15,7 @@ class HighlightHeaderAdapter(
     inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = HighlightHeaderBinding.bind(itemView)
         fun bind() {
-            binding.imageResource = ImageResource()
+            binding.imageResource = Resource()
             binding.allSessionButton.setOnClickListener {
                 sessionButtonClickListener()
             }

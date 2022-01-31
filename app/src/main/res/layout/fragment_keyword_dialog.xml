@@ -1,14 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.dialog.KeywordDialogFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="fieldAdapter"
+            type="com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter" />
+
+        <variable
+            name="classAdapter"
+            type="com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter" />
+
+        <variable
+            name="techAdapter"
+            type="com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter" />
+
+        <variable
+            name="companyAdapter"
+            type="com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/keyword_dialog_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/black_background"
+        android:orientation="vertical"
+        tools:context=".SessionFragment">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/exit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_close_24"
+                app:tint="@color/white_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/field_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="관심분야"
+                    android:textColor="@color/white_text"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/field_recyclerview"
+                    adapter="@{fieldAdapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/field_text"
+                    tools:listitem="@layout/list_item_keyword" />
+
+                <TextView
+                    android:id="@+id/keyword_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="관심키워드"
+                    android:textColor="@color/white_text"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/field_recyclerview" />
+
+                <TextView
+                    android:id="@+id/classification_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="서비스•비즈니스"
+                    android:textColor="@color/white_text"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/keyword_text" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/classification_recyclerview"
+                    adapter="@{classAdapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/classification_text"
+                    tools:listitem="@layout/list_item_keyword" />
+
+                <TextView
+                    android:id="@+id/tech_classification_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="기술"
+                    android:textColor="@color/white_text"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/classification_recyclerview" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tech_classification_recyclerview"
+                    adapter="@{techAdapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tech_classification_text"
+                    tools:listitem="@layout/list_item_keyword" />
+
+                <TextView
+                    android:id="@+id/company_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="공동체분류"
+                    android:textColor="@color/white_text"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tech_classification_recyclerview" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/company_recyclerview"
+                    adapter="@{companyAdapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/company_text"
+                    tools:listitem="@layout/list_item_keyword" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="20dp">
+
+            <TextView
+                android:id="@+id/initialize_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/gray_background"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="초기화"
+                android:textColor="@color/white_text"
+                tools:text="초기화" />
+
+            <Space
+                android:layout_width="70dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/apply_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/blue_text"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="적용"
+                android:textColor="@color/black"
+                tools:text="적용" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

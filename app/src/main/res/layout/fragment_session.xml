@@ -19,7 +19,7 @@
 
         <variable
             name="imageResource"
-            type="com.survivalcoding.ifkakao.presentation.util.ImageResource" />
+            type="com.survivalcoding.ifkakao.presentation.util.Resource" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

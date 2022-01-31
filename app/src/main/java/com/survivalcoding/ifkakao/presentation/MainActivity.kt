@@ -66,7 +66,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        stk.pop()
-        super.onBackPressed()
+        val top = stk.pop()
+        if (top.fragmentType == FragmentType.HIGHLIGHT) finish()
+        else super.onBackPressed()
     }
 }
