@@ -9,9 +9,12 @@ import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.databinding.FragmentKeywordDialogBinding
 import com.survivalcoding.ifkakao.presentation.keyword.adapter.KeywordAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @AndroidEntryPoint
-class KeywordDialogFragment : DialogFragment() {
+class KeywordDialogFragment(
+    val isChanged: MutableStateFlow<Boolean>,
+) : DialogFragment() {
 
     private var _binding: FragmentKeywordDialogBinding? = null
     private val binding get() = _binding!!
@@ -46,6 +49,7 @@ class KeywordDialogFragment : DialogFragment() {
         binding.initializeButton.setOnClickListener { viewModel.onEvent(KeywordDialogEvent.Init) }
         binding.applyButton.setOnClickListener {
             viewModel.onEvent(KeywordDialogEvent.Save)
+            isChanged.value = true
             dismiss()
         }
 

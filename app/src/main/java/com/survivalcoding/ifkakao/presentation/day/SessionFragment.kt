@@ -60,9 +60,20 @@ class SessionFragment : BaseFragment<FragmentSessionBinding>(R.layout.fragment_s
             }
 
             selectKeywordButton.setOnClickListener {
-                val dialog = KeywordDialogFragment()
+                val dialog = KeywordDialogFragment(viewModel.isChanged)
                 dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light)
                 dialog.show(parentFragmentManager, "tag")
+            }
+        }
+
+        viewModel.sessions.observe(viewLifecycleOwner) {
+            (concatAdapter.adapters[0] as SessionListAdapter).submitList(it)
+        }
+
+        viewModel.changeObserve.observe(viewLifecycleOwner) {
+            if (it) {
+                viewModel.onEvent(SessionEvent.Update)
+                viewModel.isChanged.value = false
             }
         }
     }
