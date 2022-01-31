@@ -2,30 +2,25 @@ package com.survivalcoding.ifkakao.presentation.keyword
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.survivalcoding.ifkakao.domain.model.IkTagInfo
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionsByTagUseCase
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.combine
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class KeywordViewModel @Inject constructor(
     private val getSessionsByTagUseCase: GetSessionsByTagUseCase,
+    stk: Stack<FragmentInformation>
 ) : ViewModel() {
-    private val _selectedKeyword = MutableStateFlow(IkTagInfo.getEmptyTagInfo())
+    private val _selectedKeyword = MutableStateFlow(stk.peek().selectedKeyword)
     private val _relatedSessionsCount = MutableStateFlow(8)
 
-    val relatedSessions =
-        getSessionsByTagUseCase (_selectedKeyword.value).stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = listOf()
-        )
-
+    val relatedSessions = combine(_selectedKeyword, _relatedSessionsCount) { keyword, count ->
+        getSessionsByTagUseCase(keyword).take(count)
+    }.asLiveData()
     val selectedKeyword = _selectedKeyword.asLiveData()
     val relatedSessionsCount = _relatedSessionsCount.asLiveData()
 

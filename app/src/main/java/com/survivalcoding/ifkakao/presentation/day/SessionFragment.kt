@@ -27,7 +27,7 @@ class SessionFragment : BaseFragment<FragmentSessionBinding>(R.layout.fragment_s
 
         val concatAdapter = ConcatAdapter(
             SessionListAdapter(
-                threshold = 10,
+                threshold = 0,
                 load = { viewModel.onEvent(SessionEvent.LoadMoreSessions) },
                 onClickListener = {
                     viewModel.onEvent(SessionEvent.NextSession(it))
