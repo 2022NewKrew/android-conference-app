@@ -37,7 +37,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pagerAdapter = DetailFragmentStateAdapter(this)
+        val pagerAdapter = DetailFragmentStateAdapter(this, parentFragmentManager)
 
         bind {
             sessionAdapter = sessionListAdapter

@@ -2,6 +2,7 @@ package com.survivalcoding.ifkakao.presentation.detail
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailDescriptionBinding
@@ -17,7 +18,9 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailDescriptionFragment :
+class DetailDescriptionFragment(
+    private val mFragmentManager: FragmentManager,
+) :
     BaseFragment<FragmentDetailDescriptionBinding>(R.layout.fragment_detail_description) {
 
     @Inject
@@ -28,6 +31,8 @@ class DetailDescriptionFragment :
 
         val currentSession = stk.peek().session
 
+        val speakerListAdapter = SpeakerListAdapter()
+
         bind {
             tagAdapter = TagListAdapter(
                 onClickListener = {
@@ -37,7 +42,7 @@ class DetailDescriptionFragment :
                             selectedKeyword = it
                         )
                     )
-                    parentFragmentManager.commit {
+                    mFragmentManager.commit {
                         replace(R.id.fragment_container_view, KeywordFragment())
                         setReorderingAllowed(true)
                         addToBackStack(null)
@@ -45,20 +50,23 @@ class DetailDescriptionFragment :
                 }
             ).apply { submitList(currentSession.tag) }
 
-            speakerAdapter =
-                SpeakerListAdapter().apply { submitList(currentSession.sessionSpeakers) }
+            speakerList.adapter = speakerListAdapter
+
+            executePendingBindings()
 
             session = currentSession
 
             btnDetailToSessions.setOnClickListener {
                 toAllSession()
-                parentFragmentManager.commit {
+                mFragmentManager.commit {
                     replace(R.id.fragment_container_view, SessionFragment())
                     setReorderingAllowed(true)
                     addToBackStack(null)
                 }
             }
         }
+
+        speakerListAdapter.submitList(currentSession.sessionSpeakers.toMutableList())
     }
 
     private fun toAllSession() {

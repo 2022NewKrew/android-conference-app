@@ -38,7 +38,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="2"
             tools:itemCount="10"
             tools:listitem="@layout/tag_list_item" />
 
@@ -92,15 +91,17 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/speaker_list"
-            adapter="speakerAdapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="30dp"
+            android:nestedScrollingEnabled="false"
             android:orientation="vertical"
             android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_hashtag" />
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_hashtag"
+            tools:listitem="@layout/speaker_list_item" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_buttons"

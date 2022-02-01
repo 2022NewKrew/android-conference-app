@@ -109,7 +109,8 @@
                             android:id="@+id/tabLayout"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:layout_gravity="bottom|center" />
+                            android:layout_gravity="bottom|center"
+                            app:tabTextColor="@color/white_text" />
 
                     </LinearLayout>
 
