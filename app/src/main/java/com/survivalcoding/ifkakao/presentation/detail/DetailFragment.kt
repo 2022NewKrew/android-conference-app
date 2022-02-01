@@ -74,6 +74,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     addToBackStack(null)
                 }
             }
+
+            scrollTopButton.setOnClickListener { backgroundNestedScrollView.smoothScrollTo(0, 0) }
         }
 
         viewModel.sessions.observe(viewLifecycleOwner) {
