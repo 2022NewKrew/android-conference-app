@@ -4,8 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.google.android.exoplayer2.ui.PlayerView
+import androidx.core.view.children
 import com.google.android.material.appbar.AppBarLayout
 import com.survivalcoding.ifkakao.R
 import kotlin.math.abs
@@ -14,18 +16,14 @@ import kotlin.math.abs
 class BehaviorVideo(
     private val context: Context,
     private val attrs: AttributeSet,
-) : CoordinatorLayout.Behavior<PlayerView>(context, attrs) {
-
-    private val marginLeft = dpToPx(0F)
-    private val marginTop = dpToPx(0F)
-    private val marginTopAfter = dpToPx(0F)
+) : CoordinatorLayout.Behavior<ConstraintLayout>(context, attrs) {
 
     private val getYMax =
         context.resources.getDimension(R.dimen.appbar_height) - context.resources.getDimension(R.dimen.toolbar_height)
 
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
-        child: PlayerView,
+        child: ConstraintLayout,
         dependency: View
     ): Boolean {
         return dependency is AppBarLayout
@@ -33,23 +31,14 @@ class BehaviorVideo(
 
     override fun onDependentViewChanged(
         parent: CoordinatorLayout,
-        child: PlayerView,
+        child: ConstraintLayout,
         dependency: View
     ): Boolean {
-        child.scaleX = getRatioValue(1f, 0.7f, abs(dependency.y), getYMax)
-        child.scaleY = getRatioValue(1f, 0.7f, abs(dependency.y), getYMax)
-        child.x = getRatioValue(
-            marginLeft,
-            (dependency.width - child.width).toFloat() / 2,
-            abs(dependency.y),
-            getYMax,
-        )
-        child.y = getRatioValue(
-            marginTop,
-            marginTopAfter,
-            abs(dependency.y),
-            getYMax,
-        )
+        for (c in child.children) {
+            if (c is ImageView) {
+                c.y = getRatioValue(dpToPx(230F), dpToPx(150F), abs(dependency.y), getYMax)
+            }
+        }
 
         return false
     }

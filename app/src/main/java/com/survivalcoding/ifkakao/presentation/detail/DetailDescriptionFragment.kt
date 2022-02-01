@@ -23,27 +23,30 @@ class DetailDescriptionFragment :
     @Inject
     lateinit var stk: Stack<FragmentInformation>
 
-    private val currentSession = stk.peek().session
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bind {
-            tagAdapter = TagListAdapter {
-                stk.push(
-                    FragmentInformation(
-                        fragmentType = FragmentType.KEYWORD,
-                        selectedKeyword = it
-                    )
-                )
-                parentFragmentManager.commit {
-                    replace(R.id.fragment_container_view, KeywordFragment())
-                    setReorderingAllowed(true)
-                    addToBackStack(null)
-                }
-            }.apply { submitList(session?.tag) }
+        val currentSession = stk.peek().session
 
-            speakerAdapter = SpeakerListAdapter().apply { submitList(session?.sessionSpeakers) }
+        bind {
+            tagAdapter = TagListAdapter(
+                onClickListener = {
+                    stk.push(
+                        FragmentInformation(
+                            fragmentType = FragmentType.KEYWORD,
+                            selectedKeyword = it
+                        )
+                    )
+                    parentFragmentManager.commit {
+                        replace(R.id.fragment_container_view, KeywordFragment())
+                        setReorderingAllowed(true)
+                        addToBackStack(null)
+                    }
+                }
+            ).apply { submitList(currentSession.tag) }
+
+            speakerAdapter =
+                SpeakerListAdapter().apply { submitList(currentSession.sessionSpeakers) }
 
             session = currentSession
 
@@ -63,7 +66,7 @@ class DetailDescriptionFragment :
         stk.push(
             FragmentInformation(
                 fragmentType = FragmentType.DETAIL,
-                session = currentSession,
+                session = stk.peek().session,
             )
         )
         stk.push(

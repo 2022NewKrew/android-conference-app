@@ -5,14 +5,9 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.source.dash.DashMediaSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
-import com.google.android.exoplayer2.util.Util
+import com.google.android.material.tabs.TabLayoutMediator
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
-import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
@@ -25,8 +20,6 @@ import javax.inject.Inject
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
     @Inject
     lateinit var stk: Stack<FragmentInformation>
-
-    private var player: SimpleExoPlayer? = null
 
     private val viewModel: DetailViewModel by viewModels()
 
@@ -44,17 +37,30 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val pagerAdapter = DetailFragmentStateAdapter(this)
+
         bind {
             sessionAdapter = sessionListAdapter
             itemDecoration = SessionItemDecoration()
             executePendingBindings()
             vm = viewModel
 
+            viewPager.adapter = pagerAdapter
+            ViewPager2ViewHeightAnimator().viewPager2 = viewPager
+
             btnMoreSessions.setOnClickListener {
                 viewModel.onEvent(DetailEvent.LoadMoreSessions)
             }
 
             scrollTopButton.setOnClickListener { backgroundNestedScrollView.smoothScrollTo(0, 0) }
+
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.text = when (position) {
+                    0 -> "세션 설명"
+                    1 -> "댓글"
+                    else -> throw IllegalArgumentException("View pager error")
+                }
+            }.attach()
         }
 
         viewModel.sessions.observe(viewLifecycleOwner) {
@@ -68,6 +74,5 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         viewModel.exposedListCount.observe(viewLifecycleOwner) {
             bind { btnMoreSessions.isVisible = viewModel.totalCount > it }
         }
-
     }
 }

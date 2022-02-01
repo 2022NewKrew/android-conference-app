@@ -22,7 +22,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".presentation.detail.DetailFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -33,6 +34,8 @@
                 android:id="@+id/collapsing_toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:collapsedTitleTextAppearance="@style/Widget.Design.CollapsingToolbar"
+                app:expandedTitleTextAppearance="@style/Widget.Design.CollapsingToolbar"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <Toolbar
@@ -42,8 +45,6 @@
                     android:layout_gravity="bottom"
                     android:contentInsetStart="0dp"
                     android:contentInsetEnd="0dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     app:layout_collapseMode="pin">
 
                     <LinearLayout
@@ -104,10 +105,12 @@
                                 tools:text="09:41" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TableLayout
+                        <com.google.android.material.tabs.TabLayout
                             android:id="@+id/tabLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="50dp"
+                            android:layout_gravity="bottom|center" />
+
                     </LinearLayout>
 
                 </Toolbar>
@@ -121,8 +124,8 @@
             android:layout_height="match_parent"
             android:background="@color/black_background"
             android:verticalScrollbarPosition="right"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            tools:context=".presentation.highlight.HighlightFragment">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".presentation.detail.DetailFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
