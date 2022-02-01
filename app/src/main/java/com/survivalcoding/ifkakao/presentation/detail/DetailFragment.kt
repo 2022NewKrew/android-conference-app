@@ -5,15 +5,16 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.dash.DashMediaSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
+import com.google.android.exoplayer2.util.Util
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
+import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
-import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
-import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
-import com.survivalcoding.ifkakao.presentation.keyword.KeywordFragment
-import com.survivalcoding.ifkakao.presentation.session.SessionFragment
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
-import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,18 +26,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     @Inject
     lateinit var stk: Stack<FragmentInformation>
 
-    private val viewModel: DetailViewModel by viewModels()
+    private var player: SimpleExoPlayer? = null
 
-    private val tagListAdapter = TagListAdapter(
-        onClickListener = {
-            stk.push(FragmentInformation(fragmentType = FragmentType.KEYWORD, selectedKeyword = it))
-            parentFragmentManager.commit {
-                replace(R.id.fragment_container_view, KeywordFragment())
-                setReorderingAllowed(true)
-                addToBackStack(null)
-            }
-        }
-    )
+    private val viewModel: DetailViewModel by viewModels()
 
     private val sessionListAdapter = SessionListAdapter(
         onClickListener = {
@@ -49,14 +41,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     )
 
-    private val speakerListAdapter = SpeakerListAdapter()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         bind {
-            tagAdapter = tagListAdapter
-            speakerAdapter = speakerListAdapter
             sessionAdapter = sessionListAdapter
             itemDecoration = SessionItemDecoration()
             executePendingBindings()
@@ -66,27 +54,20 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 viewModel.onEvent(DetailEvent.LoadMoreSessions)
             }
 
-            btnDetailToSessions.setOnClickListener {
-                viewModel.onEvent(DetailEvent.ToAllSession)
-                parentFragmentManager.commit {
-                    replace(R.id.fragment_container_view, SessionFragment())
-                    setReorderingAllowed(true)
-                    addToBackStack(null)
-                }
-            }
-
             scrollTopButton.setOnClickListener { backgroundNestedScrollView.smoothScrollTo(0, 0) }
         }
 
         viewModel.sessions.observe(viewLifecycleOwner) {
             sessionListAdapter.submitList(it)
         }
+
         viewModel.currentSession.observe(viewLifecycleOwner) {
-            tagListAdapter.submitList(it.tag)
-            speakerListAdapter.submitList(it.sessionSpeakers)
+
         }
+
         viewModel.exposedListCount.observe(viewLifecycleOwner) {
             bind { btnMoreSessions.isVisible = viewModel.totalCount > it }
         }
+
     }
 }

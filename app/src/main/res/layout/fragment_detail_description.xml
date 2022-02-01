@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="session"
+            type="com.survivalcoding.ifkakao.domain.model.IkSessionData" />
+
+        <variable
+            name="tagAdapter"
+            type="com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter" />
+
+        <variable
+            name="speakerAdapter"
+            type="com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintHorizontal_bias="0.0">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_tag_list"
+            adapter="@{tagAdapter}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="2"
+            tools:itemCount="10"
+            tools:listitem="@layout/tag_list_item" />
+
+        <TextView
+            android:id="@+id/tv_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
+            android:fontFamily="@font/kakao_regular"
+            android:lineSpacingExtra="10dp"
+            android:text="@{session.title}"
+            android:textColor="@color/white_text"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_tag_list"
+            tools:text="이용자의 소중한 일상을 지키는 카카오톡" />
+
+        <TextView
+            android:id="@+id/tv_detail_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="25dp"
+            android:autoLink="web"
+            android:fontFamily="@font/kakao_regular"
+            android:lineSpacingExtra="10dp"
+            android:text="@{session.content}"
+            android:textColor="@color/white_text"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
+            tools:text="이용자의 소중한 일상을 지키려는 카카오톡의 노력을 소개합니다." />
+
+        <TextView
+            android:id="@+id/tv_detail_hashtag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="25dp"
+            android:fontFamily="@font/kakao_regular"
+            android:lineSpacingExtra="10dp"
+            android:text="@{session.hashTag}"
+            android:textColor="@color/gray_text"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_content"
+            tools:text="#카카오톡 #톡서랍업그레이드 #신분증 #톡명함 #오픈채팅 이용자보호" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/speaker_list"
+            adapter="speakerAdapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="30dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_hashtag" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/speaker_list">
+
+            <ImageView
+                android:id="@+id/iv_talk_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/icon_button"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_speech_bubble"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white_text" />
+
+            <ImageView
+                android:id="@+id/iv_facebook_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/icon_button"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_facebook_app_symbol"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_talk_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white_text" />
+
+            <ImageView
+                android:id="@+id/iv_twitter_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/icon_button"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_twitter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_facebook_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white_text" />
+
+            <ImageView
+                android:id="@+id/iv_link_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/icon_button"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_link"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_twitter_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/btn_detail_to_sessions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="30dp"
+            android:background="@drawable/list_video_thumbnail"
+            android:backgroundTint="@color/gray_dark_background"
+            android:fontFamily="@font/kakao_regular"
+            android:paddingHorizontal="50dp"
+            android:paddingVertical="10dp"
+            android:text="목록보기"
+            android:textColor="#a9a9a9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_buttons" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
