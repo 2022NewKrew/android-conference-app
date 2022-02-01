@@ -13,8 +13,8 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailExplanationBinding
 import com.survivalcoding.ifkakao.presentation.commons.FooterAdapter
 import com.survivalcoding.ifkakao.presentation.commons.SessionAdapter
-import com.survivalcoding.ifkakao.presentation.commons.sharedViewModel
 import com.survivalcoding.ifkakao.presentation.main.MainFragment.Companion.SELECTED
+import com.survivalcoding.ifkakao.sharedViewModel
 
 class DetailExplanationFragment : Fragment() {
     private val detailViewModel: DetailViewModel by sharedViewModel<DetailViewModel, DetailFragment>()

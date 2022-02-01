@@ -11,7 +11,7 @@ class ProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val binding = ItemDetailProfileBinding.bind(itemView)
 
     fun bind(profile: ProfileInfo) {
-        binding.profileName.text = profile.nameEn + " " + profile.nameKo
+        binding.profileName.text = profile.nameKo + " " + profile.nameEn
         binding.profileCompany.text = profile.company
         binding.profileTeam.text = profile.occupation
         binding.talkChannelButton.isVisible = profile.channelLink != null

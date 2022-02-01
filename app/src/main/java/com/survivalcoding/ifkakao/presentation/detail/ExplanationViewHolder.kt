@@ -1,6 +1,7 @@
 package com.survivalcoding.ifkakao.presentation.detail
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -24,7 +25,7 @@ class ExplanationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
         for (str in fields) {
             val text = TextView(ctx)
             text.text = str
-            text.setTextColor(ContextCompat.getColor(ctx, R.color.light_gray))
+            text.setTypeface(null, Typeface.BOLD)
             text.background = ContextCompat.getDrawable(ctx, R.drawable.bg_gray_box)
             text.setPadding(20 / (itemView.resources.displayMetrics.density).toInt())
 
@@ -36,6 +37,10 @@ class ExplanationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 
         val content = binding.contentText
         content.text = session.content
+
+        val tags = binding.tagText
+        tags.text = session.contentTag
+        tags.setTextColor(ContextCompat.getColor(ctx, R.color.light_gray))
 
         val download = binding.downloadLayout
         download.isVisible = !session.linkList?.FILE.isNullOrEmpty()

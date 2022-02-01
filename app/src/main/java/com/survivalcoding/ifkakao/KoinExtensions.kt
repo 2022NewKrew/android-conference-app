@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.presentation.commons
+package com.survivalcoding.ifkakao
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
