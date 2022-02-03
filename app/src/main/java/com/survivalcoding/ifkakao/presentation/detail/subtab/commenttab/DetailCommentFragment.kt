@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.presentation.detail
+package com.survivalcoding.ifkakao.presentation.detail.subtab.commenttab
 
 import android.os.Bundle
 import android.view.View

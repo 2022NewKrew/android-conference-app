@@ -9,6 +9,6 @@ import java.util.*
 data class IkComment(
     val id: Int,
     val name: String,
-    val date: String = SimpleDateFormat("yyyy.MM.dd. hh:mm", Locale.getDefault()).format(Date()),
+    val date: String = SimpleDateFormat("yyyy.MM.dd. HH:mm", Locale.getDefault()).format(Date()),
     val content: String,
 ) : Parcelable

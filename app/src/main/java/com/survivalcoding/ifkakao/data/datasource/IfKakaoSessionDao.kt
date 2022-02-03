@@ -13,7 +13,7 @@ interface IfKakaoSessionDao {
     fun getAllSession(): Flow<List<IkSessionLocalData>>
 
     @Query("select * from IkSessionLocalData where id = :id")
-    suspend fun getSessionById(id: Int): IkSessionLocalData?
+    suspend fun getSessionById(id: Int): IkSessionLocalData
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(session: IkSessionLocalData)
