@@ -50,6 +50,7 @@ class DayThreeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.getDaySessions(20211118)
+        binding.root.requestLayout()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

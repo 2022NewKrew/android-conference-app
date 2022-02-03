@@ -40,7 +40,7 @@ class DayTwoFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.getDaySessions(20211117)
-
+        binding.root.requestLayout()
     }
 
 
