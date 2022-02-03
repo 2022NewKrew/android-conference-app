@@ -20,6 +20,6 @@ class GetHighLightedUseCaseTest {
     @Test
     fun 하이라이트만_가져왔는지_확인() = runBlocking {
         val list = useCase.invoke()
-        assertEquals(1, list.size)
+        assertEquals(5, list.size)
     }
 }

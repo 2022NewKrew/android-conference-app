@@ -5,6 +5,5 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Like(
-    @PrimaryKey val idx: Int,
-    val id: Int
+    @PrimaryKey val idx: Int
 )

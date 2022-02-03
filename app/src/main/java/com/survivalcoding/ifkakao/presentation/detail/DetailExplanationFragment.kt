@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ConcatAdapter
@@ -35,7 +36,10 @@ class DetailExplanationFragment : Fragment() {
 
         val recyclerView = binding.recyclerView
         val concatAdapter = ConcatAdapter(
-            ExplanationAdapter(),
+            ExplanationAdapter {
+                detailViewModel.setLike()
+                //Toast.makeText(requireContext(), "isFavorite: " + it, Toast.LENGTH_SHORT).show()
+            },
             SessionAdapter { idx ->
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(
@@ -69,6 +73,10 @@ class DetailExplanationFragment : Fragment() {
 
         detailViewModel.relatedSessions.observe(viewLifecycleOwner) {
             (concatAdapter.adapters[1] as SessionAdapter).submitList(it)
+        }
+
+        detailViewModel.isLiking.observe(viewLifecycleOwner) {
+            (concatAdapter.adapters[0] as ExplanationAdapter).updateLiking(it)
         }
     }
 

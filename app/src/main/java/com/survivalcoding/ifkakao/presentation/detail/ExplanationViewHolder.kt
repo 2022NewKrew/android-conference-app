@@ -15,7 +15,13 @@ import com.survivalcoding.ifkakao.domain.model.ContentsSpeaker
 import com.survivalcoding.ifkakao.domain.model.ProfileInfo
 import com.survivalcoding.ifkakao.domain.model.Session
 
-class ExplanationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+const val KILOBYTE = 1024
+
+class ExplanationViewHolder(
+    itemView: View,
+    private val isFavorite: Boolean,
+    private val onClickFavoriteButton: (Boolean) -> Unit
+) : RecyclerView.ViewHolder(itemView) {
     val binding = ItemDetailExplanationBinding.bind(itemView)
     private val ctx: Context = itemView.context
     fun bind(session: Session) {
@@ -45,7 +51,18 @@ class ExplanationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
         val download = binding.downloadLayout
         download.isVisible = !session.linkList?.FILE.isNullOrEmpty()
         if (!session.linkList?.FILE.isNullOrEmpty()) {
+            binding.fileSize.text = textOfFileSize(session.linkList!!.FILE!![0].fileSize!!)
 
+            binding.fileName.setOnClickListener {
+                //ToDo: Download 구현 및 pdf 파일 오픈
+            }
+        }
+
+        val favoriteButton = binding.favoriteButton
+        favoriteButton.isSelected = isFavorite
+        favoriteButton.setOnClickListener {
+            favoriteButton.isSelected = !favoriteButton.isSelected
+            onClickFavoriteButton(favoriteButton.isSelected)
         }
 
         val recyclerView = binding.profileRecyclerView
@@ -70,5 +87,10 @@ class ExplanationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
         }
 
         adapter.submitList(profileInfos)
+    }
+
+    private fun textOfFileSize(fileSize: Int): String {
+        return if (fileSize < KILOBYTE * KILOBYTE) fileSize.div(KILOBYTE).toString() + "KB"
+        else fileSize.div(KILOBYTE * KILOBYTE).toString() + "MB"
     }
 }

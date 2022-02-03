@@ -2,9 +2,7 @@ package com.survivalcoding.ifkakao.presentation.detail
 
 import androidx.lifecycle.*
 import com.survivalcoding.ifkakao.domain.model.Session
-import com.survivalcoding.ifkakao.domain.usecase.FindIfLikingUseCase
-import com.survivalcoding.ifkakao.domain.usecase.GetRelatedSessionsUseCase
-import com.survivalcoding.ifkakao.domain.usecase.GetSessionByIdUseCase
+import com.survivalcoding.ifkakao.domain.usecase.*
 import com.survivalcoding.ifkakao.presentation.main.MainFragment.Companion.SELECTED
 import kotlinx.coroutines.launch
 
@@ -13,6 +11,8 @@ class DetailViewModel(
     private val getSessionById: GetSessionByIdUseCase,
     private val getRelatedSessionsUseCase: GetRelatedSessionsUseCase,
     private val getIfLikingUseCase: FindIfLikingUseCase,
+    private val addLikeUseCase: AddLikeUseCase,
+    private val deleteLikeUseCase: DeleteLikeUseCase
 ) : ViewModel() {
     private var _session: MutableLiveData<Session> = MutableLiveData(Session())
     val session: LiveData<Session> = _session
@@ -39,7 +39,13 @@ class DetailViewModel(
         }
     }
 
-    fun changeLike() {
+    fun setLike() {
         _isLiking.value = !(_isLiking.value)!!
+        val idx = _session.value!!.idx
+        viewModelScope.launch {
+            if (_isLiking.value == true) addLikeUseCase.invoke(idx)
+            else deleteLikeUseCase.invoke(idx)
+        }
     }
+
 }

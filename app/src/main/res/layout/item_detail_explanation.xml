@@ -18,16 +18,15 @@
         android:padding="15dp">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/favoriteButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@null"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageButton2"
-            app:srcCompat="@drawable/ic_star_border" />
+            app:layout_constraintTop_toTopOf="@+id/titleText"
+            app:srcCompat="@drawable/ic_favorite_button" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/SessionInfoLayout"
@@ -44,11 +43,13 @@
 
         <TextView
             android:id="@+id/titleText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:textSize="20sp"
+            android:layout_marginEnd="10dp"
+            android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SessionInfoLayout"
             tools:text="Title" />
@@ -57,7 +58,7 @@
             android:id="@+id/contentText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleText"
@@ -108,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                tools:text="파일 다운로드.png" />
+                android:text="발표자료다운로드.PDF" />
 
             <TextView
                 android:id="@+id/fileSize"
