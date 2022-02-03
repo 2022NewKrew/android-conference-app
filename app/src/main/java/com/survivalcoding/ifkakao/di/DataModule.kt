@@ -2,11 +2,13 @@ package com.survivalcoding.ifkakao.di
 
 import android.content.Context
 import androidx.room.Room
+import com.google.gson.Gson
 import com.survivalcoding.ifkakao.data.datasource.IfKakaoService
 import com.survivalcoding.ifkakao.data.datasource.IfKakaoSessionDao
 import com.survivalcoding.ifkakao.data.datasource.IfKakaoSessionLocalDatabase
 import com.survivalcoding.ifkakao.data.repository.SessionLocalRepositoryImpl
 import com.survivalcoding.ifkakao.data.repository.SessionRemoteRepositoryImpl
+import com.survivalcoding.ifkakao.domain.model.CommentListTypeConverter
 import com.survivalcoding.ifkakao.domain.model.IfKakaoContent
 import com.survivalcoding.ifkakao.domain.repository.LocalRepository
 import com.survivalcoding.ifkakao.domain.repository.SessionRepository
@@ -58,12 +60,19 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideSessionDao(@ApplicationContext context: Context): IfKakaoSessionDao {
+    fun provideGson(): Gson {
+        return Gson()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSessionDao(@ApplicationContext context: Context, gson: Gson): IfKakaoSessionDao {
         return Room.databaseBuilder(
             context,
             IfKakaoSessionLocalDatabase::class.java,
             "sessionLocalDB"
-        ).build().sessionDao()
+        ).addTypeConverter(CommentListTypeConverter(gson))
+            .build().sessionDao()
     }
 
     @Provides
