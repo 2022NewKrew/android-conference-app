@@ -1,14 +1,21 @@
 package com.survivalcoding.ifkakao.di
 
+import android.content.Context
+import androidx.room.Room
 import com.survivalcoding.ifkakao.data.datasource.IfKakaoService
+import com.survivalcoding.ifkakao.data.datasource.IfKakaoSessionDao
+import com.survivalcoding.ifkakao.data.datasource.IfKakaoSessionLocalDatabase
+import com.survivalcoding.ifkakao.data.repository.SessionLocalRepositoryImpl
 import com.survivalcoding.ifkakao.data.repository.SessionRemoteRepositoryImpl
 import com.survivalcoding.ifkakao.domain.model.IfKakaoContent
+import com.survivalcoding.ifkakao.domain.repository.LocalRepository
 import com.survivalcoding.ifkakao.domain.repository.SessionRepository
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.runBlocking
 import retrofit2.Retrofit
@@ -47,5 +54,21 @@ object DataModule {
     @Singleton
     fun provideFragmentStack(): Stack<FragmentInformation> {
         return Stack<FragmentInformation>().apply { push(FragmentInformation(fragmentType = FragmentType.HIGHLIGHT)) }
+    }
+
+    @Provides
+    @Singleton
+    fun provideSessionDao(@ApplicationContext context: Context): IfKakaoSessionDao {
+        return Room.databaseBuilder(
+            context,
+            IfKakaoSessionLocalDatabase::class.java,
+            "sessionLocalDB"
+        ).build().sessionDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSessionLocalRepository(dao: IfKakaoSessionDao): LocalRepository {
+        return SessionLocalRepositoryImpl(dao)
     }
 }
