@@ -1,11 +1,11 @@
 package com.example.data.repositoryImpl
 
 import com.example.data.network.ConferenceDataStore
-import com.example.data.network.IfKakaoService
 import com.example.domain.entity.Conference
+import com.example.domain.entity.ContentState
 import com.example.domain.entity.Data
+import com.example.domain.entity.OrderState
 import com.example.domain.repository.ConferencesRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ConferencesRepositoryImpl @Inject constructor(private val conferenceDataStore: ConferenceDataStore) :
@@ -19,12 +19,6 @@ class ConferencesRepositoryImpl @Inject constructor(private val conferenceDataSt
         it.spotlightYn == "Y"
     }
 
-    override suspend fun getSessionsFromDate(date: Int): List<Data>? =
-        getConferences()?.data?.filter {
-            if (date == 20211118) true
-            else it.reservationDate == date
-        }
-
     //todo like data
     override suspend fun getLikedSessions(): List<Data>? = getConferences()?.data
 
@@ -37,6 +31,33 @@ class ConferencesRepositoryImpl @Inject constructor(private val conferenceDataSt
         getConferences()?.data?.filter {
             it.field == field
         }
+
+    override suspend fun getSortedDateSessions(
+        date: Int,
+        contentState: ContentState, orderState: OrderState
+    ): List<Data>? {
+        val result = getConferences()?.data?.filter {
+            if (date == 20211118) true
+            else it.reservationDate == date
+        }
+        if (result != null) {
+            return when (orderState) {
+                OrderState.asc -> {
+                    if (contentState == ContentState.title) result.sortedBy { it.title }
+                    else if (contentState == ContentState.company) result.sortedBy { it.company }
+                    else result.sortedBy { it.categoryIdx }
+
+                }
+                OrderState.desc -> {
+                    if (contentState == ContentState.title) result.sortedByDescending { it.title }
+                    else if (contentState == ContentState.company) result.sortedByDescending { it.company }
+                    else result.sortedByDescending { it.categoryIdx }
+                }
+            }
+        } else {
+            return null
+        }
+    }
 
 
 }

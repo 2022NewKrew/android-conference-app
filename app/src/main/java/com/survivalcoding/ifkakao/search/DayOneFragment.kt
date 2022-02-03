@@ -50,7 +50,6 @@ class DayOneFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getDaySessions(20211116)
         binding.root.requestLayout()
     }
 
@@ -63,7 +62,6 @@ class DayOneFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.daysItems.collect {
-                    Log.d("one ->", "${it.size}")
                     adapter.submitList(it)
                 }
             }

@@ -2,7 +2,9 @@ package com.survivalcoding.ifkakao
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.entity.ContentState
 import com.example.domain.entity.Data
+import com.example.domain.entity.OrderState
 import com.example.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,9 +18,9 @@ class MainViewModel @Inject constructor(
     private val getHighlightSessionsUseCase: GetHighlightSessionsUseCase,
     private val getAllSessionsUseCase: GetAllSessionsUseCase,
     private val getLikedSessionsUseCase: GetLikedSessionsUseCase,
-    private val getSessionsFromDateUseCase: GetSessionsFromDateUseCase,
     private val getSessionsWithKeyWordsUseCase: GetSessionsWithKeyWordsUseCase,
-    private val getSessionWithFieldUseCase: GetSessionWithFieldUseCase
+    private val getSessionWithFieldUseCase: GetSessionWithFieldUseCase,
+    private val getSortedSessionsUseCase: GetSortedSessionsUseCase
 ) : ViewModel() {
 
     val highlightItems = MutableStateFlow(listOf<Data>())
@@ -44,11 +46,13 @@ class MainViewModel @Inject constructor(
         session.value = item
     }
 
-    fun getDaySessions(date: Int) {
+    fun getSortedDateSession(date: Int, contentState: ContentState, orderState: OrderState) {
         viewModelScope.launch {
-            daysItems.value = getSessionsFromDateUseCase(date) ?: listOf()
+            daysItems.value =
+                getSortedSessionsUseCase(date, contentState, orderState) ?: listOf()
         }
     }
+
 
     fun getRelatedSessions(field: String) {
         viewModelScope.launch {

@@ -51,7 +51,38 @@
                 app:layout_constraintTop_toTopOf="@id/filter_img_btn"
                 tools:listitem="@android:layout/activity_list_item" />
 
-            <ImageButton
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sorting_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/filter_img_btn"
+                app:layout_constraintEnd_toStartOf="@id/filter_img_btn"
+                app:layout_constraintTop_toTopOf="@id/filter_img_btn">
+
+                <TextView
+                    android:id="@+id/textview_sorting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정렬"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/sorting_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textview_sorting"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
                 android:id="@+id/filter_img_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,13 +91,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_view_main_image" />
 
+
+            <include
+                android:id="@+id/item_sort_layout"
+                layout="@layout/item_sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filter_img_btn" />
+
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter_img_btn" />
+                app:layout_constraintTop_toBottomOf="@id/item_sort_layout" />
 
 
             <include

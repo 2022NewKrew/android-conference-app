@@ -1,10 +1,10 @@
 package com.survivalcoding.ifkakao.search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -16,7 +16,6 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.adapter.SessionListAdapter
 import com.survivalcoding.ifkakao.compose.SessionFragment
 import com.survivalcoding.ifkakao.databinding.FragmentDayTwoBinding
-import com.survivalcoding.ifkakao.databinding.FragmentSearchBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -39,7 +38,6 @@ class DayTwoFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getDaySessions(20211117)
         binding.root.requestLayout()
     }
 
@@ -62,7 +60,6 @@ class DayTwoFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.daysItems.collect {
                     adapter.submitList(it)
-                    binding.root.requestLayout()
                 }
             }
         }
