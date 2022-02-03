@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import androidx.fragment.app.*
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -65,6 +66,10 @@ class MainFragment : Fragment() {
                 replace<SearchFragment>(R.id.fragment_container_view)
                 addToBackStack(null)
             }
+        }
+
+        binding.scrollTopView.scrollTopImage.setOnClickListener {
+            binding.mainNestedScrollView.fullScroll(ScrollView.FOCUS_UP)
         }
 
     }

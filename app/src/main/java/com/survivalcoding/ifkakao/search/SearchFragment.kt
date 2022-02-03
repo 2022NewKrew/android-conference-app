@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -73,6 +74,11 @@ class SearchFragment : Fragment() {
             }
 
         }
+
+        binding.scrollTopView.scrollTopImage.setOnClickListener {
+            binding.searchNestedScrollView.fullScroll(ScrollView.FOCUS_UP)
+        }
+
 
     }
 

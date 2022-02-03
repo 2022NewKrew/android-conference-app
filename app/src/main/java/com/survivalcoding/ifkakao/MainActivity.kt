@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                replace<SearchFragment>(R.id.fragment_container_view)
+                replace<MainFragment>(R.id.fragment_container_view)
             }
         }
     }
