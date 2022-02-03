@@ -30,7 +30,8 @@ class DetailViewModel(
 
                 _relatedSessions.value = getRelatedSessionsUseCase.invoke(
                     _session.value!!.field,
-                    _session.value!!.relationList.MAIN_EXPOSURE_DAY
+                    _session.value!!.relationList.TECH_CLASSIFICATION,
+                    _session.value!!.idx
                 )
 
                 _isLiking.value = getIfLikingUseCase.invoke(_session.value!!.idx)

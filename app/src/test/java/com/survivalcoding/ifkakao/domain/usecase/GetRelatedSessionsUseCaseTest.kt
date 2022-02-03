@@ -19,14 +19,20 @@ class GetRelatedSessionsUseCaseTest {
 
     @Test
     fun 연관_세션_가져오는지_확인() = runBlocking {
-        val data = useCase.invoke("서비스", listOf("1Day"))
+        val data = useCase.invoke("서비스", listOf(), 21)
         assertEquals(1, data.size)
         assertEquals(20, data[0].idx)
 
-        val data2 = useCase.invoke("기술", listOf("1Day"))
+        val data2 = useCase.invoke("서비스", listOf(), 20)
         assertEquals(0, data2.size)
 
-        val data3 = useCase.invoke("기술", listOf())
+        val data3 = useCase.invoke("기술", listOf(), 20)
         assertEquals(4, data3.size)
+
+        val data4 = useCase.invoke("기술", listOf("블록체인"), 93)
+        assertEquals(1, data4.size)
+
+        val data5 = useCase.invoke("기술", listOf("블록체인"), 1)
+        assertEquals(2, data5.size)
     }
 }
