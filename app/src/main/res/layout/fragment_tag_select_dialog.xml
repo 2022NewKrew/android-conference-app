@@ -1,242 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="tagFragment"
+            type="com.survivalcoding.ifkakao.dialog.TagSelectFragment" />
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".dialog.TagSelectFragment">
-
-
-        <ImageView
-            android:id="@+id/cancel_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="cancel"
-            android:src="@drawable/ic_baseline_cancel_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="match_parent"
+            tools:context=".dialog.TagSelectFragment">
 
-            <Button
-                android:id="@+id/init_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/lightGrey"
-                android:paddingHorizontal="50dp"
-                android:text="초기화"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/confirm_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/teal_200"
-                android:paddingHorizontal="50dp"
-                android:text="적용"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <ImageView
+                android:id="@+id/cancel_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="cancel"
+                android:src="@drawable/ic_baseline_cancel_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <Button
+                    android:id="@+id/init_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/lightGrey"
+                    android:paddingHorizontal="50dp"
+                    android:text="초기화"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/confirm_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/teal_700"
+                    android:paddingHorizontal="50dp"
+                    android:text="적용"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cancel_button">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/interested_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="관심분야"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/service"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/interested_type"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="서비스" />
+
+                    <TextView
+                        android:id="@+id/business"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/interested_type"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/service"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="비즈니스" />
+
+                    <TextView
+                        android:id="@+id/tech"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/interested_type"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/business"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="기술" />
+
+
+                    <TextView
+                        android:id="@+id/interested_keyword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tech"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="관심키워드"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/service_business"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/interested_keyword"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="서비스-비즈니스"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/platform"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/service_business"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="플랫폼" />
+
+                    <TextView
+                        android:id="@+id/commerce"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/service_business"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/platform"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="커머스" />
+
+
+                    <TextView
+                        android:id="@+id/interested_tech"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/platform"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="기술"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/backend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/interested_tech"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="백앤드" />
+
+                    <TextView
+                        android:id="@+id/AI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/interested_tech"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/backend"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="머신러닝/AI" />
+
+
+                    <TextView
+                        android:id="@+id/interested_company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/AI"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="공동체분류"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kakao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/interested_company"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오" />
+
+                    <TextView
+                        android:id="@+id/games"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/interested_company"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/backend"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오게임즈" />
+
+
+                </RelativeLayout>
+
+
+            </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cancel_button">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <TextView
-                    android:id="@+id/interested_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="관심분야"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/service"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/interested_type"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_thumbnail_frame"
-                    android:padding="10dp"
-                    android:text="서비스" />
-
-                <TextView
-                    android:id="@+id/business"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/interested_type"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/service"
-                    android:background="@drawable/bg_thumbnail_frame"
-                    android:padding="10dp"
-                    android:text="비즈니스" />
-
-                <TextView
-                    android:id="@+id/tech"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/interested_type"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/business"
-                    android:background="@drawable/bg_thumbnail_frame"
-                    android:padding="10dp"
-                    android:text="기술" />
-
-
-                <TextView
-                    android:id="@+id/interested_keyword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tech"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="관심키워드"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/service_business"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/interested_keyword"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="서비스-비즈니스"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/platform"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/service_business"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_thumbnail_frame"
-                    android:padding="10dp"
-                    android:text="플랫폼" />
-
-                <TextView
-                    android:id="@+id/commerce"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/service_business"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/platform"
-                    android:background="@drawable/bg_thumbnail_frame"
-                    android:padding="10dp"
-                    android:text="커머스" />
-
-
-                <TextView
-                    android:id="@+id/interested_tech"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/platform"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="기술"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/backend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/interested_tech"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_thumbnail_frame"
-                    android:padding="10dp"
-                    android:text="백앤드" />
-
-                <TextView
-                    android:id="@+id/AI"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/interested_tech"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/backend"
-                    android:background="@drawable/bg_thumbnail_frame"
-                    android:padding="10dp"
-                    android:text="머신러닝/AI" />
-
-
-                <TextView
-                    android:id="@+id/interested_company"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/AI"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="공동체분류"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/kakao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/interested_company"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_thumbnail_frame"
-                    android:padding="10dp"
-                    android:text="카카오" />
-
-                <TextView
-                    android:id="@+id/games"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/interested_company"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/backend"
-                    android:background="@drawable/bg_thumbnail_frame"
-                    android:padding="10dp"
-                    android:text="카카오게임즈" />
-
-
-            </RelativeLayout>
-
-
-        </ScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</FrameLayout>
+    </FrameLayout>
+</layout>
