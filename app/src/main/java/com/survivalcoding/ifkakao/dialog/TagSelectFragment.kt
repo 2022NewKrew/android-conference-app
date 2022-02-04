@@ -17,7 +17,7 @@ class TagSelectFragment : DialogFragment() {
     private var _binding: FragmentTagSelectDialogBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<MainViewModel>()
-
+    private var keywords = listOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, R.style.dialog_fullscreen)
@@ -34,6 +34,28 @@ class TagSelectFragment : DialogFragment() {
     ): View {
         _binding = FragmentTagSelectDialogBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        binding.cancelButton.setOnClickListener {
+            dismiss()
+        }
+        binding.initBtn.setOnClickListener {
+            initView()
+        }
+        binding.confirmBtn.setOnClickListener {
+            viewModel.updateKeyWords(keywords)
+            dismiss()
+        }
+
+
+    }
+
+    private fun initView() {
+        viewModel.keywords.value = listOf<String>()
     }
 
     override fun onDestroyView() {

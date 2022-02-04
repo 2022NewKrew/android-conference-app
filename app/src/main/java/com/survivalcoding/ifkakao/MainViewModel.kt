@@ -26,6 +26,7 @@ class MainViewModel @Inject constructor(
     val isLogin = MutableStateFlow(false)
     val highlightItems = MutableStateFlow(listOf<Data>())
     val daysItems = MutableStateFlow(listOf<Data>())
+    val keywords = MutableStateFlow(listOf<String>())
     lateinit var session: MutableStateFlow<Data>
     val relatedSessions = MutableStateFlow(listOf<Data>())
 
@@ -54,6 +55,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun updateKeyWords(newKeyWords: List<String>) {
+        if (newKeyWords != keywords.value) {
+            keywords.value = newKeyWords
+        }
+    }
 
     fun getRelatedSessions(field: String) {
         viewModelScope.launch {
