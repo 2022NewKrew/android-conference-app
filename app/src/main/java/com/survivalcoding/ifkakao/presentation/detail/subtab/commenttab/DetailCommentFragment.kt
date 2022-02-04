@@ -3,10 +3,12 @@ package com.survivalcoding.ifkakao.presentation.detail.subtab.commenttab
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailCommentBinding
 import com.survivalcoding.ifkakao.domain.model.IkComment
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
+import com.survivalcoding.ifkakao.presentation.detail.DetailViewModel
 import com.survivalcoding.ifkakao.presentation.detail.adapter.CommentListAdapter
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,5 +33,9 @@ class DetailCommentFragment(
         }
 
         bind { commentRecyclerView.adapter = commentAdapter }
+
+        val viewModel = parentFragment?.let { parent ->
+            ViewModelProvider(parent)[DetailViewModel::class.java]
+        }
     }
 }
