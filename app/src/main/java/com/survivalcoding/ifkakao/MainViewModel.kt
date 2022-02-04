@@ -23,6 +23,7 @@ class MainViewModel @Inject constructor(
     private val getSortedSessionsUseCase: GetSortedSessionsUseCase
 ) : ViewModel() {
 
+    val isLogin = MutableStateFlow(false)
     val highlightItems = MutableStateFlow(listOf<Data>())
     val daysItems = MutableStateFlow(listOf<Data>())
     lateinit var session: MutableStateFlow<Data>
