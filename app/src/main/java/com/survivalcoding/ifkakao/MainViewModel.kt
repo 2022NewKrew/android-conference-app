@@ -27,6 +27,7 @@ class MainViewModel @Inject constructor(
     val highlightItems = MutableStateFlow(listOf<Data>())
     val daysItems = MutableStateFlow(listOf<Data>())
     val keywords = MutableStateFlow(listOf<String>())
+    val date = MutableStateFlow<Int>(20211116)
     lateinit var session: MutableStateFlow<Data>
     val relatedSessions = MutableStateFlow(listOf<Data>())
 
@@ -48,10 +49,10 @@ class MainViewModel @Inject constructor(
         session.value = item
     }
 
-    fun getSortedDateSession(date: Int, contentState: ContentState, orderState: OrderState) {
+    fun getSortedDateSession(contentState: ContentState, orderState: OrderState) {
         viewModelScope.launch {
             daysItems.value =
-                getSortedSessionsUseCase(date, contentState, orderState) ?: listOf()
+                getSortedSessionsUseCase(date.value, contentState, orderState) ?: listOf()
         }
     }
 

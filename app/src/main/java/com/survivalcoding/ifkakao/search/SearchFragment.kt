@@ -27,7 +27,6 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private var contentState = ContentState.title
     private var orderState = OrderState.asc
-    private var date = 20211116
 
 
     override fun onCreateView(
@@ -68,7 +67,7 @@ class SearchFragment : Fragment() {
                 R.id.title_sorting -> contentState = ContentState.title
                 R.id.category_sorting -> contentState = ContentState.category
             }
-            viewModel.getSortedDateSession(date, contentState, orderState)
+            viewModel.getSortedDateSession(contentState, orderState)
         }
 
         binding.itemSortLayout.orderSortGroupView.setOnCheckedChangeListener { _, checkId ->
@@ -76,7 +75,7 @@ class SearchFragment : Fragment() {
                 R.id.ascending -> orderState = OrderState.asc
                 R.id.descending -> orderState = OrderState.desc
             }
-            viewModel.getSortedDateSession(date, contentState, orderState)
+            viewModel.getSortedDateSession(contentState, orderState)
         }
 
         //select tag
@@ -92,11 +91,11 @@ class SearchFragment : Fragment() {
                 super.onPageSelected(position)
                 binding.spinner.setSelection(position)
                 when (position) {
-                    0 -> date = 20211116
-                    1 -> date = 20211117
-                    2 -> date = 20211118
+                    0 -> viewModel.date.value = 20211116
+                    1 -> viewModel.date.value = 20211117
+                    2 -> viewModel.date.value = 20211118
                 }
-                viewModel.getSortedDateSession(date, contentState, orderState)
+                viewModel.getSortedDateSession(contentState, orderState)
             }
         })
 
