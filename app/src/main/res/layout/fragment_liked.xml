@@ -8,10 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="vm"
-            type="com.survivalcoding.ifkakao.presentation.keyword.KeywordViewModel" />
-
-        <variable
             name="adapter"
             type="androidx.recyclerview.widget.ConcatAdapter" />
 
@@ -23,10 +19,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.keyword.KeywordFragment">
+        tools:context=".presentation.liked.LikedFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_keyword_recyclerview"
+            android:id="@+id/fragment_liked_recyclerview"
             adapter="@{adapter}"
             itemDecoration="@{itemDecoration}"
             android:layout_width="match_parent"

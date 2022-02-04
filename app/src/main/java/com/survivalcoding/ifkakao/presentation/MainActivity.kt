@@ -7,6 +7,7 @@ import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.presentation.highlight.HighlightFragment
+import com.survivalcoding.ifkakao.presentation.liked.LikedFragment
 import com.survivalcoding.ifkakao.presentation.session.SessionFragment
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.FragmentType
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             stk.push(FragmentInformation(fragmentType = FragmentType.HIGHLIGHT))
             supportFragmentManager.commit {
                 replace(R.id.fragment_container_view, HighlightFragment())
+                setReorderingAllowed(true)
                 addToBackStack(null)
             }
         }
@@ -60,6 +62,23 @@ class MainActivity : AppCompatActivity() {
             )
             supportFragmentManager.commit {
                 replace(R.id.fragment_container_view, SessionFragment())
+                setReorderingAllowed(true)
+                addToBackStack(null)
+            }
+        }
+
+        binding.navigationMyListItem.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            if (stk.peek().fragmentType == FragmentType.LIKED) return@setOnClickListener
+
+            stk.push(
+                FragmentInformation(
+                    fragmentType = FragmentType.LIKED,
+                )
+            )
+            supportFragmentManager.commit {
+                replace(R.id.fragment_container_view, LikedFragment())
+                setReorderingAllowed(true)
                 addToBackStack(null)
             }
         }

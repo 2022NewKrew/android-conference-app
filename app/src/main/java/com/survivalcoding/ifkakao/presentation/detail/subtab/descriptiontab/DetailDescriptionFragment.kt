@@ -85,7 +85,7 @@ class DetailDescriptionFragment(
         viewModel?.localSessionData?.observe(viewLifecycleOwner) {
             bind {
                 ivLikeButton.imageTintList = when (it.isLiked) {
-                    true -> ColorStateList.valueOf(Color.parseColor("#ff0000"))
+                    true -> ColorStateList.valueOf(Color.parseColor("#ffe812"))
                     else -> ColorStateList.valueOf(Color.parseColor("#ffffff"))
                 }
             }

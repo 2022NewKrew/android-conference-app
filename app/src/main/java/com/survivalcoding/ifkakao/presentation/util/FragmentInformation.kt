@@ -13,5 +13,5 @@ data class FragmentInformation(
 )
 
 enum class FragmentType {
-    HIGHLIGHT, SESSION, DETAIL, KEYWORD;
+    HIGHLIGHT, SESSION, DETAIL, KEYWORD, LIKED;
 }
