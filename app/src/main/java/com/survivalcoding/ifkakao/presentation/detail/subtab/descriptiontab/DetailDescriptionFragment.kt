@@ -1,12 +1,17 @@
 package com.survivalcoding.ifkakao.presentation.detail.subtab.descriptiontab
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
+import androidx.lifecycle.ViewModelProvider
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailDescriptionBinding
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
+import com.survivalcoding.ifkakao.presentation.detail.DetailEvent
+import com.survivalcoding.ifkakao.presentation.detail.DetailViewModel
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.TagListAdapter
 import com.survivalcoding.ifkakao.presentation.keyword.KeywordFragment
@@ -29,32 +34,35 @@ class DetailDescriptionFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currentSession = stk.peek().session
-
         val speakerListAdapter = SpeakerListAdapter()
+        val tagListAdapter = TagListAdapter(
+            onClickListener = {
+                stk.push(
+                    FragmentInformation(
+                        fragmentType = FragmentType.KEYWORD,
+                        selectedKeyword = it
+                    )
+                )
+                mFragmentManager.commit {
+                    replace(R.id.fragment_container_view, KeywordFragment())
+                    setReorderingAllowed(true)
+                    addToBackStack(null)
+                }
+            }
+        )
+
+        val viewModel = parentFragment?.let { parent ->
+            ViewModelProvider(parent)[DetailViewModel::class.java]
+        }
 
         bind {
-            tagAdapter = TagListAdapter(
-                onClickListener = {
-                    stk.push(
-                        FragmentInformation(
-                            fragmentType = FragmentType.KEYWORD,
-                            selectedKeyword = it
-                        )
-                    )
-                    mFragmentManager.commit {
-                        replace(R.id.fragment_container_view, KeywordFragment())
-                        setReorderingAllowed(true)
-                        addToBackStack(null)
-                    }
-                }
-            ).apply { submitList(currentSession.tag) }
+            tagAdapter = tagListAdapter
 
             speakerList.adapter = speakerListAdapter
 
             executePendingBindings()
 
-            session = currentSession
+            session = stk.peek().session
 
             btnDetailToSessions.setOnClickListener {
                 toAllSession()
@@ -64,9 +72,24 @@ class DetailDescriptionFragment(
                     addToBackStack(null)
                 }
             }
+
+            ivLikeButton.setOnClickListener {
+                viewModel?.onEvent(DetailEvent.ToggleLiked)
+            }
         }
 
-        speakerListAdapter.submitList(currentSession.sessionSpeakers.toMutableList())
+        viewModel?.currentSession?.observe(viewLifecycleOwner) {
+            speakerListAdapter.submitList(it.sessionSpeakers)
+            tagListAdapter.submitList(it.tag)
+        }
+        viewModel?.localSessionData?.observe(viewLifecycleOwner) {
+            bind {
+                ivLikeButton.imageTintList = when (it.isLiked) {
+                    true -> ColorStateList.valueOf(Color.parseColor("#ff0000"))
+                    else -> ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                }
+            }
+        }
     }
 
     private fun toAllSession() {

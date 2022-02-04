@@ -8,6 +8,7 @@ import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.usecase.GetLocalSessionDataUseCase
 import com.survivalcoding.ifkakao.domain.usecase.GetRelatedSessionsUseCase
 import com.survivalcoding.ifkakao.domain.usecase.InsertNewCommentUseCase
+import com.survivalcoding.ifkakao.domain.usecase.ToggleLikedSessionUseCase
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.FragmentType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,7 @@ class DetailViewModel @Inject constructor(
     private val getRelatedSessionsUseCase: GetRelatedSessionsUseCase,
     private val getLocalSessionDataUseCase: GetLocalSessionDataUseCase,
     private val insertNewCommentUseCase: InsertNewCommentUseCase,
+    private val toggleLikedSessionUseCase: ToggleLikedSessionUseCase,
     private val stk: Stack<FragmentInformation>,
 ) : ViewModel() {
     private val _currentSession = MutableStateFlow(stk.peek().session)
@@ -67,6 +69,9 @@ class DetailViewModel @Inject constructor(
             is DetailEvent.InsertComment -> viewModelScope.launch {
                 insertNewCommentUseCase(_currentSession.value.id, event.comment)
             }
+            DetailEvent.ToggleLiked -> viewModelScope.launch {
+                toggleLikedSessionUseCase(_currentSession.value.id)
+            }
         }
     }
 
@@ -87,4 +92,5 @@ sealed class DetailEvent {
     object ToAllSession : DetailEvent()
     data class NextSession(val session: IkSessionData) : DetailEvent()
     data class InsertComment(val comment: IkComment) : DetailEvent()
+    object ToggleLiked : DetailEvent()
 }

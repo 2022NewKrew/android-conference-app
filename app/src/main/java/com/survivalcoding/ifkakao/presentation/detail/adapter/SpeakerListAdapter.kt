@@ -22,8 +22,4 @@ class SpeakerListAdapter : ListAdapter<IkSessionSpeaker, SpeakerListViewHolder>(
     override fun onBindViewHolder(holder: SpeakerListViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-    override fun submitList(list: MutableList<IkSessionSpeaker>?) {
-        super.submitList(list)
-    }
 }
