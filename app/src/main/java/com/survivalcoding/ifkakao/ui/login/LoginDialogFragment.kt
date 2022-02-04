@@ -15,17 +15,23 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.databinding.FragmentLoginDialogBinding
 
 import com.survivalcoding.ifkakao.R
 
-class LoginDialogFragment : Fragment() {
+class LoginDialogFragment : DialogFragment() {
 
     private var _binding: FragmentLoginDialogBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<MainViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isCancelable = true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
