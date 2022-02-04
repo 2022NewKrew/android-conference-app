@@ -47,6 +47,12 @@ class LoginDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.login.setOnClickListener {
+            if (binding.username.text.isNullOrEmpty() || binding.password.text.isNullOrEmpty()) return@setOnClickListener
+            viewModel.isLogin.value = true
+            dismiss()
+        }
+
     }
 
     override fun onDestroyView() {
