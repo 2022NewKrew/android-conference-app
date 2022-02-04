@@ -66,6 +66,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
         viewModel.localSessionData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
+            // TODO: 좋아요 추가
         }
 
         viewModel.sessions.observe(viewLifecycleOwner) {
