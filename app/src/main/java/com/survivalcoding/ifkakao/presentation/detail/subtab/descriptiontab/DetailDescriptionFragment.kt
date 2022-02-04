@@ -93,11 +93,11 @@ class DetailDescriptionFragment(
     }
 
     private fun toAllSession() {
-        stk.pop()
+        val top = stk.pop()
         stk.push(
             FragmentInformation(
                 fragmentType = FragmentType.DETAIL,
-                session = stk.peek().session,
+                session = top.session,
             )
         )
         stk.push(
