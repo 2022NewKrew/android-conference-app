@@ -22,24 +22,51 @@ class ConferencesRepositoryImpl @Inject constructor(private val conferenceDataSt
     //todo like data
     override suspend fun getLikedSessions(): List<Data>? = getConferences()?.data
 
-    override suspend fun getSessionsWithKeyWords(vararg keywords: String): List<Data>? =
-        getConferences()?.data?.filter {
-            it.relationList?.techClassification?.any { keyword -> keyword in keywords } ?: false
+    //field
+    //contentspeaker company
+    //relationlist tech classification (기술)
+    //relationlist classification (서비스.비즈니스)
+    override suspend fun getSessionsWithKeyWords(date: Int, keyWords: List<String>): List<Data>? {
+        val result = getSessionsWithDate(date)?.filter { item ->
+            checkKeyWords(item, keyWords)
         }
+        return result
+    }
+
+    private fun checkKeyWords(item: Data, keyWords: List<String>): Boolean {
+        item.field?.let {
+            if (it in keyWords) return true
+        }
+        item.relationList?.classification?.let {
+            if (it.any { keyWord -> keyWord in keyWords }) return true
+        }
+
+        item.relationList?.techClassification?.let {
+            if (it.any { keyWord -> keyWord in keyWords }) return true
+        }
+        item.contentsSpeakerList?.get(0)?.let {
+            if (it.company in keyWords) return true
+        }
+
+        return false
+    }
 
     override suspend fun getSessionsWithField(field: String): List<Data>? =
         getConferences()?.data?.filter {
             it.field == field
         }
 
+    override suspend fun getSessionsWithDate(date: Int): List<Data>? =
+        getConferences()?.data?.filter {
+            if (date == 20211118) true
+            else it.reservationDate == date
+        }
+
     override suspend fun getSortedDateSessions(
         date: Int,
         contentState: ContentState, orderState: OrderState
     ): List<Data>? {
-        val result = getConferences()?.data?.filter {
-            if (date == 20211118) true
-            else it.reservationDate == date
-        }
+        val result = getSessionsWithDate(date)
         if (result != null) {
             return when (orderState) {
                 OrderState.asc -> {

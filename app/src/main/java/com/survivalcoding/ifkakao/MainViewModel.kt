@@ -58,6 +58,14 @@ class MainViewModel @Inject constructor(
     fun updateKeyWords(newKeyWords: List<String>) {
         if (newKeyWords != keywords.value) {
             keywords.value = newKeyWords
+            getSessionsWithKeyWords(20211116)
+        }
+    }
+
+    private fun getSessionsWithKeyWords(date: Int) {
+        viewModelScope.launch {
+            daysItems.value =
+                getSessionsWithKeyWordsUseCase(date, keywords.value) ?: listOf()
         }
     }
 

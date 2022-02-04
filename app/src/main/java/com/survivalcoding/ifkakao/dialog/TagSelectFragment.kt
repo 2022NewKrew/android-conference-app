@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.MainViewModel
@@ -24,10 +25,7 @@ class TagSelectFragment : DialogFragment() {
         isCancelable = true
     }
 
-    //field
-    //contentspeaker company
-    //relationlist tech classification (기술)
-    //relationlist classification (서비스.비즈니스)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +37,11 @@ class TagSelectFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        binding.AI.setOnClickListener {
+            keywords = listOf("머신러닝/AI")
+            it.setBackgroundColor(0x00ff00)
+        }
 
         binding.cancelButton.setOnClickListener {
             dismiss()

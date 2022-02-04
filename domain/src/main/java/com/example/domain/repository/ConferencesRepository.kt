@@ -15,10 +15,16 @@ interface ConferencesRepository {
 
     suspend fun getLikedSessions(): List<Data>?
 
-    suspend fun getSessionsWithKeyWords(vararg keywords: String): List<Data>?
+    suspend fun getSessionsWithKeyWords(date: Int, keyWords: List<String>): List<Data>?
 
     suspend fun getSessionsWithField(field: String): List<Data>?
 
-    suspend fun getSortedDateSessions(date: Int, contentState: ContentState, orderState: OrderState): List<Data>?
+    suspend fun getSessionsWithDate(date: Int): List<Data>?
+
+    suspend fun getSortedDateSessions(
+        date: Int,
+        contentState: ContentState,
+        orderState: OrderState
+    ): List<Data>?
 
 }
