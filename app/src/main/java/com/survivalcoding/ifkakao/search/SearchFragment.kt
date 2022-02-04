@@ -18,6 +18,7 @@ import com.example.domain.entity.OrderState
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSearchBinding
+import com.survivalcoding.ifkakao.dialog.TagSelectFragment
 
 class SearchFragment : Fragment() {
 
@@ -78,6 +79,11 @@ class SearchFragment : Fragment() {
             viewModel.getSortedDateSession(date, contentState, orderState)
         }
 
+        //select tag
+        binding.filterImgBtn.setOnClickListener {
+            TagSelectFragment().show(parentFragmentManager, "tag")
+        }
+
 
         //viewpager2
         binding.viewPager.adapter = FragmentAdapter(requireActivity())
@@ -117,7 +123,7 @@ class SearchFragment : Fragment() {
 
     }
 
-    fun arrowRotation(visibility: Int) {
+    private fun arrowRotation(visibility: Int) {
         val ra = when (visibility) {
             View.GONE -> RotateAnimation(
                 180F,
