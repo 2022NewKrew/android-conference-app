@@ -10,7 +10,7 @@ class SessionLocalRepositoryImpl(private val dao: IfKakaoSessionDao) : LocalRepo
         return dao.getAllSession()
     }
 
-    override suspend fun getSessionLocalDataById(id: Int): IkSessionLocalData {
+    override fun getSessionLocalDataById(id: Int): Flow<IkSessionLocalData> {
         return dao.getSessionById(id)
     }
 

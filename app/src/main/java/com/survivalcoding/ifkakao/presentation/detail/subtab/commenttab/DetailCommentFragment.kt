@@ -2,7 +2,6 @@ package com.survivalcoding.ifkakao.presentation.detail.subtab.commenttab
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailCommentBinding
@@ -16,9 +15,8 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailCommentFragment(
-    private val mFragmentManager: FragmentManager,
-) : BaseFragment<FragmentDetailCommentBinding>(R.layout.fragment_detail_comment) {
+class DetailCommentFragment :
+    BaseFragment<FragmentDetailCommentBinding>(R.layout.fragment_detail_comment) {
 
     @Inject
     lateinit var stk: Stack<FragmentInformation>
@@ -36,6 +34,18 @@ class DetailCommentFragment(
 
         val viewModel = parentFragment?.let { parent ->
             ViewModelProvider(parent)[DetailViewModel::class.java]
+        }
+
+        bind {
+            sendButton.setOnClickListener {
+                val name = inputCommentName.text.toString()
+                val content = inputCommentContent.text.toString()
+                val newComment = IkComment(
+                    id = -1,
+                    name = name,
+                    content = content,
+                )
+            }
         }
     }
 }

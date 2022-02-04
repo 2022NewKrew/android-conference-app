@@ -23,19 +23,11 @@ class GetSessionsByConditionUseCase @Inject constructor(
                 }
             }
         }
-        if (selectedField.isNotEmpty())
-            result = result.filter { it.field in selectedField }
 
-        if (selectedClass.isNotEmpty()) {
-            result = result.filter { it.tag.any { tag -> tag.text in selectedClass } }
-        }
+        val selectedList = selectedField + selectedClass + selectedTech + selectedCompany
 
-        if (selectedTech.isNotEmpty()) {
-            result = result.filter { it.tag.any { tag -> tag.text in selectedTech } }
-        }
-
-        if (selectedCompany.isNotEmpty()) {
-            result = result.filter { it.company in selectedCompany }
+        if (selectedList.isNotEmpty()) {
+            result = result.filter { it.tag.any { it.text in selectedList } }
         }
 
         return result.take(count)

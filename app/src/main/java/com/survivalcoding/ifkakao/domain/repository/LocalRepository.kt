@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalRepository {
     fun getAllSessionLocalData(): Flow<List<IkSessionLocalData>>
-    suspend fun getSessionLocalDataById(id: Int): IkSessionLocalData
+    fun getSessionLocalDataById(id: Int): Flow<IkSessionLocalData>
     suspend fun insertSessionLocalData(session: IkSessionLocalData)
 }

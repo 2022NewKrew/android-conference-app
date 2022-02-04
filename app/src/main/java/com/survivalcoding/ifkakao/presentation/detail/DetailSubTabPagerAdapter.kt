@@ -17,7 +17,7 @@ class DetailSubTabPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> DetailDescriptionFragment(fragmentManager)
-            1 -> DetailCommentFragment(fragmentManager)
+            1 -> DetailCommentFragment()
             else -> throw IllegalArgumentException("view pager error")
         }
     }

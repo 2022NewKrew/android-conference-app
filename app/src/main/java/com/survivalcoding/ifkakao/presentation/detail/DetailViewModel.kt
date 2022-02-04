@@ -3,6 +3,7 @@ package com.survivalcoding.ifkakao.presentation.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
+import com.survivalcoding.ifkakao.domain.usecase.GetLocalSessionDataUseCase
 import com.survivalcoding.ifkakao.domain.usecase.GetRelatedSessionsUseCase
 import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.FragmentType
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getRelatedSessionsUseCase: GetRelatedSessionsUseCase,
+    private val getLocalSessionDataUseCase: GetLocalSessionDataUseCase,
     private val stk: Stack<FragmentInformation>
 ) : ViewModel() {
     private val _currentSession = MutableStateFlow(stk.peek().session)
@@ -28,6 +30,9 @@ class DetailViewModel @Inject constructor(
     }.asLiveData()
     val currentSession = _currentSession.asLiveData()
     val exposedListCount = _exposedListCount.asLiveData()
+
+    private val _localSessionData = getLocalSessionDataUseCase(_currentSession.value.id)
+    val localSessionData = _localSessionData.asLiveData()
 
     fun onEvent(event: DetailEvent) {
         when (event) {

@@ -14,6 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingHorizontal="20dp"
             tools:context=".presentation.detail.subtab.commenttab.DetailCommentFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <EditText
-                    android:id="@+id/comment_name"
+                    android:id="@+id/input_comment_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="이름"
@@ -40,7 +41,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/comment_content"
+                    android:id="@+id/input_comment_content"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="15dp"
@@ -48,8 +49,8 @@
                     android:inputType="text"
                     android:textColor="@color/white_text"
                     android:textColorHint="@color/gray_text"
-                    app:layout_constraintStart_toStartOf="@+id/comment_name"
-                    app:layout_constraintTop_toBottomOf="@id/comment_name" />
+                    app:layout_constraintStart_toStartOf="@+id/input_comment_name"
+                    app:layout_constraintTop_toBottomOf="@id/input_comment_name" />
 
                 <ImageView
                     android:id="@+id/send_button"
@@ -80,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
                 android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 android:overScrollMode="never"
