@@ -1,7 +1,9 @@
 package com.survivalcoding.ifkakao.adapter
 
+import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -27,8 +29,13 @@ class SessionViewHolder(private val binding: ItemSessionBinding) :
             binding.sessionThumbnail.setBackgroundResource(R.drawable.ic_baseline_not_interested_24)
         }
 */
+        val video = item.linkList?.video?.first()
+        if (video?.description != null) {
+            binding.sessionVideoTime.text = video.description
 
-        binding.sessionVideoTime.text = item.linkList?.video?.first()?.description
+        } else {
+            binding.sessionVideoTime.visibility = View.GONE
+        }
 
         binding.root.setOnClickListener {
             onClicked(item)

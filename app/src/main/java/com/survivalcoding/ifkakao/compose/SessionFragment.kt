@@ -87,8 +87,11 @@ fun TopCompose(viewModel: MainViewModel) {
         //video
         VideoPart(session.value.linkList?.video)
         // description
+        val classification = session.value.relationList?.classification ?: listOf()
+        val techClassification = session.value.relationList?.techClassification ?: listOf()
+        val mergedClassification = classification + techClassification
         DescriptionPart(
-            session.value.relationList?.classification,
+            mergedClassification,
             session.value.field,
             session.value.company,
             session.value.contentTag,

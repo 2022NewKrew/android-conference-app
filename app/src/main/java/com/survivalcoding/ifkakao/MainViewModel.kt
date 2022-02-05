@@ -38,6 +38,7 @@ class MainViewModel @Inject constructor(
             highlightItems.value = getHighlightSessionsUseCase() ?: listOf()
 
             session = MutableStateFlow(highlightItems.value[0])
+            //todo 연관세션 안하고 있음
             relatedSessions.value = session.value.field?.let {
                 getSessionWithFieldUseCase(it)
             } ?: listOf()
