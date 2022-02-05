@@ -175,12 +175,143 @@
                         android:padding="10dp"
                         android:text="커머스" />
 
+                    <TextView
+                        android:id="@+id/B2B"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/service_business"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/commerce"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="B2B" />
+
+
+                    <TextView
+                        android:id="@+id/subscribe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/service_business"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/B2B"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="구독" />
+
+
+                    <TextView
+                        android:id="@+id/ad_marketing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/platform"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="광고&amp;마케팅" />
+
+                    <TextView
+                        android:id="@+id/fintech"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/platform"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/ad_marketing"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="핀테크" />
+
+
+                    <TextView
+                        android:id="@+id/digit_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/platform"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/fintech"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="디지털자산" />
+
+                    <TextView
+                        android:id="@+id/content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ad_marketing"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="콘텐츠" />
+
+                    <TextView
+                        android:id="@+id/creator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ad_marketing"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/content"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="크리에이터" />
+
+
+                    <TextView
+                        android:id="@+id/esg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ad_marketing"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/creator"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="ESG" />
+
+                    <TextView
+                        android:id="@+id/partner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="파트너성장" />
+
+                    <TextView
+                        android:id="@+id/social_impact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/partner"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="소셜임패트" />
+
 
                     <TextView
                         android:id="@+id/interested_tech"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/platform"
+                        android:layout_below="@+id/partner"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
                         android:text="기술"
@@ -211,6 +342,19 @@
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="머신러닝/AI" />
+
+                    <TextView
+                        android:id="@+id/data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/interested_tech"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/AI"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="데이터" />
 
 
                     <TextView
