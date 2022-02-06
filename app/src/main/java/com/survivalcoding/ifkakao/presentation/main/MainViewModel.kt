@@ -19,18 +19,3 @@ class MainViewModel(
         }
     }
 }
-
-/*
-class MainViewModelFactory(
-    private val repository: SessionRepository,
-) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java))
-            return MainViewModel(
-                getHighLightedUseCase = GetHighLightedUseCase(
-                    GetSessionsUseCase(repository)
-                )
-            ) as T
-        else throw IllegalArgumentException()
-    }
-}*/

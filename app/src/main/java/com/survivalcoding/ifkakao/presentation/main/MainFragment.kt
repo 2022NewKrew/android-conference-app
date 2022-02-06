@@ -18,11 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment() {
-    private val mainViewModel by viewModel<MainViewModel>() /*{
-        MainViewModelFactory(
-            repository = (requireActivity().application as App).sessionRepository
-        )
-    }*/
+    private val mainViewModel by viewModel<MainViewModel>()
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
@@ -39,7 +35,7 @@ class MainFragment : Fragment() {
 
         val recyclerView = binding.recyclerView
         val concatAdapter = ConcatAdapter(
-            HeaderAdapter {
+            MainHeaderAdapter {
                 //Todo: Session 창 이동
             },
             SessionAdapter(onClickSession = { idx ->

@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Session(
     val idx: Int = 0,
-    val company: String? = null,
+    val company: String = "",
     val companyName: String? = null,
     val content: String? = null,
     val contentTag: String? = null,
