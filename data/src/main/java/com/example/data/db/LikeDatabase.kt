@@ -5,11 +5,11 @@ import androidx.room.RoomDatabase
 
 
 @Database(entities = [LikeEntity::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+abstract class LikeDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "like_database"
     }
 
-    abstract fun userDao(): LikeDao
+    abstract fun likeDao(): LikeDao
 }

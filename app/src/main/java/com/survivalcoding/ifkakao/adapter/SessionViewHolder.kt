@@ -32,9 +32,11 @@ class SessionViewHolder(private val binding: ItemSessionBinding) :
         val video = item.linkList?.video?.first()
         if (video?.description != null) {
             binding.sessionVideoTime.text = video.description
-
         } else {
             binding.sessionVideoTime.visibility = View.GONE
+        }
+        if (item.isLike) {
+            binding.likeImg.setBackgroundResource(R.drawable.love)
         }
 
         binding.root.setOnClickListener {

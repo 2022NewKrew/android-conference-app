@@ -4,8 +4,8 @@ import androidx.room.*
 
 @Dao
 interface LikeDao {
-    @Query("SELECT * FROM LikeEntity WHERE :name")
-    fun getAll(name: String): List<LikeEntity>
+    @Query("SELECT idx FROM LikeEntity WHERE :name")
+    fun getAll(name: String): List<Int>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(like: LikeEntity)

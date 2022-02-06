@@ -124,7 +124,6 @@ dependencies {
     implementation "com.google.android.material:compose-theme-adapter:1.1.3"
     // When using a AppCompat theme
     implementation "com.google.accompanist:accompanist-appcompat-theme:0.16.0"
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0-rc01")
     //flowRow
     implementation "com.google.accompanist:accompanist-flowlayout:0.24.1-alpha"
     // viewpager2
@@ -133,6 +132,7 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }
 
 kapt {

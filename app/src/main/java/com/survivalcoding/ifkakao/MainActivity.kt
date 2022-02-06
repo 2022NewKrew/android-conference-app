@@ -62,7 +62,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.login_menu -> {
-                LoginDialogFragment().show(supportFragmentManager, "login")
+                if (!viewModel.isLogin.value) {
+                    LoginDialogFragment().show(supportFragmentManager, "login")
+                } else {
+                    viewModel.setLogout()
+                }
                 true
             }
             R.id.drawer_menu -> {

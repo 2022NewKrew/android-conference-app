@@ -8,6 +8,7 @@ import com.example.domain.entity.OrderState
 import com.example.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,15 +21,17 @@ class MainViewModel @Inject constructor(
     private val getLikedSessionsUseCase: GetLikedSessionsUseCase,
     private val getSessionsWithKeyWordsUseCase: GetSessionsWithKeyWordsUseCase,
     private val getSessionWithFieldUseCase: GetSessionWithFieldUseCase,
-    private val getSortedSessionsUseCase: GetSortedSessionsUseCase
+    private val getSortedSessionsUseCase: GetSortedSessionsUseCase,
+    private val getLikeInfoUseCase: GetLikeInfoUseCase
 ) : ViewModel() {
 
     val isLogin = MutableStateFlow(false)
-    val highlightItems = MutableStateFlow(listOf<Data>())
-    val daysItems = MutableStateFlow(listOf<Data>())
+    val id = MutableStateFlow<String?>(null)
     val keywords = MutableStateFlow(listOf<String>())
     val date = MutableStateFlow<Int>(20211116)
     lateinit var session: MutableStateFlow<Data>
+    val highlightItems = MutableStateFlow(listOf<Data>())
+    val daysItems = MutableStateFlow(listOf<Data>())
     val relatedSessions = MutableStateFlow(listOf<Data>())
 
     init {
@@ -43,7 +46,39 @@ class MainViewModel @Inject constructor(
                 getSessionWithFieldUseCase(it)
             } ?: listOf()
 
+            //like info & login
+            id.collect { id ->
+                if (id != null) {
+                    val likeList = getLikeInfoUseCase(id)
+                    likeList?.let {
+                        highlightItems.value = highlightItems.value.map {
+                            val idx = it.idx
+                            if (idx != null) {
+                                if (idx in likeList) {
+                                    it.copy(isLike = true)
+                                } else {
+                                    it
+                                }
+                            } else {
+                                it
+                            }
+                        }
+                    }
+                } else {
+
+                }
+            }
         }
+    }
+
+    fun setLogin(name: String) {
+        isLogin.value = true
+        id.value = name
+    }
+
+    fun setLogout() {
+        isLogin.value = false
+        id.value = null
     }
 
     fun saveClickedSession(item: Data) {

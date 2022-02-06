@@ -36,7 +36,7 @@ class LoginDialogFragment : DialogFragment() {
 
         binding.login.setOnClickListener {
             if (binding.username.text.isNullOrEmpty() || binding.password.text.isNullOrEmpty()) return@setOnClickListener
-            viewModel.isLogin.value = true
+            viewModel.setLogin(binding.username.text.toString())
             dismiss()
         }
 
