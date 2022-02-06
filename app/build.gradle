@@ -129,6 +129,10 @@ dependencies {
     implementation "com.google.accompanist:accompanist-flowlayout:0.24.1-alpha"
     // viewpager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    def room_version = "2.4.1"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 }
 
 kapt {
