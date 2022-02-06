@@ -879,9 +879,37 @@ class SessionLocalDataSource @Inject constructor() : SessionDataSource {
 
     override suspend fun getSessionAll(): List<Session> = sessions.data
 
-    override suspend fun getSessionById(id: Int): Session {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getSessionById(id: Int): Session =
+        sessions.data.find { it.idx == id } ?: Session(
+            -1,
+            "",
+            "",
+            "",
+            "",
+            "",
+            emptyList(),
+            "",
+            -1,
+            "",
+            "",
+            -1,
+            "",
+            -1,
+            LinkList(emptyList(), emptyList(), emptyList(), emptyList()),
+            "",
+            RelationList(emptyList(), emptyList(), emptyList()),
+            "",
+            "",
+            -1,
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        )
 
     override suspend fun sortByTitleAsc(): List<Session> =
         sessions.data.sortedBy { it.title }
