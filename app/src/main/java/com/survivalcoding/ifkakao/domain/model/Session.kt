@@ -1,9 +1,12 @@
 package com.survivalcoding.ifkakao.domain.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity
+@Parcelize
 data class Session(
     val categoryIdx: Int,
     val commentYn: String,
@@ -33,4 +36,4 @@ data class Session(
     val title: String,
     val updateCountentsYn: String,
     val videoYn: String
-)
+) : Parcelable

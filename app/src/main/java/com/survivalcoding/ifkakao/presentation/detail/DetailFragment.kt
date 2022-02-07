@@ -52,17 +52,17 @@ class DetailFragment : Fragment() {
             ).createMediaSource(mediaItem)
             player.setMediaSource(mediaSource)
             player.prepare()
+
+            binding.detailViewPager.adapter = DetailPagerAdapter(this, session)
+
+            TabLayoutMediator(binding.detailTabLayout, binding.detailViewPager) { tab, position ->
+                tab.text = when (position) {
+                    0 -> "세션 설명"
+                    1 -> "댓글"
+                    else -> throw Exception()
+                }
+            }.attach()
         }
-
-        binding.detailViewPager.adapter = DetailPagerAdapter(this)
-
-        TabLayoutMediator(binding.detailTabLayout, binding.detailViewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> "세션 설명"
-                1 -> "댓글"
-                else -> throw Exception()
-            }
-        }.attach()
     }
 
     override fun onDestroyView() {

@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDescriptionBinding
+import com.survivalcoding.ifkakao.domain.model.Session
 
 class SessionDescriptionFragment : Fragment() {
     private var _binding: FragmentSessionDescriptionBinding? = null
     private val binding get() = _binding!!
+    private val session by lazy { requireArguments()["session"] as Session }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
