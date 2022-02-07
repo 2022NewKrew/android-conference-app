@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
@@ -56,12 +57,12 @@
             android:paddingTop="16dp"
             android:paddingBottom="8dp"
             android:text="Highlight"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/HeaderText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bannerIv" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/sessionBt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/highlightTv"
@@ -69,9 +70,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
             android:text="전체세션 보기"
+            android:backgroundTint="@color/darkGrey"
             android:textSize="12sp"
-            android:textColor="@color/lightGrey"
-            app:cornerRadius="0dp"/>
+            android:textColor="@color/lightGrey" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/spotlightRv"
@@ -80,9 +81,20 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/highlightTv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/highlightTv"
             tools:listitem="@layout/list_item_session" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/spotlightRv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <include
+                android:id="@+id/footerIcl"
+                layout="@layout/layout_footer" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

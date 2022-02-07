@@ -40,6 +40,10 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Glide.with(this).load(R.drawable.ico_bye_2021).into(binding.byeIv)
 
+        binding.sessionBt.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToSessionFragment())
+        }
+
         val adapter = SessionAdapter {
             findNavController().navigate(
                 MainFragmentDirections.actionMainFragmentToSessionDetailFragment(
@@ -50,6 +54,10 @@ class MainFragment : Fragment() {
         binding.spotlightRv.adapter = adapter
         val decoration = DividerItemDecoration(requireContext(), LinearLayout.VERTICAL)
         binding.spotlightRv.addItemDecoration(decoration)
+
+        binding.footerIcl.scrollToTopIbt.setOnClickListener {
+            binding.nestedScrollView.smoothScrollTo(0, 0)
+        }
 
         viewModel.getSessions()
 

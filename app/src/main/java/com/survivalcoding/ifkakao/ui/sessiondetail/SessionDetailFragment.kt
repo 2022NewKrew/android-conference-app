@@ -38,17 +38,15 @@ class SessionDetailFragment : Fragment() {
         ViewPager2ViewHeightAnimator().viewPager2 = binding.viewPager
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position) {
-                0 -> {
-                    "세션 설명"
-                }
-                1 -> {
-                    "댓글"
-                }
-                else -> {
-                    throw IllegalArgumentException("Only 0 or 1 is allowed but $position was given!")
-                }
+                0 -> "세션 설명"
+                1 -> "댓글"
+                else -> throw IllegalArgumentException("Only 0 or 1 is allowed but $position was given!")
             }
         }.attach()
+
+        binding.footerIcl.scrollToTopIbt.setOnClickListener {
+            binding.nestedScrollView.smoothScrollTo(0, 0)
+        }
     }
 
     override fun onDestroyView() {
