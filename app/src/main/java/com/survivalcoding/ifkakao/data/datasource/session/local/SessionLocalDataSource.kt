@@ -4,8 +4,9 @@ import com.google.gson.Gson
 import com.survivalcoding.ifkakao.data.datasource.session.SessionDataSource
 import com.survivalcoding.ifkakao.data.datasource.session.SessionResponse
 import com.survivalcoding.ifkakao.domain.model.*
+import javax.inject.Inject
 
-class SessionLocalDataSource : SessionDataSource {
+class SessionLocalDataSource @Inject constructor() : SessionDataSource {
 
     private val json = """
         {"success":true,"code":0,"data":
@@ -878,9 +879,37 @@ class SessionLocalDataSource : SessionDataSource {
 
     override suspend fun getSessionAll(): List<Session> = sessions.data
 
-    override suspend fun getSessionById(id: Int): Session {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getSessionById(id: Int): Session =
+        sessions.data.find { it.idx == id } ?: Session(
+            -1,
+            "",
+            "",
+            "",
+            "",
+            "",
+            emptyList(),
+            "",
+            -1,
+            "",
+            "",
+            -1,
+            "",
+            -1,
+            LinkList(emptyList(), emptyList(), emptyList(), emptyList()),
+            "",
+            RelationList(emptyList(), emptyList(), emptyList()),
+            "",
+            "",
+            -1,
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        )
 
     override suspend fun sortByTitleAsc(): List<Session> =
         sessions.data.sortedBy { it.title }

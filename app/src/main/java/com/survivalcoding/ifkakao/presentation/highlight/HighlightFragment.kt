@@ -4,11 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
+import com.survivalcoding.ifkakao.domain.model.Session
 import com.survivalcoding.ifkakao.presentation.adapter.SessionListAdapter
+import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +23,7 @@ class HighlightFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: HighlightViewModel by viewModels()
     private val adapter by lazy {
-        SessionListAdapter { }
+        SessionListAdapter { session -> moveToDetail(session) }
     }
 
     override fun onCreateView(
@@ -56,5 +62,16 @@ class HighlightFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun moveToDetail(session: Session?) {
+        parentFragmentManager.commit {
+            replace<DetailFragment>(
+                R.id.fragment_container_view,
+                args = bundleOf("sessionId" to session?.idx),
+            )
+            setReorderingAllowed(true)
+            addToBackStack(null)
+        }
     }
 }

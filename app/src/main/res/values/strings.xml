@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">if(kakao)2021</string>
     <string name="main_background_image">메인 배경 이미지</string>
-    <string name="main_foreground_image">메인 배경 반투명 이미지</string>
     <string name="main_bye_gif">메인 손 흔드는 gif</string>
     <string name="main_bye_message">if(kakao)2021이\n여러분의 관심 속에 마무리되었습니다.\n우리, 내년에 또 만나요\n함께 나아가는 더 나은 세상!</string>
     <string name="highlight_title">Highlight</string>
@@ -9,4 +8,12 @@
     <string name="history_2020">if(kakao)2020 보기</string>
     <string name="kakao_corp">kakao corp.</string>
     <string name="session_thumbnail_image">세션 썸네일 이미지</string>
+    <string name="toolbar_menu_image">메뉴 버튼</string>
+    <string name="contact">문의하기</string>
+    <string name="contact_talk_channel">ifkakao(톡채널)</string>
+    <string name="contact_email">ifkakao@kakao.com</string>
+    <string name="menu_session">Session</string>
+    <string name="menu_favorite">Favorite</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
