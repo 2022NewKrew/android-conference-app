@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import androidx.fragment.app.*
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.survivalcoding.ifkakao.search.SearchFragment
 import com.survivalcoding.ifkakao.adapter.SessionListAdapter
 import com.survivalcoding.ifkakao.compose.SessionFragment
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
@@ -53,11 +55,21 @@ class MainFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.items.collect {
+                viewModel.highlightItems.collect {
                     adapter.submitList(it)
                 }
             }
+        }
 
+        binding.totalSessionView.setOnClickListener {
+            parentFragmentManager.commit {
+                replace<SearchFragment>(R.id.fragment_container_view)
+                addToBackStack(null)
+            }
+        }
+
+        binding.scrollTopView.scrollTopImage.setOnClickListener {
+            binding.mainNestedScrollView.fullScroll(ScrollView.FOCUS_UP)
         }
 
     }

@@ -1,10 +1,14 @@
 package com.survivalcoding.ifkakao.adapter
 
+import android.opengl.Visibility
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domain.entity.Data
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ItemSessionBinding
 
 class SessionViewHolder(private val binding: ItemSessionBinding) :
@@ -15,10 +19,23 @@ class SessionViewHolder(private val binding: ItemSessionBinding) :
         binding.sessionTitle.text = item.title
         binding.sessionCompany.text = item.company
         binding.sessionField.text = item.field
-        Glide.with(binding.root).load(item.linkList.moMainImage.first().url)
-            .into(binding.sessionThumbnail)
 
-        binding.sessionVideoTime.text = item.linkList.video.first().description
+/*
+        try {
+            Glide.with(binding.root).load(item.linkList?.moImage?.first()?.url)
+                .into(binding.sessionThumbnail)
+        } catch (e: Exception) {
+            Log.d("No List", "ThumbNail ${item.idx}")
+            binding.sessionThumbnail.setBackgroundResource(R.drawable.ic_baseline_not_interested_24)
+        }
+*/
+        val video = item.linkList?.video?.first()
+        if (video?.description != null) {
+            binding.sessionVideoTime.text = video.description
+
+        } else {
+            binding.sessionVideoTime.visibility = View.GONE
+        }
 
         binding.root.setOnClickListener {
             onClicked(item)

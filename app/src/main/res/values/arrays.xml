@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="spinner_entries">
+        <item>day1</item>
+        <item>day2</item>
+        <item>day3(ALL)</item>
+    </string-array>
+
+</resources>

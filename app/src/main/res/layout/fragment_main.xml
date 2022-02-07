@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +7,12 @@
     tools:context=".MainFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/main_nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_image_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -55,23 +57,52 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:paddingVertical="10dp"
                 android:text="Highlight"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_image" />
 
+            <TextView
+                android:id="@+id/total_session_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="100dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_thumbnail_frame"
+                android:backgroundTint="@color/grey"
+                android:padding="5dp"
+                android:text="전체세션보기"
+                app:layout_constraintBottom_toBottomOf="@id/const_highlight_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_image" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
+                app:layout_constraintBottom_toTopOf="@id/scroll_top_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/const_highlight_text" />
+                app:layout_constraintTop_toBottomOf="@+id/const_highlight_text" />
+
+
+            <include
+                android:id="@+id/scroll_top_view"
+                layout="@layout/scroll_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_recyclerview" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-    >
 
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
