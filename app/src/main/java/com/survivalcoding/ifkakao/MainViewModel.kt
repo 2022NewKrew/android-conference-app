@@ -7,8 +7,11 @@ import com.example.domain.entity.Data
 import com.example.domain.entity.OrderState
 import com.example.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +25,9 @@ class MainViewModel @Inject constructor(
     private val getSessionsWithKeyWordsUseCase: GetSessionsWithKeyWordsUseCase,
     private val getSessionWithFieldUseCase: GetSessionWithFieldUseCase,
     private val getSortedSessionsUseCase: GetSortedSessionsUseCase,
-    private val getLikeInfoUseCase: GetLikeInfoUseCase
+    private val getLikeInfoUseCase: GetLikeInfoUseCase,
+    private val addLikeUseCase: AddLikeUseCase,
+    private val deleteLikeUseCase: DeleteLikeUseCase
 ) : ViewModel() {
 
     val isLogin = MutableStateFlow(false)
@@ -30,6 +35,9 @@ class MainViewModel @Inject constructor(
     val keywords = MutableStateFlow(listOf<String>())
     val date = MutableStateFlow<Int>(20211116)
     lateinit var session: MutableStateFlow<Data>
+
+    private val _likedList: MutableStateFlow<List<Int>> = MutableStateFlow(emptyList())
+    val likedList get() = _likedList
     val highlightItems = MutableStateFlow(listOf<Data>())
     val daysItems = MutableStateFlow(listOf<Data>())
     val relatedSessions = MutableStateFlow(listOf<Data>())
@@ -45,40 +53,44 @@ class MainViewModel @Inject constructor(
             relatedSessions.value = session.value.field?.let {
                 getSessionWithFieldUseCase(it)
             } ?: listOf()
-
-            //like info & login
-            id.collect { id ->
-                if (id != null) {
-                    val likeList = getLikeInfoUseCase(id)
-                    likeList?.let {
-                        highlightItems.value = highlightItems.value.map {
-                            val idx = it.idx
-                            if (idx != null) {
-                                if (idx in likeList) {
-                                    it.copy(isLike = true)
-                                } else {
-                                    it
-                                }
-                            } else {
-                                it
-                            }
-                        }
-                    }
-                } else {
-
-                }
-            }
         }
     }
 
     fun setLogin(name: String) {
-        isLogin.value = true
-        id.value = name
+        viewModelScope.launch(Dispatchers.IO) {
+            isLogin.value = true
+            id.value = name
+            getLikeInfoUseCase(name).collect {
+                println(it)
+                _likedList.value = it
+            }
+        }
     }
 
     fun setLogout() {
-        isLogin.value = false
-        id.value = null
+        viewModelScope.launch(Dispatchers.IO) {
+            isLogin.value = false
+            id.value = null
+            likedList.value = emptyList()
+        }
+    }
+
+    fun toggleLike(idx: Int, isLike: Boolean) {
+        if (isLogin.value && id.value != null) {
+            viewModelScope.launch(Dispatchers.IO) {
+                if (isLike) {
+                    println("------isLike-------")
+                    println(isLike)
+                    println(idx)
+                    addLikeUseCase(id.value!!, idx)
+                } else {
+                    println("------disLike-------")
+                    println(isLike)
+                    println(idx)
+                    deleteLikeUseCase(id.value!!, idx)
+                }
+            }
+        }
     }
 
     fun saveClickedSession(item: Data) {
@@ -95,14 +107,14 @@ class MainViewModel @Inject constructor(
     fun updateKeyWords(newKeyWords: List<String>) {
         if (newKeyWords != keywords.value) {
             keywords.value = newKeyWords
-            getSessionsWithKeyWords(20211116)
+            getSessionsWithKeyWords()
         }
     }
 
-    private fun getSessionsWithKeyWords(date: Int) {
+    private fun getSessionsWithKeyWords() {
         viewModelScope.launch {
             daysItems.value =
-                getSessionsWithKeyWordsUseCase(date, keywords.value) ?: listOf()
+                getSessionsWithKeyWordsUseCase(date.value, keywords.value) ?: listOf()
         }
     }
 

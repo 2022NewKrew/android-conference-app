@@ -26,15 +26,7 @@ class MainFragment : Fragment() {
     val binding get() = _binding!!
 
     private val viewModel by activityViewModels<MainViewModel>()
-    private val adapter = SessionListAdapter(
-        onClicked = { data ->
-            viewModel.saveClickedSession(data)
-            parentFragmentManager.commit {
-                replace<SessionFragment>(R.id.fragment_container_view)
-                addToBackStack(null)
-            }
-        }
-    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +39,20 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val adapter = SessionListAdapter(
+            onSessionClicked = { data ->
+                viewModel.saveClickedSession(data)
+                parentFragmentManager.commit {
+                    replace<SessionFragment>(R.id.fragment_container_view)
+                    addToBackStack(null)
+                }
+            },
+            onLikeClicked = { idx, isLike ->
+                viewModel.toggleLike(idx, isLike)
+            },
+            viewModel = viewModel
+        )
 
         binding.mainRecyclerview.adapter = adapter
         binding.mainRecyclerview.layoutManager = LinearLayoutManager(requireContext())

@@ -1,14 +1,15 @@
 package com.example.data.db
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LikeDao {
-    @Query("SELECT idx FROM LikeEntity WHERE :name")
-    fun getAll(name: String): List<Int>?
+    @Query("SELECT idx FROM LikeEntity WHERE userName=:name")
+    fun getAll(name: String): Flow<List<Int>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(like: LikeEntity)
+    fun insert(like: LikeEntity)
 
     @Delete
     fun delete(like: LikeEntity)
