@@ -39,11 +39,11 @@ class DetailFragment : Fragment() {
         player = ExoPlayer.Builder(requireContext()).build()
         binding.detailPlayerView.player = player
         viewModel.session.observe(viewLifecycleOwner) { session ->
-//            val mediaItem = MediaItem.fromUri(session.linkList.VIDEO[0].url)
+            val mediaItem = MediaItem.fromUri(session.linkList.VIDEO[0].url)
 
             // sample from https://stickode.tistory.com/165
-            val mediaItem =
-                MediaItem.fromUri("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4")
+//            val mediaItem =
+//                MediaItem.fromUri("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4")
             val mediaSource = ProgressiveMediaSource.Factory(
                 DefaultDataSourceFactory(
                     requireContext(),

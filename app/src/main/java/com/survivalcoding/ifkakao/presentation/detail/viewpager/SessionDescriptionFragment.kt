@@ -7,11 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDescriptionBinding
 import com.survivalcoding.ifkakao.domain.model.Session
+import com.survivalcoding.ifkakao.presentation.detail.adapter.ClassificationListAdapter
+import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 
 class SessionDescriptionFragment : Fragment() {
     private var _binding: FragmentSessionDescriptionBinding? = null
     private val binding get() = _binding!!
     private val session by lazy { requireArguments()["session"] as Session }
+    private val classificationAdapter by lazy { ClassificationListAdapter() }
+    private val speakerAdapter by lazy { SpeakerListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,6 +23,27 @@ class SessionDescriptionFragment : Fragment() {
     ): View {
         _binding = FragmentSessionDescriptionBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.sessionDescriptionTvTitle.text = session.title
+        binding.sessionDescriptionTvContent.text = session.content
+        binding.sessionDescriptionTvContentTag.text = session.contentTag
+
+        // classification recyclerView 설정
+        val classifications = mutableListOf<String>()
+        classifications.add(session.field)
+        classifications.add(session.company)
+        classifications.addAll(session.relationList.CLASSIFICATION)
+
+        binding.sessionDescriptionRvClassification.adapter = classificationAdapter
+        classificationAdapter.submitList(classifications)
+
+        // speaker recyclerView 설정
+        binding.sessionDescriptionRvSpeaker.adapter = speakerAdapter
+        speakerAdapter.submitList(session.contentsSpeakerList)
+        session.linkList.SPEAKER_PROFILE
     }
 
     override fun onDestroyView() {

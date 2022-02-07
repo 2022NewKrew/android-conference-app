@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/speaker_cv_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/speaker_iv_profile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:contentDescription="@string/speaker_profile_image" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/speaker_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/speaker_tv_company"
+        app:layout_constraintStart_toEndOf="@id/speaker_cv_profile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="이름" />
+
+    <TextView
+        android:id="@+id/speaker_tv_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/light_gray"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/speaker_tv_occupation"
+        app:layout_constraintStart_toStartOf="@id/speaker_tv_name"
+        app:layout_constraintTop_toBottomOf="@id/speaker_tv_name"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="카카오" />
+
+    <TextView
+        android:id="@+id/speaker_tv_occupation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/light_gray"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/speaker_cv_profile"
+        app:layout_constraintStart_toStartOf="@id/speaker_tv_name"
+        app:layout_constraintTop_toBottomOf="@id/speaker_tv_company"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="CPO" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

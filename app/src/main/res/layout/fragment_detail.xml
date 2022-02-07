@@ -27,13 +27,30 @@
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/white" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/detail_view_pager"
+    <!--    <androidx.core.widget.NestedScrollView-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/detail_tab_layout">-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detail_tab_layout" />
+        app:layout_constraintTop_toBottomOf="@id/detail_tab_layout">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/detail_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    </androidx.core.widget.NestedScrollView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
