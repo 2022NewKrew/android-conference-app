@@ -1,58 +1,96 @@
 package com.survivalcoding.ifkakao.presentation.detail
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.survivalcoding.ifkakao.domain.model.IkComment
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
-import com.survivalcoding.ifkakao.domain.usecase.GetSessionsByTagUseCase
-import com.survivalcoding.ifkakao.presentation.FragmentInformation
-import com.survivalcoding.ifkakao.presentation.highlight.HighlightViewModel
+import com.survivalcoding.ifkakao.domain.usecase.GetLocalSessionDataUseCase
+import com.survivalcoding.ifkakao.domain.usecase.GetRelatedSessionsUseCase
+import com.survivalcoding.ifkakao.domain.usecase.InsertNewCommentUseCase
+import com.survivalcoding.ifkakao.domain.usecase.ToggleLikedSessionUseCase
+import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.util.FragmentType
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
+import java.util.*
+import javax.inject.Inject
 
-class DetailViewModel(
-    private val getSessionsByTagUseCase: GetSessionsByTagUseCase,
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val getRelatedSessionsUseCase: GetRelatedSessionsUseCase,
+    private val getLocalSessionDataUseCase: GetLocalSessionDataUseCase,
+    private val insertNewCommentUseCase: InsertNewCommentUseCase,
+    private val toggleLikedSessionUseCase: ToggleLikedSessionUseCase,
+    private val stk: Stack<FragmentInformation>,
 ) : ViewModel() {
-    private var _relatedSessions = listOf<IkSessionData>()
-    private val _relatedSessionsCount = MutableStateFlow(4)
-    private val _currentSession = MutableStateFlow(IkSessionData.getEmptySessionData())
+    private val _currentSession = MutableStateFlow(stk.peek().session)
+    private val _exposedListCount = MutableStateFlow(stk.peek().exposedListCount)
+    var totalCount = 120
 
-    val uiState = combine(_relatedSessionsCount, _currentSession) { i, session ->
-        DetailUIState(_relatedSessions, i, session)
+    val sessions = combine(_currentSession, _exposedListCount) { session, count ->
+        val list = getRelatedSessionsUseCase(session)
+        totalCount = list.size
+        getRelatedSessionsUseCase(session).take(count)
     }.asLiveData()
+    val currentSession = _currentSession.asLiveData()
+    val exposedListCount = _exposedListCount.asLiveData()
+
+    private val _localSessionData = getLocalSessionDataUseCase(_currentSession.value.id)
+    val localSessionData = _localSessionData.asLiveData()
 
     fun onEvent(event: DetailEvent) {
         when (event) {
-            is DetailEvent.LoadingData -> {
-                _relatedSessions = getSessionsByTagUseCase {
-                    it.field == _currentSession.value.field && it.id != _currentSession.value.id
-                }
-                _relatedSessionsCount.value = event.info.relatedSessionsCount
-                _currentSession.value = event.info.currentSession
-            }
             DetailEvent.LoadMoreSessions -> {
-                _relatedSessionsCount.value = _relatedSessionsCount.value + 10
+                _exposedListCount.value = _exposedListCount.value + 10
+            }
+            is DetailEvent.NextSession -> {
+                updateStack()
+                stk.push(
+                    FragmentInformation(
+                        fragmentType = FragmentType.DETAIL,
+                        session = event.session,
+                        exposedListCount = 4,
+                    )
+                )
+            }
+            DetailEvent.ToAllSession -> {
+                updateStack()
+                stk.push(
+                    FragmentInformation(
+                        fragmentType = FragmentType.SESSION,
+                        exposedListCount = 8,
+                        selectedDay = 3
+                    )
+                )
+            }
+            is DetailEvent.InsertComment -> viewModelScope.launch {
+                insertNewCommentUseCase(_currentSession.value.id, event.comment)
+            }
+            DetailEvent.ToggleLiked -> viewModelScope.launch {
+                toggleLikedSessionUseCase(_currentSession.value.id)
             }
         }
     }
 
-    fun getSize() = _relatedSessionsCount.value
-    fun getVideoThumbnailUrl() = _currentSession.value.video.thumbnailUrl
+    private fun updateStack() {
+        stk.pop()
+        stk.push(
+            FragmentInformation(
+                fragmentType = FragmentType.DETAIL,
+                session = _currentSession.value,
+                exposedListCount = _exposedListCount.value,
+            )
+        )
+    }
 }
 
 sealed class DetailEvent {
-    data class LoadingData(val info: FragmentInformation) : DetailEvent()
     object LoadMoreSessions : DetailEvent()
-}
-
-class DetailViewModelFactory(
-    private val allSessions: List<IkSessionData>,
-) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java))
-            return DetailViewModel(
-                GetSessionsByTagUseCase(allSessions)
-            ) as T
-        return super.create(modelClass)
-    }
+    object ToAllSession : DetailEvent()
+    data class NextSession(val session: IkSessionData) : DetailEvent()
+    data class InsertComment(val comment: IkComment) : DetailEvent()
+    object ToggleLiked : DetailEvent()
 }

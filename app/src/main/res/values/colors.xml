@@ -9,11 +9,13 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--  배경, 글자, 프레임 색  -->
-    <color name="background_black">#FF000000</color>
-    <color name="text_color_white">#FFFFFFFF</color>
-    <color name="text_color_yellow">#FFFAE153</color>
-    <color name="text_color_blue">#FF19B4E0</color>
-    <color name="text_color_gray">#FF717171</color>
-    <color name="background_time">#ff292929</color>
-    <color name="background_button_gray">#FF1B1B1B</color>
+    <color name="black_background">#FF000000</color>
+    <color name="white_text">#FFFFFFFF</color>
+    <color name="yellow_text">#FFFAE153</color>
+    <color name="blue_text">#FF19B4E0</color>
+    <color name="gray_text">#FF717171</color>
+    <color name="gray_bright_text">#A0A0A0</color>
+    <color name="gray_background">#FF292929</color>
+    <color name="gray_line">#FF393939</color>
+    <color name="gray_dark_background">#FF1B1B1B</color>
 </resources>

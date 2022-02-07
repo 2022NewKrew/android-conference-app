@@ -14,5 +14,6 @@ class TagListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
     fun bind(tag: IkTagInfo, onClickListener: (tag: IkTagInfo) -> Unit) {
         binding.tagName.text = tag.text
+        itemView.setOnClickListener { onClickListener(tag) }
     }
 }

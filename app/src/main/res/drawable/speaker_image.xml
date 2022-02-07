@@ -6,5 +6,5 @@
         android:bottomRightRadius="27dp"
         android:topLeftRadius="27dp"
         android:topRightRadius="27dp" />
-    <solid android:color="@color/background_time" />
+    <solid android:color="@color/gray_background" />
 </shape>

@@ -1,24 +1,95 @@
 package com.survivalcoding.ifkakao.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.add
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
-import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
+import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.presentation.highlight.HighlightFragment
+import com.survivalcoding.ifkakao.presentation.liked.LikedFragment
+import com.survivalcoding.ifkakao.presentation.session.SessionFragment
+import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
+import com.survivalcoding.ifkakao.presentation.util.FragmentType
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var stk: Stack<FragmentInformation>
+
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        binding.exitButton.setOnClickListener {
+            if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+        }
+
+        binding.drawerToggleButton.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        binding.toolbarTitle.setOnClickListener {
+            if (stk.peek().fragmentType == FragmentType.HIGHLIGHT) return@setOnClickListener
+            stk.push(FragmentInformation(fragmentType = FragmentType.HIGHLIGHT))
+            supportFragmentManager.commit {
+                replace(R.id.fragment_container_view, HighlightFragment())
+                setReorderingAllowed(true)
+                addToBackStack(null)
+            }
+        }
+
+        binding.navigationSessionItem.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            if (stk.peek().fragmentType == FragmentType.SESSION) return@setOnClickListener
+
+            stk.push(
+                FragmentInformation(
+                    fragmentType = FragmentType.SESSION,
+                    selectedDay = 3,
+                    exposedListCount = 8
+                )
+            )
+            supportFragmentManager.commit {
+                replace(R.id.fragment_container_view, SessionFragment())
+                setReorderingAllowed(true)
+                addToBackStack(null)
+            }
+        }
+
+        binding.navigationMyListItem.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            if (stk.peek().fragmentType == FragmentType.LIKED) return@setOnClickListener
+
+            stk.push(
+                FragmentInformation(
+                    fragmentType = FragmentType.LIKED,
+                )
+            )
+            supportFragmentManager.commit {
+                replace(R.id.fragment_container_view, LikedFragment())
+                setReorderingAllowed(true)
+                addToBackStack(null)
+            }
+        }
     }
 
     override fun onBackPressed() {
-        (application as App).fragmentStack.pop()
-        super.onBackPressed()
+        val top = stk.peek()
+        if (top.fragmentType == FragmentType.HIGHLIGHT) finish()
+        else {
+            stk.pop()
+            super.onBackPressed()
+        }
     }
 }

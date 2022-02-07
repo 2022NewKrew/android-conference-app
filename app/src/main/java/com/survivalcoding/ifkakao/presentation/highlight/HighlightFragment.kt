@@ -1,62 +1,62 @@
 package com.survivalcoding.ifkakao.presentation.highlight
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.survivalcoding.ifkakao.App
+import androidx.recyclerview.widget.ConcatAdapter
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
-import com.survivalcoding.ifkakao.presentation.FragmentInformation
-import com.survivalcoding.ifkakao.presentation.ImageResourceUrl
+import com.survivalcoding.ifkakao.presentation.base.BaseFragment
+import com.survivalcoding.ifkakao.presentation.base.FooterAdapter
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
+import com.survivalcoding.ifkakao.presentation.highlight.adapter.HighlightHeaderAdapter
+import com.survivalcoding.ifkakao.presentation.session.SessionFragment
+import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-class HighlightFragment : Fragment() {
-    private var _binding: FragmentHighlightBinding? = null
-    private val binding get() = _binding!!
+@AndroidEntryPoint
+class HighlightFragment : BaseFragment<FragmentHighlightBinding>(R.layout.fragment_highlight) {
 
-    private val viewModel by viewModels<HighlightViewModel> {
-        HighlightViewModelFactory((requireActivity().application as App).allSessions)
-    }
-
-    private val highlightAdapter by lazy {
-        SessionListAdapter(
-            onClickListener = {
-                (requireActivity().application as App).fragmentStack.push(
-                    FragmentInformation(currentSession = it)
-                )
-                parentFragmentManager.commit {
-                    replace(R.id.fragment_container_view, DetailFragment())
-                    setReorderingAllowed(true)
-                    addToBackStack(null)
-                }
-            }
-        )
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHighlightBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val viewModel: HighlightViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvHighlightSessionsRecyclerview.adapter = highlightAdapter
-        binding.highlightUIState = HighlightUIState(viewModel.highlightSessions)
-    }
+        val concatAdapter = ConcatAdapter(
+            HighlightHeaderAdapter(
+                sessionButtonClickListener = {
+                    viewModel.toAllSession()
+                    parentFragmentManager.commit {
+                        replace(R.id.fragment_container_view, SessionFragment())
+                        setReorderingAllowed(true)
+                        addToBackStack(null)
+                    }
+                }
+            ),
+            SessionListAdapter(
+                onClickListener = {
+                    viewModel.toDetailSession(it)
+                    parentFragmentManager.commit {
+                        replace(R.id.fragment_container_view, DetailFragment())
+                        setReorderingAllowed(true)
+                        addToBackStack(null)
+                    }
+                }
+            ),
+            FooterAdapter(
+                topButtonClickListener = {
+                    bind { fragmentHighlightRecyclerview.smoothScrollToPosition(0) }
+                }
+            )
+        )
 
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
+        bind {
+            adapter = concatAdapter
+            itemDecoration = SessionItemDecoration()
+            executePendingBindings()
+            vm = viewModel
+        }
     }
 }

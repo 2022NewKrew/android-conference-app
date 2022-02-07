@@ -7,7 +7,11 @@ data class IkSessionVideo(
 ) {
     companion object {
         fun getEmptyVideo(): IkSessionVideo {
-            return IkSessionVideo("", "", "")
+            return IkSessionVideo(
+                videoLength = "",
+                videoUrl = "",
+                thumbnailUrl = "",
+            )
         }
     }
 }
