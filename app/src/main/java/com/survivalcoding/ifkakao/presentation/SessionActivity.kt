@@ -48,7 +48,9 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.domain.model.SessionItem
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SessionActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +66,7 @@ class SessionActivity : ComponentActivity() {
         val dayList = listOf("Day1", "Day2", "Day3", "All")
 
         setContent {
-            Column() {
+            Column {
                 TopAppBar(
                     title = { Text(text = "if(kakao)2021") },
                     navigationIcon = {
