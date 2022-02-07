@@ -1,6 +1,7 @@
 package com.survivalcoding.ifkakao.compose
 
-import android.graphics.drawable.VectorDrawable
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,10 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.R
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
@@ -22,36 +22,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.ImageLoader
 import coil.compose.rememberImagePainter
 import com.example.domain.entity.ContentsSpeakerList
 import com.example.domain.entity.Data
+import com.example.domain.entity.ShareImage
 import com.example.domain.entity.Video
 import com.google.accompanist.flowlayout.FlowRow
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.MediaItem.LiveConfiguration
-import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
-import com.google.android.exoplayer2.source.MediaSourceFactory
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
-import com.google.android.exoplayer2.util.Util
 import com.survivalcoding.ifkakao.MainViewModel
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.compose.ui.EvanTheme
 import com.survivalcoding.ifkakao.compose.widget.BorderedText
 import com.survivalcoding.ifkakao.compose.widget.CircleImageLoader
 import com.survivalcoding.ifkakao.compose.widget.SharedWithSocialIcon
 import com.survivalcoding.ifkakao.compose.widget.SingleSession
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 
 class SessionFragment : Fragment() {
@@ -85,7 +74,7 @@ fun TopCompose(viewModel: MainViewModel) {
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         //video
-        VideoPart(session.value.linkList?.video)
+        VideoPart(session.value.linkList?.shareImage, session.value.linkList?.video)
         // description
         val classification = session.value.relationList?.classification ?: listOf()
         val techClassification = session.value.relationList?.techClassification ?: listOf()
@@ -110,8 +99,40 @@ fun TopCompose(viewModel: MainViewModel) {
 
 //https://tv.kakao.com/channel/3693125/cliplink/423791694
 @Composable
-fun VideoPart(videos: List<Video>?) {
+fun VideoPart(shareImages: List<ShareImage>?, videos: List<Video>?) {
     val context = LocalContext.current
+    Box(contentAlignment = Alignment.Center) {
+        Image(
+            painter = rememberImagePainter(
+                data = shareImages?.get(0)?.url,
+            ),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+        )
+        Image(
+            painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+            modifier = Modifier
+                .size(96.dp)
+                .clickable {
+                    videos?.first()?.url?.let {
+                        val intent =
+                            Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                        context.startActivity(intent)
+                    }
+                },
+            contentDescription = "play button"
+        )
+
+        /*
+        *  val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(binding.detailLink.text.toString()))
+                startActivity(intent)
+        * */
+
+    }
+/*    val context = LocalContext.current
 
     val player = ExoPlayer.Builder(context)
         .setMediaSourceFactory(
@@ -140,7 +161,7 @@ fun VideoPart(videos: List<Video>?) {
 
     }
 
-    AndroidView(factory = { playerView })
+    AndroidView(factory = { playerView })*/
 
 }
 

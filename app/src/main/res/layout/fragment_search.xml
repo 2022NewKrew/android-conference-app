@@ -44,6 +44,7 @@
                 android:id="@+id/spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
                 android:entries="@array/spinner_entries"
                 android:popupBackground="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/filter_img_btn"
