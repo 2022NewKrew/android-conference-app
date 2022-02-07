@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -42,6 +43,8 @@ class SessionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Glide.with(this).load(R.drawable.vod_teaser_2021_mobile).into(binding.sessionIv)
+
+        binding.daySp.adapter = ArrayAdapter.createFromResource(requireContext(), R.array.spinner_item_array, R.layout.spinner_item_session)
 
         val adapter = SessionAdapter {
             findNavController().navigate(

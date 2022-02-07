@@ -15,6 +15,7 @@
         <item name="colorControlNormal">@color/grey</item>
         <item name="android:listDivider">@color/lightGrey</item>
         <item name="tabStyle">@style/Theme.Ifkakao.TabStyle</item>
+        <item name="android:colorBackground">@color/darkGrey</item>
     </style>
     <style name="Theme.Ifkakao.TabStyle" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
