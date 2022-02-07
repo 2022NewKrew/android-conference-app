@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getRelatedSessionsUseCase: GetRelatedSessionsUseCase,
-    private val getLocalSessionDataUseCase: GetLocalSessionDataUseCase,
+    getLocalSessionDataUseCase: GetLocalSessionDataUseCase,
     private val insertNewCommentUseCase: InsertNewCommentUseCase,
     private val toggleLikedSessionUseCase: ToggleLikedSessionUseCase,
     private val stk: Stack<FragmentInformation>,

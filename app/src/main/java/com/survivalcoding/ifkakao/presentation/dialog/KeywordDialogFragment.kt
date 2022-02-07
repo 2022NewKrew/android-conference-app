@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class KeywordDialogFragment(
-    val isChanged: MutableLiveData<Boolean>,
+    private val isChanged: MutableLiveData<Boolean>,
 ) : DialogFragment() {
 
     private var _binding: FragmentKeywordDialogBinding? = null

@@ -22,7 +22,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailDescriptionFragment() :
+class DetailDescriptionFragment :
     BaseFragment<FragmentDetailDescriptionBinding>(R.layout.fragment_detail_description) {
 
     @Inject

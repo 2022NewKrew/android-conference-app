@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LikedViewModel @Inject constructor(
-    private val getAllSessionsUseCase: GetAllSessionsUseCase,
-    private val getAllLocalSessionDataUseCase: GetAllLocalSessionDataUseCase,
+    getAllSessionsUseCase: GetAllSessionsUseCase,
+    getAllLocalSessionDataUseCase: GetAllLocalSessionDataUseCase,
 ) : ViewModel() {
     private val _likedSession = getAllLocalSessionDataUseCase()
     private val _allSession = getAllSessionsUseCase()

@@ -9,17 +9,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
-import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
-    @Inject
-    lateinit var stk: Stack<FragmentInformation>
 
     private val viewModel: DetailViewModel by viewModels()
 
