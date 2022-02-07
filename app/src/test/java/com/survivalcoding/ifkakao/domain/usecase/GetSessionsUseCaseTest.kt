@@ -32,6 +32,6 @@ class GetSessionsUseCaseTest {
         assertEquals(91, useCase(2, 120, keywords = Keywords()).size)
         assertEquals(120, useCase(3, 120, keywords = Keywords()).size)
 
-        assertEquals(120, useCase(3, 120, keywords = Keywords()).map { it.id }.sorted())
+        assertEquals(120, useCase(3, 120, keywords = Keywords()).map { it.video.videoUrl }.sorted())
     }
 }

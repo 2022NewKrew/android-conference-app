@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="toolbar_height">200dp</dimen>
+    <dimen name="toolbar_height">190dp</dimen>
 
-    <dimen name="appbar_height">280dp</dimen>
+    <dimen name="appbar_height">250dp</dimen>
 </resources>

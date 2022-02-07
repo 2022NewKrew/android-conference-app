@@ -40,6 +40,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             executePendingBindings()
             vm = viewModel
 
+            webView.settings.javaScriptEnabled = true
+
             viewPager.adapter = pagerAdapter
             ViewPager2ViewHeightAnimator().viewPager2 = viewPager
 
@@ -64,6 +66,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
         viewModel.exposedListCount.observe(viewLifecycleOwner) {
             bind { btnMoreSessions.isVisible = viewModel.totalCount > it }
+        }
+
+        viewModel.currentSession.observe(viewLifecycleOwner) {
+            bind { webView.loadUrl(it.video.videoUrl) }
         }
     }
 }
