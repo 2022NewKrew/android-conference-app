@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/session_description_rv_classification"
@@ -74,10 +75,12 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/gray"
             android:paddingHorizontal="30dp"
             android:stateListAnimator="@null"
             android:text="목록보기"
+            android:textColor="@color/light_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/session_description_rv_speaker" />

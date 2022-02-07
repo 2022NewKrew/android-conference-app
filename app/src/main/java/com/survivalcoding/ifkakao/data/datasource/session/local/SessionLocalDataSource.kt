@@ -911,6 +911,12 @@ class SessionLocalDataSource @Inject constructor() : SessionDataSource {
             ""
         )
 
+    override suspend fun getSessionsByField(field: String): List<Session> =
+        sessions.data.filter { it.field == field }
+
+    override suspend fun getSessionsRelated(id: Int, field: String): List<Session> =
+        sessions.data.filter { it.field == field && it.idx != id }
+
     override suspend fun sortByTitleAsc(): List<Session> =
         sessions.data.sortedBy { it.title }
 
