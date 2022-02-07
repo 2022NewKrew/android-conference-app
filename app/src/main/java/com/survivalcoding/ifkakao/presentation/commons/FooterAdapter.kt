@@ -1,11 +1,11 @@
-package com.survivalcoding.ifkakao.presentation.main
+package com.survivalcoding.ifkakao.presentation.commons
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.databinding.ItemMainFooterBinding
+import com.survivalcoding.ifkakao.databinding.ItemFooterBinding
 
 
 class FooterAdapter(
@@ -14,7 +14,7 @@ class FooterAdapter(
 ) :
     RecyclerView.Adapter<FooterAdapter.FooterViewHolder>() {
     inner class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding: ItemMainFooterBinding = ItemMainFooterBinding.bind(itemView)
+        private val binding: ItemFooterBinding = ItemFooterBinding.bind(itemView)
         fun bind() {
             binding.upButton.setOnClickListener {
                 onClickUpButton(Unit)
@@ -31,11 +31,11 @@ class FooterAdapter(
         viewType: Int
     ): FooterViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_main_footer, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_footer, parent, false)
         return FooterViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: FooterAdapter.FooterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FooterViewHolder, position: Int) {
         holder.bind()
     }
 

@@ -34,6 +34,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -52,7 +53,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
 
     // by viewModels
-    implementation 'androidx.fragment:fragment-ktx:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
 
     // repeatOnLifeCycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
@@ -60,13 +61,11 @@ dependencies {
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
+    //ConcatAdapter
     implementation "androidx.recyclerview:recyclerview:1.2.1"
-    // For control over item selection of both touch and mouse driven selection
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
-
 
     // Room
     def room_version = "2.4.1"
@@ -75,6 +74,14 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
+    //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // Koin main features for Android
+    implementation "io.insert-koin:koin-android:3.1.2"
+
+    //exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
 }

@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ItemMainHeaderBinding
 
-class HeaderAdapter(private val onClickSessionButton: (Unit) -> Unit) :
-    RecyclerView.Adapter<HeaderAdapter.HeaderViewHolder>() {
+class MainHeaderAdapter(private val onClickSessionButton: (Unit) -> Unit) :
+    RecyclerView.Adapter<MainHeaderAdapter.HeaderViewHolder>() {
     inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding: ItemMainHeaderBinding = ItemMainHeaderBinding.bind(itemView)
         fun bind() {

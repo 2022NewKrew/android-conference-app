@@ -8,22 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ConcatAdapter
-import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
+import com.survivalcoding.ifkakao.presentation.commons.FooterAdapter
+import com.survivalcoding.ifkakao.presentation.commons.SessionAdapter
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
-import com.survivalcoding.ifkakao.presentation.util.SessionAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment() {
-    private val viewModel by activityViewModels<MainViewModel> {
-        MainViewModelFactory(
-            application = requireActivity().application,
-            repository = (requireActivity().application as App).sessionRepository
-        )
-    }
+    private val mainViewModel by viewModel<MainViewModel>()
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
@@ -40,7 +35,7 @@ class MainFragment : Fragment() {
 
         val recyclerView = binding.recyclerView
         val concatAdapter = ConcatAdapter(
-            HeaderAdapter {
+            MainHeaderAdapter {
                 //Todo: Session 창 이동
             },
             SessionAdapter(onClickSession = { idx ->
@@ -64,13 +59,13 @@ class MainFragment : Fragment() {
         )
         recyclerView.adapter = concatAdapter
 
-        viewModel.infos.observe(this) {
+        mainViewModel.infos.observe(viewLifecycleOwner) {
             (concatAdapter.adapters[1] as SessionAdapter).submitList(it)
         }
     }
 
     private fun moveToNextFragment(fragment: Fragment) {
-        parentFragmentManager.beginTransaction()
+        requireActivity().supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView,
                 fragment
