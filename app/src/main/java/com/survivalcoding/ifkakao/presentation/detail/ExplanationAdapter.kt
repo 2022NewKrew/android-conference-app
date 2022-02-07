@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.domain.model.Session
 
-class ExplanationAdapter(private val onClickFavoriteButton: (Boolean) -> Unit) :
+class ExplanationAdapter(
+    private val onClickFavoriteButton: (Boolean) -> Unit,
+    private val onClickSessionButton: () -> Unit
+) :
     RecyclerView.Adapter<ExplanationViewHolder>() {
     private var session: Session = Session()
     private var isFavorite: Boolean = false
@@ -15,7 +18,7 @@ class ExplanationAdapter(private val onClickFavoriteButton: (Boolean) -> Unit) :
         val view =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_detail_explanation, parent, false)
-        return ExplanationViewHolder(view, isFavorite, onClickFavoriteButton)
+        return ExplanationViewHolder(view, isFavorite, onClickFavoriteButton, onClickSessionButton)
     }
 
     override fun onBindViewHolder(holder: ExplanationViewHolder, position: Int) {
@@ -30,8 +33,6 @@ class ExplanationAdapter(private val onClickFavoriteButton: (Boolean) -> Unit) :
     }
 
     fun updateLiking(isFavorite: Boolean) {
-        //ToDo: 깜빡거리는 현상 해결 위해 하트 위치 옮기기
         this.isFavorite = isFavorite
-        notifyItemChanged(0)
     }
 }
