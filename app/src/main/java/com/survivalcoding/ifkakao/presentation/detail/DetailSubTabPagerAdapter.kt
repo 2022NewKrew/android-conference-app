@@ -8,7 +8,6 @@ import com.survivalcoding.ifkakao.presentation.detail.subtab.descriptiontab.Deta
 
 class DetailSubTabPagerAdapter(
     fragment: Fragment,
-    private val fragmentManager: FragmentManager,
 ) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return 2
@@ -16,7 +15,7 @@ class DetailSubTabPagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> DetailDescriptionFragment(fragmentManager)
+            0 -> DetailDescriptionFragment()
             1 -> DetailCommentFragment()
             else -> throw IllegalArgumentException("view pager error")
         }

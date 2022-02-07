@@ -2,7 +2,6 @@ package com.survivalcoding.ifkakao.presentation.detail
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -38,7 +37,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pagerAdapter = DetailSubTabPagerAdapter(this, parentFragmentManager)
+        val pagerAdapter = DetailSubTabPagerAdapter(this)
 
         bind {
             sessionAdapter = sessionListAdapter
@@ -64,17 +63,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             }.attach()
         }
 
-        viewModel.localSessionData.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
-            // TODO: 좋아요 추가
-        }
-
         viewModel.sessions.observe(viewLifecycleOwner) {
             sessionListAdapter.submitList(it)
-        }
-
-        viewModel.currentSession.observe(viewLifecycleOwner) {
-
         }
 
         viewModel.exposedListCount.observe(viewLifecycleOwner) {
