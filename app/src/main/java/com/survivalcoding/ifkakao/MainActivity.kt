@@ -1,7 +1,9 @@
 package com.survivalcoding.ifkakao
 
+import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -25,6 +27,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,12 +35,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
+import com.survivalcoding.ifkakao.domain.model.SessionItem
 import com.survivalcoding.ifkakao.domain.repository.SessionRepository
+import com.survivalcoding.ifkakao.presentation.SessionActivity
+import com.survivalcoding.ifkakao.presentation.SessionList
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -55,6 +64,10 @@ class MainActivity : ComponentActivity() {
                     add(GifDecoder())
                 }
             }.build()
+        var sessions = listOf<SessionItem>()
+        lifecycleScope.launch(Dispatchers.Main) {
+            sessions = sessionRepository.getSessionList() ?: listOf()
+        }
 
         setContent {
             Column {
@@ -130,7 +143,11 @@ class MainActivity : ComponentActivity() {
                             .padding(end = 16.dp),
                     ) {
                         Button(
-                            onClick = { },
+                            onClick = {
+                                val intent = Intent(this@MainActivity, SessionActivity::class.java)
+                                Log.d("###MAC", "onCreate: $sessions")
+                                startActivity(intent)
+                            },
                             colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.dark_grey)),
                             modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
                             contentPadding = PaddingValues(4.dp)
@@ -139,6 +156,11 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
+                Log.d("###MAC", "onCreate: $sessions")
+
+                val coroutineScope = rememberCoroutineScope()
+
+                SessionList(sessions = sessions)
             }
         }
     }

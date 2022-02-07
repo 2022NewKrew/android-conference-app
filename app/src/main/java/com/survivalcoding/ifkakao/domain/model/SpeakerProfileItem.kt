@@ -5,7 +5,7 @@ data class SpeakerProfileItem(
     val profileImageUrl: String,
     val nameKo: String,
     val nameEn: String,
-    val company: String,
-    val occupation: String,
-    val channelLink: String
+    val company: String?,
+    val occupation: String?,
+    val channelLink: String?
 )

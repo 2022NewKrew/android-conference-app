@@ -8,7 +8,7 @@ data class SessionItem(
     val field: String,
     val contentTag: List<String>,
     val videoUrl: String, // from LinkList.video.url
-    val videoDuration: String, // from LinkList.video.description
+    val videoDuration: String?, // from LinkList.video.description
     val mainImageUrl: String, // from LinkList.mo_main_image
     val imageUrl: String, // from LinkList.mo_image
     val classifications: List<String>, // from RelationList.classification
