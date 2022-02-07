@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao
 
+import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,6 +9,7 @@ import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import com.survivalcoding.ifkakao.domain.repository.SessionRepository
+import com.survivalcoding.ifkakao.presentation.SessionActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,6 +30,9 @@ class MainActivity : ComponentActivity() {
             }.build()
 
         val dayList = listOf("Day1", "Day2", "Day3", "All")
+
+        val intent = Intent(this, SessionActivity::class.java)
+        startActivity(intent)
 
         setContent {
         }

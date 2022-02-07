@@ -73,7 +73,7 @@ class SessionActivity : ComponentActivity() {
                         }
                     },
                     backgroundColor = Color.Black,
-                    contentColor = Color.White
+                    contentColor = Color.White,
                 )
                 Row(
                     modifier = Modifier
@@ -102,7 +102,7 @@ class SessionActivity : ComponentActivity() {
                     )
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    daySelection(items = dayList)
+                    DaySelection(items = dayList)
                     Box(
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -118,7 +118,7 @@ class SessionActivity : ComponentActivity() {
     }
 
     @Composable
-    fun listItemCard(sessionItem: SessionItem, imageLoader: ImageLoader) {
+    fun ListItemCard(sessionItem: SessionItem, imageLoader: ImageLoader) {
         Image(
             painter = rememberImagePainter(
                 data = Uri.parse(sessionItem.imageUrl),
@@ -128,13 +128,13 @@ class SessionActivity : ComponentActivity() {
             contentDescription = null,
             modifier = Modifier.width(60.dp)
         )
-        mainTagCard(sessionItem.company)
-        tagCard(sessionItem.field)
+        MainTagCard(sessionItem.company)
+        TagCard(sessionItem.field)
     }
 
     @Composable
     @Preview
-    fun tagCard(str: String = "서비스") {
+    fun TagCard(str: String = "서비스") {
         Card(
             border = BorderStroke(Dp.Hairline, Color.White), backgroundColor = Color.Black, shape = RectangleShape,
             modifier = Modifier.absolutePadding(right = 8.dp)
@@ -152,7 +152,7 @@ class SessionActivity : ComponentActivity() {
 
     @Composable
     @Preview
-    fun mainTagCard(str: String = "카카오") {
+    fun MainTagCard(str: String = "카카오") {
         Card(
             border = BorderStroke(Dp.Hairline, colorResource(id = R.color.light_yellow)),
             backgroundColor = Color.Black,
@@ -171,7 +171,7 @@ class SessionActivity : ComponentActivity() {
     }
 
     @Composable
-    fun dropDownList(
+    fun DropDownList(
         requestToOpen: Boolean = false,
         list: List<String>,
         request: (Boolean) -> Unit,
@@ -195,7 +195,7 @@ class SessionActivity : ComponentActivity() {
     }
 
     @Composable
-    fun daySelection(items: List<String>) {
+    fun DaySelection(items: List<String>) {
         val text = remember { mutableStateOf(items[0]) } // initial value
         val isOpen = remember { mutableStateOf(false) } // initial value
         val openCloseOfDropDownList: (Boolean) -> Unit = {
@@ -212,7 +212,7 @@ class SessionActivity : ComponentActivity() {
                     style = MaterialTheme.typography.h5,
                     modifier = Modifier.absolutePadding(top = 24.dp, left = 24.dp, bottom = 24.dp)
                 )
-                dropDownList(
+                DropDownList(
                     requestToOpen = isOpen.value,
                     list = items,
                     openCloseOfDropDownList,
