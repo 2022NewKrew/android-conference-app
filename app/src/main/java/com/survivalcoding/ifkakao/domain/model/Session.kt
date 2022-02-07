@@ -15,6 +15,7 @@ data class Session(
     val `field`: String = "",
     val linkList: LinkList? = null,
     val relationList: RelationList = RelationList(emptyList(), emptyList(), emptyList()),
+    val reservationDate: String = "",
     val speakerName: String? = null,
     val spotlightYn: String? = null,
     val title: String? = null,

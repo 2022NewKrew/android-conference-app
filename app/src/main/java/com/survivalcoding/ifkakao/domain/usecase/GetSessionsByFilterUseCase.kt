@@ -2,14 +2,15 @@ package com.survivalcoding.ifkakao.domain.usecase
 
 import com.survivalcoding.ifkakao.domain.model.Session
 
-class GetSessionsByFilterUseCase(private val getSessionsUseCase: GetSessionsUseCase) {
-    suspend operator fun invoke(
+class GetSessionsByFilterUseCase() {
+    operator fun invoke(
+        sessions: List<Session>,
         fields: List<String>,
         classification: List<String>,
         techClassification: List<String>,
         companies: List<String>
     ): List<Session> =
-        getSessionsUseCase.invoke().filter {
+        sessions.filter {
             isInSameClassification(it.field, fields)
         }.filter {
             isInSameClassification(it.relationList.CLASSIFICATION, classification)
