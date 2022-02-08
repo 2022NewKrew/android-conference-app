@@ -59,7 +59,7 @@ class App : Application() {
         factory { AddLikeUseCase(get()) }
         factory { DeleteLikeUseCase(get()) }
         factory { GetSessionsByDayUseCase(get()) }
-        factory { GetSessionsByFilterUseCase() }
+        factory { GetSessionsByFilterUseCase(get()) }
     }
 
     private val repositoryModules = module {

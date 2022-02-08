@@ -18,6 +18,8 @@ class SessionsHeaderViewHolder(
 
         val tabLayout = binding.tabLayout
         tabLayout.clearOnTabSelectedListeners()
+        tabLayout.getTabAt(idx)?.select()
+
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.let { onClickTab(it.position) }
@@ -26,8 +28,6 @@ class SessionsHeaderViewHolder(
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-        tabLayout.getTabAt(idx)?.select()
-
 
         binding.filterButton.setOnClickListener {
             onClickFilter()

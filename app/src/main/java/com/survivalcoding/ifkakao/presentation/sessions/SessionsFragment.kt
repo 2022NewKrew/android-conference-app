@@ -3,17 +3,25 @@ package com.survivalcoding.ifkakao.presentation.sessions
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ConcatAdapter
+import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.navigation.NavigationView
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionsBinding
+import com.survivalcoding.ifkakao.domain.model.companyFilterList
+import com.survivalcoding.ifkakao.domain.model.fieldFilterList
+import com.survivalcoding.ifkakao.domain.model.sbFilterList
+import com.survivalcoding.ifkakao.domain.model.techFilterList
 import com.survivalcoding.ifkakao.presentation.commons.FooterAdapter
 import com.survivalcoding.ifkakao.presentation.commons.SessionAdapter
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
@@ -82,11 +90,43 @@ class SessionsFragment : Fragment() {
     }
 
     private fun setDrawerLayout() {
+        val fieldFilter = binding.fieldButtonLayout
+        val sbFilter = binding.sbButtonLayout
+        val techFilter = binding.techButtonLayout
+        val companyFilter = binding.companyButtonLayout
+
+        addButtons(fieldFilter, fieldFilterList, FIELD)
+        addButtons(sbFilter, sbFilterList, SB)
+        addButtons(techFilter, techFilterList, TECH)
+        addButtons(companyFilter, companyFilterList, COMPANY)
+
+        sessionsViewModel.fieldFilter.observe(viewLifecycleOwner) {
+            setButtonsSelected(it, fieldFilterList)
+        }
+        sessionsViewModel.sbFilter.observe(viewLifecycleOwner) {
+            setButtonsSelected(it, sbFilterList)
+        }
+        sessionsViewModel.techFilter.observe(viewLifecycleOwner) {
+            setButtonsSelected(it, techFilterList)
+        }
+        sessionsViewModel.companyFilter.observe(viewLifecycleOwner) {
+            setButtonsSelected(it, companyFilterList)
+        }
+
         val exitButton = binding.exitButton
         exitButton.setOnClickListener {
-            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
-                drawerLayout.closeDrawer(GravityCompat.END)
-            }
+            sessionsViewModel.initializeFilters()
+            exitFilter()
+        }
+
+        binding.initializeButton.setOnClickListener {
+            sessionsViewModel.resetFilters()
+            exitFilter()
+        }
+
+        binding.completeButton.setOnClickListener {
+            sessionsViewModel.updateFilters()
+            exitFilter()
         }
 
         /*
@@ -101,6 +141,45 @@ class SessionsFragment : Fragment() {
             })*/
     }
 
+    private fun setButtonsSelected(list: List<String>, filterList: List<String>) {
+        for (str in filterList) {
+            binding.root.findViewWithTag<Button>(str).isSelected = false
+        }
+        for (str in list) {
+            binding.root.findViewWithTag<Button>(str).isSelected = true
+        }
+    }
+
+    private fun exitFilter() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.closeDrawer(GravityCompat.END)
+        }
+    }
+
+    private fun addButtons(layout: FlexboxLayout, list: List<String>, update: Int) {
+        for (str in list) {
+            layout.addView(
+                Button(
+                    ContextThemeWrapper(
+                        requireContext(),
+                        R.style.filterButton
+                    )
+                ).apply {
+                    tag = str
+                    text = str
+                    background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.bg_button_filter)
+                    setOnClickListener {
+                        when (update) {
+                            FIELD -> sessionsViewModel.updateFieldFilter(str, !isSelected)
+                            SB -> sessionsViewModel.updateSbFilter(str, !isSelected)
+                            TECH -> sessionsViewModel.updateTechFilter(str, !isSelected)
+                            COMPANY -> sessionsViewModel.updateCompanyFilter(str, !isSelected)
+                        }
+                    }
+                })
+        }
+    }
 
     private fun moveToNextFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
@@ -110,6 +189,13 @@ class SessionsFragment : Fragment() {
             )
             .addToBackStack(null)
             .commit()
+    }
+
+    companion object {
+        const val FIELD = 0
+        const val SB = 1
+        const val TECH = 2
+        const val COMPANY = 3
     }
 
 }
