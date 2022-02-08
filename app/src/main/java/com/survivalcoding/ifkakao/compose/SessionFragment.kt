@@ -72,8 +72,7 @@ fun TopCompose(viewModel: MainViewModel) {
     val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier
-            .verticalScroll(scrollState)
-            .padding(20.dp),
+            .verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         //video
@@ -105,7 +104,7 @@ fun TopCompose(viewModel: MainViewModel) {
 //https://tv.kakao.com/channel/3693125/cliplink/423791694
 @Composable
 fun VideoPart(shareImages: List<ShareImage>?, videos: List<Video>?) {
-    val context = LocalContext.current
+   // val context = LocalContext.current
 
     AndroidView(
         modifier = Modifier

@@ -47,6 +47,7 @@
                 android:backgroundTint="@color/white"
                 android:entries="@array/spinner_entries"
                 android:popupBackground="@color/black"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="@id/filter_img_btn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/filter_img_btn"
