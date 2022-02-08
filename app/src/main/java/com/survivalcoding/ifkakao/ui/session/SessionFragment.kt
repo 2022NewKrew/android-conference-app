@@ -46,7 +46,11 @@ class SessionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Glide.with(this).load(R.drawable.vod_teaser_2021_mobile).into(binding.sessionIv)
 
-        binding.daySp.adapter = ArrayAdapter.createFromResource(requireContext(), R.array.spinner_item_array, R.layout.spinner_item_session)
+        binding.daySp.adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.spinner_item_array,
+            R.layout.spinner_item_session
+        )
         binding.daySp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -89,6 +93,12 @@ class SessionFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest {
                     adapter.submitList(it.sessionFilter.filter(it.sessions))
+                    binding.filterBt.text =
+                        if (it.sessionFilter.getFilterCount() > 0) {
+                            it.sessionFilter.getFilterCount().toString()
+                        } else {
+                            ""
+                        }
                 }
             }
         }

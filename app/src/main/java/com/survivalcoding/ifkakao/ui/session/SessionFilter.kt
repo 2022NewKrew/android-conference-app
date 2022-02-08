@@ -10,17 +10,25 @@ data class SessionFilter(
     val companyFilters: Map<String, Boolean>,
 ) {
     fun filter(sessions: List<Data>): List<Data> {
-        return sessions.filter(::filterDay).filter(::filterField).filter(::filterClass).filter(::filterTech)
+        return sessions.filter(::filterDay).filter(::filterField).filter(::filterClass)
+            .filter(::filterTech)
             .filter(::filterCompany)
     }
 
+    fun getFilterCount(): Int {
+        return fieldFilters.count { it.value } + classFilters.count { it.value } + techFilters.count { it.value } + companyFilters.count { it.value }
+    }
+
     private fun filterDay(data: Data): Boolean {
-        return if(dayFilter == 3) { true } else {
+        return if (dayFilter == 3) {
+            true
+        } else {
             data.relationList.MAIN_EXPOSURE_DAY.any {
                 it.contains(dayFilter.toString())
             }
         }
     }
+
     private fun filterField(data: Data): Boolean {
         return if (fieldFilters.all { !it.value }) {
             true
