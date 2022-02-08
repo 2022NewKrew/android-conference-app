@@ -8,10 +8,8 @@ import com.example.domain.entity.OrderState
 import com.example.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,12 +20,13 @@ class MainViewModel @Inject constructor(
     private val getHighlightSessionsUseCase: GetHighlightSessionsUseCase,
     private val getAllSessionsUseCase: GetAllSessionsUseCase,
     private val getLikedSessionsUseCase: GetLikedSessionsUseCase,
-    private val getSessionsWithKeyWordsUseCase: GetSessionsWithKeyWordsUseCase,
+    private val getSessionsWithKeyWordsAndDateUseCase: GetSessionsWithKeyWordsAndDateUseCase,
     private val getSessionWithFieldUseCase: GetSessionWithFieldUseCase,
     private val getSortedSessionsUseCase: GetSortedSessionsUseCase,
     private val getLikeInfoUseCase: GetLikeInfoUseCase,
     private val addLikeUseCase: AddLikeUseCase,
-    private val deleteLikeUseCase: DeleteLikeUseCase
+    private val deleteLikeUseCase: DeleteLikeUseCase,
+    private val getRelatedSessionUseCase: GetRelatedSessionUseCase
 ) : ViewModel() {
 
     val isLogin = MutableStateFlow(false)
@@ -51,7 +50,7 @@ class MainViewModel @Inject constructor(
             highlightItems.value = getHighlightSessionsUseCase() ?: listOf()
 
             session = MutableStateFlow(highlightItems.value[0])
-            //todo 연관세션 안하고 있음
+
             relatedSessions.value = session.value.field?.let {
                 getSessionWithFieldUseCase(it)
             } ?: listOf()
@@ -63,7 +62,6 @@ class MainViewModel @Inject constructor(
             isLogin.value = true
             id.value = name
             getLikeInfoUseCase(name).collect {
-                println(it)
                 _likedList.value = it
             }
         }
@@ -97,6 +95,10 @@ class MainViewModel @Inject constructor(
 
     fun saveClickedSession(item: Data) {
         session.value = item
+        val classification = session.value.relationList?.classification ?: listOf()
+        val techClassification = session.value.relationList?.techClassification ?: listOf()
+        val mergedClassification = classification + techClassification
+        getRelatedSessions(mergedClassification)
     }
 
     fun getSortedDateSession(_contentState: ContentState, _orderState: OrderState) {
@@ -124,6 +126,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    //todo searchFragment 에서는 한 usecase만 쓰기 day- sorting - filter 연결되게
     private fun getSessionsWithKeyWords() {
         viewModelScope.launch {
             daysItems.value =
@@ -132,15 +135,15 @@ class MainViewModel @Inject constructor(
                     contentState,
                     orderState
                 ) ?: listOf()
-                else getSessionsWithKeyWordsUseCase(date.value, keywords.value) ?: listOf()
+                else getSessionsWithKeyWordsAndDateUseCase(date.value, keywords.value) ?: listOf()
         }
     }
 
-    fun getRelatedSessions(field: String) {
-        viewModelScope.launch {
-            relatedSessions.value = session.value.field?.let {
-                getSessionWithFieldUseCase(it)
-            } ?: listOf()
+    private fun getRelatedSessions(classification: List<String>?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            classification?.let { techList ->
+                relatedSessions.value = getRelatedSessionUseCase(techList) ?: listOf()
+            }
         }
     }
 }

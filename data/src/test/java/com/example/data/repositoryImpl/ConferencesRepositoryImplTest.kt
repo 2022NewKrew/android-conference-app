@@ -47,7 +47,7 @@ class ConferencesRepositoryImplTest {
                 mockData.data
             )
             // 키워드 필터
-            Mockito.`when`(mockRepository.getSessionsWithKeyWords("Android")).thenReturn(
+            Mockito.`when`(mockRepository.getSessionsWithKeyWordsAndDate("Android")).thenReturn(
                 mockData.data?.filter {
                     it.relationList?.techClassification?.any { keyWord ->
                         keyWord == "Android"
@@ -55,14 +55,14 @@ class ConferencesRepositoryImplTest {
                 }
             )
 
-            Mockito.`when`(mockRepository.getSessionsWithKeyWords("iOS")).thenReturn(
+            Mockito.`when`(mockRepository.getSessionsWithKeyWordsAndDate("iOS")).thenReturn(
                 mockData.data?.filter {
                     it.relationList?.techClassification?.any { keyWord ->
                         keyWord == "iOS"
                     } ?: false
                 }
             )
-            Mockito.`when`(mockRepository.getSessionsWithKeyWords("iOS", "Android")).thenReturn(
+            Mockito.`when`(mockRepository.getSessionsWithKeyWordsAndDate("iOS", "Android")).thenReturn(
                 mockData.data?.filter {
                     it.relationList?.techClassification?.any { keyWord ->
                         // todo varags와 같은 결과인지는 확인
@@ -112,11 +112,11 @@ class ConferencesRepositoryImplTest {
 
     @Test
     fun getSessionsWithKeyWords() = runBlocking {
-        var result = mockRepository.getSessionsWithKeyWords("Android")
+        var result = mockRepository.getSessionsWithKeyWordsAndDate("Android")
         assertEquals(4, result?.size)
-        result = mockRepository.getSessionsWithKeyWords("iOS")
+        result = mockRepository.getSessionsWithKeyWordsAndDate("iOS")
         assertEquals(3, result?.size)
-        result = mockRepository.getSessionsWithKeyWords("iOS", "Android")
+        result = mockRepository.getSessionsWithKeyWordsAndDate("iOS", "Android")
         assertEquals(6, result?.size)
     }
 

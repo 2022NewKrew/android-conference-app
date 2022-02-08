@@ -15,7 +15,10 @@ interface ConferencesRepository {
 
     suspend fun getLikedSessions(): List<Data>?
 
-    suspend fun getSessionsWithKeyWords(date: Int, keyWords: List<String>): List<Data>?
+    suspend fun getSessionsWithKeyWords(keyWords: List<String>): List<Data>?
+
+
+    suspend fun getSessionsWithKeyWordsAndDate(date: Int, keyWords: List<String>): List<Data>?
 
     suspend fun getSessionsWithField(field: String): List<Data>?
 
