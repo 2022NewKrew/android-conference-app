@@ -1,6 +1,5 @@
-package com.survivalcoding.ifkakao.ui.sessiondetail.viewpager
+package com.survivalcoding.ifkakao.ui.sessiondetail.viewpager.detail
 
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.LinearLayoutManager
