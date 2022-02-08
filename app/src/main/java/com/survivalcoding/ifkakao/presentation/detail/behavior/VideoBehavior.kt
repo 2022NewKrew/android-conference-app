@@ -51,7 +51,7 @@ class VideoBehavior(
 
         child.x = getRatioValue(
             0f,
-            dependency.width * 0.15f,
+            0.15f,
             abs(dependency.y),
             getYMax,
         )

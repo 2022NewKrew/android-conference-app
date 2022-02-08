@@ -10,6 +10,7 @@
     <string name="qna">문의하기</string>
     <string name="if_kakao_talk_channel">ifkakao(톡채널)</string>
     <string name="if_kakao_email">ifkakao@kakao.com</string>
+    <string name="input_direct"><u>직접 입력해서 로그인</u></string>
 
     <string-array name="days">
         <item>Day1</item>
