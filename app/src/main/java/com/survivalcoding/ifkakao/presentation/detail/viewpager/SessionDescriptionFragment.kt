@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDescriptionBinding
 import com.survivalcoding.ifkakao.domain.model.Session
 import com.survivalcoding.ifkakao.presentation.detail.adapter.ClassificationListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
+import com.survivalcoding.ifkakao.presentation.sessions.SessionsFragment
 
 class SessionDescriptionFragment : Fragment() {
     private var _binding: FragmentSessionDescriptionBinding? = null
@@ -44,10 +48,20 @@ class SessionDescriptionFragment : Fragment() {
         binding.sessionDescriptionRvSpeaker.adapter = speakerAdapter
         speakerAdapter.submitList(session.contentsSpeakerList)
         session.linkList.SPEAKER_PROFILE
+
+        binding.sessionDescriptionBtnList.setOnClickListener { moveToSessions() }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun moveToSessions() {
+        requireParentFragment().parentFragmentManager.commit {
+            replace<SessionsFragment>(R.id.fragment_container_view)
+            setReorderingAllowed(true)
+            addToBackStack(null)
+        }
     }
 }
