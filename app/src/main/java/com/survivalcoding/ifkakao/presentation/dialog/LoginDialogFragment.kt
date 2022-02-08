@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.survivalcoding.ifkakao.databinding.FragmentLoginDialogBinding
 
@@ -29,15 +30,22 @@ class LoginDialogFragment : DialogFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.closeButton.setOnClickListener { dismiss() }
+        binding.kakaoLoginButton.setOnClickListener {
+            Toast.makeText(requireContext(), "직접 입력해서 로그인해 주세요.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this@LoginDialogFragment, 0.75f, 0.3f)
+        context?.dialogFragmentResize(this@LoginDialogFragment, 0.75f)
     }
 
     private fun Context.dialogFragmentResize(
         dialogFragment: DialogFragment,
         width: Float,
-        height: Float
     ) {
         val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
@@ -51,7 +59,6 @@ class LoginDialogFragment : DialogFragment() {
             val window = dialogFragment.dialog?.window
 
             val x = (size.x * width).toInt()
-//            val y = (size.y * height).toInt()
             val y = ViewGroup.LayoutParams.WRAP_CONTENT
             window?.setLayout(x, y)
 
@@ -62,7 +69,6 @@ class LoginDialogFragment : DialogFragment() {
             val window = dialogFragment.dialog?.window
 
             val x = (rect.width() * width).toInt()
-//            val y = (rect.height() * height).toInt()
             val y = ViewGroup.LayoutParams.WRAP_CONTENT
 
             window?.setLayout(x, y)

@@ -44,7 +44,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="로그인을 하면 후기, 톡친구 위치공유 등 더 많은 기능을 이용할 수 있습니다."
+            android:text="로그인을 하면 더 많은 기능을 이용할 수 있을 수도 있습니다."
             android:textColor="@color/gray_text"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -71,6 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/login_text" />
 
         <TextView
+            android:id="@+id/direct_login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
