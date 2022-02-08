@@ -1,10 +1,11 @@
-package com.survivalcoding.ifkakao
+package com.survivalcoding.ifkakao.presentation
 
 import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,16 +33,12 @@ import coil.ImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
-import com.survivalcoding.ifkakao.domain.repository.SessionRepository
-import com.survivalcoding.ifkakao.presentation.MainLayout
-import com.survivalcoding.ifkakao.presentation.SessionActivity
+import com.survivalcoding.ifkakao.R
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var sessionRepository: SessionRepository
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,11 +51,14 @@ class MainActivity : ComponentActivity() {
                 }
             }.build()
 
+
         setContent {
             MainLayout {
                 Column {
-                    MainImageCard(imageLoader)
-                    HeaderCard()
+                    SessionList(header = {
+                        MainImageCard(imageLoader)
+                        HeaderCard()
+                    }, sessions = viewModel.sessions)
                 }
             }
         }
@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
                 Text(
                     "Highlight",
                     style = MaterialTheme.typography.h5,
-                    modifier = Modifier.absolutePadding(top = 24.dp, left = 24.dp, bottom = 24.dp),
+                    modifier = Modifier.absolutePadding(top = 24.dp, left = 24.dp, bottom = 12.dp),
                 )
             }
             Row(
