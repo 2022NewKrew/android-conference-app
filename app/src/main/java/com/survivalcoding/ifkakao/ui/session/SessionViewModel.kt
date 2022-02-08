@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.ui.session
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.domain.model.Data
@@ -38,7 +39,7 @@ class SessionViewModel @Inject constructor(private val contentRepository: Conten
         SessionUiState(sessions, sessionFilter)
     }
 
-    fun getSessions() {
+    init {
         viewModelScope.launch {
             val sessions = contentRepository.getContent().data
             _sessions.value = sessions

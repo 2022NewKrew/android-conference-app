@@ -87,12 +87,10 @@ class SessionFragment : Fragment() {
             binding.appbarLayout.setExpanded(true)
         }
 
-        viewModel.getSessions()
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest {
-                    adapter.submitList(it.sessionFilter.filter(it.sessions))
+                     adapter.submitList(it.sessionFilter.filter(it.sessions))
                     binding.filterBt.text =
                         if (it.sessionFilter.getFilterCount() > 0) {
                             it.sessionFilter.getFilterCount().toString()
