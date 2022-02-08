@@ -9,11 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.util.Util
 import com.google.android.material.tabs.TabLayoutMediator
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
@@ -27,7 +22,6 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailViewModel by viewModels()
-    private lateinit var player: ExoPlayer
     private val adapter by lazy {
         SessionListAdapter { session -> moveToDetail(session) }
     }
@@ -45,25 +39,9 @@ class DetailFragment : Fragment() {
 
         (arguments?.get("sessionId") as Int?)?.run { viewModel.getSessionById(this) }
 
-        player = ExoPlayer.Builder(requireContext()).build()
-        binding.detailPlayerView.player = player
         viewModel.session.observe(viewLifecycleOwner) { session ->
-            val mediaItem = MediaItem.fromUri(session.linkList.VIDEO[0].url)
-
-            // sample from https://stickode.tistory.com/165
-//            val mediaItem =
-//                MediaItem.fromUri("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4")
-            val mediaSource = ProgressiveMediaSource.Factory(
-                DefaultDataSourceFactory(
-                    requireContext(),
-                    Util.getUserAgent(requireContext(), requireContext().applicationInfo.name)
-                )
-            ).createMediaSource(mediaItem)
-            player.setMediaSource(mediaSource)
-            player.prepare()
-
+            // viewpager 설정
             binding.detailViewPager.adapter = DetailPagerAdapter(this, session)
-
             TabLayoutMediator(binding.detailTabLayout, binding.detailViewPager) { tab, position ->
                 tab.text = when (position) {
                     0 -> "세션 설명"
@@ -71,6 +49,10 @@ class DetailFragment : Fragment() {
                     else -> throw Exception()
                 }
             }.attach()
+
+            // web view 동영상 설정
+            binding.detailWebView.settings.javaScriptEnabled = true
+            binding.detailWebView.loadUrl(session.linkList.VIDEO[0].url)
 
             // 연관 세션 조회
             viewModel.getSessionsRelated(session.idx, session.field)
@@ -87,16 +69,6 @@ class DetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-        player.playWhenReady = true
-    }
-
-    override fun onStop() {
-        super.onStop()
-        player.playWhenReady = false
     }
 
     private fun moveToDetail(session: Session?) {
