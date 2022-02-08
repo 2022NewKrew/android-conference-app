@@ -19,7 +19,6 @@ class SessionDescriptionFragment : Fragment() {
     private val binding get() = _binding!!
     private val session by lazy { requireArguments()["session"] as Session }
     private val classificationAdapter by lazy { ClassificationListAdapter() }
-    private val speakerAdapter by lazy { SpeakerListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +44,9 @@ class SessionDescriptionFragment : Fragment() {
         classificationAdapter.submitList(classifications)
 
         // speaker recyclerView 설정
+        val speakerAdapter = SpeakerListAdapter(session.linkList.SPEAKER_PROFILE)
         binding.sessionDescriptionRvSpeaker.adapter = speakerAdapter
         speakerAdapter.submitList(session.contentsSpeakerList)
-        session.linkList.SPEAKER_PROFILE
 
         binding.sessionDescriptionBtnList.setOnClickListener { moveToSessions() }
     }
