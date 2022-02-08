@@ -23,7 +23,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.detail.DetailFragment">
+        tools:context=".presentation.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -32,7 +32,6 @@
             android:elevation="0dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -41,32 +40,11 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/toolbar_height"
-                    android:layout_gravity="bottom"
                     android:contentInsetStart="0dp"
-                    app:layout_collapseMode="pin">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.tabs.TabLayout
-                            android:id="@+id/tabLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="bottom"
-                            android:textSize="20sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:tabIndicatorColor="@color/yellow_text"
-                            app:tabSelectedTextColor="@color/white_text"
-                            app:tabTextColor="@color/gray_text" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </Toolbar>
+                    app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -74,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black_background"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context=".presentation.detail.DetailFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -202,8 +180,19 @@
             android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:visibility="visible"
+            android:elevation="4dp"
             app:layout_behavior=".presentation.detail.behavior.VideoBehavior" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="20sp"
+            android:elevation="4dp"
+            app:layout_behavior=".presentation.detail.behavior.TabLayoutBehavior"
+            app:tabIndicatorColor="@color/yellow_text"
+            app:tabSelectedTextColor="@color/white_text"
+            app:tabTextColor="@color/gray_text" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

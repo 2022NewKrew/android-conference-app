@@ -5,17 +5,17 @@ import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
-import android.webkit.WebView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayout
 import com.survivalcoding.ifkakao.R
 import kotlin.math.abs
 
 
-class VideoBehavior(
+class TabLayoutBehavior(
     private val context: Context,
     attrs: AttributeSet,
-) : CoordinatorLayout.Behavior<WebView>(context, attrs) {
+) : CoordinatorLayout.Behavior<TabLayout>(context, attrs) {
 
     private val getYMax =
         context.resources.getDimension(R.dimen.appbar_height) - context.resources
@@ -23,7 +23,7 @@ class VideoBehavior(
 
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
-        child: WebView,
+        child: TabLayout,
         dependency: View
     ): Boolean {
         return dependency is AppBarLayout
@@ -31,34 +31,17 @@ class VideoBehavior(
 
     override fun onDependentViewChanged(
         parent: CoordinatorLayout,
-        child: WebView,
+        child: TabLayout,
         dependency: View
     ): Boolean {
-
-        child.scaleX = getRatioValue(
-            1f,
-            0.7f,
+        child.y = getRatioValue(
+            dpToPx(200f),
+            dpToPx(140f),
             abs(dependency.y),
-            getYMax,
+            getYMax
         )
 
-        child.scaleY = getRatioValue(
-            1f,
-            0.7f,
-            abs(dependency.y),
-            getYMax,
-        )
-
-        child.x = getRatioValue(
-            0f,
-            dependency.width * 0.15f,
-            abs(dependency.y),
-            getYMax,
-        )
-
-        child.pivotY = 0f
-
-        return true
+        return false
     }
 
     private fun dpToPx(dp: Float): Float {
