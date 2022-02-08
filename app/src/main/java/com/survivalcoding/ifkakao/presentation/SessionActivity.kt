@@ -52,47 +52,61 @@ class SessionActivity : ComponentActivity() {
         val dayList = listOf("Day1", "Day2", "Day3", "All")
 
         setContent {
-            Column {
-                AppBar()
-                Row(
-                    modifier = Modifier
-                        .background(Color.Black)
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        "Session",
-                        color = Color.White,
-                        style = MaterialTheme.typography.h5,
-                        modifier = Modifier.absolutePadding(top = 24.dp, left = 24.dp, bottom = 24.dp),
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Image(
-                        painter = rememberImagePainter(
-                            data = R.mipmap.main_image,
-                            imageLoader = imageLoader
-                        ),
-                        contentScale = ContentScale.FillWidth,
-                        contentDescription = null,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    DaySelection(items = dayList)
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.CenterEnd,
-                    ) {
-                        IconButton(onClick = { }) {
-                            Icon(Icons.Filled.FilterAlt, "", tint = Color.White)
-                        }
-                    }
+            MainLayout {
+                Column {
+                    SessionHeading()
+                    SessionMainImageCard(imageLoader)
+                    SessionHeaderCard(dayList)
                 }
             }
+        }
+    }
+
+    @Composable
+    private fun SessionHeaderCard(dayList: List<String>) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            DaySelection(items = dayList)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.CenterEnd,
+            ) {
+                IconButton(onClick = { }) {
+                    Icon(Icons.Filled.FilterAlt, "")
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun SessionMainImageCard(imageLoader: ImageLoader) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Image(
+                painter = rememberImagePainter(
+                    data = R.mipmap.main_image,
+                    imageLoader = imageLoader
+                ),
+                contentScale = ContentScale.FillWidth,
+                contentDescription = null,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+
+    @Composable
+    private fun SessionHeading() {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(
+                "Session",
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier.absolutePadding(top = 24.dp, left = 24.dp, bottom = 24.dp),
+            )
         }
     }
 
@@ -106,6 +120,7 @@ class SessionActivity : ComponentActivity() {
         DropdownMenu(
             expanded = requestToOpen,
             onDismissRequest = { request(false) },
+            modifier = Modifier.background(Color.LightGray)
         ) {
             list.forEach {
                 DropdownMenuItem(
@@ -134,9 +149,8 @@ class SessionActivity : ComponentActivity() {
             Column {
                 Text(
                     text = text.value,
-                    color = Color.White,
                     style = MaterialTheme.typography.h5,
-                    modifier = Modifier.absolutePadding(top = 24.dp, left = 24.dp, bottom = 24.dp)
+                    modifier = Modifier.absolutePadding(24.dp, 24.dp, 24.dp, 24.dp)
                 )
                 DropDownList(
                     requestToOpen = isOpen.value,

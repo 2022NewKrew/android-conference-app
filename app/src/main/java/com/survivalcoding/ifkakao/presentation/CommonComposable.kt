@@ -48,51 +48,56 @@ fun MainLayout(content: @Composable () -> Unit) {
 @Preview
 @Composable
 fun AppBar() {
-    TopAppBar(
-        title = { Text(text = "if(kakao)2021") },
-        navigationIcon = {
-            IconButton(onClick = { }) {
-                Icon(Icons.Filled.Menu, "")
-            }
-        },
-    )
-}
-
-@Composable
-@Preview
-fun TagCard(str: String = "서비스") {
-    Card(
-        border = BorderStroke(Dp.Hairline, Color.White), backgroundColor = Color.Black, shape = RectangleShape,
-        modifier = Modifier.absolutePadding(right = 8.dp)
-    ) {
-        Text(
-            text = str,
-            color = Color.White,
-            modifier = Modifier
-                .padding(10.dp)
-                .wrapContentHeight(),
-            textAlign = TextAlign.Center
+    IfKakaoTheme {
+        TopAppBar(
+            title = { Text(text = "if(kakao)2021") },
+            navigationIcon = {
+                IconButton(onClick = { }) {
+                    Icon(Icons.Filled.Menu, "")
+                }
+            },
         )
     }
 }
 
 @Composable
 @Preview
+fun TagCard(str: String = "서비스") {
+    IfKakaoTheme {
+        Card(
+            border = BorderStroke(Dp.Hairline, Color.White), backgroundColor = Color.Black, shape = RectangleShape,
+            modifier = Modifier.absolutePadding(right = 8.dp)
+        ) {
+            Text(
+                text = str,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .wrapContentHeight(),
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+@Composable
+@Preview
 fun MainTagCard(str: String = "카카오") {
-    Card(
-        border = BorderStroke(Dp.Hairline, colorResource(id = R.color.light_yellow)),
-        backgroundColor = Color.Black,
-        shape = RectangleShape,
-        modifier = Modifier.absolutePadding(right = 8.dp)
-    ) {
-        Text(
-            text = str,
-            color = colorResource(id = R.color.light_yellow),
-            modifier = Modifier
-                .padding(10.dp)
-                .wrapContentHeight(),
-            textAlign = TextAlign.Center
-        )
+    IfKakaoTheme {
+        Card(
+            border = BorderStroke(Dp.Hairline, colorResource(id = R.color.light_yellow)),
+            backgroundColor = Color.Black,
+            shape = RectangleShape,
+            modifier = Modifier.absolutePadding(right = 8.dp)
+        ) {
+            Text(
+                text = str,
+                color = colorResource(id = R.color.light_yellow),
+                modifier = Modifier
+                    .padding(10.dp)
+                    .wrapContentHeight(),
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
