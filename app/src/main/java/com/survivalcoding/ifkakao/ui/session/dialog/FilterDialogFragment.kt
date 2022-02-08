@@ -3,6 +3,7 @@ package com.survivalcoding.ifkakao.ui.session.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,23 +11,32 @@ import android.view.Window
 import android.widget.CheckBox
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.flexbox.FlexboxLayout
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.CheckboxFilterBinding
 import com.survivalcoding.ifkakao.databinding.FragmentFilterDialogBinding
+import com.survivalcoding.ifkakao.ui.session.SessionFilter
 import com.survivalcoding.ifkakao.ui.session.SessionFragment
+import com.survivalcoding.ifkakao.ui.session.SessionViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FilterDialogFragment: DialogFragment() {
     private var _binding: FragmentFilterDialogBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FilterDialogViewModel by viewModels()
+    private val viewModel: SessionViewModel by activityViewModels()
 
     private var checkCount = 0
+    private var lastSessionFilter: SessionFilter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,40 +50,48 @@ class FilterDialogFragment: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.closeIbt.setOnClickListener { dismiss() }
 
-        val fieldCheckBoxes = initCheckBoxes(viewModel.getFilterFieldItems(), binding.fieldFbl)
-        val classificationCheckBoxes = initCheckBoxes(viewModel.getFilterClassificationItems(), binding.classificationFlb)
-        val technicalClassificationCheckBoxes = initCheckBoxes(viewModel.getFilterTechnicalClassificationItems(), binding.techClassificationFlb)
-        val companyCheckBoxes = initCheckBoxes(viewModel.getFilterCompanyItems(), binding.companyFlb)
-        val allCheckBoxes = fieldCheckBoxes + classificationCheckBoxes + technicalClassificationCheckBoxes + companyCheckBoxes
-
-        binding.resetBt.setOnClickListener {
-            allCheckBoxes.forEach { it.isChecked = false }
-        }
-
-        binding.applyBt.setOnClickListener {
-            val bundle = Bundle().apply {
-                putStringArray(SessionFragment.FIELDS_KEY, fieldCheckBoxes.filter { it.isChecked }.map { it.text.toString() }.toTypedArray())
-                putStringArray(SessionFragment.CLASSIFICATIONS_KEY, classificationCheckBoxes.filter { it.isChecked }.map { it.text.toString() }.toTypedArray())
-                putStringArray(SessionFragment.TECHNICAL_CLASSIFICATIONS_KEY, technicalClassificationCheckBoxes.filter { it.isChecked }.map { it.text.toString() }.toTypedArray())
-                putStringArray(SessionFragment.COMPANIES_KEY, companyCheckBoxes.filter { it.isChecked }.map { it.text.toString() }.toTypedArray())
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { uiState ->
+                    if(lastSessionFilter != uiState.sessionFilter) {
+                        val fieldCbs = initCheckBoxes(uiState.sessionFilter.fieldFilters, binding.fieldFbl)
+                        val classCbs = initCheckBoxes(uiState.sessionFilter.classFilters, binding.classFlb)
+                        val techCbs = initCheckBoxes(uiState.sessionFilter.techFilters, binding.techFlb)
+                        val companyCbs = initCheckBoxes(uiState.sessionFilter.companyFilters, binding.companyFlb)
+                        val allCbs = fieldCbs + classCbs + techCbs + companyCbs
+                        binding.resetBt.setOnClickListener {
+                            allCbs.forEach { it.isChecked = false }
+                        }
+                        binding.applyBt.setOnClickListener {
+                            viewModel.applyFilter(
+                                fieldCbs.associate { it.text.toString() to it.isChecked },
+                                classCbs.associate { it.text.toString() to it.isChecked },
+                                techCbs.associate { it.text.toString() to it.isChecked },
+                                companyCbs.associate { it.text.toString() to it.isChecked },
+                            )
+                            dismiss()
+                        }
+                        lastSessionFilter = uiState.sessionFilter
+                    }
+                }
             }
-            setFragmentResult(SessionFragment.FILTER_DIALOG_REQUEST_KEY, bundle)
-            dismiss()
         }
     }
 
-    private fun initCheckBoxes(items: List<String>, flexboxLayout: FlexboxLayout): List<CheckBox> {
-        return items.map {
+    private fun initCheckBoxes(filter: Map<String, Boolean>, flexboxLayout: FlexboxLayout): List<CheckBox> {
+        flexboxLayout.removeAllViews()
+        return filter.map {
             CheckboxFilterBinding.inflate(layoutInflater, flexboxLayout, true).run {
                 checkbox.apply {
-                    text = it
+                    text = it.key
                     setOnCheckedChangeListener { _, isChecked ->
                         checkCount += if(isChecked) 1 else -1
                         val predicate = checkCount > 0
-                        binding.resetBt.text = if(predicate) "초기화" else "초기화($checkCount)"
-                        binding.resetBt.setBackgroundColor(ContextCompat.getColor(requireContext(), if(predicate) R.color.darkGrey else R.color.grey))
-                        binding.resetBt.setTextColor(ContextCompat.getColor(requireContext(), if(predicate) R.color.lightGrey else R.color.white))
+                        binding.resetBt.text = if(predicate) "초기화($checkCount)" else "초기화"
+                        binding.resetBt.setBackgroundColor(ContextCompat.getColor(requireContext(), if(predicate) R.color.grey else R.color.darkGrey))
+                        binding.resetBt.setTextColor(ContextCompat.getColor(requireContext(), if(predicate) R.color.white else R.color.lightGrey))
                     }
+                    isChecked = it.value
                 }
             }
         }

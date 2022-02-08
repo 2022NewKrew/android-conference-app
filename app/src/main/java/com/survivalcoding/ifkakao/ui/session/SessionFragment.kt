@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -27,29 +29,10 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SessionFragment : Fragment() {
 
-    companion object {
-        const val FILTER_DIALOG_REQUEST_KEY = "FILTER_DIALOG_REQUEST_KEY"
-        const val FIELDS_KEY = "FIELDS_KEY"
-        const val CLASSIFICATIONS_KEY = "CLASSIFICATIONS_KEY"
-        const val TECHNICAL_CLASSIFICATIONS_KEY = "TECHNICAL_CLASSIFICATIONS_KEY"
-        const val COMPANIES_KEY = "COMPANIES_KEY"
-    }
-
     private var _binding: FragmentSessionBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: SessionViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setFragmentResultListener(FILTER_DIALOG_REQUEST_KEY) { _, bundle ->
-            val filedFilters = bundle.getStringArray(FIELDS_KEY)
-            val classificationFilters = bundle.getStringArray(CLASSIFICATIONS_KEY)
-            val technicalClassificationFilters = bundle.getStringArray(TECHNICAL_CLASSIFICATIONS_KEY)
-            val companyFilter = bundle.getStringArray(COMPANIES_KEY)
-            Toast.makeText(requireContext(), "!", Toast.LENGTH_SHORT).show()
-        }
-    }
+    private val viewModel: SessionViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,6 +47,21 @@ class SessionFragment : Fragment() {
         Glide.with(this).load(R.drawable.vod_teaser_2021_mobile).into(binding.sessionIv)
 
         binding.daySp.adapter = ArrayAdapter.createFromResource(requireContext(), R.array.spinner_item_array, R.layout.spinner_item_session)
+        binding.daySp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel.applyDayFilter(position + 1)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
 
         binding.filterBt.setOnClickListener {
             FilterDialogFragment().show(parentFragmentManager, null)
@@ -90,7 +88,7 @@ class SessionFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest {
-                    adapter.submitList(it.sessions)
+                    adapter.submitList(it.sessionFilter.filter(it.sessions))
                 }
             }
         }

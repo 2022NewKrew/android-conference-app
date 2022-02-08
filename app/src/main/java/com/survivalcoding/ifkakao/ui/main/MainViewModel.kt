@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(private val contentRepository: ContentRe
     private val _uiState = MutableStateFlow(MainUiState(listOf()))
     val uiState = _uiState.asStateFlow()
 
-    fun getSessions() {
+    fun getSpotlightSessions() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(sessions = contentRepository.getContent().data.filter { it.spotlightYn == "Y" })
         }

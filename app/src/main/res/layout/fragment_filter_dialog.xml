@@ -57,7 +57,7 @@
                 android:layout_marginBottom="16dp"/>
 
             <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/classificationFlb"
+                android:id="@+id/classFlb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap"
@@ -70,7 +70,7 @@
                 android:layout_marginBottom="16dp" />
 
             <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/techClassificationFlb"
+                android:id="@+id/techFlb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap"
