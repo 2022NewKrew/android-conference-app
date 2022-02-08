@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -22,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -88,6 +91,8 @@ fun TopCompose(viewModel: MainViewModel) {
         )
         // profile
         ProfilePart(
+            //todo 발표자가 여러명 경우
+
             url = session.value.linkList?.speakerProfile?.first()?.url,
             item = session.value.contentsSpeakerList?.first()
         )
@@ -101,7 +106,28 @@ fun TopCompose(viewModel: MainViewModel) {
 @Composable
 fun VideoPart(shareImages: List<ShareImage>?, videos: List<Video>?) {
     val context = LocalContext.current
-    Box(contentAlignment = Alignment.Center) {
+
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp),
+        factory = {
+            WebView(it).apply {
+                settings.javaScriptEnabled = true
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                webViewClient = WebViewClient()
+                videos?.first()?.url?.let { url ->
+                    loadUrl(url)
+                }
+            }
+        }, update = {
+            it.loadUrl(videos?.first()?.url ?: "https://tv.kakao.com/")
+        })
+
+/*    Box(contentAlignment = Alignment.Center) {
         Image(
             painter = rememberImagePainter(
                 data = shareImages?.get(0)?.url,
@@ -114,7 +140,7 @@ fun VideoPart(shareImages: List<ShareImage>?, videos: List<Video>?) {
         Image(
             painterResource(id = R.drawable.ic_baseline_play_arrow_24),
             modifier = Modifier
-                .size(96.dp)
+                .size(156.dp)
                 .clickable {
                     videos?.first()?.url?.let {
                         val intent =
@@ -124,14 +150,18 @@ fun VideoPart(shareImages: List<ShareImage>?, videos: List<Video>?) {
                 },
             contentDescription = "play button"
         )
+        videos?.first()?.description?.let {
+            Text(text = it, color = Color.Black)
+        }*/
 
-        /*
-        *  val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(binding.detailLink.text.toString()))
-                startActivity(intent)
-        * */
+    /*
+    *  val intent =
+                Intent(Intent.ACTION_VIEW, Uri.parse(binding.detailLink.text.toString()))
+            startActivity(intent)
+    *
 
-    }
+}
+*/
 /*    val context = LocalContext.current
 
     val player = ExoPlayer.Builder(context)

@@ -34,6 +34,8 @@ class MainViewModel @Inject constructor(
     val id = MutableStateFlow<String?>(null)
     val keywords = MutableStateFlow(listOf<String>())
     val date = MutableStateFlow<Int>(20211116)
+    private var contentState: ContentState = ContentState.title
+    private var orderState: OrderState = OrderState.asc
     lateinit var session: MutableStateFlow<Data>
 
     private val _likedList: MutableStateFlow<List<Int>> = MutableStateFlow(emptyList())
@@ -97,7 +99,9 @@ class MainViewModel @Inject constructor(
         session.value = item
     }
 
-    fun getSortedDateSession(contentState: ContentState, orderState: OrderState) {
+    fun getSortedDateSession(_contentState: ContentState, _orderState: OrderState) {
+        contentState = _contentState
+        orderState = _orderState
         viewModelScope.launch {
             daysItems.value =
                 getSortedSessionsUseCase(date.value, contentState, orderState) ?: listOf()
@@ -105,16 +109,30 @@ class MainViewModel @Inject constructor(
     }
 
     fun updateKeyWords(newKeyWords: List<String>) {
-        if (newKeyWords != keywords.value) {
+        println(newKeyWords)
+        println(keywords.value)
+        if (newKeyWords.size != keywords.value.size) {
             keywords.value = newKeyWords
             getSessionsWithKeyWords()
+        } else {
+            for ((idx, value) in newKeyWords.withIndex()) {
+                if (value != keywords.value[idx]) {
+                    keywords.value = newKeyWords
+                    getSessionsWithKeyWords()
+                }
+            }
         }
     }
 
     private fun getSessionsWithKeyWords() {
         viewModelScope.launch {
             daysItems.value =
-                getSessionsWithKeyWordsUseCase(date.value, keywords.value) ?: listOf()
+                if (keywords.value.isEmpty()) getSortedSessionsUseCase(
+                    date.value,
+                    contentState,
+                    orderState
+                ) ?: listOf()
+                else getSessionsWithKeyWordsUseCase(date.value, keywords.value) ?: listOf()
         }
     }
 

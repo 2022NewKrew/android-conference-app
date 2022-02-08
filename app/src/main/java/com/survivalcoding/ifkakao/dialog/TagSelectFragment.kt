@@ -44,9 +44,8 @@ class TagSelectFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.AI.setOnClickListener {
-            keywords = listOf("머신러닝/AI")
-            it.setBackgroundColor(0x00ff00)
+        binding.initBtn.setOnClickListener {
+            keywords = listOf<String>()
         }
 
         binding.cancelButton.setOnClickListener {

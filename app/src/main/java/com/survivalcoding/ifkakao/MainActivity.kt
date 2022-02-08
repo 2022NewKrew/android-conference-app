@@ -2,10 +2,14 @@ package com.survivalcoding.ifkakao
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +31,10 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.commit {
                 replace<MainFragment>(R.id.fragment_container_view)
             }
+        }
+
+        findViewById<ImageButton>(R.id.exit_button).setOnClickListener {
+            findViewById<DrawerLayout>(R.id.drawer).close()
         }
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.my_toolbar)
@@ -70,7 +78,10 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.drawer_menu -> {
-                //todo
+                val drawer = findViewById<DrawerLayout>(R.id.drawer)
+
+                if (!drawer.isDrawerOpen(Gravity.LEFT)) drawer.openDrawer(Gravity.LEFT)
+                else drawer.closeDrawer(Gravity.LEFT)
                 return true
             }
             else -> {
