@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ConcatAdapter
+import com.google.android.material.navigation.NavigationView
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionsBinding
 import com.survivalcoding.ifkakao.presentation.commons.FooterAdapter
@@ -22,6 +25,9 @@ class SessionsFragment : Fragment() {
     private var _binding: FragmentSessionsBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,11 +40,14 @@ class SessionsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = binding.recyclerView
+        drawerLayout = binding.drawerLayout
+        navigationView = binding.navigationView
+
         val adapter = ConcatAdapter(
             SessionsHeaderAdapter(onClickTab = { idx ->
                 sessionsViewModel.updateSessionsByDay(idx + 1)
             }, onClickFilter = {
-
+                drawerLayout.openDrawer(GravityCompat.END)
             }),
             SessionAdapter(onClickSession = { idx ->
                 moveToNextFragment(DetailFragment().apply {
@@ -59,8 +68,9 @@ class SessionsFragment : Fragment() {
                 }
             )
         )
-
         recyclerView.adapter = adapter
+
+        setDrawerLayout()
 
         sessionsViewModel.sessions.observe(viewLifecycleOwner) {
             (adapter.adapters[1] as SessionAdapter).submitList(it)
@@ -70,6 +80,27 @@ class SessionsFragment : Fragment() {
             (adapter.adapters[0] as SessionsHeaderAdapter).setTabSelection(it - 1)
         }
     }
+
+    private fun setDrawerLayout() {
+        val exitButton = binding.exitButton
+        exitButton.setOnClickListener {
+            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                drawerLayout.closeDrawer(GravityCompat.END)
+            }
+        }
+
+        /*
+        //ToDo: back press 구현
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                        drawerLayout.closeDrawer(GravityCompat.END)
+                    }
+                }
+            })*/
+    }
+
 
     private fun moveToNextFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
