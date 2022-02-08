@@ -19,10 +19,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterAlt
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -55,16 +53,7 @@ class SessionActivity : ComponentActivity() {
 
         setContent {
             Column {
-                TopAppBar(
-                    title = { Text(text = "if(kakao)2021") },
-                    navigationIcon = {
-                        IconButton(onClick = { }) {
-                            Icon(Icons.Filled.Menu, "")
-                        }
-                    },
-                    backgroundColor = Color.Black,
-                    contentColor = Color.White,
-                )
+                AppBar()
                 Row(
                     modifier = Modifier
                         .background(Color.Black)

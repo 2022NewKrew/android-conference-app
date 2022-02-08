@@ -13,7 +13,13 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +34,29 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.domain.model.SessionItem
+import com.survivalcoding.ifkakao.presentation.theme.IfKakaoTheme
+
+@Composable
+fun MainLayout(content: @Composable () -> Unit) {
+    IfKakaoTheme {
+        Scaffold(topBar = { AppBar() }) {
+            content()
+        }
+    }
+}
+
+@Preview
+@Composable
+fun AppBar() {
+    TopAppBar(
+        title = { Text(text = "if(kakao)2021") },
+        navigationIcon = {
+            IconButton(onClick = { }) {
+                Icon(Icons.Filled.Menu, "")
+            }
+        },
+    )
+}
 
 @Composable
 @Preview
