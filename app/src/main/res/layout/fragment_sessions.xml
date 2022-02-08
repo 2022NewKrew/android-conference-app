@@ -74,7 +74,12 @@
                         android:id="@+id/fieldButtonLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp" />
+                        android:layout_marginTop="20dp"
+                        app:alignContent="stretch"
+                        app:alignItems="stretch"
+                        app:dividerDrawable="@drawable/divider"
+                        app:flexWrap="wrap"
+                        app:showDivider="middle" />
 
                     <TextView
                         android:id="@+id/keywordText"
@@ -95,7 +100,12 @@
                         android:id="@+id/sbButtonLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp" />
+                        android:layout_marginTop="20dp"
+                        app:alignContent="stretch"
+                        app:alignItems="stretch"
+                        app:dividerDrawable="@drawable/divider"
+                        app:flexWrap="wrap"
+                        app:showDivider="middle" />
 
                     <TextView
                         android:id="@+id/techText"
@@ -108,7 +118,12 @@
                         android:id="@+id/techButtonLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp" />
+                        android:layout_marginTop="20dp"
+                        app:alignContent="stretch"
+                        app:alignItems="stretch"
+                        app:dividerDrawable="@drawable/divider"
+                        app:flexWrap="wrap"
+                        app:showDivider="middle" />
 
                     <TextView
                         android:id="@+id/companyText"
@@ -121,7 +136,12 @@
                         android:id="@+id/companyButtonLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp" />
+                        android:layout_marginTop="20dp"
+                        app:alignContent="stretch"
+                        app:alignItems="stretch"
+                        app:dividerDrawable="@drawable/divider"
+                        app:flexWrap="wrap"
+                        app:showDivider="middle" />
                 </LinearLayout>
             </ScrollView>
 
@@ -134,20 +154,22 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Button"
+                    android:id="@+id/initializeButton"
+                    android:layout_width="96dp"
+                    android:layout_height="47dp"
+                    android:text="초기화"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/completeButton"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/completeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Button"
+                    android:text="적용"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/initializeButton" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
