@@ -1,11 +1,15 @@
 package com.survivalcoding.ifkakao.presentation
 
+import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
+import com.survivalcoding.ifkakao.presentation.dialog.LoginDialogFragment
 import com.survivalcoding.ifkakao.presentation.highlight.HighlightFragment
 import com.survivalcoding.ifkakao.presentation.liked.LikedFragment
 import com.survivalcoding.ifkakao.presentation.session.SessionFragment
@@ -81,6 +85,11 @@ class MainActivity : AppCompatActivity() {
                 setReorderingAllowed(true)
                 addToBackStack(null)
             }
+        }
+
+        binding.loginButton.setOnClickListener {
+            val dialog = LoginDialogFragment()
+            dialog.show(supportFragmentManager, "login")
         }
     }
 

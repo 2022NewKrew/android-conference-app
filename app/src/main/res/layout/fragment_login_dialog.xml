@@ -9,16 +9,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/list_keyword_selected"
+        android:padding="10dp"
         tools:context=".presentation.dialog.LoginDialogFragment">
 
         <ImageView
             android:id="@+id/close_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:src="@drawable/ic_baseline_close_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +26,6 @@
             android:id="@+id/logo"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="50dp"
             android:background="@drawable/list_keyword_selected"
             android:backgroundTint="@color/black_background"
             android:gravity="center"
@@ -37,17 +35,19 @@
             android:textSize="50sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/close_button" />
 
         <TextView
             android:id="@+id/login_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="로그인을 하면 더 많은 기능을 이용할 수 있습니다."
+            android:text="로그인을 하면 후기, 톡친구 위치공유 등 더 많은 기능을 이용할 수 있습니다."
             android:textColor="@color/gray_text"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo" />
@@ -56,15 +56,16 @@
             android:id="@+id/kakao_login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/list_keyword_selected"
             android:backgroundTint="@color/yellow_kakao"
             android:gravity="center"
-            android:paddingVertical="10dp"
+            android:paddingVertical="15dp"
             android:text="카카오계정으로 로그인"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_text" />
@@ -73,16 +74,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/list_keyword_selected"
             android:backgroundTint="@color/white_text"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="15dp"
             android:text="@string/input_direct"
             android:textColor="@color/gray_dark_background"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/kakao_login_button" />
