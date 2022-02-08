@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
             onSessionClicked = { data ->
                 viewModel.saveClickedSession(data)
                 parentFragmentManager.commit {
-                    replace<SessionFragment>(R.id.fragment_container_view)
+                    replace<SessionFragment>(R.id.fragment_container_view, "session")
                     addToBackStack(null)
                 }
             },
@@ -69,7 +69,7 @@ class MainFragment : Fragment() {
 
         binding.totalSessionView.setOnClickListener {
             parentFragmentManager.commit {
-                replace<SearchFragment>(R.id.fragment_container_view)
+                replace<SearchFragment>(R.id.fragment_container_view, "search")
                 addToBackStack(null)
             }
         }
