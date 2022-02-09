@@ -12,6 +12,7 @@
     <color name="black_background">#FF000000</color>
     <color name="white_text">#FFFFFFFF</color>
     <color name="yellow_text">#FFFAE153</color>
+    <color name="yellow_kakao">#ffe812</color>
     <color name="blue_text">#FF19B4E0</color>
     <color name="gray_text">#FF717171</color>
     <color name="gray_bright_text">#A0A0A0</color>

@@ -4,7 +4,6 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.survivalcoding.ifkakao.R
@@ -23,9 +22,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailDescriptionFragment(
-    private val mFragmentManager: FragmentManager,
-) :
+class DetailDescriptionFragment :
     BaseFragment<FragmentDetailDescriptionBinding>(R.layout.fragment_detail_description) {
 
     @Inject
@@ -43,7 +40,7 @@ class DetailDescriptionFragment(
                         selectedKeyword = it
                     )
                 )
-                mFragmentManager.commit {
+                parentFragment?.parentFragmentManager?.commit {
                     replace(R.id.fragment_container_view, KeywordFragment())
                     setReorderingAllowed(true)
                     addToBackStack(null)
@@ -66,7 +63,7 @@ class DetailDescriptionFragment(
 
             btnDetailToSessions.setOnClickListener {
                 toAllSession()
-                mFragmentManager.commit {
+                parentFragment?.parentFragmentManager?.commit {
                     replace(R.id.fragment_container_view, SessionFragment())
                     setReorderingAllowed(true)
                     addToBackStack(null)

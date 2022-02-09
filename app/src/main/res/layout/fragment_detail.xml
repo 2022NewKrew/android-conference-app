@@ -23,108 +23,35 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.detail.DetailFragment">
+        tools:context=".presentation.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/appbar_height"
+            android:elevation="0dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:collapsedTitleTextAppearance="@style/Widget.Design.CollapsingToolbar"
-                app:expandedTitleTextAppearance="@style/Widget.Design.CollapsingToolbar"
+                android:layout_height="match_parent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                    android:layout_height="@dimen/toolbar_height"
                     android:contentInsetStart="0dp"
-                    android:contentInsetEnd="0dp"
-                    app:layout_collapseMode="pin">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                image="@{vm.currentSession.video.thumbnailUrl}"
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:tintMode="src_over"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintDimensionRatio="16:9"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:tint="#80000000" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="10dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="@{vm.currentSession.title}"
-                                android:textColor="@color/white_text"
-                                app:layout_constraintEnd_toStartOf="@id/play_button"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:text="이용자의 소중한 일상을 지키는 카카오톡" />
-
-                            <ImageView
-                                android:id="@+id/play_button"
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/ic_baseline_play_arrow_24"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:tint="@color/white_text" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{vm.currentSession.video.videoLength}"
-                                android:textColor="@color/white_text"
-                                android:textSize="12sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/play_button"
-                                tools:text="09:41" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <com.google.android.material.tabs.TabLayout
-                            android:id="@+id/tabLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="bottom|center"
-                            app:tabTextColor="@color/white_text" />
-
-                    </LinearLayout>
-
-                </Toolbar>
+                    app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/background_nested_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/black_background"
-            android:verticalScrollbarPosition="right"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context=".presentation.detail.DetailFragment">
 
@@ -249,7 +176,24 @@
 
         </androidx.core.widget.NestedScrollView>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:elevation="4dp"
+            app:layout_behavior=".presentation.detail.behavior.VideoBehavior" />
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="20sp"
+            android:elevation="4dp"
+            app:layout_behavior=".presentation.detail.behavior.TabLayoutBehavior"
+            app:tabIndicatorColor="@color/yellow_text"
+            app:tabSelectedTextColor="@color/white_text"
+            app:tabTextColor="@color/gray_text" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

@@ -2,7 +2,6 @@ package com.survivalcoding.ifkakao.presentation.detail
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -10,17 +9,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.presentation.base.BaseFragment
-import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import com.survivalcoding.ifkakao.presentation.util.SessionItemDecoration
 import com.survivalcoding.ifkakao.presentation.util.SessionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
-    @Inject
-    lateinit var stk: Stack<FragmentInformation>
 
     private val viewModel: DetailViewModel by viewModels()
 
@@ -38,13 +32,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pagerAdapter = DetailSubTabPagerAdapter(this, parentFragmentManager)
+        val pagerAdapter = DetailSubTabPagerAdapter(this)
 
         bind {
             sessionAdapter = sessionListAdapter
             itemDecoration = SessionItemDecoration()
             executePendingBindings()
             vm = viewModel
+
+            webView.settings.javaScriptEnabled = true
 
             viewPager.adapter = pagerAdapter
             ViewPager2ViewHeightAnimator().viewPager2 = viewPager
@@ -64,21 +60,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             }.attach()
         }
 
-        viewModel.localSessionData.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
-            // TODO: 좋아요 추가
-        }
-
         viewModel.sessions.observe(viewLifecycleOwner) {
             sessionListAdapter.submitList(it)
         }
 
-        viewModel.currentSession.observe(viewLifecycleOwner) {
-
-        }
-
         viewModel.exposedListCount.observe(viewLifecycleOwner) {
             bind { btnMoreSessions.isVisible = viewModel.totalCount > it }
+        }
+
+        viewModel.currentSession.observe(viewLifecycleOwner) {
+            bind { webView.loadUrl(it.video.videoUrl) }
         }
     }
 }

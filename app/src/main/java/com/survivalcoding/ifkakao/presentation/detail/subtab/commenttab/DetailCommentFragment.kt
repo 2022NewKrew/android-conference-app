@@ -12,17 +12,11 @@ import com.survivalcoding.ifkakao.presentation.base.BaseFragment
 import com.survivalcoding.ifkakao.presentation.detail.DetailEvent
 import com.survivalcoding.ifkakao.presentation.detail.DetailViewModel
 import com.survivalcoding.ifkakao.presentation.detail.adapter.CommentListAdapter
-import com.survivalcoding.ifkakao.presentation.util.FragmentInformation
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailCommentFragment :
     BaseFragment<FragmentDetailCommentBinding>(R.layout.fragment_detail_comment) {
-
-    @Inject
-    lateinit var stk: Stack<FragmentInformation>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

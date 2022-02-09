@@ -7,6 +7,4 @@ data class SessionUIState(
     val field: String = "",
     val company: String = "",
     val tag: List<IkTagInfo> = listOf(),
-) {
-
-}
+)
