@@ -98,18 +98,38 @@
 
                     </LinearLayout>
 
-                    <ImageButton
+                    <LinearLayout
                         android:id="@+id/select_keyword_button"
-                        android:layout_width="58dp"
-                        android:layout_height="42dp"
-                        android:layout_gravity="center|end"
-                        android:layout_marginEnd="15dp"
-                        android:adjustViewBounds="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/list_keyword_selected"
                         android:backgroundTint="@color/gray_background"
-                        android:padding="15dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_tune"
-                        app:tint="@color/gray_bright_text" />
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="13dp"
+                        android:paddingVertical="5dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_tune"
+                            android:layout_gravity="center_vertical"
+                            app:tint="@color/gray_bright_text" />
+
+                        <TextView
+                            android:id="@+id/selected_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/white_text"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="3" />
+
+                    </LinearLayout>
                 </Toolbar>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
