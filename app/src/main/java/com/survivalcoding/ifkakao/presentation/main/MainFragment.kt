@@ -14,6 +14,7 @@ import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.presentation.commons.FooterAdapter
 import com.survivalcoding.ifkakao.presentation.commons.SessionAdapter
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
+import com.survivalcoding.ifkakao.presentation.sessions.SessionsFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -36,7 +37,7 @@ class MainFragment : Fragment() {
         val recyclerView = binding.recyclerView
         val concatAdapter = ConcatAdapter(
             MainHeaderAdapter {
-                //Todo: Session 창 이동
+                moveToNextFragment(SessionsFragment())
             },
             SessionAdapter(onClickSession = { idx ->
                 moveToNextFragment(DetailFragment().apply {

@@ -16,6 +16,7 @@ import com.survivalcoding.ifkakao.databinding.FragmentDetailExplanationBinding
 import com.survivalcoding.ifkakao.presentation.commons.FooterAdapter
 import com.survivalcoding.ifkakao.presentation.commons.SessionAdapter
 import com.survivalcoding.ifkakao.presentation.main.MainFragment.Companion.SELECTED
+import com.survivalcoding.ifkakao.presentation.sessions.SessionsFragment
 import com.survivalcoding.ifkakao.sharedViewModel
 
 class DetailExplanationFragment : Fragment() {
@@ -40,20 +41,16 @@ class DetailExplanationFragment : Fragment() {
             resources.configuration.orientation == ORIENTATION_PORTRAIT
 
         val concatAdapter = ConcatAdapter(
-            ExplanationAdapter {
+            ExplanationAdapter(onClickFavoriteButton = {
                 detailViewModel.setLike()
                 //Toast.makeText(requireContext(), "isFavorite: " + it, Toast.LENGTH_SHORT).show()
-            },
+            }, onClickSessionButton = {
+                moveToNextFragment(SessionsFragment())
+            }),
             SessionAdapter { idx ->
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(
-                        R.id.fragmentContainerView,
-                        DetailFragment().apply {
-                            this.arguments = bundleOf(SELECTED to idx)
-                        }
-                    )
-                    .addToBackStack(null)
-                    .commit()
+                moveToNextFragment(DetailFragment().apply {
+                    this.arguments = bundleOf(SELECTED to idx)
+                })
             },
             FooterAdapter(
                 onClickUpButton = {
@@ -72,6 +69,7 @@ class DetailExplanationFragment : Fragment() {
                 }
             )
         )
+
         recyclerView.adapter = concatAdapter
 
         detailViewModel.session.observe(viewLifecycleOwner) {
@@ -85,6 +83,16 @@ class DetailExplanationFragment : Fragment() {
         detailViewModel.isLiking.observe(viewLifecycleOwner) {
             (concatAdapter.adapters[0] as ExplanationAdapter).updateLiking(it)
         }
+    }
+
+    private fun moveToNextFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView,
+                fragment
+            )
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {

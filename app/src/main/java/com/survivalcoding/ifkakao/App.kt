@@ -11,6 +11,7 @@ import com.survivalcoding.ifkakao.domain.repository.SessionRemoteRepository
 import com.survivalcoding.ifkakao.domain.usecase.*
 import com.survivalcoding.ifkakao.presentation.detail.DetailViewModel
 import com.survivalcoding.ifkakao.presentation.main.MainViewModel
+import com.survivalcoding.ifkakao.presentation.sessions.SessionsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -19,24 +20,6 @@ import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 class App : Application() {
-    /*
-    val sessionRepository: SessionRepository by lazy {
-        SessionRepositoryImpl(
-            //MockRemoteDataSource(),
-            SessionRemoteDataSource(RetrofitClient.apiService),
-            MockLocalDataSource(),
-            /*
-            SessionLocalDataSource(
-                Room.databaseBuilder(
-                    this,
-                    IfKakaoDatabase::class.java,
-                    "database"
-                ).build().likeDao()
-            )*/
-        )
-    }*/
-
-
     override fun onCreate() {
         super.onCreate()
 
@@ -63,6 +46,7 @@ class App : Application() {
     private val viewModelsModules = module {
         viewModel { MainViewModel(get()) }
         viewModel { params -> DetailViewModel(params.get(), get(), get(), get(), get(), get()) }
+        viewModel { SessionsViewModel(get(), get()) }
     }
 
     private val useCaseModule = module {
@@ -74,6 +58,8 @@ class App : Application() {
         factory { GetHighLightedUseCase(get()) }
         factory { AddLikeUseCase(get()) }
         factory { DeleteLikeUseCase(get()) }
+        factory { GetSessionsByDayUseCase(get()) }
+        factory { GetSessionsByFilterUseCase(get()) }
     }
 
     private val repositoryModules = module {
@@ -82,8 +68,8 @@ class App : Application() {
 
     private val dataSourceModules = module {
         single<SessionRemoteRepository> {
-            MockRemoteDataSource()
-            //SessionRemoteDataSource(get())
+            //MockRemoteDataSource()
+            SessionRemoteDataSource(get())
         }
         single<SessionLocalRepository> { MockLocalDataSource() }
     }
