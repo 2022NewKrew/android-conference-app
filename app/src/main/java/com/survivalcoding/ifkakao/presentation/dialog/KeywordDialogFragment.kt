@@ -66,5 +66,10 @@ class KeywordDialogFragment(
             keywordAdapters[2].submitList(it.techClassificationList)
             keywordAdapters[3].submitList(it.companyList)
         }
+
+        viewModel.selectedCount.observe(viewLifecycleOwner) {
+            val initText = "초기화" + if (it == 0) "" else " ($it)"
+            binding.initializeButton.text = initText
+        }
     }
 }
