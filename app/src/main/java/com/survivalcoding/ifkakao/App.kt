@@ -3,8 +3,6 @@ package com.survivalcoding.ifkakao
 import android.app.Application
 import androidx.room.Room
 import com.survivalcoding.ifkakao.data.datasource.local.IfKakaoDatabase
-import com.survivalcoding.ifkakao.data.datasource.local.LikeDao
-import com.survivalcoding.ifkakao.data.datasource.local.MockLocalDataSource
 import com.survivalcoding.ifkakao.data.datasource.local.SessionLocalDataSource
 import com.survivalcoding.ifkakao.data.datasource.remote.MockRemoteDataSource
 import com.survivalcoding.ifkakao.data.datasource.remote.RetrofitClient
@@ -15,6 +13,7 @@ import com.survivalcoding.ifkakao.domain.repository.SessionRemoteRepository
 import com.survivalcoding.ifkakao.domain.usecase.*
 import com.survivalcoding.ifkakao.presentation.detail.DetailViewModel
 import com.survivalcoding.ifkakao.presentation.main.MainViewModel
+import com.survivalcoding.ifkakao.presentation.mylist.MyListViewModel
 import com.survivalcoding.ifkakao.presentation.sessions.SessionsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -51,6 +50,7 @@ class App : Application() {
         viewModel { MainViewModel(get()) }
         viewModel { params -> DetailViewModel(params.get(), get(), get(), get(), get(), get()) }
         viewModel { SessionsViewModel(get(), get()) }
+        viewModel { MyListViewModel(get(), get()) }
     }
 
     private val useCaseModule = module {
@@ -79,10 +79,11 @@ class App : Application() {
             //MockLocalDataSource()
             SessionLocalDataSource(
                 Room.databaseBuilder(
-                androidContext(),
-                IfKakaoDatabase::class.java,
-                "database"
-            ).build().likeDao())
+                    androidContext(),
+                    IfKakaoDatabase::class.java,
+                    "database"
+                ).build().likeDao()
+            )
         }
     }
 
