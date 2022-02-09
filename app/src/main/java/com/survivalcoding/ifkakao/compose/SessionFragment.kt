@@ -40,6 +40,7 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.compose.ui.EvanTheme
+import com.survivalcoding.ifkakao.compose.ui.teal200
 import com.survivalcoding.ifkakao.compose.widget.BorderedText
 import com.survivalcoding.ifkakao.compose.widget.CircleImageLoader
 import com.survivalcoding.ifkakao.compose.widget.SharedWithSocialIcon
@@ -274,7 +275,7 @@ fun SessionsPart(sessions: State<List<Data>>) {
     }
 */
 
-  for (item in sessions.value) {
+    for (item in sessions.value) {
         //todo 겹치는 문제
         key(item.idx) {
             SingleSession(item)
@@ -289,8 +290,14 @@ fun ScrollToTop(scrollState: ScrollState, coroutineScope: CoroutineScope) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        val context = LocalContext.current
         Column {
-            Text(text = "if(kakao)2020 보기")
+            Text(text = "if(kakao)2020 보기",
+                color = teal200,
+                modifier = Modifier.clickable {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://if.kakao.com/2020/"))
+                    context.startActivity(intent)
+                })
             Text(text = "kakao corp.")
         }
         Image(
