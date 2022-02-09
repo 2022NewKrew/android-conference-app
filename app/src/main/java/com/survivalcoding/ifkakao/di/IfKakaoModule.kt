@@ -9,11 +9,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object IfKakaoModule {
 
+    @Singleton
     @Provides
     fun provideIfKakaoService(): IfKakaoService {
         return Retrofit.Builder().baseUrl("https://raw.githubusercontent.com/")
@@ -21,6 +23,7 @@ object IfKakaoModule {
             .create(IfKakaoService::class.java)
     }
 
+    @Singleton
     @Provides
     fun provideContentRepository(ifKakaoService: IfKakaoService): ContentRepository {
         return RemoteContentRepository(ifKakaoService)

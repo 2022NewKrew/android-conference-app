@@ -80,4 +80,7 @@ dependencies {
     // room
     implementation 'androidx.room:room-runtime:2.4.1'
     annotationProcessor 'androidx.room:room-compiler:2.4.1'
+
+    // fragment
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
 }

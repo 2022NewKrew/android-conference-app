@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.ui.sessiondetail.viewpager
+package com.survivalcoding.ifkakao.ui.sessiondetail.viewpager.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +28,7 @@ class SessionDescriptionFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSessionDescriptionBinding.inflate(inflater, container, false)
         return binding.root
     }

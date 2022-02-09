@@ -15,9 +15,16 @@
         <item name="colorControlNormal">@color/grey</item>
         <item name="android:listDivider">@color/lightGrey</item>
         <item name="tabStyle">@style/Theme.Ifkakao.TabStyle</item>
+        <item name="android:colorBackground">@color/darkGrey</item>
+        <item name="android:dialogTheme">@style/Theme.Ifkakao.DialogTheme</item>
     </style>
     <style name="Theme.Ifkakao.TabStyle" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
         <item name="tabTextColor">?attr/colorOnPrimary</item>
+    </style>
+    <style name="Theme.Ifkakao.DialogTheme" parent="Theme.Ifkakao">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/darkGrey</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 </resources>

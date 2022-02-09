@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.ui.sessiondetail.viewpager
+package com.survivalcoding.ifkakao.ui.sessiondetail.viewpager.detail
 
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment

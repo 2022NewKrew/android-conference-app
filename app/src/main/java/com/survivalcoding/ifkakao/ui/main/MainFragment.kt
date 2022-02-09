@@ -59,7 +59,7 @@ class MainFragment : Fragment() {
             binding.nestedScrollView.smoothScrollTo(0, 0)
         }
 
-        viewModel.getSessions()
+        viewModel.getSpotlightSessions()
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
