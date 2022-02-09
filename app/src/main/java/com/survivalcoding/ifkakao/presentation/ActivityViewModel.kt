@@ -25,6 +25,7 @@ class ActivityViewModel : ViewModel() {
                     else -> LoginState.SUCCESS
                 }
             }
+            LoginEvent.IsLogin -> _isLogin.value = LoginState.SUCCESS
         }
     }
 }
@@ -32,6 +33,7 @@ class ActivityViewModel : ViewModel() {
 sealed class LoginEvent {
     object MaintainLogin : LoginEvent()
     data class Login(val id: String, val password: String) : LoginEvent()
+    object IsLogin : LoginEvent()
 }
 
 enum class LoginState {
