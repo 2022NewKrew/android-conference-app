@@ -8,13 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.survivalcoding.ifkakao.databinding.FragmentLoginDialogBinding
+import com.survivalcoding.ifkakao.databinding.FragmentLoginInfoDialogBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class LoginDialogFragment : DialogFragment() {
+class LoginInfoDialogFragment : DialogFragment() {
 
-    private var _binding: FragmentLoginDialogBinding? = null
+    private var _binding: FragmentLoginInfoDialogBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,26 +26,13 @@ class LoginDialogFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginInfoDialogBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.closeButton.setOnClickListener { dismiss() }
-        binding.kakaoLoginButton.setOnClickListener {
-            Toast.makeText(requireContext(), "직접 입력해서 로그인해 주세요.", Toast.LENGTH_SHORT).show()
-        }
-        binding.directLoginButton.setOnClickListener {
-            dismiss()
-            val dialog = LoginInfoDialogFragment()
-            dialog.show(parentFragmentManager, "loginInfo")
-        }
     }
 
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this@LoginDialogFragment, 0.75f)
+        context?.dialogFragmentResize(this@LoginInfoDialogFragment, 0.75f)
     }
 
     private fun Context.dialogFragmentResize(
