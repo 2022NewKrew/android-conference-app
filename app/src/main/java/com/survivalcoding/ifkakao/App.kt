@@ -1,7 +1,11 @@
 package com.survivalcoding.ifkakao
 
 import android.app.Application
+import androidx.room.Room
+import com.survivalcoding.ifkakao.data.datasource.local.IfKakaoDatabase
+import com.survivalcoding.ifkakao.data.datasource.local.LikeDao
 import com.survivalcoding.ifkakao.data.datasource.local.MockLocalDataSource
+import com.survivalcoding.ifkakao.data.datasource.local.SessionLocalDataSource
 import com.survivalcoding.ifkakao.data.datasource.remote.MockRemoteDataSource
 import com.survivalcoding.ifkakao.data.datasource.remote.RetrofitClient
 import com.survivalcoding.ifkakao.data.datasource.remote.SessionRemoteDataSource
@@ -68,10 +72,18 @@ class App : Application() {
 
     private val dataSourceModules = module {
         single<SessionRemoteRepository> {
-            //MockRemoteDataSource()
+            MockRemoteDataSource()
             SessionRemoteDataSource(get())
         }
-        single<SessionLocalRepository> { MockLocalDataSource() }
+        single<SessionLocalRepository> {
+            //MockLocalDataSource()
+            SessionLocalDataSource(
+                Room.databaseBuilder(
+                androidContext(),
+                IfKakaoDatabase::class.java,
+                "database"
+            ).build().likeDao())
+        }
     }
 
     private val networkModule = module {

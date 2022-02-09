@@ -42,7 +42,7 @@ class DetailExplanationFragment : Fragment() {
 
         val concatAdapter = ConcatAdapter(
             ExplanationAdapter(onClickFavoriteButton = {
-                detailViewModel.setLike()
+                detailViewModel.setLike(it)
                 //Toast.makeText(requireContext(), "isFavorite: " + it, Toast.LENGTH_SHORT).show()
             }, onClickSessionButton = {
                 moveToNextFragment(SessionsFragment())
@@ -82,6 +82,10 @@ class DetailExplanationFragment : Fragment() {
 
         detailViewModel.isLiking.observe(viewLifecycleOwner) {
             (concatAdapter.adapters[0] as ExplanationAdapter).updateLiking(it)
+        }
+
+        detailViewModel.isFirst.observe(viewLifecycleOwner) {
+            (concatAdapter.adapters[0] as ExplanationAdapter).resetItem()
         }
     }
 
