@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.presentation
+package com.survivalcoding.ifkakao.presentation.layout.main
 
 import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
@@ -33,8 +33,11 @@ import coil.compose.rememberImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import com.survivalcoding.ifkakao.R
-import dagger.hilt.android.AndroidEntryPoint
+import com.survivalcoding.ifkakao.presentation.MainLayout
+import com.survivalcoding.ifkakao.presentation.SessionList
+import com.survivalcoding.ifkakao.presentation.layout.sessionlist.SessionActivity
 import com.survivalcoding.ifkakao.presentation.theme.DarkGrey
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

@@ -61,10 +61,10 @@ class SessionDataSourceImpl @Inject constructor(private val sessionService: Sess
                             techClassifications = relationList.TECH_CLASSIFICATION,
                             mainExposureDay = relationList.MAIN_EXPOSURE_DAY.let { dayStr ->
                                 when {
-                                    dayStr.contains("1") -> {
+                                    dayStr.contains("1Day") -> {
                                         return@let 1
                                     }
-                                    dayStr.contains("2") -> {
+                                    dayStr.contains("2Day") -> {
                                         return@let 2
                                     }
                                     else -> {

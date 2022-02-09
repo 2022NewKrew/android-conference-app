@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.presentation
+package com.survivalcoding.ifkakao.presentation.layout.main
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

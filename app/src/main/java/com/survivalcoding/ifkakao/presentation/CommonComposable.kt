@@ -138,7 +138,7 @@ fun SessionListItem(sessionItem: SessionItem) {
             }.padding(12.dp)
     ) {
         Box(
-            modifier = Modifier.padding(end = 4.dp).clip(RoundedCornerShape(4.dp, 4.dp, 4.dp, 4.dp))
+            modifier = Modifier.padding(end = 8.dp).clip(RoundedCornerShape(4.dp, 4.dp, 4.dp, 4.dp))
                 .border(1.dp, LightGrey, RoundedCornerShape(4.dp, 4.dp, 4.dp, 4.dp))
 
         ) {

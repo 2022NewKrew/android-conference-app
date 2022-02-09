@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ifkakao">
         <activity
-            android:name=".presentation.SessionActivity"
+            android:name=".presentation.layout.sessionlist.SessionActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.layout.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
