@@ -22,10 +22,10 @@ class SessionDetailBinderListBuilder {
     ): SessionDetailBinderListBuilder {
         val session = this.session ?: return this
 
-        if (session.video.isNotEmpty()) {
+        if (session.videos.isNotEmpty()) {
             tmpBinderList.add(
                 SessionVideoBinder(
-                    session.video.first(),
+                    session.videos.first(),
                     session.thumbnailUrl,
                     session.title,
                     onPlayButtonClick,
@@ -72,6 +72,20 @@ class SessionDetailBinderListBuilder {
                 SpeakerBinder(it)
             }
         )
+        return this
+    }
+
+    fun addFiles(
+        onDownloadClick: (fileUri: String, description: String) -> Unit
+    ): SessionDetailBinderListBuilder {
+        val session = this.session ?: return this
+
+        tmpBinderList.addAll(
+            session.files.let {
+                it.map { SessionFileBinder(it.uri, it.description, onDownloadClick) }
+            }
+        )
+
         return this
     }
 

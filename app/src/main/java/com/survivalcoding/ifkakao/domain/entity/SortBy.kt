@@ -1,6 +1,6 @@
 package com.survivalcoding.ifkakao.domain.entity
 
 enum class SortBy {
-    DEFAULT,
+    TIME,
     TITLE
 }

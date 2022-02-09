@@ -23,7 +23,7 @@ class DtoSessionTest {
     @Test
     fun `비디오가 없는 경우 convert 테스트`() {
         val noVideoSession = mockSession.convert()
-        Assert.assertEquals(listOf<String>(), noVideoSession.video)
+        Assert.assertEquals(listOf<String>(), noVideoSession.videos)
     }
 
     @Test
@@ -47,6 +47,6 @@ class DtoSessionTest {
         Assert.assertNotEquals(null, convertedMockSession.isFavorite)
         Assert.assertNotEquals(null, convertedMockSession.isHighlight)
         Assert.assertNotEquals(null, convertedMockSession.thumbnailUrl)
-        Assert.assertNotEquals(null, convertedMockSession.video)
+        Assert.assertNotEquals(null, convertedMockSession.videos)
     }
 }

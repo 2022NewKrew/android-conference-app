@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/badge_background_white"
     android:paddingHorizontal="6dp"
-    android:paddingVertical="1dp">
+    android:paddingTop="5dp"
+    android:paddingBottom="2dp">
 
     <TextView
         android:id="@+id/text_view"

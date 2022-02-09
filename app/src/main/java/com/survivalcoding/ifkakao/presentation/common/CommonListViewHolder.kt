@@ -19,6 +19,7 @@ class CommonListViewHolder private constructor(private val binding: CommonListBi
                 CommonListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                     .apply {
                         this.recyclerView.adapter = CommonAdapter()
+                        this.recyclerView.addItemDecoration(StickyFooterItemDecoration())
                     }
             )
         }

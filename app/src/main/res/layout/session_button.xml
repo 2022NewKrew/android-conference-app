@@ -7,14 +7,15 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
-        android:layout_marginVertical="40dp"
         android:layout_width="165dp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="40dp"
         android:background="@drawable/button_background"
+        android:foreground="?android:attr/selectableItemBackground"
         android:paddingVertical="14dp"
-        android:textStyle="bold"
         android:textColor="@color/button_text_color"
         android:textSize="16dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

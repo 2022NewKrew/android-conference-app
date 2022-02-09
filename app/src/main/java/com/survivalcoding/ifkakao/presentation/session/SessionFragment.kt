@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,14 +17,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionBinding
 import com.survivalcoding.ifkakao.domain.entity.Session
-import com.survivalcoding.ifkakao.presentation.common.CommonAdapter
-import com.survivalcoding.ifkakao.presentation.common.CommonListBinder
-import com.survivalcoding.ifkakao.presentation.common.FooterBinder
-import com.survivalcoding.ifkakao.presentation.common.SessionListItemBinder
+import com.survivalcoding.ifkakao.presentation.common.*
 import com.survivalcoding.ifkakao.presentation.sessiondetail.SessionDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -86,13 +85,13 @@ class SessionFragment : Fragment() {
             binding?.tabLayout ?: return,
             binding?.sessionViewPager ?: return
         ) { tab, position ->
-            tab.text = "Day${position + 1}" + if (position == 3 - 1) "(All)" else ""
+            tab.text = "Day${position + 1}" + if (position == DURATION - 1) "(All)" else ""
         }.attach()
     }
 
     private fun observe() {
         repeatOnStart {
-            viewModel.sessionUiState.collect {
+            viewModel.sessionUiState.collectLatest {
                 val commonListBinders =
                     listOf(
                         it.day1Sessions.toBinderList(),
@@ -102,8 +101,28 @@ class SessionFragment : Fragment() {
                 viewPagerAdapter.submitList(commonListBinders)
 
                 drawerListAdapter.submitList(it.drawerBinderList)
+
+                binding?.selectedCategoryCountTextView?.isVisible = it.selectedCategoryCount != 0
+                binding?.selectedCategoryCountTextView?.text = it.selectedCategoryCount.toString()
             }
         }
+
+        repeatOnStart { viewModel.eventFlow.collect { handleEvent(it) } }
+    }
+
+    private fun handleEvent(event: SessionViewModel.Event) {
+        when (event) {
+            SessionViewModel.Event.NoMatchingSessions -> showNoMatchingSessionDialog()
+        }
+    }
+
+    private fun showNoMatchingSessionDialog() {
+        customDialogWithOneButton(
+            requireActivity(),
+            "선택한 조건에 해당하는\n항목이 없습니다.",
+            "확인",
+            viewModel::resetSelectedCategories
+        ).show()
     }
 
     private fun List<Session>.toBinderList(): CommonListBinder {
@@ -154,5 +173,6 @@ class SessionFragment : Fragment() {
 
     companion object {
         const val TAG = "SessionFragment"
+        private const val DURATION = 3
     }
 }

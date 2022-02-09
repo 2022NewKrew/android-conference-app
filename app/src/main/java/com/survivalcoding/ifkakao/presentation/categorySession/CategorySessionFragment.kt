@@ -14,6 +14,7 @@ import com.survivalcoding.ifkakao.databinding.FragmentCategorySessionBinding
 import com.survivalcoding.ifkakao.domain.entity.Categories
 import com.survivalcoding.ifkakao.domain.entity.Session
 import com.survivalcoding.ifkakao.presentation.common.CommonAdapter
+import com.survivalcoding.ifkakao.presentation.common.StickyFooterItemDecoration
 import com.survivalcoding.ifkakao.presentation.sessiondetail.SessionDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -24,9 +25,7 @@ class CategorySessionFragment : Fragment() {
 
     private val viewModel: CategorySessionViewModel by viewModels()
 
-    private val binding: FragmentCategorySessionBinding by lazy {
-        FragmentCategorySessionBinding.inflate(layoutInflater)
-    }
+    private var binding: FragmentCategorySessionBinding? = null
 
     private val adapter: CommonAdapter by lazy {
         CommonAdapter()
@@ -46,13 +45,21 @@ class CategorySessionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return binding.root
+        binding = FragmentCategorySessionBinding.inflate(layoutInflater)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.adapter = adapter
+        binding?.recyclerView?.adapter = adapter
+        binding?.recyclerView?.addItemDecoration(StickyFooterItemDecoration())
+
         observe()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     private fun observe() {

@@ -1,9 +1,11 @@
 package com.survivalcoding.ifkakao.presentation.sessiondetail
 
+import android.app.DownloadManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -11,11 +13,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.appbar.AppBarLayout
 import com.kakao.sdk.link.LinkClient
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
@@ -23,6 +27,7 @@ import com.survivalcoding.ifkakao.domain.entity.Categories
 import com.survivalcoding.ifkakao.presentation.MainActivity
 import com.survivalcoding.ifkakao.presentation.categorySession.CategorySessionFragment
 import com.survivalcoding.ifkakao.presentation.common.CommonAdapter
+import com.survivalcoding.ifkakao.presentation.common.StickyFooterItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
@@ -61,6 +66,13 @@ class SessionDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.recyclerView?.adapter = adapter
+        binding?.recyclerView?.addItemDecoration(StickyFooterItemDecoration())
+        binding?.videoWebView?.settings?.javaScriptEnabled = true
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            val appbarLayoutParams: AppBarLayout.LayoutParams =  binding?.videoConstraintLayout?.layoutParams as AppBarLayout.LayoutParams
+            appbarLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+        }
 
         observe()
     }
@@ -69,6 +81,9 @@ class SessionDetailFragment : Fragment() {
         repeatOnStart {
             viewModel.uiState.collectLatest {
                 adapter.submitList(it.binderList)
+                if (binding?.videoWebView?.url != it.video.url) {
+                    binding?.videoWebView?.loadUrl(it.video.url)
+                }
             }
         }
 
@@ -91,6 +106,10 @@ class SessionDetailFragment : Fragment() {
             is SessionDetailViewModel.Event.ShareSessionWithTalk -> shareSessionUrlWithTalk(event.sessionIdx)
             is SessionDetailViewModel.Event.ShareSession -> shareSession(event.sessionIdx)
             is SessionDetailViewModel.Event.CopySessionLink -> copySessionLink(event.sessionIdx)
+            is SessionDetailViewModel.Event.DownloadFile -> downloadFile(
+                event.uri,
+                event.description
+            )
         }
     }
 
@@ -128,7 +147,7 @@ class SessionDetailFragment : Fragment() {
             requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("If Kakao", getString(R.string.session_url, sessionIdx))
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(requireContext(), "링크 주소가 복사되었습니다.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "URL이 복사되었습니다.", Toast.LENGTH_SHORT).show()
     }
 
     private fun navigateToWebView(url: String) {
@@ -156,6 +175,25 @@ class SessionDetailFragment : Fragment() {
             CategorySessionFragment.newInstance(categories, title)
         ).addToBackStack(null)
             .commit()
+    }
+
+    private fun downloadFile(uri: String, description: String) {
+        AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+            .setTitle(R.string.download)
+            .setMessage(description)
+            .setNegativeButton(getString(R.string.no)) { _, _ -> }
+            .setPositiveButton(R.string.yes) { _, _ -> executeDownload(uri, description) }
+            .show()
+    }
+
+    private fun executeDownload(uri: String, description: String) {
+        val downloadRequest = DownloadManager.Request(Uri.parse(uri))
+            .setTitle(description)
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+
+        (requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager).enqueue(
+            downloadRequest
+        )
     }
 
     override fun onDestroyView() {

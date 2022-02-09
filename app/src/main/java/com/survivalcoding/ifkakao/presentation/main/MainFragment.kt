@@ -16,10 +16,7 @@ import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.domain.entity.Session
-import com.survivalcoding.ifkakao.presentation.common.CommonAdapter
-import com.survivalcoding.ifkakao.presentation.common.CommonBinder
-import com.survivalcoding.ifkakao.presentation.common.FooterBinder
-import com.survivalcoding.ifkakao.presentation.common.SessionListItemBinder
+import com.survivalcoding.ifkakao.presentation.common.*
 import com.survivalcoding.ifkakao.presentation.session.SessionFragment
 import com.survivalcoding.ifkakao.presentation.sessiondetail.SessionDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +47,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initAdapter()
+        initSessionListRecyclerView()
         initBanner()
         initAllSessionButton()
 
@@ -120,8 +117,9 @@ class MainFragment : Fragment() {
             .into(binding?.handImageView ?: return)
     }
 
-    private fun initAdapter() {
+    private fun initSessionListRecyclerView() {
         binding?.sessionListRecyclerView?.adapter = adapter
+        binding?.sessionListRecyclerView?.addItemDecoration(StickyFooterItemDecoration())
     }
 
 

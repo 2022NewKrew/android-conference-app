@@ -2,10 +2,7 @@ package com.survivalcoding.ifkakao.presentation.sessiondetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.survivalcoding.ifkakao.domain.entity.Categories
-import com.survivalcoding.ifkakao.domain.entity.CategoriesBuilder
-import com.survivalcoding.ifkakao.domain.entity.Category
-import com.survivalcoding.ifkakao.domain.entity.Session
+import com.survivalcoding.ifkakao.domain.entity.*
 import com.survivalcoding.ifkakao.domain.usecase.AddFavoriteSessionUseCase
 import com.survivalcoding.ifkakao.domain.usecase.GetSelectedSessionsUseCase
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionUseCase
@@ -31,7 +28,7 @@ class SessionDetailViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<Event>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    private val _uiState = MutableStateFlow(UiState(listOf()))
+    private val _uiState = MutableStateFlow(UiState(Video(url = "", length = ""), listOf()))
     val uiState = _uiState.asStateFlow()
 
     private var sessionId: Int? = null
@@ -45,11 +42,18 @@ class SessionDetailViewModel @Inject constructor(
 
     private fun refreshBinderList(sessionId: Int) {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(
-                binderList = buildSessionDetailBinderList(
-                    getSessionUseCase(sessionId)
+            getSessionUseCase(sessionId).let {
+                _uiState.value = _uiState.value.copy(
+                    video = if (it.videos.isNotEmpty()) it.videos.first() else Video(
+                        url = "",
+                        length = ""
+                    ),
+                    binderList = buildSessionDetailBinderList(
+                        it
+                    )
                 )
-            )
+            }
+
         }
     }
 
@@ -66,18 +70,23 @@ class SessionDetailViewModel @Inject constructor(
 
         return SessionDetailBinderListBuilder()
             .setSession(session)
-            .addVideo(
-                { url -> sendEvent(Event.NavigateToWebView(url)) },
-                { sendEvent(Event.ShareSession(session.idx)) }
-            ).addCategory { navigateToCategorySessionList(it) }
+            .addCategory { navigateToCategorySessionList(it) }
             .addTitle()
             .addContent()
             .addTags()
             .addSpeakers()
+            .addFiles { fileUri, description ->
+                sendEvent(
+                    Event.DownloadFile(
+                        fileUri,
+                        description
+                    )
+                )
+            }
             .addLinks(
                 { sendEvent(Event.ShareSessionWithTalk(session.idx)) },
-                {},
-                {},
+                { sendEvent(Event.ShareSession(session.idx)) },
+                { sendEvent(Event.ShareSession(session.idx)) },
                 { sendEvent(Event.CopySessionLink(session.idx)) },
                 ::onFavoriteChanged
             )
@@ -139,9 +148,11 @@ class SessionDetailViewModel @Inject constructor(
         class ShareSessionWithTalk(val sessionIdx: Int) : Event()
         class ShareSession(val sessionIdx: Int) : Event()
         class CopySessionLink(val sessionIdx: Int) : Event()
+        class DownloadFile(val uri: String, val description: String) : Event()
     }
 
     data class UiState(
+        val video: Video,
         val binderList: List<CommonBinder>
     )
 

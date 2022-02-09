@@ -1,5 +1,7 @@
 package com.survivalcoding.ifkakao.presentation
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
+import com.survivalcoding.ifkakao.presentation.favorites.FavoritesFragment
 import com.survivalcoding.ifkakao.presentation.main.MainFragment
 import com.survivalcoding.ifkakao.presentation.session.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,11 +51,18 @@ class MainActivity : AppCompatActivity() {
             navigateToSessionList()
             closeDrawer()
         }
+        binding.drawerFavoritesButton.setOnClickListener {
+            navigateToFavorites()
+            closeDrawer()
+        }
+        binding.emailText.setOnClickListener { navigateToContactMail() }
+        binding.talkChannelLinearLayout.setOnClickListener { navigateToTalkChannel() }
     }
 
     private fun initActionBar() {
         setSupportActionBar(binding.toolBar)
-        supportActionBar?.title = "if(kakao)2021"
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.titleTextView.setOnClickListener { navigateToMain() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -97,5 +107,37 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(SessionFragment.TAG)
                 .commit()
         }
+    }
+
+    private fun navigateToFavorites() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, FavoritesFragment())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun navigateToTalkChannel() {
+        Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.if_kakao_talk_channel))).apply {
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            }
+        }
+    }
+
+    private fun navigateToContactMail() {
+        Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.if_kakao_mail)))
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            }
+        }
+    }
+
+    private fun navigateToMain() {
+        supportFragmentManager.popBackStackImmediate(
+            null,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
     }
 }
