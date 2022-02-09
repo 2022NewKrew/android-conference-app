@@ -11,6 +11,7 @@ import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionsDayBinding
+import com.survivalcoding.ifkakao.domain.model.DayType
 import com.survivalcoding.ifkakao.domain.model.Session
 import com.survivalcoding.ifkakao.presentation.adapter.SessionListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SessionsDayFragment : Fragment() {
     private var _binding: FragmentSessionsDayBinding? = null
     private val binding get() = _binding!!
-    private val day by lazy { requireArguments()["day"] as String }
+    private val day by lazy { requireArguments()["day"] as DayType }
     private val viewModel: SessionsDayViewModel by viewModels()
     private val adapter by lazy {
         SessionListAdapter { session -> moveToDetail(session) }
