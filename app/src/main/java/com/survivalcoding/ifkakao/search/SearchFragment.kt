@@ -88,7 +88,6 @@ class SearchFragment : Fragment() {
 
 
         //viewpager2
-        //todo date 값이 없는 것도 있음(애자일)
         binding.viewPager.adapter = FragmentAdapter(requireActivity())
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

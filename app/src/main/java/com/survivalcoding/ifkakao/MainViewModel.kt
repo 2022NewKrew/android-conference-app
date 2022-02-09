@@ -1,9 +1,5 @@
 package com.survivalcoding.ifkakao
 
-import android.content.res.ColorStateList
-import android.view.View
-import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entity.ContentState
@@ -26,7 +22,7 @@ class MainViewModel @Inject constructor(
     private val getLikedSessionsUseCase: GetLikedSessionsUseCase,
     private val getSessionsWithKeyWordsAndDateUseCase: GetSessionsWithKeyWordsAndDateUseCase,
     private val getSessionWithFieldUseCase: GetSessionWithFieldUseCase,
-    private val getSortedSessionsUseCase: GetSortedSessionsUseCase,
+    private val getSortedDateWithKeyWordsSessionsUseCase: GetSortedDateWithKeyWordsSessionsUseCase,
     private val getLikeInfoUseCase: GetLikeInfoUseCase,
     private val addLikeUseCase: AddLikeUseCase,
     private val deleteLikeUseCase: DeleteLikeUseCase,
@@ -110,7 +106,12 @@ class MainViewModel @Inject constructor(
         orderState = _orderState
         viewModelScope.launch {
             daysItems.value =
-                getSortedSessionsUseCase(date.value, contentState, orderState) ?: listOf()
+                getSortedDateWithKeyWordsSessionsUseCase(
+                    date.value,
+                    keywords.value,
+                    contentState,
+                    orderState
+                ) ?: listOf()
         }
     }
 
@@ -134,8 +135,9 @@ class MainViewModel @Inject constructor(
     private fun getSessionsWithKeyWords() {
         viewModelScope.launch {
             daysItems.value =
-                if (keywords.value.isEmpty()) getSortedSessionsUseCase(
+                if (keywords.value.isEmpty()) getSortedDateWithKeyWordsSessionsUseCase(
                     date.value,
+                    keywords.value,
                     contentState,
                     orderState
                 ) ?: listOf()
