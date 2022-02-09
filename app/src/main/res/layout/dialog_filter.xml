@@ -42,54 +42,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/filter_tv_service"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/filter_rv_field"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_filter_keyword"
-                android:text="@string/field_service"
-                android:textColor="@color/light_gray"
-                android:textSize="14sp"
+                android:layout_margin="16dp"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter_tv_interest_field" />
-
-            <TextView
-                android:id="@+id/filter_tv_business"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/bg_filter_keyword"
-                android:text="@string/field_business"
-                android:textColor="@color/light_gray"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/filter_tv_service"
-                app:layout_constraintTop_toTopOf="@id/filter_tv_service" />
-
-            <TextView
-                android:id="@+id/filter_tv_tech"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/bg_filter_keyword"
-                android:text="@string/field_tech"
-                android:textColor="@color/light_gray"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/filter_tv_business"
-                app:layout_constraintTop_toTopOf="@id/filter_tv_business" />
+                app:layout_constraintTop_toBottomOf="@id/filter_tv_interest_field"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_filter" />
 
             <TextView
                 android:id="@+id/filter_tv_interest_keyword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/interest_keyword"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter_tv_service" />
+                app:layout_constraintTop_toBottomOf="@id/filter_rv_field" />
 
             <TextView
                 android:id="@+id/filter_tv_service_business"

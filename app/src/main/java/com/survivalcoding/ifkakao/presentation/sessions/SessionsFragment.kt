@@ -42,10 +42,14 @@ class SessionsFragment : Fragment() {
         }.attach()
 
         binding.sessionsTvFilter.setOnClickListener {
+            viewModel.setTmpFilter()
             filterDialog.show(
-                parentFragmentManager,
+                childFragmentManager,
                 "FilterDialog"
             )
+        }
+        viewModel.filterCount.observe(this) {
+            binding.sessionsTvFilter.text = if (it == 0) "" else it.toString()
         }
     }
 
