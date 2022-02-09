@@ -72,7 +72,7 @@ class App : Application() {
 
     private val dataSourceModules = module {
         single<SessionRemoteRepository> {
-            MockRemoteDataSource()
+            //MockRemoteDataSource()
             SessionRemoteDataSource(get())
         }
         single<SessionLocalRepository> {
