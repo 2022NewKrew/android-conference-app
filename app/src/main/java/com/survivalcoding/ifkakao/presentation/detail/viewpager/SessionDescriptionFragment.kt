@@ -56,6 +56,11 @@ class SessionDescriptionFragment : Fragment() {
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.root.requestLayout()
+    }
+
     private fun moveToSessions() {
         requireParentFragment().parentFragmentManager.commit {
             replace<SessionsFragment>(R.id.fragment_container_view)
