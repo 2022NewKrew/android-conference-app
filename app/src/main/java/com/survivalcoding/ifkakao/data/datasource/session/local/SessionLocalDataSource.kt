@@ -870,6 +870,917 @@ class SessionLocalDataSource @Inject constructor() : SessionDataSource {
               "reservationUTC": 1636992000000,
               "reservationYn": "Y",
               "videoYn": "Y"
+            },
+            {
+              "idx": 102,
+              "createdUserIdx": 17,
+              "createdDateTime": "2021-10-28 17:32:33",
+              "lastModifiedUserIdx": 18,
+              "lastModifiedDateTime": "2021-11-10 15:35:55",
+              "categoryIdx": 7,
+              "title": "카카오모빌리티의 MLOps 도입기",
+              "content": "카카오모빌리티의 MLOps 도입 초기 주요 key points 소개합니다.",
+              "contentTag": "#ML #MLOps",
+              "spotlightYn": "N",
+              "field": "기술",
+              "sessionType": "B Type",
+              "qnaStartDay": "3",
+              "qnaStartTime": "14:00",
+              "qnaEndTime": "15:00",
+              "commentYn": "Y",
+              "company": "카카오모빌리티",
+              "reservationDate": "20211117",
+              "reservationTime": "1000",
+              "linkList": {
+                "FILE": [
+                  {
+                    "idx": 4083,
+                    "contentsIdx": 102,
+                    "type": "FILE",
+                    "fileSize": 693788,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1636526152575",
+                    "description": "카카오모빌리티의 MLOps 도입기_도입 초기의 주요 key points 소개.pdf",
+                    "mainYn": "N"
+                  }
+                ],
+                "IMAGE": [
+                  
+                ],
+                "WEB_URL": [
+                  
+                ],
+                "VIDEO": [
+                  {
+                    "idx": 4082,
+                    "contentsIdx": 102,
+                    "type": "VIDEO",
+                    "fileSize": 0,
+                    "url": "https://tv.kakao.com/embed/player/cliplink/423596028",
+                    "description": "11:55",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_THUMBNAIL": [
+                  
+                ],
+                "MO_THUMBNAIL": [
+                  
+                ],
+                "TALK_THUMBNAIL": [
+                  
+                ],
+                "SPEAKER_PROFILE": [
+                  {
+                    "idx": 4081,
+                    "contentsIdx": 102,
+                    "type": "SPEAKER_PROFILE",
+                    "fileSize": 104545,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418711520",
+                    "description": "0907_카카오모빌리티_Zlatan.El.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_MAIN_IMAGE": [
+                  
+                ],
+                "MO_MAIN_IMAGE": [
+                  
+                ],
+                "PC_IMAGE": [
+                  {
+                    "idx": 4078,
+                    "contentsIdx": 102,
+                    "type": "PC_IMAGE",
+                    "fileSize": 68770,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418726827",
+                    "description": "0907_카카오모빌리티_Zlatan.El_560.png",
+                    "mainYn": "Y"
+                  }
+                ],
+                "MO_IMAGE": [
+                  {
+                    "idx": 4079,
+                    "contentsIdx": 102,
+                    "type": "MO_IMAGE",
+                    "fileSize": 33971,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418743047",
+                    "description": "0907_카카오모빌리티_Zlatan.El_236.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "SHARE_IMAGE": [
+                  {
+                    "idx": 4080,
+                    "contentsIdx": 102,
+                    "type": "SHARE_IMAGE",
+                    "fileSize": 68770,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418752553",
+                    "description": "0907_카카오모빌리티_Zlatan.El_560.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_SPOTLIGHT": [
+                  
+                ],
+                "MO_SPOTLIGHT": [
+                  
+                ]
+              },
+              "relationList": {
+                "CLASSIFICATION": [
+                  
+                ],
+                "TECH_CLASSIFICATION": [
+                  "머신러닝/AI"
+                ],
+                "MAIN_EXPOSURE_DAY": [
+                  "2Day"
+                ]
+              },
+              "contentsSpeakerList": [
+                {
+                  "idx": 1349,
+                  "contentsIdx": 102,
+                  "nameKo": "이동우",
+                  "nameEn": "zlatan",
+                  "company": "카카오모빌리티",
+                  "occupation": "인텔리전스연구팀",
+                  "loginEmail": "kysersoze.lee@gmail.com"
+                }
+              ],
+              "favoriteYn": "N",
+              "newCountentsYn": "N",
+              "updateCountentsYn": "N",
+              "companyName": "카카오모빌리티",
+              "speakerName": "zlatan이동우",
+              "speakerLoginYn": "N",
+              "reservationUTC": 1637078400000,
+              "reservationYn": "Y",
+              "videoYn": "Y"
+            },
+            {
+              "idx": 103,
+              "createdUserIdx": 17,
+              "createdDateTime": "2021-10-28 17:35:43",
+              "lastModifiedUserIdx": 18,
+              "lastModifiedDateTime": "2021-11-10 15:31:47",
+              "categoryIdx": 7,
+              "title": "안드로이드 기반 키오스크 개발 시작하기",
+              "content": "카카오 T 주차 무인 정산기를 개발하면서 알게된 키오스크에 필요한 기능 및 구현 방법을 소개합니다.",
+              "contentTag": "#Android #Kiosk",
+              "spotlightYn": "N",
+              "field": "기술",
+              "sessionType": "B Type",
+              "qnaStartDay": "3",
+              "qnaStartTime": "14:00",
+              "qnaEndTime": "15:00",
+              "commentYn": "Y",
+              "company": "카카오모빌리티",
+              "reservationDate": "20211117",
+              "reservationTime": "1000",
+              "linkList": {
+                "FILE": [
+                  {
+                    "idx": 3982,
+                    "contentsIdx": 103,
+                    "type": "FILE",
+                    "fileSize": 75085197,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1636525904183",
+                    "description": "안드로이드 기반 키오스크 개발 시작하기_주차 무인 정산기 개발 사례 공유.pdf",
+                    "mainYn": "N"
+                  }
+                ],
+                "IMAGE": [
+                  
+                ],
+                "WEB_URL": [
+                  
+                ],
+                "VIDEO": [
+                  {
+                    "idx": 3981,
+                    "contentsIdx": 103,
+                    "type": "VIDEO",
+                    "fileSize": 0,
+                    "url": "https://tv.kakao.com/embed/player/cliplink/423596231",
+                    "description": "20:25",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_THUMBNAIL": [
+                  
+                ],
+                "MO_THUMBNAIL": [
+                  
+                ],
+                "TALK_THUMBNAIL": [
+                  
+                ],
+                "SPEAKER_PROFILE": [
+                  {
+                    "idx": 3980,
+                    "contentsIdx": 103,
+                    "type": "SPEAKER_PROFILE",
+                    "fileSize": 112654,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418564452",
+                    "description": "0907_카카오모빌리티_Justin.And.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_MAIN_IMAGE": [
+                  
+                ],
+                "MO_MAIN_IMAGE": [
+                  
+                ],
+                "PC_IMAGE": [
+                  {
+                    "idx": 3977,
+                    "contentsIdx": 103,
+                    "type": "PC_IMAGE",
+                    "fileSize": 209315,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418579587",
+                    "description": "0907_카카오모빌리티_Justin.And_560.png",
+                    "mainYn": "Y"
+                  }
+                ],
+                "MO_IMAGE": [
+                  {
+                    "idx": 3978,
+                    "contentsIdx": 103,
+                    "type": "MO_IMAGE",
+                    "fileSize": 56551,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418615078",
+                    "description": "0907_카카오모빌리티_Justin.And_236.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "SHARE_IMAGE": [
+                  {
+                    "idx": 3979,
+                    "contentsIdx": 103,
+                    "type": "SHARE_IMAGE",
+                    "fileSize": 209315,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418648748",
+                    "description": "0907_카카오모빌리티_Justin.And_560.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_SPOTLIGHT": [
+                  
+                ],
+                "MO_SPOTLIGHT": [
+                  
+                ]
+              },
+              "relationList": {
+                "CLASSIFICATION": [
+                  
+                ],
+                "TECH_CLASSIFICATION": [
+                  "Android",
+                  "IoT",
+                  "모바일"
+                ],
+                "MAIN_EXPOSURE_DAY": [
+                  
+                ]
+              },
+              "contentsSpeakerList": [
+                {
+                  "idx": 1328,
+                  "contentsIdx": 103,
+                  "nameKo": "이재훈",
+                  "nameEn": "justin",
+                  "company": "카카오모빌리티",
+                  "occupation": "카오너클라이언트팀",
+                  "loginEmail": "justin.and@kakaomobility.com"
+                }
+              ],
+              "favoriteYn": "N",
+              "newCountentsYn": "N",
+              "updateCountentsYn": "N",
+              "companyName": "카카오모빌리티",
+              "speakerName": "justin이재훈",
+              "speakerLoginYn": "N",
+              "reservationUTC": 1637078400000,
+              "reservationYn": "Y",
+              "videoYn": "Y"
+            },
+            {
+              "idx": 104,
+              "createdUserIdx": 18,
+              "createdDateTime": "2021-10-28 17:36:33",
+              "lastModifiedUserIdx": 16,
+              "lastModifiedDateTime": "2021-11-16 09:40:24",
+              "categoryIdx": 7,
+              "title": "Open Water Diver? OpenSource Diver!",
+              "content": "주니어 개발자의 관점에서 장애 상황을 파악했던 경험을 공유합니다.\n어디서 장애가 발생하였는지, 왜 장애가 발생하였는지를 알아가는 과정을 ThreadDump, SoftReference, HashCollision 세 가지 키워드로 설명합니다.\n장애 키워드와 관련된 오픈소스를 보면서 궁금한 점들을 파헤쳐 나갑니다.\n\n💬 이 세션은 소셜 오디오 플랫폼 음mm에서 연사자와 직접 만나는 After Talk이 마련되어 있습니다.\n\n🎙 카카오커머스에서는 어떻게 일할까?💬\nᄂ 일시 : 11월 23일(화) 14:00 ~ 15:00 \nᄂ 링크 : https://www.mm.xyz/event/21ad6e23-3e0c-4684-8094-4dd28d84d624\n\n잠깐! 음mm은 모바일 전용 App입니다.\n- Android 사용자 음mm 다운로드  https://play.google.com/store/apps/details?id=com.kakao.mmoa\n- iOS 사용자 음mm 다운로드  https://apps.apple.com/kr/app/id1567177871",
+              "contentTag": "#Java #소프트참조 #해시충돌 #백엔드",
+              "spotlightYn": "N",
+              "field": "기술",
+              "sessionType": "B Type",
+              "qnaStartDay": "2",
+              "qnaStartTime": "15:00",
+              "qnaEndTime": "16:00",
+              "commentYn": "Y",
+              "company": "카카오커머스",
+              "reservationDate": "20211117",
+              "reservationTime": "1000",
+              "linkList": {
+                "FILE": [
+                  {
+                    "idx": 4611,
+                    "contentsIdx": 104,
+                    "type": "FILE",
+                    "fileSize": 37109303,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1636524881626",
+                    "description": "Open Water Diver Open Source Diver.pdf",
+                    "mainYn": "N"
+                  }
+                ],
+                "IMAGE": [
+                  
+                ],
+                "WEB_URL": [
+                  
+                ],
+                "VIDEO": [
+                  {
+                    "idx": 4610,
+                    "contentsIdx": 104,
+                    "type": "VIDEO",
+                    "fileSize": 0,
+                    "url": "https://tv.kakao.com/embed/player/cliplink/423596261",
+                    "description": "19:19",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_THUMBNAIL": [
+                  
+                ],
+                "MO_THUMBNAIL": [
+                  
+                ],
+                "TALK_THUMBNAIL": [
+                  
+                ],
+                "SPEAKER_PROFILE": [
+                  {
+                    "idx": 4609,
+                    "contentsIdx": 104,
+                    "type": "SPEAKER_PROFILE",
+                    "fileSize": 113407,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418005576",
+                    "description": "0913_카카오커머스_Cheeze.Ball.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_MAIN_IMAGE": [
+                  
+                ],
+                "MO_MAIN_IMAGE": [
+                  
+                ],
+                "PC_IMAGE": [
+                  {
+                    "idx": 4606,
+                    "contentsIdx": 104,
+                    "type": "PC_IMAGE",
+                    "fileSize": 38653,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418046098",
+                    "description": "0913_카카오커머스_Cheeze.Ball_560.png",
+                    "mainYn": "Y"
+                  }
+                ],
+                "MO_IMAGE": [
+                  {
+                    "idx": 4607,
+                    "contentsIdx": 104,
+                    "type": "MO_IMAGE",
+                    "fileSize": 23286,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418024453",
+                    "description": "0913_카카오커머스_Cheeze.Ball_236.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "SHARE_IMAGE": [
+                  {
+                    "idx": 4608,
+                    "contentsIdx": 104,
+                    "type": "SHARE_IMAGE",
+                    "fileSize": 38653,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418037444",
+                    "description": "0913_카카오커머스_Cheeze.Ball_560.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_SPOTLIGHT": [
+                  
+                ],
+                "MO_SPOTLIGHT": [
+                  
+                ]
+              },
+              "relationList": {
+                "CLASSIFICATION": [
+                  
+                ],
+                "TECH_CLASSIFICATION": [
+                  "백엔드"
+                ],
+                "MAIN_EXPOSURE_DAY": [
+                  "2Day"
+                ]
+              },
+              "contentsSpeakerList": [
+                {
+                  "idx": 1458,
+                  "contentsIdx": 104,
+                  "nameKo": "박지혜",
+                  "nameEn": "cheeze",
+                  "company": "카카오커머스",
+                  "occupation": "주문개발파트",
+                  "loginEmail": "youo78@naver.com"
+                }
+              ],
+              "favoriteYn": "N",
+              "newCountentsYn": "N",
+              "updateCountentsYn": "N",
+              "companyName": "카카오커머스",
+              "speakerName": "cheeze박지혜",
+              "speakerLoginYn": "N",
+              "reservationUTC": 1637078400000,
+              "reservationYn": "Y",
+              "videoYn": "Y"
+            },
+            {
+              "idx": 105,
+              "createdUserIdx": 17,
+              "createdDateTime": "2021-10-28 17:37:12",
+              "lastModifiedUserIdx": 16,
+              "lastModifiedDateTime": "2021-11-17 13:33:05",
+              "categoryIdx": 7,
+              "title": "Angular의 Dependency Injection 왜 필요한가요?",
+              "content": "Angular의 Dependency Injection 시스템에 대해 깊게 살펴봅니다. 그리고 그것들이 실무에서 어떻게 유용하게 사용되고 있는지 소개합니다.\n\n💬 이 세션은 소셜 오디오 플랫폼 음mm에서 연사자와 직접 만나는 After Talk이 마련되어 있습니다.\n\n🎙 카카오커머스에서는 어떻게 일할까?💬\nᄂ 일시 : 11월 23일(화) 14:00 ~ 15:00 \nᄂ 링크 : https://www.mm.xyz/event/21ad6e23-3e0c-4684-8094-4dd28d84d624\n\n잠깐! 음mm은 모바일 전용 App입니다.\n- Android 사용자 음mm 다운로드  https://play.google.com/store/apps/details?id=com.kakao.mmoa\n- iOS 사용자 음mm 다운로드  https://apps.apple.com/kr/app/id1567177871",
+              "contentTag": "#angular #frontend #javascript",
+              "spotlightYn": "N",
+              "field": "기술",
+              "sessionType": "B Type",
+              "qnaStartDay": "2",
+              "qnaStartTime": "15:00",
+              "qnaEndTime": "16:00",
+              "commentYn": "Y",
+              "company": "카카오커머스",
+              "reservationDate": "20211117",
+              "reservationTime": "1000",
+              "linkList": {
+                "FILE": [
+                  {
+                    "idx": 4708,
+                    "contentsIdx": 105,
+                    "type": "FILE",
+                    "fileSize": 2246593,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1636526583683",
+                    "description": "Angular Dependency Injection  그게 왜 필요한가요.pdf",
+                    "mainYn": "N"
+                  }
+                ],
+                "IMAGE": [
+                  
+                ],
+                "WEB_URL": [
+                  
+                ],
+                "VIDEO": [
+                  {
+                    "idx": 4707,
+                    "contentsIdx": 105,
+                    "type": "VIDEO",
+                    "fileSize": 0,
+                    "url": "https://tv.kakao.com/embed/player/cliplink/423596236",
+                    "description": "15:44",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_THUMBNAIL": [
+                  
+                ],
+                "MO_THUMBNAIL": [
+                  
+                ],
+                "TALK_THUMBNAIL": [
+                  
+                ],
+                "SPEAKER_PROFILE": [
+                  {
+                    "idx": 4706,
+                    "contentsIdx": 105,
+                    "type": "SPEAKER_PROFILE",
+                    "fileSize": 93726,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418465807",
+                    "description": "0913_카카오커머스_Johnny.Dev.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_MAIN_IMAGE": [
+                  
+                ],
+                "MO_MAIN_IMAGE": [
+                  
+                ],
+                "PC_IMAGE": [
+                  {
+                    "idx": 4703,
+                    "contentsIdx": 105,
+                    "type": "PC_IMAGE",
+                    "fileSize": 99161,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418476536",
+                    "description": "0913_카카오커머스_Johnny.Dev_560.png",
+                    "mainYn": "Y"
+                  }
+                ],
+                "MO_IMAGE": [
+                  {
+                    "idx": 4704,
+                    "contentsIdx": 105,
+                    "type": "MO_IMAGE",
+                    "fileSize": 42484,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418483468",
+                    "description": "0913_카카오커머스_Johnny.Dev_236.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "SHARE_IMAGE": [
+                  {
+                    "idx": 4705,
+                    "contentsIdx": 105,
+                    "type": "SHARE_IMAGE",
+                    "fileSize": 99161,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418495091",
+                    "description": "0913_카카오커머스_Johnny.Dev_560.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_SPOTLIGHT": [
+                  
+                ],
+                "MO_SPOTLIGHT": [
+                  
+                ]
+              },
+              "relationList": {
+                "CLASSIFICATION": [
+                  
+                ],
+                "TECH_CLASSIFICATION": [
+                  "웹/프론트엔드"
+                ],
+                "MAIN_EXPOSURE_DAY": [
+                  "2Day"
+                ]
+              },
+              "contentsSpeakerList": [
+                {
+                  "idx": 1475,
+                  "contentsIdx": 105,
+                  "nameKo": "김민형",
+                  "nameEn": "johnny",
+                  "company": "카카오커머스",
+                  "occupation": "FE개발파트",
+                  "loginEmail": "romz1212@gmail.com"
+                }
+              ],
+              "favoriteYn": "N",
+              "newCountentsYn": "N",
+              "updateCountentsYn": "N",
+              "companyName": "카카오커머스",
+              "speakerName": "johnny김민형",
+              "speakerLoginYn": "N",
+              "reservationUTC": 1637078400000,
+              "reservationYn": "Y",
+              "videoYn": "Y"
+            },
+            {
+              "idx": 106,
+              "createdUserIdx": 17,
+              "createdDateTime": "2021-10-28 17:38:55",
+              "lastModifiedUserIdx": 16,
+              "lastModifiedDateTime": "2021-11-16 09:40:08",
+              "categoryIdx": 7,
+              "title": "Commerce Query data Rebuild Success 했을까",
+              "content": "데이터 문제로 골치 아팠던 상황을 CQRS를 이용해 해결했던 경험을 공유합니다.\n\n💬 이 세션은 소셜 오디오 플랫폼 음mm에서 연사자와 직접 만나는 After Talk이 마련되어 있습니다.\n\n🎙 카카오커머스에서는 어떻게 일할까?💬\nᄂ 일시 : 11월 23일(화) 14:00 ~ 15:00 \nᄂ 링크 : https://www.mm.xyz/event/21ad6e23-3e0c-4684-8094-4dd28d84d624\n\n잠깐! 음mm은 모바일 전용 App입니다.\n- Android 사용자 음mm 다운로드  https://play.google.com/store/apps/details?id=com.kakao.mmoa\n- iOS 사용자 음mm 다운로드  https://apps.apple.com/kr/app/id1567177871",
+              "contentTag": "#CQRS #백엔드 #MongoDB",
+              "spotlightYn": "N",
+              "field": "기술",
+              "sessionType": "B Type",
+              "qnaStartDay": "2",
+              "qnaStartTime": "15:00",
+              "qnaEndTime": "16:00",
+              "commentYn": "Y",
+              "company": "카카오커머스",
+              "reservationDate": "20211117",
+              "reservationTime": "1000",
+              "linkList": {
+                "FILE": [
+                  {
+                    "idx": 4605,
+                    "contentsIdx": 106,
+                    "type": "FILE",
+                    "fileSize": 5851587,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1636526621435",
+                    "description": "Commerce Query data Rebuild Success 했을까.pdf",
+                    "mainYn": "N"
+                  }
+                ],
+                "IMAGE": [
+                  
+                ],
+                "WEB_URL": [
+                  
+                ],
+                "VIDEO": [
+                  {
+                    "idx": 4604,
+                    "contentsIdx": 106,
+                    "type": "VIDEO",
+                    "fileSize": 0,
+                    "url": "https://tv.kakao.com/embed/player/cliplink/423596545",
+                    "description": "15:14",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_THUMBNAIL": [
+                  
+                ],
+                "MO_THUMBNAIL": [
+                  
+                ],
+                "TALK_THUMBNAIL": [
+                  
+                ],
+                "SPEAKER_PROFILE": [
+                  {
+                    "idx": 4603,
+                    "contentsIdx": 106,
+                    "type": "SPEAKER_PROFILE",
+                    "fileSize": 99138,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418344125",
+                    "description": "0913_카카오커머스_Noah.L.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_MAIN_IMAGE": [
+                  
+                ],
+                "MO_MAIN_IMAGE": [
+                  
+                ],
+                "PC_IMAGE": [
+                  {
+                    "idx": 4600,
+                    "contentsIdx": 106,
+                    "type": "PC_IMAGE",
+                    "fileSize": 44657,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418369944",
+                    "description": "0913_카카오커머스_Noah.L_560.png",
+                    "mainYn": "Y"
+                  }
+                ],
+                "MO_IMAGE": [
+                  {
+                    "idx": 4601,
+                    "contentsIdx": 106,
+                    "type": "MO_IMAGE",
+                    "fileSize": 25800,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418394165",
+                    "description": "0913_카카오커머스_Noah.L_236.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "SHARE_IMAGE": [
+                  {
+                    "idx": 4602,
+                    "contentsIdx": 106,
+                    "type": "SHARE_IMAGE",
+                    "fileSize": 44657,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635418405870",
+                    "description": "0913_카카오커머스_Noah.L_560.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_SPOTLIGHT": [
+                  
+                ],
+                "MO_SPOTLIGHT": [
+                  
+                ]
+              },
+              "relationList": {
+                "CLASSIFICATION": [
+                  
+                ],
+                "TECH_CLASSIFICATION": [
+                  "백엔드"
+                ],
+                "MAIN_EXPOSURE_DAY": [
+                  
+                ]
+              },
+              "contentsSpeakerList": [
+                {
+                  "idx": 1457,
+                  "contentsIdx": 106,
+                  "nameKo": "이경렬",
+                  "nameEn": "noah",
+                  "company": "카카오커머스",
+                  "occupation": "주문개발파트",
+                  "loginEmail": "orth@kakao.com"
+                }
+              ],
+              "favoriteYn": "N",
+              "newCountentsYn": "N",
+              "updateCountentsYn": "N",
+              "companyName": "카카오커머스",
+              "speakerName": "noah이경렬",
+              "speakerLoginYn": "N",
+              "reservationUTC": 1637078400000,
+              "reservationYn": "Y",
+              "videoYn": "Y"
+            },
+            {
+              "idx": 107,
+              "createdUserIdx": 18,
+              "createdDateTime": "2021-10-28 17:39:07",
+              "lastModifiedUserIdx": 17,
+              "lastModifiedDateTime": "2021-11-10 15:06:45",
+              "categoryIdx": 7,
+              "title": "Webflux로 막힘없는 프로젝트 만들기",
+              "content": "Webflux에서 Blocking I/O 사용 시 발생하는 문제에 대한 이해, 그리고 해결을 위한 툴과 노하우를 공유합니다.",
+              "contentTag": "#백엔드 #Webflux",
+              "spotlightYn": "N",
+              "field": "기술",
+              "sessionType": "B Type",
+              "qnaStartDay": "3",
+              "qnaStartTime": "14:00",
+              "qnaEndTime": "15:00",
+              "commentYn": "Y",
+              "company": "카카오뱅크",
+              "reservationDate": "20211117",
+              "reservationTime": "1000",
+              "linkList": {
+                "FILE": [
+                  {
+                    "idx": 3774,
+                    "contentsIdx": 107,
+                    "type": "FILE",
+                    "fileSize": 4272533,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1636524397590",
+                    "description": "Webflux로 막힘없는 프로젝트 만들기_Spring Webflux 와 Blocking IO.pdf",
+                    "mainYn": "N"
+                  }
+                ],
+                "IMAGE": [
+                  
+                ],
+                "WEB_URL": [
+                  
+                ],
+                "VIDEO": [
+                  {
+                    "idx": 3773,
+                    "contentsIdx": 107,
+                    "type": "VIDEO",
+                    "fileSize": 0,
+                    "url": "https://tv.kakao.com/embed/player/cliplink/423596552",
+                    "description": "16:05",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_THUMBNAIL": [
+                  
+                ],
+                "MO_THUMBNAIL": [
+                  
+                ],
+                "TALK_THUMBNAIL": [
+                  
+                ],
+                "SPEAKER_PROFILE": [
+                  {
+                    "idx": 3771,
+                    "contentsIdx": 107,
+                    "type": "SPEAKER_PROFILE",
+                    "fileSize": 110032,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635417696285",
+                    "description": "0909_카카오뱅크_DY.ho.png",
+                    "mainYn": "N"
+                  },
+                  {
+                    "idx": 3772,
+                    "contentsIdx": 107,
+                    "type": "SPEAKER_PROFILE",
+                    "fileSize": 112047,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635417959348",
+                    "description": "0909_카카오뱅크_Dan.1114.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_MAIN_IMAGE": [
+                  
+                ],
+                "MO_MAIN_IMAGE": [
+                  
+                ],
+                "PC_IMAGE": [
+                  {
+                    "idx": 3767,
+                    "contentsIdx": 107,
+                    "type": "PC_IMAGE",
+                    "fileSize": 247118,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635417917687",
+                    "description": "0909_카카오뱅크_Dan.1114, DY.Ho_560.png",
+                    "mainYn": "Y"
+                  },
+                  {
+                    "idx": 3768,
+                    "contentsIdx": 107,
+                    "type": "PC_IMAGE",
+                    "fileSize": 247118,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635417964324",
+                    "description": "0909_카카오뱅크_Dan.1114, DY.Ho_560.png",
+                    "mainYn": "Y"
+                  }
+                ],
+                "MO_IMAGE": [
+                  {
+                    "idx": 3769,
+                    "contentsIdx": 107,
+                    "type": "MO_IMAGE",
+                    "fileSize": 61720,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635417908359",
+                    "description": "0909_카카오뱅크_Dan.1114, DY.Ho_236.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "SHARE_IMAGE": [
+                  {
+                    "idx": 3770,
+                    "contentsIdx": 107,
+                    "type": "SHARE_IMAGE",
+                    "fileSize": 247118,
+                    "url": "https://t1.kakaocdn.net/service_if_kakao_prod/file/file-1635417926725",
+                    "description": "0909_카카오뱅크_Dan.1114, DY.Ho_560.png",
+                    "mainYn": "N"
+                  }
+                ],
+                "PC_SPOTLIGHT": [
+                  
+                ],
+                "MO_SPOTLIGHT": [
+                  
+                ]
+              },
+              "relationList": {
+                "CLASSIFICATION": [
+                  
+                ],
+                "TECH_CLASSIFICATION": [
+                  "백엔드"
+                ],
+                "MAIN_EXPOSURE_DAY": [
+                  "2Day"
+                ]
+              },
+              "contentsSpeakerList": [
+                {
+                  "idx": 1288,
+                  "contentsIdx": 107,
+                  "nameKo": "양호철",
+                  "nameEn": "dy",
+                  "company": "카카오뱅크",
+                  "occupation": "서비스아키",
+                  "loginEmail": "yh9589@gmail.com"
+                },
+                {
+                  "idx": 1289,
+                  "contentsIdx": 107,
+                  "nameKo": "박종원",
+                  "nameEn": "dan",
+                  "company": "카카오뱅크",
+                  "occupation": "뱅킹아키",
+                  "loginEmail": "shrimpda@kakao.com"
+                }
+              ],
+              "favoriteYn": "N",
+              "newCountentsYn": "N",
+              "updateCountentsYn": "N",
+              "companyName": "카카오뱅크",
+              "speakerName": "dy양호철",
+              "speakerLoginYn": "N",
+              "reservationUTC": 1637078400000,
+              "reservationYn": "Y",
+              "videoYn": "Y"
             }],
             "count":120}
     """.trimIndent()
@@ -910,6 +1821,15 @@ class SessionLocalDataSource @Inject constructor() : SessionDataSource {
             "",
             ""
         )
+
+    override suspend fun getSessionsByField(field: String): List<Session> =
+        sessions.data.filter { it.field == field }
+
+    override suspend fun getSessionsByDay(day: String): List<Session> =
+        sessions.data.filter { it.relationList.MAIN_EXPOSURE_DAY.isNotEmpty() && it.relationList.MAIN_EXPOSURE_DAY[0] == day }
+
+    override suspend fun getSessionsRelated(id: Int, field: String): List<Session> =
+        sessions.data.filter { it.field == field && it.idx != id }
 
     override suspend fun sortByTitleAsc(): List<Session> =
         sessions.data.sortedBy { it.title }

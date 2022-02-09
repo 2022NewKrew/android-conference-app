@@ -16,6 +16,12 @@ class SessionRepositoryImpl @Inject constructor(
 
     override suspend fun getSessionById(id: Int): Session = sessionDataSource.getSessionById(id)
 
+    override suspend fun getSessionsByField(field: String): List<Session> = sessionDataSource.getSessionsByField(field)
+
+    override suspend fun getSessionsByDay(day: String): List<Session> = sessionDataSource.getSessionsByDay(day)
+
+    override suspend fun getSessionsRelated(id: Int, field: String): List<Session> = sessionDataSource.getSessionsRelated(id, field)
+
     override suspend fun likeSession(session: Session) = likeDataSource.likeSession(session)
 
     override suspend fun unlikeSession(session: Session) = likeDataSource.unlikeSession(session)
