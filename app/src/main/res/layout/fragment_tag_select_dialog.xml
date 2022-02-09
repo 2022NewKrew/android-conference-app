@@ -6,7 +6,6 @@
         <variable
             name="tagFragment"
             type="com.survivalcoding.ifkakao.dialog.TagSelectFragment" />
-
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -76,6 +75,7 @@
                 app:layout_constraintTop_toBottomOf="@id/cancel_button">
 
                 <RelativeLayout
+                    android:id="@+id/tag_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -97,6 +97,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="서비스" />
@@ -110,6 +111,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/service"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="비즈니스" />
@@ -123,6 +125,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/business"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="기술" />
@@ -158,6 +161,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="플랫폼" />
@@ -171,6 +175,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/platform"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="커머스" />
@@ -184,6 +189,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/commerce"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="B2B" />
@@ -198,6 +204,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/B2B"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="구독" />
@@ -211,6 +218,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="광고&amp;마케팅" />
@@ -224,6 +232,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/ad_marketing"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="핀테크" />
@@ -238,6 +247,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/fintech"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="디지털자산" />
@@ -250,6 +260,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="콘텐츠" />
@@ -263,6 +274,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/content"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="크리에이터" />
@@ -277,6 +289,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/creator"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="ESG" />
@@ -289,6 +302,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="파트너성장" />
@@ -302,6 +316,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/partner"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="소셜임패트" />
@@ -314,7 +329,7 @@
                         android:layout_below="@+id/partner"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
-                        android:text="기술"
+                        android:text="기술 "
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -326,6 +341,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="백앤드" />
@@ -339,6 +355,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/backend"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="머신러닝/AI" />
@@ -352,6 +369,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/AI"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="데이터" />
@@ -376,6 +394,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="카카오" />
@@ -389,6 +408,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/backend"
                         android:background="@drawable/bg_thumbnail_frame"
+
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="카카오게임즈" />

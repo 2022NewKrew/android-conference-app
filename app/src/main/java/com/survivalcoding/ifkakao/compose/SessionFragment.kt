@@ -10,6 +10,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -104,7 +106,7 @@ fun TopCompose(viewModel: MainViewModel) {
 //https://tv.kakao.com/channel/3693125/cliplink/423791694
 @Composable
 fun VideoPart(shareImages: List<ShareImage>?, videos: List<Video>?) {
-   // val context = LocalContext.current
+    // val context = LocalContext.current
 
     AndroidView(
         modifier = Modifier
@@ -262,7 +264,17 @@ fun SessionsPart(sessions: State<List<Data>>) {
         text = "연관세션",
         modifier = Modifier.padding(top = 20.dp, bottom = 10.dp)
     )
-    for (item in sessions.value) {
+
+/*
+    LazyColumn(modifier = Modifier
+        .fillMaxSize()) {
+        items(sessions.value) { item ->
+            SingleSession(item = item)
+        }
+    }
+*/
+
+  for (item in sessions.value) {
         //todo 겹치는 문제
         key(item.idx) {
             SingleSession(item)

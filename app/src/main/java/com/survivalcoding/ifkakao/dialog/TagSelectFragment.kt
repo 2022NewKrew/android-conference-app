@@ -1,16 +1,11 @@
 package com.survivalcoding.ifkakao.dialog
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.TextViewCompat
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.MainViewModel
@@ -43,24 +38,23 @@ class TagSelectFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        keywords = viewModel.keywords.value
 
+        initText()
         binding.initBtn.setOnClickListener {
-            keywords = listOf<String>()
+            keywords = listOf()
+            resetText()
         }
 
         binding.cancelButton.setOnClickListener {
             dismiss()
         }
-        binding.initBtn.setOnClickListener {
-            initView()
-        }
         binding.confirmBtn.setOnClickListener {
             viewModel.updateKeyWords(keywords)
             dismiss()
         }
-
-
     }
+
 
     private fun initView() {
         viewModel.keywords.value = listOf<String>()
@@ -70,6 +64,31 @@ class TagSelectFragment : DialogFragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    fun initText() {
+        val tagContainer = binding.tagContainer as ViewGroup
+        for (cnt in 0 until tagContainer.childCount) {
+            val child: View = tagContainer.getChildAt(cnt)
+            if (child is TextView && child.text.toString() in keywords) {
+                child.backgroundTintList = ResourcesCompat.getColorStateList(
+                    binding.root.resources,
+                    R.color.teal_700,
+                    null
+                )
+            }
+        }
+    }
+
+    fun resetText() {
+        val tagContainer = binding.tagContainer as ViewGroup
+        for (cnt in 0 until tagContainer.childCount) {
+            val child: View = tagContainer.getChildAt(cnt)
+            if (child is TextView) {
+                child.backgroundTintList = null
+            }
+        }
+    }
+
 
     fun toggleText(textView: View) {
         if (textView.backgroundTintList == null) {
@@ -88,6 +107,4 @@ class TagSelectFragment : DialogFragment() {
 
 
     }
-
-
 }

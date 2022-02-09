@@ -1,5 +1,9 @@
 package com.survivalcoding.ifkakao
 
+import android.content.res.ColorStateList
+import android.view.View
+import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entity.ContentState

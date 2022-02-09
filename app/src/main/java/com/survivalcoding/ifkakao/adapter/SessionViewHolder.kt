@@ -33,14 +33,13 @@ class SessionViewHolder(
             lifecycleOwner?.let { holderLifeCycle ->
                 viewModel?.isLogin?.asLiveData()?.observe(holderLifeCycle) {
                     isLogin = it
-                    if(isLogin) {
+                    if (isLogin) {
                         viewModel.likedList.asLiveData().observe(holderLifeCycle) { likedList ->
                             testItem?.idx?.let { idx ->
                                 if (idx in likedList) binding.likeImg.setBackgroundResource(R.drawable.love)
                             }
                         }
-                    }
-                    else{
+                    } else {
                         binding.likeImg.setBackgroundResource(R.drawable.love_border)
                     }
                 }
