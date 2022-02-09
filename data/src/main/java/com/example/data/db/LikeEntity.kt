@@ -4,9 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity
+@Entity( primaryKeys = ["userName","idx"] )
 data class LikeEntity(
-    @PrimaryKey
-    val userName: String,
-    val idx: Int
+   val userName: String,
+   val idx: Int
 )

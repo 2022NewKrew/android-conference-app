@@ -79,6 +79,7 @@ class SearchFragment : Fragment() {
         }
 
         //select tag
+        //todo keywords filter viewpager 모두 반영
         binding.filterImgBtn.setOnClickListener {
             TagSelectFragment().show(parentFragmentManager, "tag")
         }

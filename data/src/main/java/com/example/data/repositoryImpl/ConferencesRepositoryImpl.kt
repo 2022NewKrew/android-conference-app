@@ -22,11 +22,22 @@ class ConferencesRepositoryImpl @Inject constructor(private val conferenceDataSt
     //todo like data
     override suspend fun getLikedSessions(): List<Data>? = getConferences()?.data
 
+
+    override suspend fun getSessionsWithKeyWords(keyWords: List<String>): List<Data>? {
+        val result = getAllSessions()?.filter { item ->
+            checkKeyWords(item, keyWords)
+        }
+        return result
+    }
+
     //field
     //contentspeaker company
     //relationlist tech classification (기술)
     //relationlist classification (서비스.비즈니스)
-    override suspend fun getSessionsWithKeyWords(date: Int, keyWords: List<String>): List<Data>? {
+    override suspend fun getSessionsWithKeyWordsAndDate(
+        date: Int,
+        keyWords: List<String>
+    ): List<Data>? {
         val result = getSessionsWithDate(date)?.filter { item ->
             checkKeyWords(item, keyWords)
         }

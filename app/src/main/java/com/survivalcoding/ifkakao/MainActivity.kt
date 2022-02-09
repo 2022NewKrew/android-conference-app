@@ -2,14 +2,20 @@ package com.survivalcoding.ifkakao
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.lifecycleScope
 import com.survivalcoding.ifkakao.dialog.LoginDialogFragment
+import com.survivalcoding.ifkakao.search.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -25,8 +31,23 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                replace<MainFragment>(R.id.fragment_container_view)
+                replace<MainFragment>(R.id.fragment_container_view, tag = "main")
             }
+        }
+
+        findViewById<ImageButton>(R.id.exit_button).setOnClickListener {
+            findViewById<DrawerLayout>(R.id.drawer).close()
+        }
+
+        findViewById<TextView>(R.id.goto_session).setOnClickListener {
+            val fragment = supportFragmentManager.findFragmentByTag("search")
+            if (fragment == null || !fragment.isVisible) {
+                supportFragmentManager.commit {
+                    replace<SearchFragment>(R.id.fragment_container_view, "search")
+                    addToBackStack(null)
+                }
+            }
+            findViewById<DrawerLayout>(R.id.drawer).close()
         }
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.my_toolbar)
@@ -62,11 +83,18 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.login_menu -> {
-                LoginDialogFragment().show(supportFragmentManager, "login")
+                if (!viewModel.isLogin.value) {
+                    LoginDialogFragment().show(supportFragmentManager, "login")
+                } else {
+                    viewModel.setLogout()
+                }
                 true
             }
             R.id.drawer_menu -> {
-                //todo
+                val drawer = findViewById<DrawerLayout>(R.id.drawer)
+
+                if (!drawer.isDrawerOpen(Gravity.LEFT)) drawer.openDrawer(Gravity.LEFT)
+                else drawer.closeDrawer(Gravity.LEFT)
                 return true
             }
             else -> {

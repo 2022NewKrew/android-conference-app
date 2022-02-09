@@ -28,16 +28,6 @@ class DayOneFragment : Fragment() {
     private var _binding: FragmentDayOneBinding? = null
     val binding get() = _binding!!
 
-    private val adapter = SessionListAdapter(
-        onClicked = { data ->
-            viewModel.saveClickedSession(data)
-            parentFragmentManager.commit {
-                replace<SessionFragment>(R.id.fragment_container_view)
-                addToBackStack(null)
-            }
-        }
-    )
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +45,20 @@ class DayOneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        val adapter = SessionListAdapter(
+            onSessionClicked = { data ->
+                viewModel.saveClickedSession(data)
+                parentFragmentManager.commit {
+                    replace<SessionFragment>(R.id.fragment_container_view)
+                    addToBackStack(null)
+                }
+            }, onLikeClicked = { idx, isLike ->
+                viewModel.toggleLike(idx, isLike)
+            },
+            viewModel = viewModel
+        )
 
         binding.dayOneRecyclerview.adapter = adapter
 

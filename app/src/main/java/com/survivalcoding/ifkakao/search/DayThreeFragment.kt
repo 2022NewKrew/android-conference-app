@@ -26,12 +26,14 @@ class DayThreeFragment : Fragment() {
     val binding get() = _binding!!
 
     private val adapter = SessionListAdapter(
-        onClicked = { data ->
+        onSessionClicked = { data ->
             viewModel.saveClickedSession(data)
             parentFragmentManager.commit {
                 replace<SessionFragment>(R.id.fragment_container_view)
                 addToBackStack(null)
             }
+        }, onLikeClicked = { idx, isLike ->
+            viewModel.toggleLike(idx, isLike)
         }
     )
 
