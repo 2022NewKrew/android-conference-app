@@ -34,5 +34,19 @@
         <action
             android:id="@+id/action_sessionDetailFragment_self"
             app:destination="@id/sessionDetailFragment" />
+        <action
+            android:id="@+id/action_sessionDetailFragment_to_sessionSearchFragment"
+            app:destination="@id/sessionSearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sessionSearchFragment"
+        android:name="com.survivalcoding.ifkakao.ui.sessionsearch.SessionSearchFragment"
+        tools:layout="@layout/fragment_session_search" >
+        <argument
+            android:name="sessionFilter"
+            app:argType="com.survivalcoding.ifkakao.ui.session.SessionFilter" />
+        <action
+            android:id="@+id/action_sessionSearchFragment_to_sessionDetailFragment"
+            app:destination="@id/sessionDetailFragment" />
     </fragment>
 </navigation>

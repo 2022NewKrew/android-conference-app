@@ -1,14 +1,23 @@
 package com.survivalcoding.ifkakao.ui.session
 
+import android.os.Parcelable
 import com.survivalcoding.ifkakao.domain.model.Data
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class SessionFilter(
-    val dayFilter: Int,
-    val fieldFilters: Map<String, Boolean>,
-    val classFilters: Map<String, Boolean>,
-    val techFilters: Map<String, Boolean>,
-    val companyFilters: Map<String, Boolean>,
-) {
+    val dayFilter: Int = 3,
+    val fieldFilters: Map<String, Boolean> = mapOf(),
+    val classFilters: Map<String, Boolean> = mapOf(),
+    val techFilters: Map<String, Boolean> = mapOf(),
+    val companyFilters: Map<String, Boolean> = mapOf(),
+):Parcelable {
+    override fun toString(): String {
+        return (fieldFilters + classFilters + techFilters + companyFilters).filter { it.value }.keys.fold("") { str, key ->
+            "$str$key "
+        }
+    }
+
     fun filter(sessions: List<Data>): List<Data> {
         return sessions.filter(::filterDay).filter(::filterField).filter(::filterClass)
             .filter(::filterTech)
