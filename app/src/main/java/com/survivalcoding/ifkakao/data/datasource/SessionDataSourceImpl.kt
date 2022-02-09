@@ -33,8 +33,17 @@ class SessionDataSourceImpl @Inject constructor(private val sessionService: Sess
             null -> null
             else -> {
                 val ret = mutableListOf<SessionItem>()
-                data.forEach {
+                data.forEach { it ->
                     with(it) {
+                        val mainImageList =
+                            this.linkList.MO_MAIN_IMAGE.filter { moMainImageVo ->
+                                moMainImageVo.type == "MO_MAIN_IMAGE"
+                            }
+                        val mainImage = if (mainImageList.isEmpty()) null else mainImageList.first()
+                        val imageList =
+                            this.linkList.MO_IMAGE.filter { moMainImageVo -> moMainImageVo.type == "MO_MAIN_IMAGE" }
+                        val image = if (imageList.isEmpty()) null else imageList.first()
+
                         val newItem = SessionItem(
                             idx = idx,
                             title = title,
@@ -46,9 +55,8 @@ class SessionDataSourceImpl @Inject constructor(private val sessionService: Sess
                             },
                             videoUrl = linkList.VIDEO.first { videoVo -> videoVo.type == "VIDEO" }.url,
                             videoDuration = linkList.VIDEO.first { videoVo -> videoVo.type == "VIDEO" }.description,
-                            mainImageUrl = linkList.MO_MAIN_IMAGE.first
-                            { moMainImageVo -> moMainImageVo.type == "MO_MAIN_IMAGE" }.url,
-                            imageUrl = linkList.MO_IMAGE.first { moImageVo -> moImageVo.type == "MO_IMAGE" }.url,
+                            mainImageUrl = mainImage?.url ?: image?.url ?: "",
+                            imageUrl = image?.url ?: mainImage?.url ?: "",
                             classifications = relationList.CLASSIFICATION,
                             techClassifications = relationList.TECH_CLASSIFICATION,
                             mainExposureDay = relationList.MAIN_EXPOSURE_DAY.let { dayStr ->
