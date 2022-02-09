@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,6 +34,7 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import com.survivalcoding.ifkakao.R
 import dagger.hilt.android.AndroidEntryPoint
+import com.survivalcoding.ifkakao.presentation.theme.DarkGrey
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -50,7 +50,6 @@ class MainActivity : ComponentActivity() {
                     add(GifDecoder())
                 }
             }.build()
-
 
         setContent {
             MainLayout {
@@ -92,7 +91,7 @@ class MainActivity : ComponentActivity() {
                         val intent = Intent(this@MainActivity, SessionActivity::class.java)
                         startActivity(intent)
                     },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.dark_grey)),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = DarkGrey),
                     modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
                     contentPadding = PaddingValues(4.dp)
                 ) {

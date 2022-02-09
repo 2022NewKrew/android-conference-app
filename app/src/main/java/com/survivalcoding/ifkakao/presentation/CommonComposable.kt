@@ -36,17 +36,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.domain.model.SessionItem
 import com.survivalcoding.ifkakao.presentation.theme.IfKakaoTheme
 import com.survivalcoding.ifkakao.presentation.theme.DarkGrey
 import com.survivalcoding.ifkakao.presentation.theme.LightGrey
+import com.survivalcoding.ifkakao.presentation.theme.LightYellow
 
 @Composable
 fun MainLayout(content: @Composable () -> Unit) {
@@ -96,14 +95,14 @@ fun TagCard(str: String = "서비스") {
 fun MainTagCard(str: String = "카카오") {
     IfKakaoTheme {
         Card(
-            border = BorderStroke(Dp.Hairline, colorResource(id = R.color.light_yellow)),
+            border = BorderStroke(Dp.Hairline, LightYellow),
             backgroundColor = Color.Black,
             shape = RectangleShape,
             modifier = Modifier.absolutePadding(right = 8.dp)
         ) {
             Text(
                 text = str,
-                color = colorResource(id = R.color.light_yellow),
+                color = LightYellow,
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 2.dp)
                     .wrapContentHeight(),
