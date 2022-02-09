@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.domain.entity.Data
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.R
@@ -60,15 +61,14 @@ class SessionViewHolder(
         binding.sessionCompany.text = item.company
         binding.sessionField.text = item.field
 
-/*
+
         try {
             Glide.with(binding.root).load(item.linkList?.moImage?.first()?.url)
                 .into(binding.sessionThumbnail)
         } catch (e: Exception) {
-            Log.d("No List", "ThumbNail ${item.idx}")
             binding.sessionThumbnail.setBackgroundResource(R.drawable.ic_baseline_not_interested_24)
         }
-*/
+
         val video = item.linkList?.video?.first()
         if (video?.description != null) {
             binding.sessionVideoTime.text = video.description
