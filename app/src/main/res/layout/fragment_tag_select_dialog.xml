@@ -8,71 +8,74 @@
             type="com.survivalcoding.ifkakao.dialog.TagSelectFragment" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <ImageView
+            android:id="@+id/cancel_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="cancel"
+            android:src="@drawable/ic_baseline_cancel_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".dialog.TagSelectFragment">
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
+            <Button
+                android:id="@+id/init_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/lightGrey"
+                android:paddingHorizontal="50dp"
+                android:text="초기화"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/cancel_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="cancel"
-                android:src="@drawable/ic_baseline_cancel_24"
+            <Button
+                android:id="@+id/confirm_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/teal_700"
+                android:paddingHorizontal="50dp"
+                android:text="적용"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <Button
-                    android:id="@+id/init_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/lightGrey"
-                    android:paddingHorizontal="50dp"
-                    android:text="초기화"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
-                    android:id="@+id/confirm_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/teal_700"
-                    android:paddingHorizontal="50dp"
-                    android:text="적용"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottom_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cancel_button">
 
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cancel_button">
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
                 <RelativeLayout
                     android:id="@+id/tag_container"
@@ -333,6 +336,7 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
+
                     <TextView
                         android:id="@+id/backend"
                         android:layout_width="wrap_content"
@@ -369,17 +373,173 @@
                         android:layout_marginTop="10dp"
                         android:layout_toEndOf="@id/AI"
                         android:background="@drawable/bg_thumbnail_frame"
-
                         android:onClick="@{tagFragment::toggleText}"
                         android:padding="10dp"
                         android:text="데이터" />
+
+
+
+                    <TextView
+                        android:id="@+id/cloud"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/backend"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="클라우드" />
+
+                    <TextView
+                        android:id="@+id/infra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/backend"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/cloud"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="인프라/DevOps" />
+
+                    <TextView
+                        android:id="@+id/blockchain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cloud"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="블록체인" />
+
+                    <TextView
+                        android:id="@+id/graph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cloud"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:layout_toEndOf="@id/blockchain"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="지식그래프" />
+
+                    <TextView
+                        android:id="@+id/mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cloud"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/graph"
+                        android:background="@drawable/bg_thumbnail_frame"
+
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="모바일" />
+
+                    <TextView
+                        android:id="@+id/android"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/blockchain"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="Android" />
+
+                    <TextView
+                        android:id="@+id/ios"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/blockchain"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:layout_toEndOf="@id/android"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="iOS" />
+
+                    <TextView
+                        android:id="@+id/front"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/blockchain"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/ios"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="웹/프론트엔드" />
+
+                    <TextView
+                        android:id="@+id/iot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/android"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="IoT" />
+
+                    <TextView
+                        android:id="@+id/opensource"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/android"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:layout_toEndOf="@id/iot"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="오픈소스" />
+
+                    <TextView
+                        android:id="@+id/culture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/android"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/opensource"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="개발문화" />
+
+
+                    <TextView
+                        android:id="@+id/others"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/android"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/culture"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="기타" />
 
 
                     <TextView
                         android:id="@+id/interested_company"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/AI"
+                        android:layout_below="@+id/iot"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
                         android:text="공동체분류"
@@ -413,14 +573,142 @@
                         android:padding="10dp"
                         android:text="카카오게임즈" />
 
+                    <TextView
+                        android:id="@+id/mobil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/kakao"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오모빌리티" />
+
+                    <TextView
+                        android:id="@+id/bank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/kakao"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/mobil"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오뱅크" />
+
+                    <TextView
+                        android:id="@+id/brain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mobil"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오브레인" />
+
+                    <TextView
+                        android:id="@+id/kakao_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mobil"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/brain"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오스타일" />
+
+                    <TextView
+                        android:id="@+id/entertainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/brain"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오엔터테인먼트" />
+
+                    <TextView
+                        android:id="@+id/enterprise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/brain"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/entertainer"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오엔터프라이즈" />
+
+
+                    <TextView
+                        android:id="@+id/impact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/entertainer"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오임팩트" />
+
+                    <TextView
+                        android:id="@+id/pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/entertainer"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/impact"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오페이" />
+
+
+                    <TextView
+                        android:id="@+id/kakao_commerce"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/impact"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="카카오커머스" />
+
+                    <TextView
+                        android:id="@+id/groundx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/impact"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/kakao_commerce"
+                        android:background="@drawable/bg_thumbnail_frame"
+                        android:onClick="@{tagFragment::toggleText}"
+                        android:padding="10dp"
+                        android:text="그라운드x" />
+
 
                 </RelativeLayout>
 
 
             </ScrollView>
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,9 +8,12 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.survivalcoding.ifkakao.MainViewModel
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentTagSelectDialogBinding
+import kotlinx.coroutines.launch
 
 class TagSelectFragment : DialogFragment() {
 
