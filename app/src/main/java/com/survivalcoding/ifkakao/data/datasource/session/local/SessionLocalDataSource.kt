@@ -1825,8 +1825,22 @@ class SessionLocalDataSource @Inject constructor() : SessionDataSource {
     override suspend fun getSessionsByField(field: String): List<Session> =
         sessions.data.filter { it.field == field }
 
-    override suspend fun getSessionsByDay(day: String): List<Session> =
-        sessions.data.filter { it.relationList.MAIN_EXPOSURE_DAY.isNotEmpty() && it.relationList.MAIN_EXPOSURE_DAY[0] == day }
+    override suspend fun searchSessions(
+        day: String,
+        fields: MutableList<String>,
+        keywords: MutableList<String>,
+        companies: MutableList<String>
+    ): List<Session> =
+        sessions.data.filter { session ->
+            // day
+            (day.isBlank() || session.relationList.MAIN_EXPOSURE_DAY.isNotEmpty() && session.relationList.MAIN_EXPOSURE_DAY[0] == day)
+                    // field
+                    && (fields.isEmpty() || fields.contains(session.field))
+                    // keywords
+                    && (keywords.isEmpty() || keywords.any { session.relationList.CLASSIFICATION.contains(it) })
+                    // company
+                    && (companies.isEmpty() || companies.contains(session.companyName))
+        }
 
     override suspend fun getSessionsRelated(id: Int, field: String): List<Session> =
         sessions.data.filter { it.field == field && it.idx != id }

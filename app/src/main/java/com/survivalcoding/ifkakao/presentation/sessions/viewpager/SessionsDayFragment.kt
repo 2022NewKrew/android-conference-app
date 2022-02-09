@@ -15,6 +15,7 @@ import com.survivalcoding.ifkakao.domain.model.DayType
 import com.survivalcoding.ifkakao.domain.model.Session
 import com.survivalcoding.ifkakao.presentation.adapter.SessionListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.DetailFragment
+import com.survivalcoding.ifkakao.presentation.sessions.SessionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +24,7 @@ class SessionsDayFragment : Fragment() {
     private val binding get() = _binding!!
     private val day by lazy { requireArguments()["day"] as DayType }
     private val viewModel: SessionsDayViewModel by viewModels()
+    private val sessionViewModel: SessionsViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val adapter by lazy {
         SessionListAdapter { session -> moveToDetail(session) }
     }
@@ -37,7 +39,8 @@ class SessionsDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSessionsByDay(day)
+
+        searchSessions()
 
         // recyclerView 설정
         binding.sessionsRecyclerView.adapter = adapter
@@ -47,9 +50,20 @@ class SessionsDayFragment : Fragment() {
         }
     }
 
+    private fun searchSessions() {
+        viewModel.getSessionsByDay(
+            day,
+            sessionViewModel.selectedField.value ?: mutableListOf(),
+            sessionViewModel.selectedKeyword.value ?: mutableListOf(),
+            sessionViewModel.selectedCompany.value ?: mutableListOf()
+        )
+    }
+
     override fun onResume() {
         super.onResume()
         binding.root.requestLayout()
+
+        searchSessions()
     }
 
     override fun onDestroyView() {
