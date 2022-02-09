@@ -1,6 +1,8 @@
 package com.survivalcoding.ifkakao.presentation.dialog
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
@@ -9,13 +11,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentLoginInfoDialogBinding
-import dagger.hilt.android.AndroidEntryPoint
+import com.survivalcoding.ifkakao.presentation.ActivityViewModel
+import com.survivalcoding.ifkakao.presentation.LoginEvent
 
 class LoginInfoDialogFragment : DialogFragment() {
 
     private var _binding: FragmentLoginInfoDialogBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel by activityViewModels<ActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +35,23 @@ class LoginInfoDialogFragment : DialogFragment() {
     ): View {
         _binding = FragmentLoginInfoDialogBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.closeButton.setOnClickListener { dismiss() }
+        binding.maintainCheckButton.setOnClickListener { viewModel.onEvent(LoginEvent.MaintainLogin) }
+        viewModel.isMaintainLogin.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.maintainCheckButton.setImageResource(R.drawable.ic_checked_circle)
+                binding.maintainCheckButton.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#ffe812"))
+            } else {
+                binding.maintainCheckButton.setImageResource(R.drawable.ic_check_circle)
+                binding.maintainCheckButton.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#a0a0a0"))
+            }
+        }
     }
 
     override fun onResume() {
