@@ -11,7 +11,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Ifkakao">
+        android:theme="@style/Theme.Ifkakao"
+        android:hardwareAccelerated="true"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".presentation.layout.detail.DetailActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.layout.sessionlist.SessionActivity"
             android:exported="false" />

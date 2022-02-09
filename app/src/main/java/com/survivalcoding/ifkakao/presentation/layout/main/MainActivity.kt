@@ -35,6 +35,7 @@ import coil.decode.ImageDecoderDecoder
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.presentation.MainLayout
 import com.survivalcoding.ifkakao.presentation.SessionList
+import com.survivalcoding.ifkakao.presentation.layout.detail.DetailActivity
 import com.survivalcoding.ifkakao.presentation.layout.sessionlist.SessionActivity
 import com.survivalcoding.ifkakao.presentation.theme.DarkGrey
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,10 +58,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             MainLayout {
                 Column {
-                    SessionList(header = {
-                        MainImageCard(imageLoader)
-                        HeaderCard()
-                    }, sessions = viewModel.sessions)
+                    SessionList(
+                        header = {
+                            MainImageCard(imageLoader)
+                            HeaderCard()
+                        }, sessions = viewModel.sessions,
+                        onClick =
+                        {
+                            val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                            intent.putExtra(DetailActivity.IDX_KEY, it)
+                            startActivity(intent)
+                        }
+                    )
                 }
             }
         }

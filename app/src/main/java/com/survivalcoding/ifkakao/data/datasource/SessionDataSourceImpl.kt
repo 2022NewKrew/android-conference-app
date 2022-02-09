@@ -50,7 +50,7 @@ class SessionDataSourceImpl @Inject constructor(private val sessionService: Sess
                             content = content,
                             company = company,
                             field = field,
-                            contentTag = contentTag.split(" ").map { hashContainingName ->
+                            contentTag = contentTag.split("\\s+").map { hashContainingName ->
                                 hashContainingName.removePrefix("#")
                             },
                             videoUrl = linkList.VIDEO.first { videoVo -> videoVo.type == "VIDEO" }.url,
@@ -94,7 +94,7 @@ class SessionDataSourceImpl @Inject constructor(private val sessionService: Sess
     }
 
     override suspend fun getSessionItem(idx: Int): SessionItem? {
-        TODO("Not yet implemented")
+        return getSessionList()?.find { it.idx == idx }
     }
 
     private suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): NetworkResult<T> {

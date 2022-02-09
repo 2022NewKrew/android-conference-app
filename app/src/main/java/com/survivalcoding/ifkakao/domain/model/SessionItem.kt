@@ -16,4 +16,13 @@ data class SessionItem(
     val mainExposureDay: Int, // from relationList.main_exposure_day
     val speakerProfiles: List<SpeakerProfileItem>, // from LinkList.SpeakerProfile & contentSpeakerList
     val isHighlight: Boolean
-)
+) {
+    companion object
+}
+
+fun SessionItem.Companion.mock(): SessionItem {
+    return SessionItem(
+        -1, "", "", "", "", listOf(), "", null, "", "", listOf(),
+        listOf(), -1, listOf(), false
+    )
+}

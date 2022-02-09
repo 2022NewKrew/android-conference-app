@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.presentation.layout.sessionlist
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -39,6 +40,8 @@ import coil.size.OriginalSize
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.presentation.MainLayout
 import com.survivalcoding.ifkakao.presentation.SessionList
+import com.survivalcoding.ifkakao.presentation.layout.detail.DetailActivity
+import com.survivalcoding.ifkakao.presentation.layout.detail.DetailActivity.Companion.IDX_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,11 +64,19 @@ class SessionActivity : ComponentActivity() {
         setContent {
             MainLayout {
                 Column {
-                    SessionList(header = {
-                        SessionHeading()
-                        SessionMainImageCard(imageLoader)
-                        SessionHeaderCard(dayList)
-                    }, sessions = viewModel.sessions)
+                    SessionList(
+                        header = {
+                            SessionHeading()
+                            SessionMainImageCard(imageLoader)
+                            SessionHeaderCard(dayList)
+                        }, sessions = viewModel.sessions,
+                        onClick =
+                        {
+                            val intent = Intent(this@SessionActivity, DetailActivity::class.java)
+                            intent.putExtra(IDX_KEY, it)
+                            startActivity(intent)
+                        }
+                    )
                 }
             }
         }

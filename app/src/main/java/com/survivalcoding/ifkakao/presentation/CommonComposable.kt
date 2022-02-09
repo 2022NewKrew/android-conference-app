@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.presentation
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -113,14 +112,38 @@ fun MainTagCard(str: String = "카카오") {
 }
 
 @Composable
-fun SessionList(header: @Composable (() -> Unit)? = null, sessions: List<SessionItem>) {
+@Preview
+fun TagItem(str: String = "태그태그") {
+    IfKakaoTheme {
+        Box(
+            modifier = Modifier.padding(end = 8.dp)
+        ) {
+            Text(
+                text = "#$str",
+                modifier = Modifier
+                    .wrapContentHeight(),
+                textAlign = TextAlign.Center, style = MaterialTheme.typography.overline,
+                color = LightGrey
+            )
+        }
+    }
+}
+
+@Composable
+fun SessionList(
+    header: @Composable (() -> Unit)? = null,
+    sessions: List<SessionItem>,
+    onClick: (Int) -> Unit,
+    limit: Int? = null
+) {
     LazyColumn {
         header?.let {
             item { header() }
         }
-        items(sessions) { session ->
+
+        items(if (limit == null) sessions else sessions.subList(0, limit)) { session ->
             Column {
-                SessionListItem(sessionItem = session)
+                SessionListItem(sessionItem = session, onClick)
                 Divider(color = DarkGrey, modifier = Modifier.padding(start = 12.dp, end = 12.dp))
             }
         }
@@ -128,19 +151,18 @@ fun SessionList(header: @Composable (() -> Unit)? = null, sessions: List<Session
 }
 
 @Composable
-fun SessionListItem(sessionItem: SessionItem) {
+fun SessionListItem(sessionItem: SessionItem, onClick: (Int) -> Unit) {
     Row(
         verticalAlignment = Alignment.Top,
         modifier = Modifier
             .fillMaxSize()
             .clickable {
-                Log.d("###SLI", sessionItem.mainImageUrl)
+                onClick(sessionItem.idx)
             }.padding(12.dp)
     ) {
         Box(
             modifier = Modifier.padding(end = 8.dp).clip(RoundedCornerShape(4.dp, 4.dp, 4.dp, 4.dp))
                 .border(1.dp, LightGrey, RoundedCornerShape(4.dp, 4.dp, 4.dp, 4.dp))
-
         ) {
             Image(
                 painter = rememberImagePainter(sessionItem.imageUrl),
