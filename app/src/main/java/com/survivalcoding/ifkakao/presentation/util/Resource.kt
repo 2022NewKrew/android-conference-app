@@ -11,4 +11,9 @@ class Resource {
         "https://i.ibb.co/Bg3F0hJ/vod-teaser-2021-mobile.gif"
     val sessionBackgroundPc =
         "https://i.ibb.co/LZHJt3f/vod-teaser-2021-pc.gif"
+
+    companion object {
+        const val ID = "root"
+        const val PASSWORD = "1234"
+    }
 }
