@@ -94,11 +94,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.loginButton.setOnClickListener {
-            val dialog = LoginDialogFragment()
-            dialog.show(supportFragmentManager, "login")
-        }
-
         viewModel.isLogin.observe(this) {
             if (it == LoginState.SUCCESS) {
                 if (viewModel.isMaintainLogin.value == true && !pref.contains("loginInfo")) {
@@ -108,8 +103,15 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 binding.loginButtonText.text = "로그인 되었습니다."
-                binding.loginButton.setOnClickListener { }
+                binding.loginButton.setOnClickListener { viewModel.onEvent(LoginEvent.Logout) }
                 binding.loginButtonText.setTextColor(Color.parseColor("#ffffff"))
+            } else {
+                binding.loginButtonText.text = "로그인하세요"
+                binding.loginButton.setOnClickListener {
+                    val dialog = LoginDialogFragment()
+                    dialog.show(supportFragmentManager, "login")
+                }
+                binding.loginButtonText.setTextColor(Color.parseColor("#a0a0a0"))
             }
         }
     }

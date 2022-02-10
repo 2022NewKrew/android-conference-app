@@ -26,6 +26,7 @@ class ActivityViewModel : ViewModel() {
                 }
             }
             LoginEvent.IsLogin -> _isLogin.value = LoginState.SUCCESS
+            LoginEvent.Logout -> _isLogin.value = LoginState.START
         }
     }
 }
@@ -34,6 +35,7 @@ sealed class LoginEvent {
     object MaintainLogin : LoginEvent()
     data class Login(val id: String, val password: String) : LoginEvent()
     object IsLogin : LoginEvent()
+    object Logout : LoginEvent()
 }
 
 enum class LoginState {
