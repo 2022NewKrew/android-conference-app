@@ -1,10 +1,12 @@
 package com.survivalcoding.ifkakao.ui.sessiondetail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -47,8 +49,16 @@ class SessionDetailFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Glide.with(this).load(args.session.linkList.PC_IMAGE.first().url).into(binding.videoIv)
+        binding.videoWv.apply {
+            args.session.linkList.VIDEO.firstOrNull()?.let {
+                settings.javaScriptEnabled = true
+                loadUrl(args.session.linkList.VIDEO.first().url)
+                binding.videoIv.isVisible = false
+            }
+        }
 
         val viewPagerAdapter = SessionDetailFragmentStateAdapter(this, args.session)
         binding.viewPager.adapter = viewPagerAdapter
