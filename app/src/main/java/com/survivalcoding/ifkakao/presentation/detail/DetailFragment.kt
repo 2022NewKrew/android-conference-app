@@ -38,7 +38,6 @@ class DetailFragment : Fragment() {
         detailViewModel.session.observe(viewLifecycleOwner) { session ->
             playerTitle.text = session.title
 
-
             session.linkList?.PC_IMAGE?.get(0)?.url?.let {
                 Glide.with(requireContext())
                     .load(it)
