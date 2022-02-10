@@ -16,4 +16,6 @@ class LikeInMemoryDataSource @Inject constructor() : LikeDataSource {
     override suspend fun unlikeSession(session: Session) {
         sessions.remove(session)
     }
+
+    override suspend fun checkLike(id: Int): Boolean = sessions.find { it.idx == id } != null
 }

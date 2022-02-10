@@ -41,4 +41,5 @@
     <string name="keyword_social_impact">소셜임팩트</string>
     <string name="comment_finished">댓글 참여가 마감되었습니다.</string>
     <string name="keyword_company">공동체</string>
+    <string name="session_favorite_button">세션 좋아요 버튼</string>
 </resources>

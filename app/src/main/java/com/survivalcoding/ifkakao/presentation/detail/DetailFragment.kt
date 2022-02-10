@@ -56,6 +56,9 @@ class DetailFragment : Fragment() {
 
             // 연관 세션 조회
             viewModel.getSessionsRelated(session.idx, session.field)
+
+            // 좋아요 여부 조회
+            viewModel.checkLike(session)
         }
 
         // 연관 세션 recyclerView 설정

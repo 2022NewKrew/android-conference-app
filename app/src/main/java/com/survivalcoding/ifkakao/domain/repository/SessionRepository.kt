@@ -16,6 +16,7 @@ interface SessionRepository {
     suspend fun getSessionsRelated(id: Int, field: String): List<Session>
     suspend fun likeSession(session: Session)
     suspend fun unlikeSession(session: Session)
+    suspend fun checkLike(id: Int): Boolean
     suspend fun sortByTitleAsc(): List<Session>
     suspend fun sortByTitleDesc(): List<Session>
     suspend fun sortByCompanyAsc(): List<Session>

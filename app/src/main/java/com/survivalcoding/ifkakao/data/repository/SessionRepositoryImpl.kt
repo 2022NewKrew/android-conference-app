@@ -31,6 +31,8 @@ class SessionRepositoryImpl @Inject constructor(
 
     override suspend fun unlikeSession(session: Session) = likeDataSource.unlikeSession(session)
 
+    override suspend fun checkLike(id: Int): Boolean = likeDataSource.checkLike(id)
+
     override suspend fun sortByTitleAsc(): List<Session> = sessionDataSource.sortByTitleAsc()
 
     override suspend fun sortByTitleDesc(): List<Session> = sessionDataSource.sortByTitleDesc()
