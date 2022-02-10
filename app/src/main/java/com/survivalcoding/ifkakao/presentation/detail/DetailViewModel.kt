@@ -21,7 +21,11 @@ class DetailViewModel(
     val relatedSessions: LiveData<List<Session>> = _relatedSessions
 
     private var _isLiking: MutableLiveData<Boolean> = MutableLiveData(false)
-    val isLiking: LiveData<Boolean> = _isLiking
+    val isLiking : LiveData<Boolean> = _isLiking
+
+    private var _isFirst: MutableLiveData<Boolean> = MutableLiveData(true)
+    val isFirst: LiveData<Boolean> = _isFirst
+
 
     init {
         viewModelScope.launch {
@@ -33,19 +37,18 @@ class DetailViewModel(
                     _session.value!!.relationList.TECH_CLASSIFICATION,
                     _session.value!!.idx
                 )
-
                 _isLiking.value = getIfLikingUseCase.invoke(_session.value!!.idx)
+                _isFirst.value = false
             }
         }
     }
 
-    fun setLike() {
-        _isLiking.value = !(_isLiking.value)!!
+    fun setLike(isLiking: Boolean) {
+        _isLiking.value = isLiking
         val idx = _session.value!!.idx
         viewModelScope.launch {
             if (_isLiking.value == true) addLikeUseCase.invoke(idx)
             else deleteLikeUseCase.invoke(idx)
         }
     }
-
 }

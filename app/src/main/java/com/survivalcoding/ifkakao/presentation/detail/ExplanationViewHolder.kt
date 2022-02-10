@@ -19,13 +19,12 @@ const val KILOBYTE = 1024
 
 class ExplanationViewHolder(
     itemView: View,
-    private val isFavorite: Boolean,
     private val onClickFavoriteButton: (Boolean) -> Unit,
     private val onClickSessionButton: () -> Unit,
 ) : RecyclerView.ViewHolder(itemView) {
     val binding = ItemDetailExplanationBinding.bind(itemView)
     private val ctx: Context = itemView.context
-    fun bind(session: Session) {
+    fun bind(session: Session, isFavorite: Boolean) {
         val fields: List<String> =
             listOf(session.company, session.field) + session.relationList.CLASSIFICATION
         binding.SessionInfoLayout.removeAllViews()

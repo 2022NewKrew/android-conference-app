@@ -8,9 +8,12 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.databinding.NaviHeaderBinding
+import com.survivalcoding.ifkakao.presentation.mylist.MyListFragment
+import com.survivalcoding.ifkakao.presentation.sessions.SessionsFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +43,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        navigationView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.sessions -> moveToNextFragment(SessionsFragment())
+                R.id.mylist -> moveToNextFragment(MyListFragment())
+            }
+
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            true
+        }
+
         val linkTalkChannel = binding.talkChannelLink
         linkTalkChannel.setOnClickListener {
             val browserIntent = Intent(
@@ -62,7 +77,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //ToDo: Menu 버튼 누를 시 화면 전환
+    private fun moveToNextFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView,
+                fragment
+            )
+            .addToBackStack(null)
+            .commit()
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_list, menu)
         return super.onCreateOptionsMenu(menu)

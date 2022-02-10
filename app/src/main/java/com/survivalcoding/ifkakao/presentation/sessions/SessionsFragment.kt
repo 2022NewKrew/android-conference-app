@@ -51,6 +51,8 @@ class SessionsFragment : Fragment() {
         drawerLayout = binding.drawerLayout
         navigationView = binding.navigationView
 
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
         val adapter = ConcatAdapter(
             SessionsHeaderAdapter(onClickTab = { idx ->
                 sessionsViewModel.updateSessionsByDay(idx + 1)
