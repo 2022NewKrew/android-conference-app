@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.presentation.session
 
+import android.text.Editable
 import android.widget.RadioGroup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,6 +34,8 @@ class SessionViewModel @Inject constructor(
     private val selectedCategories = mutableSetOf<Category>()
     private var sortBy: SortBy = DEFAULT_SORT_BY
 
+    private var searchKeyword = ""
+
     init {
         viewModelScope.launch {
             resetSelectedCategories()
@@ -42,6 +45,8 @@ class SessionViewModel @Inject constructor(
     private suspend fun buildDrawerBinderList(): List<CommonBinder> {
         val drawerBinderList = mutableListOf<CommonBinder>()
         val allCategories = getAllCategoriesUseCase()
+        drawerBinderList.add(DrawerTitleBinder("검색"))
+        drawerBinderList.add(DrawerEditTextBinder(searchKeyword, ::afterSearchKeywordChanged))
         drawerBinderList.add(DrawerTitleBinder("정렬"))
         drawerBinderList.add(
             DrawerSortRadioGroupBinder(
@@ -86,6 +91,10 @@ class SessionViewModel @Inject constructor(
         return drawerBinderList
     }
 
+    private fun afterSearchKeywordChanged(text: Editable) {
+        searchKeyword = text.toString()
+    }
+
     private fun onSortRadioGroupCheckChange(group: RadioGroup, checkedId: Int) {
         sortBy = when (checkedId) {
             R.id.sort_by_title_radio_button -> SortBy.TITLE
@@ -113,21 +122,24 @@ class SessionViewModel @Inject constructor(
                 day1Sessions = getSelectedSessionsUseCase(
                     1,
                     categories = categories,
-                    sortBy = sortBy
+                    sortBy = sortBy,
+                    searchKeyword = searchKeyword
                 ),
                 day2Sessions = getSelectedSessionsUseCase(
                     2,
                     categories = categories,
-                    sortBy = sortBy
+                    sortBy = sortBy,
+                    searchKeyword = searchKeyword
                 ),
                 day3Sessions = getSelectedSessionsUseCase(
                     3,
                     categories = categories,
-                    sortBy = sortBy
+                    sortBy = sortBy,
+                    searchKeyword = searchKeyword
                 ).apply {
                     if (isEmpty()) sendEvent(Event.NoMatchingSessions)
                 },
-                selectedCategoryCount = categories.toList().size
+                selectedCategoryCount = categories.toList().size + if (searchKeyword.isNotBlank()) 1 else 0
             )
         }
     }
@@ -135,6 +147,7 @@ class SessionViewModel @Inject constructor(
     fun resetSelectedCategories() {
         selectedCategories.clear()
         sortBy = DEFAULT_SORT_BY
+        searchKeyword = ""
         viewModelScope.launch {
             resetDrawerBinderList()
             setCategoryFilter()

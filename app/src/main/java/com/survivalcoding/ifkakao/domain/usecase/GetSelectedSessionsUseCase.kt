@@ -11,13 +11,17 @@ class GetSelectedSessionsUseCase @Inject constructor(private val ifKakaoReposito
     suspend operator fun invoke(
         day: Int = 3,
         categories: Categories = Categories(),
-        sortBy: SortBy = SortBy.TIME
+        sortBy: SortBy = SortBy.TIME,
+        searchKeyword: String = ""
     ): List<Session> {
         return ifKakaoRepository.getAllSessions().filter { session ->
             if (day == 3) true // Day3(All)
             else session.exposureDay == day
         }.filter { session ->
             filterByCategory(categories, session.categories)
+        }.filter { session ->
+            if (searchKeyword.isBlank()) true
+            else filterBySearchKeyword(searchKeyword, session)
         }.sortedBy {
             when (sortBy) {
                 SortBy.TIME -> it.exposureDay.toString()
@@ -36,6 +40,17 @@ class GetSelectedSessionsUseCase @Inject constructor(private val ifKakaoReposito
         if (isNotMatch(selectedCategories.tech, sessionCategories.tech)) return false
 
         return true
+    }
+
+    private fun filterBySearchKeyword(searchKeyword: String, session: Session) = when {
+        session.title.contains(searchKeyword) -> true
+        session.content.contains(searchKeyword) -> true
+        session.contentsSpeakers.filter {
+            it.nameEn.contains(searchKeyword) || it.nameKo.contains(
+                searchKeyword
+            )
+        }.any() -> true
+        else -> false
     }
 
     private fun isNotMatch(

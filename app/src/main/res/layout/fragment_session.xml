@@ -12,6 +12,7 @@
         android:background="@color/black">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -19,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/black"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap">
 
                 <TextView
                     android:id="@+id/session_title_text"
@@ -30,7 +31,7 @@
                     android:paddingBottom="32dp"
                     android:text="Session"
                     android:textColor="@color/white"
-                    android:textSize="28dp"
+                    android:textSize="23dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +68,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:background="@color/black"
-                    android:paddingVertical="16dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingVertical="8dp"
                     app:layout_constraintEnd_toStartOf="@id/session_category_button"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -118,19 +120,11 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/session_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/session_view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -144,7 +138,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black">
+            android:background="@color/button_background_color">
 
             <ImageButton
                 android:id="@+id/drawer_close_button"
@@ -182,6 +176,7 @@
                     android:layout_marginEnd="24dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_background"
+                    android:backgroundTint="@color/drawer_button_background_color"
                     android:text="@string/reset"
                     android:textColor="@color/button_text_color"
                     android:textSize="14dp" />
