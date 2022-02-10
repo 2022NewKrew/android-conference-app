@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDescriptionBinding
 import com.survivalcoding.ifkakao.domain.model.Session
+import com.survivalcoding.ifkakao.presentation.detail.DetailViewModel
 import com.survivalcoding.ifkakao.presentation.detail.adapter.ClassificationListAdapter
 import com.survivalcoding.ifkakao.presentation.detail.adapter.SpeakerListAdapter
 import com.survivalcoding.ifkakao.presentation.sessions.SessionsFragment
@@ -19,6 +21,7 @@ class SessionDescriptionFragment : Fragment() {
     private val binding get() = _binding!!
     private val session by lazy { requireArguments()["session"] as Session }
     private val classificationAdapter by lazy { ClassificationListAdapter() }
+    private val viewModel: DetailViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,11 +52,21 @@ class SessionDescriptionFragment : Fragment() {
         speakerAdapter.submitList(session.contentsSpeakerList)
 
         binding.sessionDescriptionBtnList.setOnClickListener { moveToSessions() }
+        binding.sessionDescriptionIbFavorite.setOnClickListener { viewModel.likeSession(session) }
+
+        viewModel.isFavorite.observe(this) {
+            binding.sessionDescriptionIbFavorite.setImageResource(if (it) R.drawable.ic_favorite else R.drawable.ic_favorite_border)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.root.requestLayout()
     }
 
     private fun moveToSessions() {

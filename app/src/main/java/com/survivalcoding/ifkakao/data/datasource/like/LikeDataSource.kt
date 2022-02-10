@@ -6,4 +6,5 @@ interface LikeDataSource {
     suspend fun getSessionLike(): List<Session>
     suspend fun likeSession(session: Session)
     suspend fun unlikeSession(session: Session)
+    suspend fun checkLike(id: Int): Boolean
 }

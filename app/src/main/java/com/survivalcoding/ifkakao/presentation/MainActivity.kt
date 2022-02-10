@@ -6,6 +6,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
+import com.survivalcoding.ifkakao.presentation.favorite.FavoriteFragment
 import com.survivalcoding.ifkakao.presentation.sessions.SessionsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +27,11 @@ class MainActivity : AppCompatActivity() {
                     binding.root.closeDrawer(binding.navigationView)
                     true
                 }
+                R.id.menu_favorite -> {
+                    moveToFavorite()
+                    binding.root.closeDrawer(binding.navigationView)
+                    true
+                }
                 else -> false
             }
         }
@@ -34,6 +40,14 @@ class MainActivity : AppCompatActivity() {
     private fun moveToSessions() {
         supportFragmentManager.commit {
             replace<SessionsFragment>(R.id.fragment_container_view)
+            setReorderingAllowed(true)
+            addToBackStack(null)
+        }
+    }
+
+    private fun moveToFavorite() {
+        supportFragmentManager.commit {
+            replace<FavoriteFragment>(R.id.fragment_container_view)
             setReorderingAllowed(true)
             addToBackStack(null)
         }

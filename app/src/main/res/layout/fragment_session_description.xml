@@ -72,6 +72,18 @@
             tools:itemCount="2"
             tools:listitem="@layout/item_speaker" />
 
+        <ImageButton
+            android:id="@+id/session_description_ib_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@null"
+            android:contentDescription="@string/session_favorite_button"
+            android:padding="12dp"
+            android:src="@drawable/ic_favorite_border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/session_description_rv_speaker" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/session_description_btn_list"
             android:layout_width="wrap_content"
@@ -84,7 +96,7 @@
             android:textColor="@color/light_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/session_description_rv_speaker" />
+            app:layout_constraintTop_toBottomOf="@id/session_description_ib_favorite" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

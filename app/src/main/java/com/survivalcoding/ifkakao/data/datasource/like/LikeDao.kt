@@ -17,4 +17,7 @@ interface LikeDao {
 
     @Delete
     suspend fun unlikeSession(session: Session)
+
+    @Query("SELECT EXISTS(SELECT * FROM session WHERE idx = :id)")
+    suspend fun checkLike(id: Int): Boolean
 }
