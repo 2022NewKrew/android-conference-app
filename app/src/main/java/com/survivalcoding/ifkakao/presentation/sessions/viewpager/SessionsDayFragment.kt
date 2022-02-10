@@ -48,6 +48,11 @@ class SessionsDayFragment : Fragment() {
         viewModel.sessions.observe(this) { sessions ->
             adapter.submitList(sessions)
         }
+
+        // 필터 변경 시 세션 조회
+        sessionViewModel.isFilterChanged.observe(this) {
+            if (it) searchSessions()
+        }
     }
 
     private fun searchSessions() {
@@ -62,8 +67,6 @@ class SessionsDayFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.root.requestLayout()
-
-        searchSessions()
     }
 
     override fun onDestroyView() {

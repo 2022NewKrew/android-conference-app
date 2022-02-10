@@ -1,6 +1,7 @@
 package com.survivalcoding.ifkakao.presentation.sessions
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,13 @@ class SessionsViewModel @Inject constructor() : ViewModel() {
     val selectedKeyword: LiveData<MutableList<String>> get() = _selectedKeyword
     private val _selectedCompany = MutableLiveData<MutableList<String>>()
     val selectedCompany: LiveData<MutableList<String>> get() = _selectedCompany
+    val isFilterChanged: MediatorLiveData<Boolean> = MediatorLiveData()
+
+    init {
+        isFilterChanged.addSource(selectedField) { isFilterChanged.value = true }
+        isFilterChanged.addSource(selectedKeyword) { isFilterChanged.value = true }
+        isFilterChanged.addSource(selectedCompany) { isFilterChanged.value = true }
+    }
 
     fun selectField(field: String) {
         val fields: MutableList<String> = tmpSelectedField.value ?: mutableListOf()
@@ -62,6 +70,7 @@ class SessionsViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setTmpFilter() {
+        isFilterChanged.value = false
         _tmpSelectedField.value = selectedField.value ?: mutableListOf()
         _tmpSelectedKeyword.value = selectedKeyword.value ?: mutableListOf()
         _tmpSelectedCompany.value = selectedCompany.value ?: mutableListOf()
