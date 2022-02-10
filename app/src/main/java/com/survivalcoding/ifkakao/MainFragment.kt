@@ -1,5 +1,7 @@
 package com.survivalcoding.ifkakao
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,6 +78,10 @@ class MainFragment : Fragment() {
 
         binding.scrollTopView.scrollTopImage.setOnClickListener {
             binding.mainNestedScrollView.fullScroll(ScrollView.FOCUS_UP)
+        }
+        binding.scrollTopView.ifKakao2020.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://if.kakao.com/2020/"))
+            startActivity(intent)
         }
 
     }

@@ -1,6 +1,8 @@
 package com.survivalcoding.ifkakao.search
 
+import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -86,7 +88,6 @@ class SearchFragment : Fragment() {
 
 
         //viewpager2
-        //todo date 값이 없는 것도 있음(애자일)
         binding.viewPager.adapter = FragmentAdapter(requireActivity())
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -119,6 +120,10 @@ class SearchFragment : Fragment() {
 
         binding.scrollTopView.scrollTopImage.setOnClickListener {
             binding.searchNestedScrollView.fullScroll(ScrollView.FOCUS_UP)
+        }
+        binding.scrollTopView.ifKakao2020.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://if.kakao.com/2020/"))
+            startActivity(intent)
         }
 
 

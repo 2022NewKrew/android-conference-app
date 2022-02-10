@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class ConferenceDataStore @Inject constructor(private val service: IfKakaoService) {
     private val conferences: Conference? = Gson().fromJson(JsonData.json, Conference::class.java)
-    suspend fun getConferences() = conferences ?: service.getConferences()
+    suspend fun getConferences() = service.getConferences()
 
 }

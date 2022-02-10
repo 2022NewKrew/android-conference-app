@@ -39,7 +39,8 @@ class ConferencesRepositoryImpl @Inject constructor(private val conferenceDataSt
         keyWords: List<String>
     ): List<Data>? {
         val result = getSessionsWithDate(date)?.filter { item ->
-            checkKeyWords(item, keyWords)
+            if (keyWords.isEmpty()) true
+            else checkKeyWords(item, keyWords)
         }
         return result
     }
@@ -73,11 +74,12 @@ class ConferencesRepositoryImpl @Inject constructor(private val conferenceDataSt
             else it.reservationDate == date
         }
 
-    override suspend fun getSortedDateSessions(
+    override suspend fun getSortedDateWithKeyWordsSessions(
         date: Int,
+        keyWords: List<String>,
         contentState: ContentState, orderState: OrderState
     ): List<Data>? {
-        val result = getSessionsWithDate(date)
+        val result = getSessionsWithKeyWordsAndDate(date, keyWords)
         if (result != null) {
             return when (orderState) {
                 OrderState.asc -> {

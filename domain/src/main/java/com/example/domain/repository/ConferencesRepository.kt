@@ -24,8 +24,9 @@ interface ConferencesRepository {
 
     suspend fun getSessionsWithDate(date: Int): List<Data>?
 
-    suspend fun getSortedDateSessions(
+    suspend fun getSortedDateWithKeyWordsSessions(
         date: Int,
+        keyWords: List<String>,
         contentState: ContentState,
         orderState: OrderState
     ): List<Data>?
