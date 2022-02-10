@@ -50,7 +50,7 @@ class SessionDataSourceImpl @Inject constructor(private val sessionService: Sess
                             content = content,
                             company = company,
                             field = field,
-                            contentTag = contentTag.split(" ").map { hashContainingName ->
+                            contentTag = contentTag.split("\\s+").map { hashContainingName ->
                                 hashContainingName.removePrefix("#")
                             },
                             videoUrl = linkList.VIDEO.first { videoVo -> videoVo.type == "VIDEO" }.url,
@@ -61,10 +61,10 @@ class SessionDataSourceImpl @Inject constructor(private val sessionService: Sess
                             techClassifications = relationList.TECH_CLASSIFICATION,
                             mainExposureDay = relationList.MAIN_EXPOSURE_DAY.let { dayStr ->
                                 when {
-                                    dayStr.contains("1") -> {
+                                    dayStr.contains("1Day") -> {
                                         return@let 1
                                     }
-                                    dayStr.contains("2") -> {
+                                    dayStr.contains("2Day") -> {
                                         return@let 2
                                     }
                                     else -> {
@@ -94,7 +94,7 @@ class SessionDataSourceImpl @Inject constructor(private val sessionService: Sess
     }
 
     override suspend fun getSessionItem(idx: Int): SessionItem? {
-        TODO("Not yet implemented")
+        return getSessionList()?.find { it.idx == idx }
     }
 
     private suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): NetworkResult<T> {

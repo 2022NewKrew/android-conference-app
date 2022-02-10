@@ -1,9 +1,11 @@
-package com.survivalcoding.ifkakao.presentation
+package com.survivalcoding.ifkakao.presentation.layout.sessionlist
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -33,11 +36,18 @@ import coil.ImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
+import coil.size.OriginalSize
 import com.survivalcoding.ifkakao.R
+import com.survivalcoding.ifkakao.presentation.MainLayout
+import com.survivalcoding.ifkakao.presentation.SessionList
+import com.survivalcoding.ifkakao.presentation.layout.detail.DetailActivity
+import com.survivalcoding.ifkakao.presentation.layout.detail.DetailActivity.Companion.IDX_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SessionActivity : ComponentActivity() {
+    private val viewModel: SessionViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val imageLoader = ImageLoader.invoke(this).newBuilder()
@@ -49,14 +59,24 @@ class SessionActivity : ComponentActivity() {
                 }
             }.build()
 
-        val dayList = listOf("Day1", "Day2", "Day3", "All")
+        val dayList = listOf("Day1", "Day2", "Day3(All)")
 
         setContent {
             MainLayout {
                 Column {
-                    SessionHeading()
-                    SessionMainImageCard(imageLoader)
-                    SessionHeaderCard(dayList)
+                    SessionList(
+                        header = {
+                            SessionHeading()
+                            SessionMainImageCard(imageLoader)
+                            SessionHeaderCard(dayList)
+                        }, sessions = viewModel.sessions,
+                        onClick =
+                        {
+                            val intent = Intent(this@SessionActivity, DetailActivity::class.java)
+                            intent.putExtra(IDX_KEY, it)
+                            startActivity(intent)
+                        }
+                    )
                 }
             }
         }
@@ -80,25 +100,34 @@ class SessionActivity : ComponentActivity() {
 
     @Composable
     private fun SessionMainImageCard(imageLoader: ImageLoader) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Image(
-                painter = rememberImagePainter(
-                    data = R.mipmap.main_image,
-                    imageLoader = imageLoader
-                ),
-                contentScale = ContentScale.FillWidth,
-                contentDescription = null,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            ) {
+                Image(
+                    painter = rememberImagePainter(
+                        data = R.mipmap.main_image,
+                        imageLoader = imageLoader,
+                        builder = {
+                            size(OriginalSize)
+                        }
+                    ),
+                    contentScale = ContentScale.FillWidth,
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 
     @Composable
     private fun SessionHeading() {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
@@ -127,6 +156,7 @@ class SessionActivity : ComponentActivity() {
                     onClick = {
                         request(false)
                         selectedString(it)
+                        viewModel.loadData(it)
                     }
                 ) {
                     Text(it, modifier = Modifier.wrapContentWidth())
@@ -145,7 +175,9 @@ class SessionActivity : ComponentActivity() {
         val userSelectedString: (String) -> Unit = {
             text.value = it
         }
-        Box(modifier = Modifier.clickable { isOpen.value = true }) {
+        Box(
+            modifier = Modifier.clickable { isOpen.value = true }
+        ) {
             Column {
                 Text(
                     text = text.value,

@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.presentation
+package com.survivalcoding.ifkakao.presentation.layout.main
 
 import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,6 +33,11 @@ import coil.compose.rememberImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import com.survivalcoding.ifkakao.R
+import com.survivalcoding.ifkakao.presentation.MainLayout
+import com.survivalcoding.ifkakao.presentation.SessionList
+import com.survivalcoding.ifkakao.presentation.layout.detail.DetailActivity
+import com.survivalcoding.ifkakao.presentation.layout.sessionlist.SessionActivity
+import com.survivalcoding.ifkakao.presentation.theme.DarkGrey
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,14 +55,21 @@ class MainActivity : ComponentActivity() {
                 }
             }.build()
 
-
         setContent {
             MainLayout {
                 Column {
-                    SessionList(header = {
-                        MainImageCard(imageLoader)
-                        HeaderCard()
-                    }, sessions = viewModel.sessions)
+                    SessionList(
+                        header = {
+                            MainImageCard(imageLoader)
+                            HeaderCard()
+                        }, sessions = viewModel.sessions,
+                        onClick =
+                        {
+                            val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                            intent.putExtra(DetailActivity.IDX_KEY, it)
+                            startActivity(intent)
+                        }
+                    )
                 }
             }
         }
@@ -92,7 +103,7 @@ class MainActivity : ComponentActivity() {
                         val intent = Intent(this@MainActivity, SessionActivity::class.java)
                         startActivity(intent)
                     },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.dark_grey)),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = DarkGrey),
                     modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
                     contentPadding = PaddingValues(4.dp)
                 ) {

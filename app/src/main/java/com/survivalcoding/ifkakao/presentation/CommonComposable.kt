@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.presentation
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,17 +35,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.domain.model.SessionItem
 import com.survivalcoding.ifkakao.presentation.theme.IfKakaoTheme
 import com.survivalcoding.ifkakao.presentation.theme.DarkGrey
 import com.survivalcoding.ifkakao.presentation.theme.LightGrey
+import com.survivalcoding.ifkakao.presentation.theme.LightYellow
 
 @Composable
 fun MainLayout(content: @Composable () -> Unit) {
@@ -96,14 +94,14 @@ fun TagCard(str: String = "서비스") {
 fun MainTagCard(str: String = "카카오") {
     IfKakaoTheme {
         Card(
-            border = BorderStroke(Dp.Hairline, colorResource(id = R.color.light_yellow)),
+            border = BorderStroke(Dp.Hairline, LightYellow),
             backgroundColor = Color.Black,
             shape = RectangleShape,
             modifier = Modifier.absolutePadding(right = 8.dp)
         ) {
             Text(
                 text = str,
-                color = colorResource(id = R.color.light_yellow),
+                color = LightYellow,
                 modifier = Modifier
                     .padding(horizontal = 4.dp, vertical = 2.dp)
                     .wrapContentHeight(),
@@ -114,14 +112,38 @@ fun MainTagCard(str: String = "카카오") {
 }
 
 @Composable
-fun SessionList(header: @Composable (() -> Unit)? = null, sessions: List<SessionItem>) {
+@Preview
+fun TagItem(str: String = "태그태그") {
+    IfKakaoTheme {
+        Box(
+            modifier = Modifier.padding(end = 8.dp)
+        ) {
+            Text(
+                text = "#$str",
+                modifier = Modifier
+                    .wrapContentHeight(),
+                textAlign = TextAlign.Center, style = MaterialTheme.typography.overline,
+                color = LightGrey
+            )
+        }
+    }
+}
+
+@Composable
+fun SessionList(
+    header: @Composable (() -> Unit)? = null,
+    sessions: List<SessionItem>,
+    onClick: (Int) -> Unit,
+    limit: Int? = null
+) {
     LazyColumn {
         header?.let {
             item { header() }
         }
-        items(sessions) { session ->
+
+        items(if (limit == null) sessions else sessions.subList(0, limit)) { session ->
             Column {
-                SessionListItem(sessionItem = session)
+                SessionListItem(sessionItem = session, onClick)
                 Divider(color = DarkGrey, modifier = Modifier.padding(start = 12.dp, end = 12.dp))
             }
         }
@@ -129,19 +151,18 @@ fun SessionList(header: @Composable (() -> Unit)? = null, sessions: List<Session
 }
 
 @Composable
-fun SessionListItem(sessionItem: SessionItem) {
+fun SessionListItem(sessionItem: SessionItem, onClick: (Int) -> Unit) {
     Row(
         verticalAlignment = Alignment.Top,
         modifier = Modifier
             .fillMaxSize()
             .clickable {
-                Log.d("###SLI", sessionItem.mainImageUrl)
+                onClick(sessionItem.idx)
             }.padding(12.dp)
     ) {
         Box(
-            modifier = Modifier.padding(end = 4.dp).clip(RoundedCornerShape(4.dp, 4.dp, 4.dp, 4.dp))
+            modifier = Modifier.padding(end = 8.dp).clip(RoundedCornerShape(4.dp, 4.dp, 4.dp, 4.dp))
                 .border(1.dp, LightGrey, RoundedCornerShape(4.dp, 4.dp, 4.dp, 4.dp))
-
         ) {
             Image(
                 painter = rememberImagePainter(sessionItem.imageUrl),
