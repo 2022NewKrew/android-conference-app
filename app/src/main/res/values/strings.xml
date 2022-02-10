@@ -42,4 +42,5 @@
     <string name="comment_finished">댓글 참여가 마감되었습니다.</string>
     <string name="keyword_company">공동체</string>
     <string name="session_favorite_button">세션 좋아요 버튼</string>
+    <string name="go_up_button">위로 가기 버튼</string>
 </resources>

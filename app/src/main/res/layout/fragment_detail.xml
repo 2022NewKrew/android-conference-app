@@ -28,6 +28,7 @@
         app:tabTextColor="@color/white" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/detail_scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +54,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@color/dark_gray"
-                android:paddingBottom="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_pager">
@@ -81,28 +81,12 @@
                     app:layout_constraintTop_toBottomOf="@id/detail_tv_relation"
                     tools:listitem="@layout/item_session" />
 
-                <TextView
-                    android:id="@+id/detail_tv_history"
-                    android:layout_width="wrap_content"
+                <include
+                    android:id="@+id/detail_footer"
+                    layout="@layout/footer"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="60dp"
-                    android:text="@string/history_2020"
-                    android:textColor="@color/blue"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/detail_rv_relation" />
-
-                <TextView
-                    android:id="@+id/detail_tv_corporate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/kakao_corp"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detail_tv_history" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

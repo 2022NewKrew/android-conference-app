@@ -67,6 +67,9 @@ class DetailFragment : Fragment() {
         viewModel.relatedSessions.observe(this) { sessions ->
             adapter.submitList(sessions)
         }
+
+        // 화면 상단으로 이동
+        binding.detailFooter.footerIbUp.setOnClickListener { binding.detailScrollView.smoothScrollTo(0, 0) }
     }
 
     override fun onDestroyView() {

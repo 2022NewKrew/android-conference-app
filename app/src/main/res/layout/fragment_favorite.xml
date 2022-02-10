@@ -8,8 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="30dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/favorite_tv_title"
@@ -34,28 +33,12 @@
             tools:itemCount="5"
             tools:listitem="@layout/item_session" />
 
-        <TextView
-            android:id="@+id/favorite_tv_history"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/favorite_footer"
+            layout="@layout/footer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
-            android:text="@string/history_2020"
-            android:textColor="@color/blue"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/favorite_recycler_view" />
-
-        <TextView
-            android:id="@+id/favorite_tv_corporate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/kakao_corp"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/favorite_tv_history" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
