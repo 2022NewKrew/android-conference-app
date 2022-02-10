@@ -16,11 +16,7 @@ class FavoriteViewModel @Inject constructor(private val getLikeSessionUseCase: G
     private val _sessions = MutableLiveData<List<Session>>()
     val sessions: LiveData<List<Session>> get() = _sessions
 
-    init {
-        getLikeSessions()
-    }
-
-    private fun getLikeSessions() = viewModelScope.launch {
+    fun getLikeSessions() = viewModelScope.launch {
         _sessions.value = getLikeSessionUseCase.invoke()
     }
 }

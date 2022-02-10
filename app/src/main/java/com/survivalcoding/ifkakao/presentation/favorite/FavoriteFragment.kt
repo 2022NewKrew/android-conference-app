@@ -45,6 +45,11 @@ class FavoriteFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getLikeSessions()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
