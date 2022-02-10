@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.presentation.sessions
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,6 +41,14 @@ class SessionsFragment : Fragment() {
                 else -> throw Exception()
             }
         }.attach()
+
+        // 영상 재생
+        binding.sessionsBannerVideoView.setVideoURI(Uri.parse("https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser_2021.mp4"))
+        binding.sessionsBannerVideoView.setOnPreparedListener {
+            it.isLooping = true
+            binding.sessionsBannerVideoView.start()
+            binding.sessionsBannerThumbnail.visibility = View.INVISIBLE
+        }
 
         binding.sessionsTvFilter.setOnClickListener {
             viewModel.setTmpFilter()
