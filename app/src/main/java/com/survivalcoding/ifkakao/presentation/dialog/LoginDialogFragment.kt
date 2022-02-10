@@ -36,6 +36,11 @@ class LoginDialogFragment : DialogFragment() {
         binding.kakaoLoginButton.setOnClickListener {
             Toast.makeText(requireContext(), "직접 입력해서 로그인해 주세요.", Toast.LENGTH_SHORT).show()
         }
+        binding.directLoginButton.setOnClickListener {
+            dismiss()
+            val dialog = LoginInfoDialogFragment()
+            dialog.show(parentFragmentManager, "loginInfo")
+        }
     }
 
     override fun onResume() {
@@ -73,5 +78,10 @@ class LoginDialogFragment : DialogFragment() {
 
             window?.setLayout(x, y)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

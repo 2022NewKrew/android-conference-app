@@ -21,6 +21,9 @@ class KeywordDialogViewModel @Inject constructor(
     private val _tech = MutableStateFlow(stk.peek().keywords.techClassificationList)
     private val _company = MutableStateFlow(stk.peek().keywords.companyList)
 
+    val selectedCount = combine(_fields, _classification, _tech, _company) { a, b, c, d ->
+        a.count { it.isSelected } + b.count { it.isSelected } + c.count { it.isSelected } + d.count { it.isSelected }
+    }.asLiveData()
     val keywords = combine(_fields, _classification, _tech, _company) { a, b, c, d ->
         Keywords(a, b, c, d)
     }.asLiveData()

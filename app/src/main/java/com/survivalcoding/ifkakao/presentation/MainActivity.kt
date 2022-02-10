@@ -1,9 +1,9 @@
 package com.survivalcoding.ifkakao.presentation
 
-import android.content.Context
-import android.graphics.Point
+import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
-import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.commit
@@ -26,12 +26,19 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
+    private val viewModel by viewModels<ActivityViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        val pref = getSharedPreferences("pref", Activity.MODE_PRIVATE)
+        if (pref != null && pref.contains("loginInfo")) {
+            viewModel.onEvent(LoginEvent.IsLogin)
+        }
 
         binding.exitButton.setOnClickListener {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -87,9 +94,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.loginButton.setOnClickListener {
-            val dialog = LoginDialogFragment()
-            dialog.show(supportFragmentManager, "login")
+        viewModel.isLogin.observe(this) {
+            if (it == LoginState.SUCCESS) {
+                if (viewModel.isMaintainLogin.value == true && !pref.contains("loginInfo")) {
+                    with(pref.edit()) {
+                        putBoolean("loginInfo", true)
+                        commit()
+                    }
+                }
+                binding.loginButtonText.text = "로그인 되었습니다."
+                binding.loginButton.setOnClickListener { viewModel.onEvent(LoginEvent.Logout) }
+                binding.loginButtonText.setTextColor(Color.parseColor("#ffffff"))
+            } else {
+                binding.loginButtonText.text = "로그인하세요"
+                binding.loginButton.setOnClickListener {
+                    val dialog = LoginDialogFragment()
+                    dialog.show(supportFragmentManager, "login")
+                }
+                binding.loginButtonText.setTextColor(Color.parseColor("#a0a0a0"))
+            }
         }
     }
 

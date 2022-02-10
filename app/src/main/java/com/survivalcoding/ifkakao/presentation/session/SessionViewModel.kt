@@ -2,6 +2,7 @@ package com.survivalcoding.ifkakao.presentation.session
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.domain.model.IkSessionData
 import com.survivalcoding.ifkakao.domain.usecase.GetSessionsByConditionUseCase
@@ -21,6 +22,11 @@ class SessionViewModel @Inject constructor(
     private val _exposedListCount = MutableStateFlow(stk.peek().exposedListCount)
     private val _keywords = MutableStateFlow(stk.peek().keywords)
 
+    val selectedCount = _keywords.map { keyword ->
+        with(keyword) {
+            companyList.count { it.isSelected } + fieldList.count { it.isSelected } + classificationList.count { it.isSelected } + techClassificationList.count { it.isSelected }
+        }
+    }.asLiveData()
     val isChanged = MutableLiveData(false)
     val sessions: StateFlow<List<IkSessionData>> =
         combine(_currentDay, _exposedListCount, _keywords) { day, count, keywords ->

@@ -3,6 +3,7 @@ package com.survivalcoding.ifkakao.presentation.session
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -78,6 +79,16 @@ class SessionFragment : BaseFragment<FragmentSessionBinding>(R.layout.fragment_s
                 viewModel.onEvent(SessionEvent.Update)
                 viewModel.isChanged.value = false
                 bind { appbar.setExpanded(false) }
+            }
+        }
+
+        viewModel.selectedCount.observe(viewLifecycleOwner) {
+            bind {
+                if (it == 0) selectedCount.isVisible = false
+                else {
+                    selectedCount.isVisible = true
+                    selectedCount.text = "$it"
+                }
             }
         }
     }
