@@ -12,6 +12,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.tabs.TabLayoutMediator
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
@@ -67,6 +68,12 @@ class DetailFragment : Fragment() {
 
         val viewpager = binding.viewPager2
         viewpager.adapter = DetailAdapter(this)
+
+        val tabLayout = binding.tabLayout
+        TabLayoutMediator(tabLayout, viewpager) { tab, position ->
+            tab.text = if(position == 0) "관련 설명"
+            else "댓글"
+        }.attach()
     }
 
     override fun onDestroyView() {

@@ -3,6 +3,7 @@ package com.survivalcoding.ifkakao
 import android.app.Application
 import androidx.room.Room
 import com.survivalcoding.ifkakao.data.datasource.local.IfKakaoDatabase
+import com.survivalcoding.ifkakao.data.datasource.local.MockLocalDataSource
 import com.survivalcoding.ifkakao.data.datasource.local.SessionLocalDataSource
 import com.survivalcoding.ifkakao.data.datasource.remote.MockRemoteDataSource
 import com.survivalcoding.ifkakao.data.datasource.remote.RetrofitClient
