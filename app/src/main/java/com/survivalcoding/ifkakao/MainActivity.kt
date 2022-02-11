@@ -1,16 +1,21 @@
 package com.survivalcoding.ifkakao
 
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
+import com.survivalcoding.ifkakao.databinding.DialogLoginBinding
 import com.survivalcoding.ifkakao.databinding.NaviHeaderBinding
 import com.survivalcoding.ifkakao.presentation.mylist.MyListFragment
 import com.survivalcoding.ifkakao.presentation.sessions.SessionsFragment
@@ -19,6 +24,7 @@ import com.survivalcoding.ifkakao.presentation.sessions.SessionsFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var headerBinding: NaviHeaderBinding
+    private lateinit var dialogLoginBinding: DialogLoginBinding
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
@@ -29,12 +35,52 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val toolbar = binding.toolbar
-        setSupportActionBar(toolbar)
-
         drawerLayout = binding.drawerLayout
         navigationView = binding.navigationView
         headerBinding = NaviHeaderBinding.bind(navigationView.getHeaderView(0))
+
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+
+        if (sharedPref.getBoolean("isLogin", false)) {
+            headerBinding.loginText.text = "로그아웃"
+        } else {
+            headerBinding.loginText.text = "로그인"
+        }
+
+        dialogLoginBinding = DialogLoginBinding.inflate(layoutInflater)
+        val dialog = Dialog(this)
+        dialog.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(dialogLoginBinding.root)
+        }
+
+        headerBinding.loginText.setOnClickListener {
+            with(sharedPref.edit()) {
+                if (sharedPref.getBoolean("isLogin", false)) {
+                    putBoolean("isLogin", false).apply()
+                    headerBinding.loginText.text = "로그인"
+                } else {
+                    dialog.show()
+                    dialogLoginBinding.loginButton.setOnClickListener {
+                        if (isLoginAccepted()) {
+                            putBoolean("isLogin", true).apply()
+                            headerBinding.loginText.text = "로그아웃"
+                            dialogLoginBinding.id.setText("")
+                            dialogLoginBinding.password.setText("")
+                            dialog.dismiss()
+                        } else Toast.makeText(
+                            applicationContext,
+                            "로그인 정보가 유효하지 않습니다",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+
 
         val exitButton = headerBinding.exitButton
         exitButton.setOnClickListener {
@@ -75,6 +121,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(email)
             }
         }
+    }
+
+    private fun isLoginAccepted(): Boolean {
+        return dialogLoginBinding.id.text.toString() == "root" && dialogLoginBinding.password.text.toString() == "1234"
     }
 
     private fun moveToNextFragment(fragment: Fragment) {
