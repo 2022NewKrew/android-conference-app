@@ -61,6 +61,9 @@ class HighlightFragment : Fragment() {
 
         // 전체세션으로 이동
         binding.highlightTvAll.setOnClickListener { moveToSessions() }
+
+        // 화면 상단으로 이동
+        binding.highlightFooter.footerIbUp.setOnClickListener { binding.root.smoothScrollTo(0, 0) }
     }
 
     override fun onDestroyView() {

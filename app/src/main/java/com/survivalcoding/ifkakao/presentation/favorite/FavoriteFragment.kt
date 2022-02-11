@@ -43,6 +43,9 @@ class FavoriteFragment : Fragment() {
         viewModel.sessions.observe(this) { sessions ->
             adapter.submitList(sessions)
         }
+
+        // 화면 상단으로 이동
+        binding.favoriteFooter.footerIbUp.setOnClickListener { binding.root.smoothScrollTo(0, 0) }
     }
 
     override fun onResume() {
